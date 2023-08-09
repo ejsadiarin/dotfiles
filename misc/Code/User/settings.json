@@ -1,0 +1,85 @@
+{
+
+    "workbench.colorTheme": "Andromeda but Darker",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font', 'monospace', monospace",
+
+    "window.menuBarVisibility": "toggle",
+    "security.workspace.trust.untrustedFiles": "newWindow",
+    "security.workspace.trust.startupPrompt": "never",
+    "security.workspace.trust.enabled": false,
+    "workbench.sideBar.location": "left",
+    "editor.minimap.side": "right",
+    "editor.minimap.scale": 2,
+
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.highlightedyank.enable": true,
+    "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)", "vim.cursorStylePerMode.insert": "line-thin",
+    "vim.cursorStylePerMode.normal": "block",
+
+    "vim.insertModeKeyBindings": [
+        {
+        "before": ["k", "j"],
+        "after": ["<Esc>"]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+        "before": ["<leader>", "d"],
+        "after": ["d", "d"]
+        },
+        {
+        "before": ["<Esc>"],
+        "commands": [":nohl"]
+        },
+        {
+        "before": ["<leader>", "b", "d"],
+        "commands": [":bd"]
+        },
+        {
+        "before": ["K"],
+        "commands": [{ "command": "editor.action.showHover" }]
+        },
+        {
+        "before": ["<leader>", "r", "n"],
+        "commands": [{ "command": "editor.action.rename" }]
+        },
+        {
+        "before": ["<leader>", "c", "a"],
+        "commands": [{ "command": "editor.action.codeAction" }]
+        }
+    ],
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false,
+        "<C-b>": false
+    },
+        // Enable smooth scrolling in the editor
+        "editor.smoothScrolling": true,
+        "editor.lineNumbers": "relative",
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.minimap.enabled": false,
+        "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    // "vscode-neovim.useWSL": true,
+    // "vscode-neovim.neovimExecutablePaths.linux": "/home/exquisite/.neovim/squashfs-root/usr/bin/nvim",
+    "editor.cursorSurroundingLines": 5,
+    "workbench.layoutControl.enabled": false,
+    "discord.detailsEditing": "{empty}",
+    "discord.detailsIdling": "{empty}",
+    "discord.lowerDetailsDebugging": "{empty}",
+    "discord.lowerDetailsIdling": "{empty}",
+    "discord.removeDetails": true,
+    "discord.removeLowerDetails": true,
+    "discord.removeRemoteRepository": true,
+    "workbench.iconTheme": "vscode-icons",
+    "glassit.alpha": 220,
+    "window.zoomLevel": 1,
+    "vsicons.dontShowNewVersionMessage": true,
+}
+

@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+power() {
+	LOCKFILE_POWER="$HOME/.cache/eww-exquisite-power.lock"
+
+	if [[ ! -f "$LOCKFILE_POWER" ]]; then
+		touch "$LOCKFILE_POWER"
+		eww open powermenu
+	elif [[ -f "$LOCKFILE_POWER" ]]; then
+		eww close powermenu
+		rm "$LOCKFILE_POWER"
+	fi
+}
+
+profile() {
+	LOCKFILE_PROFILE="$HOME/.cache/eww-exquisite-profile.lock"
+
+	if [[ ! -f "$LOCKFILE_PROFILE" ]]; then
+		touch "$LOCKFILE_PROFILE"
+		eww open launchermenu
+	elif [[ -f "$LOCKFILE_PROFILE" ]]; then
+		eww close launchermenu
+		rm "$LOCKFILE_PROFILE"
+	fi
+}
+
+mplayer() {
+	LOCKFILE_MPLAYER="$HOME/.cache/eww-exquisite-mplayer.lock"
+
+	if [[ ! -f "$LOCKFILE_MPLAYER" ]]; then
+		touch "$LOCKFILE_MPLAYER"
+		eww open music
+	elif [[ -f "$LOCKFILE_MPLAYER" ]]; then
+		eww close music
+		rm "$LOCKFILE_MPLAYER"
+	fi
+}
+
+calendar() {
+	LOCKFILE_CALENDAR="$HOME/.cache/eww-exquisite-calendar.lock"
+
+	if [[ ! -f "$LOCKFILE_CALENDAR" ]]; then
+		touch "$LOCKFILE_CALENDAR"
+		eww open calendar
+	elif [[ -f "$LOCKFILE_CALENDAR" ]]; then
+		eww close calendar
+		rm "$LOCKFILE_CALENDAR"
+	fi
+}
+
+case "$1" in
+--powermenu)
+	powermenu
+	;;
+--cardprofile)
+	profile
+	;;
+--musicplayer)
+	mplayer
+	;;
+--calendar)
+	calendar
+	;;
+--launchermenu)
+	launchermenu
+	;;
+*)
+	echo "Error.."
+	;;
+esac

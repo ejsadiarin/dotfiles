@@ -1,0 +1,98 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+""" Map leader to space ------------------------
+let mapleader=" "
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+""" Common settings ----------------------------
+set incsearch " Do incremental searching.
+set nu
+set relativenumber
+set showmode
+set so=5
+set clipboard+=unnamed
+set clipboard+=ideaput
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+inoremap kj <Esc>
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <TAB> :action NextTab<CR>
+nnoremap <s-TAB> :action PreviousTab<CR>
+nnoremap \e :e ~/.ideavimrc<CR>
+nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
+vnoremap < <gv
+vnoremap > >gv
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins --------------
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
+" map ysiw or add surround inner word to gsa
+Plug 'terryma/vim-multiple-cursors'
+
+""" IdeaVim-specific settings
+set ideajoin " J -> on selected block to "join" lines together
+set ideawrite " value: "file" or "all" (default "all")
+sethandler <c-c> n-v:ide i:vim
+sethandler <c-v> n:vim i:ide
+
+""" IdeaVim IDE actions settings ------------------
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" -- see Actions List here: -- https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+
+" -- General Utils Maps -- "
+" map <c-\> <Action>(ActivateTerminalToolWindow) 
+" --> already mapped to <c-`> (VSCODE SHORTCUT)
+map <c-z> <Action>(ToggleDistractionFreeMode)
+map <c-\> <Action>(SplitVertically)
+map <c-=> <Action>(Unsplit)
+" <c-s-l> or ctrl shift l --> for select all occurences (VSCODE SHORTCUT)
+map <c-f> <Action>(Find)
+
+" -- g Maps -> go to -- "
+map gi <Action>(QuickImplementations)
+map gI <Action>(GotoImplementation)
+" map gd -> has native Go-to-Definition, jumping files
+map gr <Action>(ShowUsages)
+map gR <Action>(FindUsages)
+" surround maps a - add, d - delete
+map gsa ys
+map gsd ds
+
+" -- Debugging Maps -- "
+map <a-r> <Action>(Run)
+map <a-d> <Action>(Debug)
+map <a-c> <Action>(Stop)
+map <leader>db <Action>(ToggleLineBreakpoint)
+map <leader>di <Action>(StepInto)
+map <leader>do <Action>(StepOut)
+map <leader>dO <Action>(StepOver)
+" -- TODO map all debug like step into, step over, pause, terminate, etc. -- "
+
+" -- Leader Maps -- "
+map <leader>fr <Action>(RecentFiles)
+map <leader>ff <Action>(GotoFile)
+map <leader>fn <Action>(NewFile)
+map <leader>cf <Action>(ReformatCode)
+map <leader>cr <Action>(RenameElement)
+map <leader>cd <Action>(ShowErrorDescription)
+map <leader>ca <Action>(ShowIntentionActions)
+map <leader>bd <Action>(CloseContent)
+
+" Multi-cursor
+map <leader>cm <a-n>
+map <leader>a <Action>(Annotate)
+map <leader>e :NERDTreeToggle<CR>
+map <leader>bn <Action>(ShowNavBar)

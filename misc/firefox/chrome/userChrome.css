@@ -1,0 +1,302 @@
+ :root {
+  --exquisite-bg: #14171c;
+  --exquisite-icon-color: #b8bfe5;
+  --exquisite-nav-toolbar-padding: 8px;
+  --exquisite-sidebar-bg: var(--exquisite-bg);
+  --exquisite-sidebar-color: #b8bfe5;
+  --exquisite-tab-border-radius: 0px;
+  --exquisite-tab-color: #f3edff;
+  --exquisite-tab-font-family: "JetBrainsMono Nerd Font", serif;
+  --exquisite-tab-font-size: 9.5pt;
+  --exquisite-tab-font-weight: 600;
+  --exquisite-tab-height: 42px;
+  --exquisite-tab-pinned-bg: #70c1b3;
+  --exquisite-tab-selected-bg: #4d4168;
+  --exquisite-tab-soundplaying-bg: #ee6c4d;
+  --exquisite-urlbar-color: #b8bfe5;
+  --exquisite-urlbar-focused-color: #d7d9e5;
+  --exquisite-urlbar-font-family: "JetBrainsMono Nerd Font", serif;
+  --exquisite-urlbar-font-size: 10pt;
+  --exquisite-urlbar-font-weight: 800;
+  --exquisite-urlbar-results-color: #e0fbfc;
+  --exquisite-urlbar-results-font-family: "JetBrainsMono Nerd Font", serif;
+  --exquisite-urlbar-results-font-size: 9pt;
+  --exquisite-urlbar-results-font-weight: 700;
+  --exquisite-urlbar-results-url-color: #4d4168;
+
+  /* Overriden Firefox variables*/
+  --toolbar-bgcolor: var(--exquisite-bg) !important;
+  --lwt-sidebar-background-color: var(--exquisite-bg) !important;
+  --tab-border-radius: 0 !important;
+  --lwt-toolbarbutton-icon-fill-attention: #8677cf !important;
+  --toolbarbutton-icon-fill-attention: var(--lwt-toolbarbutton-icon-fill-attention) !important;
+}
+
+.toolbarbutton-icon {
+    fill: var(--exquisite-icon-color) !important;
+    fill-opacity: 100% !important;
+}
+
+#PlacesToolbar menupopup[placespopup="true"] {
+  --arrowpanel-background: var(--exquisite-bg) !important;
+  --arrowpanel-color: #b8bfe5 !important;
+}
+
+.tab-background[selected="true"] {
+  background: var(--exquisite-tab-selected-bg) !important;
+}
+
+/*.tab-background[selected"false"] {
+  background: var(--exquisite-tab-selected-bg) !important;
+  opacity: 50% !important;
+}*/
+
+/* Move tabs down */
+#titlebar {
+  order: 2;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  --tabs-navbar-shadow-size: 0px;
+}
+
+/* tabs */
+.tab-text {
+  font-family: var(--exquisite-tab-font-family);
+  font-weight: var(--exquisite-tab-font-weight);
+  font-size: var(--exquisite-tab-font-size) !important;
+  color: var(--exquisite-tab-color);
+  padding: 10px !important;
+}
+
+/* Make all tabs small except selected one */
+.tabbrowser-tab[fadein]:not([selected]):not([pinned]) {
+    max-width: 150px !important;
+    min-width: 150px !important;
+}
+
+/* Make selected tabs to bigger */
+.tabbrowser-tab[selected][fadein]:not([pinned]) {
+    max-width: 200px !important;
+    min-width: 200px !important;
+}
+
+hbox.tab-content .tab-icon-image {
+  display: initial !important;
+}
+
+.tabbrowser-tab {
+  border-radius: var(--exquisite-tab-border-radius) !important;
+  height: var(--exquisite-tab-height) !important;
+  margin-bottom: 6px !important;
+  margin-top: 4px !important;
+  max-height: 80% !important;
+  min-height: 80% !important;
+}
+
+#tabs-newtab-button > .toolbarbutton-icon {
+  --toolbarbutton-inner-padding: 4px !important;
+}
+
+/* No sound icon and text in tabs */
+.tab-close-button[pinned],
+#tabbrowser-tabs[closebuttons="activetab"] > #tabbrowser-arrowscrollbox > .tabbrowser-tab > .tab-stack > .tab-content > .tab-close-button:not([selected="true"]),
+.tab-icon-pending:not([pendingicon]),
+.tab-icon-pending[busy],
+.tab-icon-pending[pinned],
+.tab-icon-image:not([src]):not([pinned]):not([crashed])[selected],
+.tab-icon-image:not([src]):not([pinned]):not([crashed]):not([sharing]),
+.tab-icon-image[busy],
+.tab-throbber:not([busy]),
+.tab-icon-sound:not([soundplaying]):not([muted]):not([activemedia-blocked]):not([pictureinpicture]),
+.tab-icon-sound[pinned],
+.tab-sharing-icon-overlay,
+.tab-icon-overlay {
+  display: initial;
+}
+.tab-secondary-label[soundplaying="true"]:not([pictureinpicture]){ display: none }
+
+/**************************************************/
+
+#urlbar {
+  max-width: 70% !important;
+  margin: 0 15% !important;
+  /* 	position: unset!important; */;
+}
+
+#urlbar-results {
+  font-family: var(--exquisite-urlbar-results-font-family);
+  font-weight: var(--exquisite-urlbar-results-font-weight);
+  font-size: var(--exquisite-urlbar-results-font-size) !important;
+  color: var(--exquisite-urlbar-results-color) !important;
+}
+
+#urlbar:not([focused]) > #urlbar-background  {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.urlbarView-url, .search-panel-one-offs-container {
+  color: var(--exquisite-urlbar-results-url-color) !important;
+  font-family: var(--exquisite-urlbar-font-family);
+  font-weight: var(--exquisite-urlbar-results-font-weight);
+  font-size: var(--exquisite-urlbar-font-size) !important;
+}
+
+.urlbarView-row:hover > .urlbarView-row-inner {
+  background-color: var(--exquisite-urlbar-results-url-color) !important;
+}
+
+.urlbarView-favicon, .urlbarView-type-icon {
+  display: none !important;
+}
+
+#urlbar-input {
+  font-size: var(--exquisite-urlbar-font-size) !important;
+  color: var(--exquisite-urlbar-color) !important;
+  font-family: var(--exquisite-urlbar-font-family) !important;
+  font-weight: var(--exquisite-urlbar-font-weight)!important;
+  text-align: center !important;
+}
+
+#urlbar-input:focus {
+  color: var(--exquisite-urlbar-focused-color) !important;
+}
+
+/* Download button */
+
+
+/* Hide tracking protection button */
+tracking-protection-icon-container, #identity-box {
+  display: none;
+}
+
+#tracking-protection-icon-box {
+    display: none;
+}
+
+/*#unified-extensions-button {
+	display: none;
+}*/
+
+/* Hide show all tabs button */
+#alltabs-button { 
+	display: none !important;
+}
+
+/* Hide star button (bookmark) */
+#star-button{
+	display:none;
+}
+
+@-moz-document url("about:home"),
+url("about:newtab"),url("about:blank") {
+
+.personalize-button {
+
+display: none !important;}}
+
+/* Hide reading View */
+#reader-mode-button,#readinglist-addremove-button {
+ display:none !important;
+}
+
+/* Remove Back button when there's nothing to go Back to */
+#nav-bar:not([customizing="true"])>#nav-bar-customization-target>#back-button[disabled="true"] {
+    opacity: 0 !important;
+}
+
+/* Remove Forward button when there's nothing to go Forward to */
+#nav-bar:not([customizing="true"])>#nav-bar-customization-target>#forward-button[disabled="true"] {
+    opacity: 0 !important;
+}
+
+/* Remove reload button when there's nothing to reload */
+#nav-bar:not([customizing="true"])>#nav-bar-customization-target>#reload-button[disabled="true"] {
+    opacity: 0 !important;
+}
+
+#navigator-toolbox {
+border-bottom: unset !important;
+}
+
+#back-button {
+  list-style-image: url("left-arrow.svg") !important;
+}
+
+#tabs-newtab-button {
+  list-style-image: url("add.svg") !important;
+}
+
+.close-icon, .urlbar-icon {
+  fill: var(--exquisite-icon-color) !important;
+}
+
+#forward-button {
+  list-style-image: url("right-arrow.svg") !important;
+}
+
+#urlbar-background {
+	background-color: var(--exquisite-bg) !important;
+	border: none !important;
+	outline: none !important;
+	opacity: .95 !important;
+}
+
+.toolbar-items {
+  background-color: var(--exquisite-bg) !important;
+}
+
+#reload-button:not([disabled="true"]),
+#home-button:not([disabled="true"]) {
+  color: var(--exquisite-icon-color)  !important;
+}
+
+.toolbarbutton-text {
+  color: var(--exquisite-icon-color)  !important;
+}
+
+toolbar#nav-bar {
+  padding: var(--exquisite-nav-toolbar-padding) !important;
+}
+
+toolbarbutton.bookmark-item:hover,
+#PlacesToolbar menu:hover,
+#PlacesToolbar menuitem:hover {
+    background-color: var(--exquisite-tab-selected-bg) !important;
+}
+
+#appMenu-popup toolbarbutton.subviewbutton:not([disabled],
+[open],
+:active):is(:hover) {
+    color: black !important;
+    background-color: var(--exquisite-tab-selected-bg) !important;
+}
+
+#unified-extensions-view #unified-extensions-manage-extensions,
+#unified-extensions-view {
+    background-color: var(--exquisite-bg) !important;
+}
+
+#context-navigation,
+#contentAreaContextMenu {
+  background-color: var(--exquisite-bg) !important;
+}
+
+/* menuitem { */
+/*   background-color: var(--exquisite-bg) !important; */
+/* } */
+
+
+/************************************/
+
+/*Darken panels to match theme*/
+.panel-subview-body,#appMenu-zoomReset-button,.panel-mainview,.panel-subviews {
+  color: #c5cddb !important;
+  background: var(--url-and-searchbar-background-color) !important;}
+.panel-subview-footer,[class^="PanelUI-"] {
+  color: #c5cddb !important;
+  background: var(--toolbar-bgcolor) !important;}
+/*stops possible clashes with extension popups*/
+.webextension-popup-browser {
+  background: #fff;}
