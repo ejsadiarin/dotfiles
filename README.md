@@ -23,7 +23,9 @@
 ### Packages
 
 ### Additional Packages to install (from AUR or source binary install)
-> auto-cpufreq:
+<details>
+<summary>auto-cpufreq</summary>
+
   ```bash
   # Install from source
   git clone https://github.com/AdnanHodzic/auto-cpufreq.git
@@ -43,7 +45,7 @@
   sudo vim auto-cpufreq.conf
   ```
   - my preferred configs: `turbo = never` on powersave
-
+</details>
 ### Optional Apps to install
 - Discord
 - Zoom
@@ -65,38 +67,40 @@ pass init <generated-public-key>
 
 -----------------------------------------------
 ## Development
-> Install docker and docker-compose (and docker desktop if preferred) source: https://docs.docker.com/engine/install/linux-postinstall/
-  ```bash
-  sudo pacman -S docker docker-compose
-  paru -S docker-desktop
+<details>
+<summary>Install docker and docker-compose (and docker desktop if preferred) source: https://docs.docker.com/engine/install/linux-postinstall/</summary>
+
+```bash
+sudo pacman -S docker docker-compose
+paru -S docker-desktop
+```
+  - create the `docker` group (IF NECESSARY):
   ```
-    - create the `docker` group (IF NECESSARY):
-    ```
-    sudo groupadd docker
-    ```
+  sudo groupadd docker
+  ```
 
-    - add to user to docker group
-    ```bash
-    # check user
-    echo $USER
-    sudo usermod -aG docker $USER
-    # log out and log back in to save (can also reboot if necessary)
-    # check if docker is in groups:
-    groups
-    ```
+  - add to user to docker group
+  ```bash
+  # check user
+  echo $USER
+  sudo usermod -aG docker $USER
+  # log out and log back in to save (can also reboot if necessary)
+  # check if docker is in groups:
+  groups
+  ```
 
-    - start/enable docker.service
-    ```bash
-    sudo systemctl enable docker.service
-    ```
+  - start/enable docker.service
+  ```bash
+  sudo systemctl enable docker.service
+  ```
 
-  - check docker commands by running `docker --help` or `docker-compose --help` or `man docker`
-    some useful commands:
-    ```
-    docker ps
-    docker-compose ps
-    ```
-
+- check docker commands by running `docker --help` or `docker-compose --help` or `man docker`
+  some useful commands:
+  ```
+  docker ps
+  docker-compose ps
+  ```
+</details>
 * Install .NET Packages
 ```
 sudo pacman -S dotnet-runtime dotnet-sdk aspnet-runtime
