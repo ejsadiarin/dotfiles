@@ -11,7 +11,26 @@
     - AdBlock
 
 ## Initialize / Installation
-* Install script
+- Clone repository and install script
+```bash
+git clone https://github.com/ejsadiarin/dotfiles
+```
+
+- Navigate to dotfiles
+```bash
+cd ~/dotfiles/
+```
+
+- Make executable
+```bash
+chmod +x ExquisiteInstaller
+```
+
+- Execute script
+```bash
+./ExquisiteInstaller
+```
+
 * Git and SSH-agent
 `Git`
 - `git config --global user.name "NAME_HERE"` & `git config --global user.email "EMAIL_HERE"`
@@ -19,6 +38,24 @@
 
 `SSH keys and SSH-agent`
 - Read docs starting here (up to testing ssh connection): https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+## Post Installation (IMPORTANT!)
+- Eww:
+  - script doesn't install `eww-x11` because signing keys need to be imported first before building/installing
+  ```bash
+  curl -sS https://github.com/elkowar.gpg | gpg --import -i -
+  curl -sS https://github.com/web-flow.gpg | gpg --import -i -
+  ```
+  - then install `eww-x11` via paru
+  ```
+  paru -S eww-x11
+  ```
+
+
+- Neovim (`nvim/`):
+  - install LazyVim
+  - copy contents (config and plugins directories)
+
 
 ### Packages
 
@@ -45,6 +82,7 @@
   sudo vim auto-cpufreq.conf
   ```
   - my preferred configs: `turbo = never` on powersave
+--------------------------------------------------------------------
 </details>
 ### Optional Apps to install
 - Discord
