@@ -12,6 +12,9 @@
 # ██╔═██╗░██╔══╝░░░░╚██╔╝░░██╔══██╗██║██║╚████║██║░░██║██║██║╚████║██║░░╚██╗░╚═══██╗
 # ██║░╚██╗███████╗░░░██║░░░██████╦╝██║██║░╚███║██████╔╝██║██║░╚███║╚██████╔╝██████╔╝
 # ╚═╝░░╚═╝╚══════╝░░░╚═╝░░░╚═════╝░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝╚═╝░░╚══╝░╚═════╝░╚═════╝░
+#
+# by: ejsadiarin
+# https://github.com/ejsadiarin/dotfiles
 
 
 # Show keybindings help
@@ -80,12 +83,12 @@ XF86Audio{Next,Prev,Play,Stop}
 	MediaControl {--next,--previous,--toggle,--stop}
 
 # Screenshot Now
-Print
-	ScreenShoTer --now
+ctrl + Print
+	flameshot full -c -p ~/Pictures/ScreenShots/
 
 # Screenshot Select
-ctrl + Print
-	ScreenShoTer --sel
+super + Print
+  flameshot gui -c -p ~/Pictures/ScreenShots/
 
 # Reload sxhkd
 super + Escape

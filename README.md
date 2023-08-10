@@ -58,6 +58,9 @@ chmod +x ExquisiteInstaller
 
 
 ### Packages
+- flameshot for exquisite screenshots
+  - open configs with `flameshot config`
+- shotwell for proper image viewing
 
 ### Additional Packages to install (from AUR or source binary install)
 <details>
