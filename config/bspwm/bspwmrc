@@ -96,3 +96,6 @@ eww daemon
 
 # Network Applet
 nm-applet --indicator &
+
+# Start copyq service for clipboard managing
+copyq

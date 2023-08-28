@@ -90,6 +90,14 @@ ctrl + Print
 super + Print
   flameshot gui -c -p ~/Pictures/ScreenShots/
 
+# Screenshot Select
+shift + Print
+  flameshot gui -c
+
+# Clipboard history
+super + v
+  copyq toggle
+
 # Reload sxhkd
 super + Escape
 	pkill -USR1 -x sxhkd; dunstify -u low -i ~/.config/bspwm/assets/reload.svg 'sxhkd' 'The configuration file has been reloaded successfully!'

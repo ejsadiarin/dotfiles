@@ -73,7 +73,7 @@ logo "Initializing perfection..."
 
 dependencies=(base-devel rustup pacman-contrib bspwm polybar sxhkd
 	alacritty brightnessctl dunst rofi lsd
-	jq polkit-gnome git playerctl mpd xclip
+	jq polkit-gnome git playerctl mpd xclip copyq
 	ncmpcpp geany ranger mpc picom xdotool shotwell
 	feh ueberzug flameshot pamixer libwebp xdg-user-dirs
 	webp-pixbuf-loader xorg-xprop xorg-xkill physlock papirus-icon-theme

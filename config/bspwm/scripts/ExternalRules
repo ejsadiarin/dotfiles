@@ -43,6 +43,10 @@ main() {
 		eval "$consequences"
 		[ "$state" ] || echo "state=floating rectangle=966x576+0+0 center=on"
 		;;
+	copyq)
+		eval "$consequences"
+		[ "$state" ] || echo "state=floating center=on"
+		;;
 	firefox | Navigator)
 		eval "$consequences"
 		[ "$state" ] || echo "desktop=^3 follow=on"
