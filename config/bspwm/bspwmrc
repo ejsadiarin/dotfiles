@@ -97,5 +97,8 @@ eww daemon
 # Network Applet
 nm-applet --indicator &
 
+# Enable Natural Scrolling for Touchpad
+xinput set-prop "DELL0979:00 04F3:30C4 Touchpad" "libinput Natural Scrolling Enabled" 1
+
 # Start copyq service for clipboard managing
 copyq

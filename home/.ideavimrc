@@ -27,8 +27,11 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
-nnoremap <TAB> :action NextTab<CR>
-nnoremap <s-TAB> :action PreviousTab<CR>
+" center cursor when scroll ctrl u & d
+nnoremap <c-u> <c-u>zz
+nnoremap <c-d> <c-d>zz
+nnoremap <s-l> :action NextTab<CR>
+nnoremap <s-h> :action PreviousTab<CR>
 nnoremap \e :e ~/.ideavimrc<CR>
 nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
 vnoremap < <gv
@@ -43,7 +46,7 @@ Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 
 """ IdeaVim-specific settings
-set ideajoin " J -> on selected block to "join" lines together
+" set ideajoin " J -> on selected block to "join" lines together
 set ideawrite " value: "file" or "all" (default "all")
 sethandler <c-c> n-v:ide i:vim
 sethandler <c-v> n:vim i:ide

@@ -130,6 +130,8 @@ alias neofetch="clear && neofetch"
 alias ne="clear && neofetch"
 alias re="OpenApps --rxfetch"
 
+alias history="history 1"
+
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
