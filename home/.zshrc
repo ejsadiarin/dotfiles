@@ -139,3 +139,10 @@ alias history="history 1"
 # $HOME/.local/bin/colorscript -r
 
 export PATH="$PATH:$HOME/.dotnet/tools"
+
+# useful commands
+# xprop | grep WM_CLASS
+# xinput
+
+# https://stackoverflow.com/questions/11124053/accidentally-committed-idea-directory-files-into-git
+# git rm -r --cached .idea
