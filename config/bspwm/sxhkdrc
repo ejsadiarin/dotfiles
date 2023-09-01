@@ -46,7 +46,7 @@ ctrl + super + alt + {p,r,q,l,k,s}
 	{systemctl poweroff, systemctl reboot,bspc quit,physlock -d,xkill,systemctl suspend}
 
 # Apps
-super + {f,g,e,p,r,y,w,m,n,k}
+super + {f,g,e,p,r,y,w,m,n,c}
   {firefox, \
 	 geany, \
 	 thunar, \
@@ -59,7 +59,7 @@ super + {f,g,e,p,r,y,w,m,n,k}
 	 OpenApps --music}
 
 # Hide/Show Bar (Polybar and/or eww)
-super + {h,u}
+ctrl + shift + {h,u}
 	HideBar {-h,-u}
 
 # Scratchpad
@@ -131,8 +131,12 @@ super + alt + {h,j,k,l}
   bspc node @parent/first -z right +20 0; \
   bspc node @parent/second -z left +20 0}
 
-# focus the node in the given direction
-super + {_,shift + }{Left,Down,Up,Right}
+# focus window on given direction
+super + {h,j,k,l}
+  bspc node -f {west,south,north,east}
+
+# move the window in the given direction
+super + ctrl + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # move a floating window
@@ -148,7 +152,7 @@ ctrl + alt + {plus,minus,t}
 	{picom-trans -c -o +3, picom-trans -c -o -1, picom-trans -c -d}
 
 # cycle through workspaces
-super + alt + {Left,Right}
+super + shift + {h,l}
   bspc desktop -f {prev,next}.local
 
 # cycle / go back through previous workspace
