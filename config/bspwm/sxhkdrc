@@ -87,7 +87,7 @@ ctrl + Print
 	flameshot full -c -p ~/Pictures/ScreenShots/
 
 # Screenshot Select
-super + Print
+alt + Print
   flameshot gui -c -p ~/Pictures/ScreenShots/
 
 # Screenshot Select
