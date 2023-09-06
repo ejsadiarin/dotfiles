@@ -36,6 +36,14 @@
       "commands": [":bd"]
     },
     {
+      "before": ["H"],
+      "commands": ["workbench.action.previousEditor"]
+    },
+    {
+      "before": ["L"],
+      "commands": ["workbench.action.nextEditor"]
+    },
+    {
       "before": ["K"],
       "commands": [{"command": "editor.action.showHover"}]
     },
@@ -60,8 +68,12 @@
       "commands": [ "revealInExplorer" ],
     },
     {
-      "before": ["<leader>", "r", "f"],
-      "commands": [ "fileutils.renameFile" ]
+      "before": ["g","r"],
+      "commands": [ "findAllFileReferences" ]
+    },
+    {
+      "before": ["g","i"],
+      "commands": [ "findImplementations" ]
     }
   ],
   "vim.leader": "<space>",

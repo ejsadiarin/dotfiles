@@ -1,61 +1,68 @@
 // Place your key bindings in this file to override the defaults
 [
-  {
-    "key": "ctrl+h",
-    "command": "workbench.action.focusLeftGroup",
-    "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
-  },
-  {
-    "key": "ctrl+l",
-    "command": "workbench.action.focusRightGroup",
-    "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
-  },
-  {
-    "key": "ctrl+k",
-    "command": "workbench.action.focusAboveGroup",
-    "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
-  },
-  {
-    "key": "ctrl+j",
-    "command": "workbench.action.focusBelowGroup",
-    "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
-  },
-  {
-    "key": ", e",
-    "command": "workbench.action.toggleSidebarVisibility",
-    "when": "!editorTextFocus"
-  },
-  {
-    "key": "h",
-    "command": "list.collapse",
-    "when": "listFocus && !inputFocus"
-  },
-  {
-    "key": "l",
-    "command": "list.expand",
-    "when": "listFocus && !inputFocus"
-  },
-  {
-    "key": "k",
-    "command": "list.focusUp",
-    "when": "listFocus && !inputFocus"
-  },
-  {
-    "key": "j",
-    "command": "list.focusDown",
-    "when": "listFocus && !inputFocus"
-  },
-  {
-    "key": "r",
-    "command": "renameFile",
-    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
-  },
-  {
-    "key": "shift+h",
-    "command": "workbench.action.previousEditor",
-  },
-  {
-    "key": "shift+l",
-    "command": "workbench.action.nextEditor",
-  },
+    {
+        "key": "ctrl+h", 
+        "command": "workbench.action.focusLeftGroup", 
+        "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
+    },
+    {
+        "key": "ctrl+l", 
+        "command": "workbench.action.focusRightGroup", 
+        "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
+    },
+    {
+        "key": "ctrl+k", 
+        "command": "workbench.action.focusAboveGroup", 
+        "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
+    },
+    {
+        "key": "ctrl+j", 
+        "command": "workbench.action.focusBelowGroup", 
+        "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
+    },
+    {
+        "key": ", e", 
+        "command": "workbench.action.toggleSidebarVisibility", 
+        "when": "!editorTextFocus"
+    },
+    { 
+        "key": "h",
+        "command": "list.collapse",
+        "when": "listFocus && !inputFocus"
+    },
+    { 
+        "key": "l",
+        "command": "list.expand",
+        "when": "listFocus && !inputFocus"
+    },
+    { 
+        "key": "k",
+        "command": "list.focusUp",
+        "when": "listFocus && !inputFocus"
+    },
+    { 
+        "key": "j",
+        "command": "list.focusDown",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "r",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+    },
+    {
+        "key": "a",
+        "command": "explorer.newFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+    },
+    {
+        "key": "d",
+        "command": "deleteFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+    },
+    {
+        "key": "d",
+        "command": "op",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+    }
 ]
