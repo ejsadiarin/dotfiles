@@ -262,8 +262,9 @@ fi
 if ! command -v tdrop >/dev/null 2>&1; then
 	printf "\n%s%sInstalling tdrop... Blazingly fast!...%s\n" "${BLD}" "${CBL}" "${CNC}"
 	paru -S tdrop-git --skipreview --noconfirm
+	paru -S system-monitoring-center --skipreview --noconfirm
 else
-	printf "\n%s%sTdrop is already installed%s\n" "${BLD}" "${CGR}" "${CNC}"
+	printf "\n%s%sTdrop and system-monitoring-center is already installed%s\n" "${BLD}" "${CGR}" "${CNC}"
 fi
 
 ########## ---------- Enabling MPD service ---------- ##########

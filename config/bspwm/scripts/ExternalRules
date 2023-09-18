@@ -51,6 +51,14 @@ main() {
 		eval "$consequences"
 		[ "$state" ] || echo "state=floating"
 		;;
+	discord)
+		eval "$consequences"
+		[ "$state" ] || echo "desktop=^4 follow=on"
+		;;
+	python)
+		eval "$consequences"
+		[ "$state" ] || echo "state=floating"
+		;;
 	firefox | Navigator)
 		eval "$consequences"
 		[ "$state" ] || echo "desktop=^3 follow=on"
