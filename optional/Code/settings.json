@@ -18,69 +18,140 @@
   "vim.cursorStylePerMode.normal": "block",
   "vim.insertModeKeyBindings": [
     {
-      "before": ["k","j"],
-      "after": ["<Esc>"]
+      "before": [
+        "k",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["<leader>","d"],
-      "after": ["d","d"]
+      "before": [
+        "<Esc>"
+      ],
+      "commands": [
+        ":nohl"
+      ]
     },
     {
-      "before": ["<Esc>"],
-      "commands": [":nohl"]
+      "before": [
+        "<leader>",
+        "b",
+        "d"
+      ],
+      "commands": [
+        ":bd"
+      ]
     },
     {
-      "before": ["<leader>","b","d"],
-      "commands": [":bd"]
+      "before": [
+        "H"
+      ],
+      "commands": [
+        "workbench.action.previousEditor"
+      ]
     },
     {
-      "before": ["H"],
-      "commands": ["workbench.action.previousEditor"]
+      "before": [
+        "L"
+      ],
+      "commands": [
+        "workbench.action.nextEditor"
+      ]
     },
     {
-      "before": ["L"],
-      "commands": ["workbench.action.nextEditor"]
+      "before": [
+        "K"
+      ],
+      "commands": [
+        {
+          "command": "editor.action.showHover"
+        }
+      ]
     },
     {
-      "before": ["K"],
-      "commands": [{"command": "editor.action.showHover"}]
+      "before": [
+        "<leader>",
+        "r",
+        "n"
+      ],
+      "commands": [
+        {
+          "command": "editor.action.rename"
+        }
+      ]
     },
     {
-      "before": ["<leader>","r","n"],
-      "commands": [{"command": "editor.action.rename"}]
+      "before": [
+        "<leader>",
+        "c",
+        "r"
+      ],
+      "commands": [
+        {
+          "command": "editor.action.rename"
+        }
+      ]
     },
     {
-      "before": ["<leader>","c","r"],
-      "commands": [{"command": "editor.action.rename"}]
+      "before": [
+        "<leader>",
+        "c",
+        "a"
+      ],
+      "commands": [
+        {
+          "command": "editor.action.codeAction"
+        }
+      ]
     },
     {
-      "before": ["<leader>","c","a"],
-      "commands": [{"command": "editor.action.codeAction"}]
+      "before": [
+        "<leader>",
+        "e"
+      ],
+      "commands": [
+        "workbench.action.toggleSidebarVisibility"
+      ]
     },
     {
-      "before": ["<leader>", "e"],
-      "commands": ["workbench.action.toggleSidebarVisibility"]
+      "before": [
+        "<leader>",
+        "f",
+        "f"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ],
     },
     {
-      "before": ["<leader>", "f"],
-      "commands": [ "revealInExplorer" ],
+      "before": [
+        "g",
+        "r"
+      ],
+      "commands": [
+        "findAllFileReferences"
+      ]
     },
     {
-      "before": ["g","r"],
-      "commands": [ "findAllFileReferences" ]
-    },
-    {
-      "before": ["g","i"],
-      "commands": [ "findImplementations" ]
+      "before": [
+        "g",
+        "i"
+      ],
+      "commands": [
+        "findImplementations"
+      ]
     }
   ],
   "vim.leader": "<space>",
   "vim.handleKeys": {
     "<C-a>": false,
     "<C-f>": false,
-    "<C-b>": false
+    "<C-b>": false,
+    "<C-S-l>": false,
   },
   // Enable smooth scrolling in the editor
   "editor.smoothScrolling": true,
@@ -105,8 +176,17 @@
   "vsicons.dontShowNewVersionMessage": true,
   "workbench.iconTheme": "vscode-icons",
   "sqltools.useNodeRuntime": true,
-  "window.zoomLevel": 2,
   "terminal.integrated.env.linux": {},
   "workbench.colorTheme": "Bearded Theme Arc Blueberry",
   "keyboard.dispatch": "keyCode",
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "git.openRepositoryInParentFolders": "never",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "sqltools.disableNodeDetectNotifications": true,
 }
