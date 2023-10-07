@@ -60,4 +60,18 @@
     "command": "extension.vim_escape",
     "when": "editorTextFocus && vim.active && !inDebugRepl"
   },
+  { // Unbind unconditional default using "minus" (-) before command
+    "key": "tab",
+    "command": "-workbench.action.focusSideBar"
+  },
+  { // Move focus to the SideBar if not (!) there
+    "key": "tab",
+    "when": "!sideBarFocus && vim.active && vim.mode != 'Insert'",
+    "command": "workbench.action.focusSideBar"
+  },
+  { // Move focus to the Editor, if currently in the SideBar
+    "key": "tab",
+    "when": "sideBarFocus && vim.active && vim.mode != 'Insert'",
+    "command": "workbench.action.focusActiveEditorGroup"
+  },
 ]
