@@ -18,54 +18,29 @@
   "vim.cursorStylePerMode.normal": "block",
   "vim.insertModeKeyBindings": [
     {
-      "before": [
-        "k",
-        "j"
-      ],
-      "after": [
-        "<Esc>"
-      ]
+      "before": ["k", "j"],
+      "after": ["<Esc>"]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "<Esc>"
-      ],
-      "commands": [
-        ":nohl"
-      ]
+      "before": ["<Esc>"],
+      "commands": [":nohl"]
     },
     {
-      "before": [
-        "<leader>",
-        "b",
-        "d"
-      ],
-      "commands": [
-        ":bd"
-      ]
+      "before": ["<leader>", "b", "d"],
+      "commands": [":bd"]
     },
     {
-      "before": [
-        "H"
-      ],
-      "commands": [
-        "workbench.action.previousEditor"
-      ]
+      "before": ["H"],
+      "commands": ["workbench.action.previousEditor"]
     },
     {
-      "before": [
-        "L"
-      ],
-      "commands": [
-        "workbench.action.nextEditor"
-      ]
+      "before": ["L"],
+      "commands": ["workbench.action.nextEditor"]
     },
     {
-      "before": [
-        "K"
-      ],
+      "before": ["K"],
       "commands": [
         {
           "command": "editor.action.showHover"
@@ -73,11 +48,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "r",
-        "n"
-      ],
+      "before": ["<leader>", "r", "n"],
       "commands": [
         {
           "command": "editor.action.rename"
@@ -85,11 +56,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "c",
-        "r"
-      ],
+      "before": ["<leader>", "c", "r"],
       "commands": [
         {
           "command": "editor.action.rename"
@@ -97,11 +64,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "c",
-        "a"
-      ],
+      "before": ["<leader>", "c", "a"],
       "commands": [
         {
           "command": "editor.action.codeAction"
@@ -109,51 +72,24 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "e"
-      ],
-      "commands": [
-        "workbench.action.toggleSidebarVisibility"
-      ]
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
     },
     {
-      "before": [
-        "<leader>",
-        "f",
-        "f"
-      ],
-      "commands": [
-        "workbench.action.quickOpen"
-      ]
+      "before": ["<leader>", "f", "f"],
+      "commands": ["workbench.action.quickOpen"]
     },
     {
-      "before": [
-        "<leader>",
-        "f",
-        "r"
-      ],
-      "commands": [
-        "workbench.action.openRecent"
-      ]
+      "before": ["<leader>", "f", "r"],
+      "commands": ["workbench.action.openRecent"]
     },
     {
-      "before": [
-        "g",
-        "r"
-      ],
-      "commands": [
-        "findAllFileReferences"
-      ]
+      "before": ["g", "r"],
+      "commands": ["findAllFileReferences"]
     },
     {
-      "before": [
-        "g",
-        "i"
-      ],
-      "commands": [
-        "findImplementations"
-      ]
+      "before": ["g", "i"],
+      "commands": ["findImplementations"]
     }
   ],
   "vim.leader": "<space>",
@@ -164,6 +100,26 @@
     "<C-S-l>": false,
     "<C-i>": false
   },
+  "settings.cycle": [
+    {
+      "id": "zenPerfection", // must be unique
+      "overrideWorkspaceSettings": true,
+      "values": [
+        // Note: use the same settings in each values object
+        {
+          "workbench.editor.showTabs": "none",
+          "breadcrumbs.enabled": true,
+          "workbench.statusBar.visible": false,
+          "workbench.activityBar.location": "hidden"
+        },
+        {
+          "workbench.editor.showTabs": "multiple",
+          "workbench.statusBar.visible": true,
+          "workbench.activityBar.location": "side"
+        }
+      ]
+    }
+  ],
   // Enable smooth scrolling in the editor
   "editor.smoothScrolling": true,
   "editor.lineNumbers": "relative",
@@ -207,10 +163,12 @@
     "markdown": false,
     "scminput": false
   },
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 2,
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "workbench.editor.showTabs": "multiple",
+  "breadcrumbs.enabled": true,
   "workbench.activityBar.location": "hidden",
   "workbench.statusBar.visible": false
 }

@@ -11,7 +11,15 @@
     }
   },
   {
-    "key": "alt+l",
+    "key": "ctrl+shift+alt+z",
+    "command": "settings.cycle.zenPerfection"
+  },
+  {
+    "key": "alt+m",
+    "command": "breadcrumbs.toggle"
+  },
+  {
+    "key": "alt+n",
     "command": "workbench.action.toggleStatusbarVisibility"
   },
   {
