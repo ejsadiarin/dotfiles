@@ -125,7 +125,17 @@
       ],
       "commands": [
         "workbench.action.quickOpen"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f",
+        "r"
       ],
+      "commands": [
+        "workbench.action.openRecent"
+      ]
     },
     {
       "before": [
@@ -152,6 +162,7 @@
     "<C-f>": false,
     "<C-b>": false,
     "<C-S-l>": false,
+    "<C-i>": false
   },
   // Enable smooth scrolling in the editor
   "editor.smoothScrolling": true,
@@ -175,12 +186,13 @@
   "glassit.alpha": 220,
   "vsicons.dontShowNewVersionMessage": true,
   "workbench.iconTheme": "vscode-icons",
-  "sqltools.useNodeRuntime": true,
+  "sqltools.useNodeRuntime": false,
   "terminal.integrated.env.linux": {},
-  "workbench.colorTheme": "Bearded Theme Arc Blueberry",
+  "workbench.colorTheme": "Gruvbox Dark Hard",
   "keyboard.dispatch": "keyCode",
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
   "git.openRepositoryInParentFolders": "never",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -189,4 +201,16 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "sqltools.disableNodeDetectNotifications": true,
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "window.zoomLevel": 1,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.activityBar.location": "hidden",
+  "workbench.statusBar.visible": false
 }

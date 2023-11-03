@@ -1,6 +1,24 @@
 // Place your key bindings in this file to override the defaults
 [
   {
+    "key": "ctrl+shift+z",
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": [
+        "workbench.action.toggleActivityBarVisibility",
+        "workbench.action.toggleStatusbarVisibility"
+      ]
+    }
+  },
+  {
+    "key": "alt+l",
+    "command": "workbench.action.toggleStatusbarVisibility"
+  },
+  {
+    "key": "alt+b",
+    "command": "workbench.action.toggleActivityBarVisibility"
+  },
+  {
     "key": "ctrl+h",
     "command": "workbench.action.focusLeftGroup",
     "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
@@ -60,18 +78,21 @@
     "command": "extension.vim_escape",
     "when": "editorTextFocus && vim.active && !inDebugRepl"
   },
-  { // Unbind unconditional default using "minus" (-) before command
+  {
+    // Unbind unconditional default using "minus" (-) before command
     "key": "tab",
     "command": "-workbench.action.focusSideBar"
   },
-  { // Move focus to the SideBar if not (!) there
+  {
+    // Move focus to the SideBar if not (!) there
     "key": "tab",
     "when": "!sideBarFocus && vim.active && vim.mode != 'Insert'",
     "command": "workbench.action.focusSideBar"
   },
-  { // Move focus to the Editor, if currently in the SideBar
+  {
+    // Move focus to the Editor, if currently in the SideBar
     "key": "tab",
     "when": "sideBarFocus && vim.active && vim.mode != 'Insert'",
     "command": "workbench.action.focusActiveEditorGroup"
-  },
+  }
 ]
