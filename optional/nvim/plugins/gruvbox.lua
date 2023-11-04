@@ -151,6 +151,7 @@ return {
 				faded_orange = "#af3a03", -- faded_orange
 			},
 			overrides = {
+				-- ref: https://github.com/ellisonleao/gruvbox.nvim/blob/477c62493c82684ed510c4f70eaf83802e398898/lua/gruvbox.lua#L288
 				["@lsp.type.method"] = { fg = "#8ec07c" },
 				["@lsp.type.function"] = { fg = "#8ec07c" },
 				["@comment"] = { fg = "gray" },
