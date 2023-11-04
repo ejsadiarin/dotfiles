@@ -27,7 +27,7 @@ vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to de
 vim.opt.foldlevelstart = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.opt.foldenable = true -- Enable folding
 
-vim.opt.hlsearch = false -- Highlight on search
+vim.opt.hlsearch = true -- Highlight on search
 vim.opt.incsearch = true -- While typing a search command, show where the pattern matches
 
 vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
