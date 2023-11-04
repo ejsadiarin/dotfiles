@@ -13,6 +13,30 @@ vim.diagnostic.config({
 	severity_sort = false,
 })
 
+-- prints diagnostics on message area, has problems if diagnostic has too many messages
+-- function PrintDiagnostics(opts, bufnr, line_nr, client_id)
+--   bufnr = bufnr or 0
+--   line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
+--   opts = opts or { ["lnum"] = line_nr }
+--
+--   local line_diagnostics = vim.diagnostic.get(bufnr, opts)
+--   if vim.tbl_isempty(line_diagnostics) then
+--     return
+--   end
+--
+--   local diagnostic_message = ""
+--   for i, diagnostic in ipairs(line_diagnostics) do
+--     diagnostic_message = diagnostic_message .. string.format("%d: %s", i, diagnostic.message or "")
+--     print(diagnostic_message)
+--     if i ~= #line_diagnostics then
+--       diagnostic_message = diagnostic_message .. "\n"
+--     end
+--   end
+--   vim.api.nvim_echo({ { diagnostic_message, "Normal" } }, false, {})
+-- end
+--
+-- vim.cmd([[ autocmd! CursorHold * lua PrintDiagnostics() ]])
+
 -- -- LSP settings (for overriding per client)
 -- local handlers = {
 --   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
@@ -62,6 +86,38 @@ M.icons = {
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	border = "rounded",
 })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	border = "rounded",
+})
+
+-- Function to check if a floating dialog exists and if not
+-- then check for diagnostics under the cursor
+-- function OpenDiagnosticIfNoFloat()
+--   for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+--     if vim.api.nvim_win_get_config(winid).zindex then
+--       return
+--     end
+--   end
+--   -- THIS IS FOR BUILTIN LSP
+--   vim.diagnostic.open_float(nil, {
+--     scope = "cursor",
+--     focusable = false,
+--     close_events = {
+--       "CursorMoved",
+--       "CursorMovedI",
+--       "BufHidden",
+--       "InsertCharPre",
+--       "WinLeave",
+--     },
+--   })
+-- end
+-- -- Show diagnostics under the cursor when holding position
+-- vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
+-- vim.api.nvim_create_autocmd({ "CursorHold" }, {
+--   pattern = "*",
+--   command = "lua OpenDiagnosticIfNoFloat()",
+--   group = "lsp_diagnostics_hold",
+-- })
 
 function M.setup()
 	local kinds = vim.lsp.protocol.CompletionItemKind
