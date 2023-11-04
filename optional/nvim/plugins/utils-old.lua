@@ -6,35 +6,10 @@ return {
 		end,
 	},
 
-	-- {
-	--   "folke/noice.nvim",
-	--   opts = function(_, opts)
-	--     table.insert(opts.routes, {
-	--       filter = {
-	--         event = "notify",
-	--         find = "No information available",
-	--       },
-	--       opts = { skip = true },
-	--     })
-	--   end,
-	--   presets = { inc_rename = true },
-	--   cmdline = { enabled = false },
-	--   messages = { enabled = false },
-	-- },
+	-- extend noice functionality
 	{
 		"folke/noice.nvim",
-		opts = {
-			cmdline = {
-				enabled = false,
-			},
-			messages = {
-				enabled = false,
-			},
-			presets = {
-				inc_rename = true,
-			},
-		},
-		config = function(_, opts)
+		opts = function(_, opts)
 			table.insert(opts.routes, {
 				filter = {
 					event = "notify",
@@ -43,6 +18,7 @@ return {
 				opts = { skip = true },
 			})
 		end,
+		presets = { inc_rename = true },
 	},
 
 	{
@@ -72,9 +48,23 @@ return {
 	},
 	{
 		"windwp/nvim-autopairs",
-		event = "VeryLazy",
+		event = "InsertEnter",
+		opts = {}, -- this is equalent to setup({}) function
+	},
+	{
+		"windwp/nvim-ts-autotag",
 		opts = {
-			disable_filetype = { "TelescopePrompt", "vim" },
+			autotag = {
+				enable = true,
+				enable_rename = true,
+				enable_close = true,
+			},
+		},
+	},
+	{
+		"rcarriga/nvim-notify",
+		opts = {
+			background_colour = "#000000",
 		},
 	},
 }
