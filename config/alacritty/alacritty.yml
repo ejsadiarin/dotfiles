@@ -6,12 +6,13 @@ import:
   
 window:
   padding:
-    x: 15
-    y: 15
+    x: 10
+    y: 10
 
   decorations: none
 
-  opacity: 0.9
+  background_opacity: 0.20
+  opacity: 0.75
   dynamic_title: true
 
   history: 10000

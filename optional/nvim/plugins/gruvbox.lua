@@ -95,8 +95,8 @@ return {
 				NormalFloat = { bg = "#1d2021" },
 				NormalNC = { bg = "#1d2021" },
 				Special = { fg = "#8ec07c" }, -- includes custom components for React
-				WinBar = { fg = "#fbf1c7", bg = "#282828" },
-				WinBarNC = { fg = "#bdae93", bg = "#3c3836" },
+				-- WinBar = { fg = "#fbf1c7", bg = "#282828" },
+				-- WinBarNC = { fg = "#bdae93", bg = "#3c3836" },
 			},
 			dim_inactive = true,
 			transparent_mode = true,
@@ -136,4 +136,44 @@ return {
 			colorscheme = "gruvbox",
 		},
 	},
+
+	-- Catppuccin lol
+	--   {
+	--   "catppuccin/nvim",
+	--   lazy = false,
+	--   name = "catppuccin",
+	--   opts = {
+	--     flavour = "mocha",
+	--     transparent_background = true,
+	--     integrations = {
+	--       alpha = true,
+	--       cmp = true,
+	--       flash = true,
+	--       gitsigns = true,
+	--       illuminate = true,
+	--       indent_blankline = { enabled = true },
+	--       lsp_trouble = true,
+	--       mason = true,
+	--       mini = true,
+	--       native_lsp = {
+	--         enabled = true,
+	--         underlines = {
+	--           errors = { "undercurl" },
+	--           hints = { "undercurl" },
+	--           warnings = { "undercurl" },
+	--           information = { "undercurl" },
+	--         },
+	--       },
+	--       navic = { enabled = true, custom_bg = "lualine" },
+	--       neotest = true,
+	--       noice = true,
+	--       notify = true,
+	--       neotree = true,
+	--       semantic_tokens = true,
+	--       telescope = true,
+	--       treesitter = true,
+	--       which_key = true,
+	--     },
+	--   },
+	-- },
 }
