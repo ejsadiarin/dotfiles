@@ -1,8 +1,7 @@
-
 #  ┬  ┬┌─┐┬─┐┌─┐
 #  └┐┌┘├─┤├┬┘└─┐
 #   └┘ ┴ ┴┴└─└─┘
-export VISUAL='geany'
+export VISUAL='code'
 export EDITOR='nvim'
 export TERMINAL='alacritty'
 export BROWSER='firefox'
@@ -87,7 +86,13 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey '^[[B' history-substring-search-do
+
+# Enable Ctrl + Left Arrow to move one word left
+bindkey '^[[1;5D' backward-word
+
+# Enable Ctrl + Right Arrow to move one word right
+bindkey '^[[1;5C' forward-word
 
 #  ┌─┐┬ ┬┌─┐┌┐┌┌─┐┌─┐  ┌┬┐┌─┐┬─┐┌┬┐┬┌┐┌┌─┐┬  ┌─┐  ┌┬┐┬┌┬┐┬  ┌─┐
 #  │  ├─┤├─┤││││ ┬├┤    │ ├┤ ├┬┘│││││││├─┤│  └─┐   │ │ │ │  ├┤ 
@@ -142,7 +147,32 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 
 # useful commands
 # xprop | grep WM_CLASS
-# xinput
+# xinput => to see devices connected
+# xinput set-prop "<device name here>" "libinput Natural Scrolling Enabled" 1
+# xinput list-props "<device name here>" => to see all properties of device
 
 # https://stackoverflow.com/questions/11124053/accidentally-committed-idea-directory-files-into-git
 # git rm -r --cached .idea
+
+# Bluetoothctl => connect and pair via bluetooth (tab completion is available for MAC_addresses)
+# ref: https://wiki.archlinux.org/title/bluetooth
+# bluetoothctl --> enter bluetooth shell
+# devices --> see devices (if no showing, do a "scan on" first)
+# scan on --> scan devices with bluetooth turned on
+# agent on --> default-agent should be appropriate on most cases
+# pair <MAC_address> --> pair device via bluetooth, use tab for completion
+#   - trust <MAC_address> --> if using devices without a PIN, need to manually trust it before it can reconnect
+#   successfully
+#   - connect <MAC_address> --> establish a connection
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# pnpm
+export PNPM_HOME="/home/exquisite/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
