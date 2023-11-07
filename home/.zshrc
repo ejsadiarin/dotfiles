@@ -156,6 +156,12 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 
 # Bluetoothctl => connect and pair via bluetooth (tab completion is available for MAC_addresses)
 # ref: https://wiki.archlinux.org/title/bluetooth
+#
+# check if bluetooth is on
+# systemctl status bluetooth.service
+# systemctl start bluetooth.service --> start bluetooth 
+#  - can use "enable" but not ideal since bluetooth will turn on when startup
+#
 # bluetoothctl --> enter bluetooth shell
 # devices --> see devices (if no showing, do a "scan on" first)
 # scan on --> scan devices with bluetooth turned on
