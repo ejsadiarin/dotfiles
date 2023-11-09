@@ -5,14 +5,6 @@
 vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1d2021]])
 vim.cmd([[autocmd! ColorScheme * highlight FloatBorder guifg=#fbf1c7 guibg=#1d2021]])
 
-vim.diagnostic.config({
-	virtual_text = true,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-	severity_sort = false,
-})
-
 -- prints diagnostics on message area, has problems if diagnostic has too many messages
 -- function PrintDiagnostics(opts, bufnr, line_nr, client_id)
 --   bufnr = bufnr or 0
@@ -85,9 +77,21 @@ M.icons = {
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	border = "rounded",
+	silent = true,
 })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	border = "rounded",
+})
+
+-- ref: https://gist.github.com/timmyha/b611a8e34a4f8d13cb52ae755dbfef2c
+-- reddit ref: https://gist.github.com/timmyha/b611a8e34a4f8d13cb52ae755dbfef2c
+vim.diagnostic.config({
+	virtual_text = true,
+	float = {
+		header = false,
+		border = "rounded",
+		focusable = true,
+	},
 })
 
 -- Function to check if a floating dialog exists and if not
