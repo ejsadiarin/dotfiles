@@ -38,3 +38,24 @@ local lazyterm = function()
 end
 map("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
 map("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+
+-- Harpoon marks
+-- vim.keymap.set("n", "<leader>fh", "<CMD>Telescope harpoon marks<CR>", { desc = "Find Harpoon Marks in Project" })
+vim.keymap.set("n", "<leader>fh", require("harpoon.ui").toggle_quick_menu, { desc = "Find Harpoon Marks in Project" })
+vim.keymap.set("n", "<leader>ha", require("harpoon.mark").add_file, { desc = "Harpoon add mark" })
+vim.keymap.set("n", "<c-l>", require("harpoon.ui").nav_next, {})
+vim.keymap.set("n", "<c-h>", require("harpoon.ui").nav_prev, {})
+vim.keymap.set(
+	"n",
+	"<leader>h1",
+	'<CMD>lua require("harpoon.ui").nav_file(1)<CR>',
+	{ desc = "Navigate to harpoon buffer 1" }
+)
+vim.keymap.set("n", "<leader>h2", '<CMD>lua require("harpoon.ui").nav_file(2)<CR>', { desc = "...buffer 2" })
+vim.keymap.set("n", "<leader>h3", '<CMD>lua require("harpoon.ui").nav_file(3)<CR>', { desc = "...buffer 3" })
+vim.keymap.set("n", "<leader>h4", '<CMD>lua require("harpoon.ui").nav_file(4)<CR>', { desc = "...buffer 4" })
+vim.keymap.set("n", "<leader>h5", '<CMD>lua require("harpoon.ui").nav_file(5)<CR>', { desc = "...buffer 5" })
+vim.keymap.set("n", "<leader>h6", '<CMD>lua require("harpoon.ui").nav_file(6)<CR>', { desc = "...buffer 6" })
+vim.keymap.set("n", "<leader>h7", '<CMD>lua require("harpoon.ui").nav_file(7)<CR>', { desc = "...buffer 7" })
+vim.keymap.set("n", "<leader>h8", '<CMD>lua require("harpoon.ui").nav_file(8)<CR>', { desc = "...buffer 8" })
+vim.keymap.set("n", "<leader>h9", '<CMD>lua require("harpoon.ui").nav_file(9)<CR>', { desc = "...buffer 9" })

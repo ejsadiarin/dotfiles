@@ -109,26 +109,33 @@ return {
 	},
 
 	{
-		"telescope.nvim",
+		"nvim-telescope/telescope.nvim",
 		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "make",
-			config = function()
-				require("telescope").load_extension("fzf")
-			end,
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+				config = function()
+					require("telescope").load_extension("fzf")
+				end,
+			},
 		},
-		{
-			"echasnovski/mini.surround",
-			opts = {
-				mappings = {
-					add = "sa",
-					delete = "sd",
-					find = "sf",
-					find_left = "sF",
-					highlight = "sh",
-					replace = "sr",
-					update_n_lines = "sn",
-				},
+		config = function(_, opts)
+			local telescope = require("telescope")
+			telescope.setup(opts)
+			telescope.load_extension("harpoon")
+		end,
+	},
+	{
+		"echasnovski/mini.surround",
+		opts = {
+			mappings = {
+				add = "sa",
+				delete = "sd",
+				find = "sf",
+				find_left = "sF",
+				highlight = "sh",
+				replace = "sr",
+				update_n_lines = "sn",
 			},
 		},
 	},
@@ -145,6 +152,40 @@ return {
 		-- next_parameter = "<C-l>"
 		-- previous_parameter = "<C-h>"
 		-- close_signature = "<A-s>"
+	},
+	{
+		"ThePrimeagen/harpoon",
+		lazy = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = true,
+		opts = {
+			global_settings = {
+				-- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
+				save_on_toggle = false,
+
+				-- saves the harpoon file upon every change. disabling is unrecommended.
+				save_on_change = true,
+
+				-- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
+				enter_on_sendcmd = false,
+
+				-- closes any tmux windows harpoon that harpoon creates when you close Neovim.
+				tmux_autoclose_windows = false,
+
+				-- filetypes that you want to prevent from adding to the harpoon list menu.
+				excluded_filetypes = { "harpoon" },
+
+				-- set marks specific to each git branch inside git repository
+				mark_branch = true,
+
+				-- enable tabline with harpoon marks
+				tabline = true,
+				tabline_prefix = "   ",
+				tabline_suffix = "   ",
+			},
+		},
 	},
 
 	-- {
