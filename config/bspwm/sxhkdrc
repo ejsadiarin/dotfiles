@@ -46,7 +46,7 @@ ctrl + super + alt + {p,r,q,l,k,s}
 	{systemctl poweroff, systemctl reboot,bspc quit,physlock -d,xkill,systemctl suspend}
 
 # Apps
-super + {f,g,e,p,r,y,w,m,n,c}
+super + {f,g,e,p,r,y,w,m,n,c,b}
   {firefox, \
 	 geany, \
 	 thunar, \
@@ -56,7 +56,8 @@ super + {f,g,e,p,r,y,w,m,n,c}
 	 whatsapp-nativefier --disable-gpu, \
 	 env LD_PRELOAD=/usr/lib/spotify-adblock.so spotify --disable-gpu --no-zygote %U, \
 	 OpenApps --nvim, \
-	 OpenApps --music}
+	 OpenApps --music, \
+   brave \ }
 
 # Hide/Show Bar (Polybar and/or eww)
 ctrl + shift + {h,u}
