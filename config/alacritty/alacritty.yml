@@ -13,6 +13,8 @@ window:
 
   background_opacity: 0.20
   opacity: 0.75
+  # background_opacity: 1
+  # opacity: 1
   dynamic_title: true
 
   history: 10000
