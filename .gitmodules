@@ -1,0 +1,3 @@
+[submodule "optional/nvim"]
+	path = optional/nvim
+	url = https://github.com/ejsadiarin/best-neovim-config.git
