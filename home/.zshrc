@@ -38,13 +38,13 @@ zstyle ':vcs_info:*' formats ' %B%s-[%F{magenta}%f %F{yellow}%b%f]-'
 #  ┬ ┬┌─┐┬┌┬┐┬┌┐┌┌─┐  ┌┬┐┌─┐┌┬┐┌─┐
 #  │││├─┤│ │ │││││ ┬   │││ │ │ └─┐
 #  └┴┘┴ ┴┴ ┴ ┴┘└┘└─┘  ─┴┘└─┘ ┴ └─┘
-expand-or-complete-with-dots() {
-  echo -n "\e[31m…\e[0m"
-  zle expand-or-complete
-  zle redisplay
-}
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
+# expand-or-complete-with-dots() {
+#   echo -n "\e[31m…\e[0m"
+#   zle expand-or-complete
+#   zle redisplay
+# }
+# zle -N expand-or-complete-with-dots
+# bindkey "^I" expand-or-complete-with-dots
 
 #  ┬ ┬┬┌─┐┌┬┐┌─┐┬─┐┬ ┬
 #  ├─┤│└─┐ │ │ │├┬┘└┬┘
@@ -170,6 +170,13 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 #   - trust <MAC_address> --> if using devices without a PIN, need to manually trust it before it can reconnect
 #   successfully
 #   - connect <MAC_address> --> establish a connection
+#   Sesh Evo: 60:C5:E6:9F:0D:E9
+#   Just `connect 60:C5:E6:9F:0D:E9
+
+# [ Adding submodules to a git repo: ]
+# git submodule add <url> <path>
+# -- TO UPDATE SUBMODULES (when the linked repo updated, ex. new nvim configs):
+# git submodule update --recursive --remote
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -182,3 +189,4 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
