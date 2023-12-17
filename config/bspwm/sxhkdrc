@@ -56,7 +56,7 @@ super + {f,g,e,p,r,y,w,m,n,c,b}
 	 whatsapp-nativefier --disable-gpu, \
 	 env LD_PRELOAD=/usr/lib/spotify-adblock.so spotify --disable-gpu --no-zygote %U, \
 	 OpenApps --nvim, \
-	 OpenApps --music, \
+	 OpenApps --music \
    brave \ }
 
 # Hide/Show Bar (Polybar and/or eww)
@@ -141,7 +141,7 @@ super + ctrl + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # move a floating window
-alt + shift + {Left,Down,Up,Right}
+super + shift + alt {h,j,k,l}
   bspc node -v {-10 0,0 10,0 -10,10 0}
 
 # set the window state
