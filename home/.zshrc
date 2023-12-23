@@ -1,3 +1,4 @@
+
 #  ┬  ┬┌─┐┬─┐┌─┐
 #  └┐┌┘├─┤├┬┘└─┐
 #   └┘ ┴ ┴┴└─└─┘
@@ -137,6 +138,9 @@ alias re="OpenApps --rxfetch"
 
 alias history="history 1"
 
+alias lg="lazygit"
+alias clpwd="pwd | xclip -selection clipboard"
+
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
@@ -178,6 +182,13 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 # -- TO UPDATE SUBMODULES (when the linked repo updated, ex. new nvim configs):
 # git submodule update --recursive --remote
 
+# [ Copy contents of output (works in X11 only with xclip)]
+# <command> | xclip -selection clipboard 
+# or <command> | xclip -sel clip 
+# ex. pwd | xclip -selection clipboard
+# UPDATE (December 24, 2023 3:32 AM): made an alias for this, clpwd
+# best when using with lg (my lazygit alias)
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -190,3 +201,6 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+# flyctl
+export FLYCTL_INSTALL="$HOME/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
