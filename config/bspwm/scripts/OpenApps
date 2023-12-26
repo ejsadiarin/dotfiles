@@ -83,11 +83,11 @@ case "$1" in
 	;;
 
 --browser)
-	firefox
+	brave
 	;;
 
 --editor)
-	geany
+	code
 	;;
 
 --telegram)
