@@ -1,0 +1,28 @@
+import = [
+  "/home/exquisite/.config/alacritty/colors.toml",
+  "/home/exquisite/.config/alacritty/fonts.toml",
+]
+live_config_reload = true
+
+[cursor]
+blink_interval = 550
+unfocused_hollow = false
+
+[cursor.style]
+blinking = "On"
+shape = "Block"
+
+[selection]
+save_to_clipboard = false
+
+[window]
+# background_opacity = 0.2
+decorations = "none"
+dynamic_title = true
+# history = 10000
+# multiplier = 3
+opacity = 0.75
+
+[window.padding]
+x = 10
+y = 10
