@@ -178,7 +178,7 @@ super + alt + minus
 
 # Random wallpaper
 super + alt + w
-  feh -z --no-fehbg --bg-fill ~/.config/bspwm/rices/$RICETHEME/walls/
+  feh -z --no-fehbg --bg-scale ~/.config/bspwm/rices/$RICETHEME/walls/
 
 # alternate between the tiled and monocle layout
 super + alt + n
