@@ -18,7 +18,7 @@
 
 
 # Show keybindings help
-alt + h
+alt + shift + h
 	KeybindingsHelp
 	
 # Open Terminal (alacritty)
