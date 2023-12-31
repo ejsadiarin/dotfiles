@@ -60,7 +60,7 @@ super + {f,g,e,p,r,y,w,m,n,c,b}
    brave \ }
 
 # Hide/Show Bar (Polybar and/or eww)
-ctrl + shift + {h,u}
+ctrl + shift + {y,u}
 	HideBar {-h,-u}
 
 # Scratchpad
