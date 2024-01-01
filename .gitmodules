@@ -1,6 +1,0 @@
-[submodule "nvim"]
-	path = nvim
-	url = https://github.com/ejsadiarin/best-neovim-config.git
-[submodule "tmux"]
-	path = tmux
-	url = https://github.com/ejsadiarin/exquisite-tmux.git
