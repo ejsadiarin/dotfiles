@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Zoom in the current pane ONLY if it is not currently zoomed.
+# Requires tmux version >= 1.8
+
+tmux list-panes -F '#F' | grep -q Z || tmux resize-pane -Z
+exit 0
