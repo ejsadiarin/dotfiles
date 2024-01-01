@@ -104,9 +104,8 @@ vim.keymap.set("n", "<C-l>", "<CMD>TmuxNavigateRight<CR>", { desc = "Tmux Naviga
 -- Multiple cursors/ visual-multi (https://github.com/mg979/vim-visual-multi/wiki/Mappings)
 vim.keymap.set("n", "<leader>vm", "<Plug>(VM-Find-Under)", { desc = "Start Visual Multi" })
 
--- this is similar to <C-S-k> and <C-S-j> in normal mode:
-vim.keymap.set("n", "<C-K>", "<Plug>(VM-Add-Cursor-Up)", { desc = "VM mode Cursor Up" })
-vim.keymap.set("n", "<C-J>", "<Plug>(VM-Add-Cursor-Down)", { desc = "VM mode Cursor Down" })
+vim.keymap.set("n", "<M-C-k>", "<Plug>(VM-Add-Cursor-Up)", { desc = "VM mode Cursor Up" })
+vim.keymap.set("n", "<M-C-j>", "<Plug>(VM-Add-Cursor-Down)", { desc = "VM mode Cursor Down" })
 
 vim.keymap.set("n", "<C-RightMouse>", "<Plug>(VM-Mouse-Word)", { desc = "Multi line cursor" })
 vim.keymap.set("n", "<C-LeftMouse>", "<Plug>(VM-Mouse-Cursor)", { desc = "Multi line cursor" })

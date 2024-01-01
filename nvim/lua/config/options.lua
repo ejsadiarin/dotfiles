@@ -16,6 +16,7 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 -- vim.g.VM_default_mappings = 0
 vim.g.VM_maps = {
   ["Find Under"] = "",
+  ["Find Subword Under"] = "",
 }
 
 vim.opt.number = true -- Set numbered lines
