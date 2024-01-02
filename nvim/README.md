@@ -36,11 +36,28 @@
 - root/dynamic - telescope searches via git root based on current active buffer (respects `.gitignore`)
 - cwd - where you opened `nvim` command (after `cd`-ing to dirs)
 
-## Main commands:
-- `<leader>ff` - find files (root/dynamic)
-- `<leader>fH` - find files from home
-- `<leader>fp` - find projects (useful for changing cwd)
-- `<leader>fr` - find recent files
+## Philosophy
+- My keybindings are based on this mental model grammar:
+`<leader>` + `<verb>` + `<noun>`
+- "nouns":
+  - `f` - files
+  - `m` - main (`~/main`)
+  - `c` - nvim configs
+  - `d` - dotfiles
+  - `h` - harpoon
+  - `H` - home
+  - `p` - projects
+  - `x` - diagnostics
+  - `g` - git
+
+## Main commands (`<leader>` + `<verb>` + `<noun>`):
+- `<leader>ff` - (f)ind (f)iles (root/dynamic)
+- `<leader>fm` - (f)ind files from (m)ain (`main` - directory where I store projects)
+- `<leader>fH` - (f)ind files from (H)ome
+- `<leader>fp` - (f)ind projects (useful for changing cwd)
+- `<leader>fr` - (f)ind recent files
+- `<leader>cw` - (c)hange (w)orking directory (based on head of current buffer: `:cd %:h`)
+- `<leader>cd` - (c)ode diagnostics (current line)
 - `<leader>fS` - file system (cwd)
 - `<leader>fs` - file system (root/dynamic)
 - `<leader>xx` - diagnostics (current buffer)
@@ -59,6 +76,43 @@
 ### Git
 - `<leader>gg` - open lazygit (root/dynamic)
 - `<leader>gs` - git status (root/dynamic)
+
+## Hacks (my favorite workflow):
+### Project-scoped
+- use `<leader>ff` (find files) and `<leader>sg` (grep) for everything project/repository-scoped
+- use `<leader>ff` (find files) and `<leader>sg` (grep) for everything project/repository-scoped
+- use `<C-/>` to open terminal (cwd)
+- use `<leader>gg` for lazygit (recommended)
+- use visual multi-select:  
+  - `<leader>vm` then `\\A` for start and select all similar words under the cursor - like `<C-S-l>` in vscode
+    - doing this automatically puts you in "expand mode" (like visual mode)
+    - <tab> to change mode to "cursor mode"
+  - `<leader>vm` then `\\@` for start and apply macro
+    - can also do native Visual Block: `<C-v` then apply macro
+  - `<M-C-k>` to select up and `<M-C-j>` to select down (start and select simultaneously)
+- use Harpoon:
+  - `<leader>fh` and `<leader>ha` for finding and adding harpoon marks, respectively
+  - `<C-n>` and `<C-p>` for cycling next and previous harpoon marks
+- for debugging and testing:
+  - `<leader>cd` for code diagnostics (current line)
+  - `<leader>du` open DAP UI
+  - `<leader>t+` for running tests (the `+` indicates that there are more options available)
+
+### Going outside the project
+- use `<leader>fm` (files) for searching a project/repository (in `~/main`)
+  - have a `~/main` directory if you want this to work (recommended)
+- use `<leader>fc` for finding nvim config files
+- use `<leader>fd` for finding dotfiles from `~/dotfiles`
+  - use `<leader>cw` to manually change cwd if needed (useful for opening a new terminal, changing project, etc.)
+  - NOTE: `cwd` or current working directory automatically changes on buffer navigation, its just that some projects don't if there is no `.git` directory or no `.gitignore`
+
+- other useful:
+  - `<leader>fr` - find recent files
+  - `<leader>fp` - find projects
+  - `<leader>xx` - project diagnostics
+  - `<leader>xX` - project diagnostics
+
+
 ---
 ### Powered by 💤 LazyVim
   - A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
