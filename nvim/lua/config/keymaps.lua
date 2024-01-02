@@ -17,6 +17,17 @@ vim.keymap.set("n", "<S-TAB>", "<C-W>W")
 -- unpolluted paste (access paste without "dd" buffer pollute)
 vim.keymap.set("n", "<leader>p", '"0p', { desc = "Unpolluted Paste" })
 
+-- changes cwd to head of current buffer (useful for grepping and finding files)
+vim.keymap.set("n", "<leader>cw", function()
+  -- Define the change_cwd_head_of_buffer function
+  _G.utils = _G.utils or {}
+  function _G.utils.change_cwd_to_head_of_buffer()
+    local bufname = vim.fn.expand("%:p:h")
+    vim.cmd(string.format('cd %s | echom "CWD changed to: %s"', vim.fn.fnameescape(bufname), bufname))
+  end
+  _G.utils.change_cwd_to_head_of_buffer()
+end, { noremap = true, desc = "Change cwd to head of current buffer", silent = false })
+
 -- center cursor when scrolling up and down via keymaps
 vim.keymap.set("n", "<C-U>", "<C-U>zz")
 vim.keymap.set("n", "<C-D>", "<C-D>zz")
@@ -42,8 +53,6 @@ vim.keymap.set("n", "<leader>ha", function()
   harpoon:list():append()
 end, { desc = "Harpoon add mark" })
 
--- TODO: prettify the harpoon UI (make it transparent, since it is now a "floating window")
--- use native Harpoon UI (can edit like a buffer)
 vim.keymap.set("n", "<leader>fh", function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { desc = "Find Harpoon Marks" })
