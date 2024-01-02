@@ -53,13 +53,13 @@
 ## Main commands (`<leader>` + `<verb>` + `<noun>`):
 - `<leader>ff` - (f)ind (f)iles (root/dynamic)
 - `<leader>fm` - (f)ind files from (m)ain (`main` - directory where I store projects)
+- `<leader>fd` - (f)ind files from (d)otfiles
+- `<leader>fc` - (f)ind files from .(c)onfig
 - `<leader>fH` - (f)ind files from (H)ome
 - `<leader>fp` - (f)ind projects (useful for changing cwd)
 - `<leader>fr` - (f)ind recent files
 - `<leader>cw` - (c)hange (w)orking directory (based on head of current buffer: `:cd %:h`)
 - `<leader>cd` - (c)ode diagnostics (current line)
-- `<leader>fS` - file system (cwd)
-- `<leader>fs` - file system (root/dynamic)
 - `<leader>xx` - diagnostics (current buffer)
 - `<leader>xX` - diagnostics (workspace)
 ### Harpoon
@@ -101,8 +101,9 @@
 ### Going outside the project
 - use `<leader>fm` (files) for searching a project/repository (in `~/main`)
   - have a `~/main` directory if you want this to work (recommended)
-- use `<leader>fc` for finding nvim config files
+- use `<leader>fc` for finding `.config` files
 - use `<leader>fd` for finding dotfiles from `~/dotfiles`
+  - combo: `<leader>fd` then type `nvim/` or `tmux/` for the nvim and tmux configs, respectively
   - use `<leader>cw` to manually change cwd if needed (useful for opening a new terminal, changing project, etc.)
   - NOTE: `cwd` or current working directory automatically changes on buffer navigation, its just that some projects don't if there is no `.git` directory or no `.gitignore`
 

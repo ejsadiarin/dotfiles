@@ -1,21 +1,16 @@
 # Installation
-- git clone gh0st dot files
+- git clone gh0st dotfiles
 - install other packages:
 ```bash
 sudo -S pacman copyq redshift auto-cpufreq
 ```
 
 1. git clone the dotfiles
-- with --recursive flag
-2. cd to dotfiles then git pull origin main
-3. git submodule update --recursive -remote
-4. git commit -am "update to latest"
-5. git push origin main
 
-## Install Nvim configs
+## Install Terminal Configs (Nvim, Tmux, Zsh)
 - cd to dotfiles
 <details>
-  <summary>Instructions For Users:</summary>
+  <summary>If you want to customize the configs with your own preference(Recommended, esp. for ricers)</summary>
   - copy to your `~/.config/nvim`
     ```bash
     cp -r ~/dotfiles/nvim ~/.config/nvim
@@ -28,7 +23,9 @@ sudo -S pacman copyq redshift auto-cpufreq
 </details>
 
 <details>
-  <summary>Instructions For Me:</summary>
+  <summary>If you don't want to customize yourself (Symlinked version) - every change in this repo will change the
+    configs (if you `git pull`)</summary>
+
   - create a symlink to `~/.config/nvim`
     ```bash
     ln -s ~/dotfiles/nvim ~/.config/nvim
@@ -37,37 +34,45 @@ sudo -S pacman copyq redshift auto-cpufreq
     ```bash
     nvim
     ```
-</details>
+  - create 2 symlinks for:
+    - `~/.tmux/`
+    - `~/.tmux.conf`
+  ```bash
+  cd dotfiles
+  ln -s ~/dotfiles/tmux ~/.tmux
+  ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
+  ```
+  - open tmux
+    ```bash
+    tmux
+    ```
+  - git clone tpm
+    ```bash
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    ```
+  - source tmux.conf in home directory
+    ```bash
+    cd
+    tmux source .tmux.conf
+    ```
+  - go to .tmux.conf 
+    ```bash
+    nvim ~/.tmux.conf
+    ```
+  - install plugins with `prefix + I`
+    - by default prefix is `ctrl + b`
+    - in my configs prefix is: `ctrl + space`
 
-## Install Tmux configs
-- create 2 symlinks for:
-  - `~/.tmux/`
-  - `~/.tmux.conf`
-```bash
-cd dotfiles
-ln -s ~/dotfiles/tmux ~/.tmux
-ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
-```
-- open tmux
+  ## Symlink everything
   ```bash
-  tmux
+  rm ~/.zshrc ~/.ideavimrc 
+  ln -s ~/dotfiles/.zshrc ~/.zshrc
+  ln -s ~/dotfiles/.ideavimrc ~/.ideavimrc
+  rm -rf ~/.config/bspwm/bspwmrc ~/.config/bspwm/sxhkdrc
+  ln -s ~/dotfiles/config/bspwm/bspwmrc ~/.config/bspwm/bspwmrc 
+  ln -s ~/dotfiles/config/bspwm/sxhkdrc ~/.config/bspwm/sxhkdrc 
   ```
-- git clone tpm
-  ```bash
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  ```
-- source tmux.conf in home directory
-  ```bash
-  cd
-  tmux source .tmux.conf
-  ```
-- go to .tmux.conf 
-  ```bash
-  nvim ~/.tmux.conf
-  ```
-- install plugins with `prefix + I`
-  - by default prefix is `ctrl + b`
-  - in my configs prefix is: `ctrl + space`
+</details>
 
 ## Update BSPWM configs
 ### bspwmrc
@@ -85,6 +90,14 @@ ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
   - CITY: find also in [openweathermap.org](https://openweathermap.org/)
 
 ## Enable Alacritty Transpacency
+```toml
+# ... existing configs ... #
+[window]
+decorations = "none"
+dynamic_title = true
+opacity = 0.8 # change this to your liking (i like it 0.8)
+# ... existing configs ... #
+```
 
 ## Install Zsh configs
 

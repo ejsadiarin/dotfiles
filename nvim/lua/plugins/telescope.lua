@@ -28,26 +28,32 @@ return {
         -- end,
       },
     },
+    config = function()
+      Util.on_load("telescope.nvim", function()
+        local telescope = require("telescope")
+        telescope.load_extension("live_grep_args")
+      end)
+    end,
     -- pickers = {
     --   buffers = {
     --     initial_mode = "normal",
     --   },
     -- },
     -- extensions = {
-    -- live_grep_args = {
-    --   auto_quoting = true, -- enable/disable auto-quoting
-    --   -- define mappings, e.g.
-    --   mappings = { -- extend mappings
-    --     i = {
-    --       ["<C-k>"] = require("telescope.builtin").live_grep
-    --       ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
+    --   live_grep_args = {
+    --     auto_quoting = true, -- enable/disable auto-quoting
+    --     -- define mappings, e.g.
+    --     mappings = { -- extend mappings
+    --       i = {
+    --         ["<C-k>"] = require("telescope-live_grep_args").actions.quote_prompt(),
+    --         ["<C-i>"] = require("telescope-live_grep_args").actions.quote_prompt({ postfix = " --iglob " }),
+    --       },
     --     },
+    --     -- ... also accepts theme settings, for example:
+    --     -- theme = "dropdown", -- use dropdown theme
+    --     -- theme = { }, -- use own theme spec
+    --     -- layout_config = { mirror=true }, -- mirror preview pane
     --   },
-    -- ... also accepts theme settings, for example:
-    -- theme = "dropdown", -- use dropdown theme
-    -- theme = { }, -- use own theme spec
-    -- layout_config = { mirror=true }, -- mirror preview pane
-    -- },
     -- },
     keys = {
       { "<leader><space>", ":silent grep ", { silent = false }, desc = "Manual Grep (rg)" },
@@ -95,7 +101,7 @@ return {
         desc = "Exquisite Dotfiles",
       },
       {
-        "<leader>fC",
+        "<leader>fc",
         function()
           local dir = vim.env.HOME .. "/.config"
           require("telescope.builtin").find_files({
@@ -116,16 +122,11 @@ return {
         end,
         desc = "Find files on main",
       },
-      -- { "<leader>sG", require("telescope").extensions.live_grep_args.live_grep_args({ cwd = false }), desc = "Grep (root/dynamic)" },
+
       -- replaced keymaps:
       -- { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
       -- { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+      -- { "<leader>fc", Util.telescope.config_files(), desc = "Find Config File" },
     },
-    config = function()
-      Util.on_load("telescope.nvim", function()
-        local telescope = require("telescope")
-        telescope.load_extension("live_grep_args")
-      end)
-    end,
   },
 }
