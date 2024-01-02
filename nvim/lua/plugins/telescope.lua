@@ -55,7 +55,7 @@ return {
         "<leader>sg",
         function()
           require("telescope").extensions.live_grep_args.live_grep_args({
-            cwd = require("telescope.utils").buffer_dir(),
+            -- cwd = require("telescope.utils").buffer_dir(),
           })
         end,
         desc = "Live Grep (root/dynamic)",
@@ -104,6 +104,17 @@ return {
           })
         end,
         desc = "Find files on .configs",
+      },
+      {
+        "<leader>fm",
+        function()
+          local dir = vim.env.HOME .. "/main"
+          require("telescope.builtin").find_files({
+            find_command = { "fd", "-tf", "-td", "--hidden", "--search-path", dir },
+            prompt_prefix = "~/main ",
+          })
+        end,
+        desc = "Find files on main",
       },
       -- { "<leader>sG", require("telescope").extensions.live_grep_args.live_grep_args({ cwd = false }), desc = "Grep (root/dynamic)" },
       -- replaced keymaps:
