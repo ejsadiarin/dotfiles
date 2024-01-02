@@ -92,7 +92,7 @@ xsetroot -cursor_name left_ptr
 setxkbmap -option caps:swapescape
 
 # Start eww daemon
-eww daemon
+eww daemon -c "$HOME"/.config/bspwm/eww &
 
 # Network Applet
 nm-applet --indicator &
