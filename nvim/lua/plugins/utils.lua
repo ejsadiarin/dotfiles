@@ -1,3 +1,5 @@
+local Util = require("lazyvim.util")
+
 return {
   {
     "folke/which-key.nvim",
@@ -103,6 +105,22 @@ return {
           hide_dotfiles = false,
           hide_gitignored = false,
         },
+      },
+    },
+    keys = {
+      {
+        "<leader>e",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = Util.root() })
+        end,
+        desc = "Explorer NeoTree (root dir)",
+      },
+      {
+        "<leader>E",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+        end,
+        desc = "Explorer NeoTree (cwd)",
       },
     },
   },

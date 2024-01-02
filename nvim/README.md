@@ -52,6 +52,7 @@
 
 ## Main commands (`<leader>` + `<verb>` + `<noun>`):
 - `<leader>ff` - (f)ind (f)iles (root/dynamic)
+- `<leader>fg` - (f)ind (g)it root (root/dynamic)
 - `<leader>fm` - (f)ind files from (m)ain (`main` - directory where I store projects)
 - `<leader>fd` - (f)ind files from (d)otfiles
 - `<leader>fc` - (f)ind files from .(c)onfig
@@ -79,8 +80,12 @@
 
 ## Hacks (my favorite workflow):
 ### Project-scoped
+- use `<leader>fe` - best keymap (find git root)
+  - but what if there is no git root?
+    - THEN INITIALIZE NOW: `git init` - all repos must be initialized.
 - use `<leader>ff` (find files) and `<leader>sg` (grep) for everything project/repository-scoped
-- use `<leader>ff` (find files) and `<leader>sg` (grep) for everything project/repository-scoped
+- use `<leader>fg` (find git root)
+  - useful for finding the parent root of a repo
 - use `<C-/>` to open terminal (cwd)
 - use `<leader>gg` for lazygit (recommended)
 - use visual multi-select:  

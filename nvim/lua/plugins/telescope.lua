@@ -122,6 +122,11 @@ return {
         end,
         desc = "Find files on main",
       },
+      {
+        "<leader>fe",
+        require("telescope.builtin").git_files,
+        desc = "Exquisite Dotfiles",
+      },
 
       -- replaced keymaps:
       -- { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },

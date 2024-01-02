@@ -101,9 +101,6 @@ vim.keymap.set("n", "<leader>h4", function()
   harpoon:list():select(4)
 end, { desc = "...buffer 4" })
 
--- Oil
-vim.keymap.set("n", "<leader>fs", "<CMD>Oil<CR>", { desc = "File System (of current buffer) " })
-
 -- Tmux Navigation
 vim.keymap.set("n", "<C-h>", "<CMD>TmuxNavigateLeft<CR>", { desc = "Tmux Navigate Left" })
 vim.keymap.set("n", "<C-j>", "<CMD>TmuxNavigateDown<CR>", { desc = "Tmux Navigate Down" })
