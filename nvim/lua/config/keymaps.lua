@@ -104,6 +104,8 @@ vim.keymap.set("n", "<C-l>", "<CMD>TmuxNavigateRight<CR>", { desc = "Tmux Naviga
 -- Multiple cursors/ visual-multi (https://github.com/mg979/vim-visual-multi/wiki/Mappings)
 vim.keymap.set("n", "<leader>vm", "<Plug>(VM-Find-Under)", { desc = "Start Visual Multi" })
 
+-- vim.keymap.set("n", "<C-Up>", "<Plug>(VM-Add-Cursor-Up)", { desc = "VM mode Cursor Up" })
+-- vim.keymap.set("n", "<C-Down>", "<Plug>(VM-Add-Cursor-Down)", { desc = "VM mode Cursor Down" })
 vim.keymap.set("n", "<M-C-k>", "<Plug>(VM-Add-Cursor-Up)", { desc = "VM mode Cursor Up" })
 vim.keymap.set("n", "<M-C-j>", "<Plug>(VM-Add-Cursor-Down)", { desc = "VM mode Cursor Down" })
 
