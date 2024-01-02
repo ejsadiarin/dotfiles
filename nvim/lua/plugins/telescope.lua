@@ -77,7 +77,7 @@ return {
         function()
           local dir = vim.env.HOME .. "/"
           require("telescope.builtin").find_files({
-            find_command = { "fd", "-tf", "-td", "-E", "node_modules", "--search-path", dir },
+            find_command = { "fd", "-tf", "-td", "--hidden", "-E", "node_modules", "--search-path", dir },
             prompt_prefix = "~/ ",
           })
         end,
