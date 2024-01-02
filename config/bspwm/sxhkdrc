@@ -53,7 +53,7 @@ super + s
   xqp 0 $(xdo id -N Bspwm -n root) && jgmenu --csv-file=~/.config/bspwm/scripts/menu.txt --config-file=~/.config/bspwm/jgmenurc
 
 # Scratchpad
-super + alt + o
+super + shift + alt + o
 	tdrop -a -w 70% -h 35% -y 0 -x 15%  --class scratch alacritty --class=scratch
 
 # Power off, Reboot, Log out, Lockscreen, kill an app, Suspend
@@ -119,7 +119,7 @@ super + m
 
 # set the window state
 super + alt + {u,i,o,p}
-  bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # resize windows
 super + alt + {h,j,k,l}
