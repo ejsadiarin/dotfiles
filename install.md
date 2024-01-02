@@ -75,6 +75,14 @@ ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 # edit your xinput for laptop natural scrolling (google how to get your device id)
 ```
 ### sxhkdrc
+### system.ini
+- adapter, battery, network interface (wifi)
+- if not laptop, keep battery section empty
+### weather module
+- in `~/.config/bspwm/scripts/Weather`
+- edit: `KEY` and `CITY`
+  - KEY: get from [openweathermap.org](https://openweathermap.org/)
+  - CITY: find also in [openweathermap.org](https://openweathermap.org/)
 
 ## Enable Alacritty Transpacency
 
