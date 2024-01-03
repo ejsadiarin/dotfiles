@@ -5,6 +5,33 @@
 -- vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1d2021]])
 -- vim.cmd([[autocmd! ColorScheme * highlight FloatBorder guifg=#fbf1c7 guibg=#1d2021]])
 
+-- ############################################# COLORSCHEME HIGHLIGHT GROUPS PALETTE OVERRIDE: #############################################
+-- ref: https://github.com/LazyVim/LazyVim/discussions/2278
+-- local theme = require("catppuccin.palettes.macchiato")
+-- local windowBg = theme.crust
+--
+-- vim.api.nvim_create_autocmd("BufReadPre", {
+--   group = vim.api.nvim_create_augroup("Catppuccin_highlights", { clear = true }),
+--   desc = "Change Catppuccin highlights",
+--   callback = function()
+--     vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", {
+--       fg = windowBg,
+--       bg = windowBg,
+--     })
+--
+--     vim.api.nvim_set_hl(0, "NeoTreeTitleBar", {
+--       fg = windowBg,
+--       bg = windowBg,
+--     })
+--
+--     vim.api.nvim_set_hl(0, "NeoTreeNormal", {
+--       fg = theme.text,
+--       bg = windowBg,
+--     })
+--   end,
+-- })
+-- #######################################################################################################################################
+
 vim.api.nvim_create_autocmd("WinLeave", {
   callback = function()
     if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
