@@ -44,7 +44,7 @@ Virt-manager)
 	;;
 Thunar)
 	eval "$consequences"
-	[ "$state" ] || echo "state=floating desktop=^2 rectangle=966x576+0+0 follow=on center=on"
+	[ "$state" ] || echo "state=floating rectangle=966x576+0+0 follow=on center=on"
 	;;
 firefox | Navigator)
 	eval "$consequences"
