@@ -83,7 +83,7 @@ return {
         function()
           local dir = vim.env.HOME .. "/"
           require("telescope.builtin").find_files({
-            find_command = { "fd", "-tf", "-td", "--hidden", "-E", "node_modules", "--search-path", dir },
+            find_command = { "fd", "-tf", "--hidden", "-E", { "node_modules", ".git", ".cargo" }, "--search-path", dir },
             prompt_prefix = "~/ ",
           })
         end,
@@ -105,7 +105,7 @@ return {
         function()
           local dir = vim.env.HOME .. "/.config"
           require("telescope.builtin").find_files({
-            find_command = { "fd", "-tf", "-td", "--hidden", "--search-path", dir },
+            find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
             prompt_prefix = "~/.configs ",
           })
         end,
@@ -116,7 +116,7 @@ return {
         function()
           local dir = vim.env.HOME .. "/main"
           require("telescope.builtin").find_files({
-            find_command = { "fd", "-tf", "-td", "--hidden", "--search-path", dir },
+            find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
             prompt_prefix = "~/main ",
           })
         end,
@@ -124,10 +124,14 @@ return {
       },
       {
         "<leader>fe",
-        require("telescope.builtin").git_files,
+        "<CMD>Telescope git_files<CR>",
         desc = "Find from Git root",
       },
-
+      {
+        "<leader>gb",
+        "<CMD>Telescope git_branches<CR>",
+        desc = "branches",
+      },
       -- replaced keymaps:
       -- { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
       -- { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
