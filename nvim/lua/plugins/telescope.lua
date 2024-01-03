@@ -125,7 +125,7 @@ return {
       {
         "<leader>fe",
         require("telescope.builtin").git_files,
-        desc = "Exquisite Dotfiles",
+        desc = "Find from Git root",
       },
 
       -- replaced keymaps:

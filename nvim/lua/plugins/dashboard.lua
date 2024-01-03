@@ -31,14 +31,15 @@ return {
           { action = "Telescope find_files",                                     desc = " Find file",       icon = " ", key = "f" },
           { action = "ene | startinsert",                                        desc = " New file",        icon = " ", key = "n" },
           { action = "Telescope oldfiles",                                       desc = " Recent files",    icon = " ", key = "r" },
+          { action = "Telescope projects",                                       desc = " Projects",        icon = " ", key = "p",},
           { action = "Telescope live_grep_args",                                 desc = " Find text",       icon = " ", key = "g" },
           { action = function ()
-            local dir = vim.env.HOME .. "/dotfiles"
-            require("telescope.builtin").find_files({
-              find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
-              prompt_prefix = "~/dotfiles ",
-            })
-          end, desc = " Dotfiles",          icon = " ", key = "d" },
+                      local dir = vim.env.HOME .. "/dotfiles"
+                      require("telescope.builtin").find_files({
+                        find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
+                        prompt_prefix = "~/dotfiles ",
+                      })
+                    end,                                                         desc = " Dotfiles",        icon = " ", key = "d" },
           { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
           { action =  function ()
             local dir = vim.env.HOME .. "/main"
@@ -46,7 +47,7 @@ return {
               find_command = { "fd", "-tf", "-td", "--hidden", "--search-path", dir },
               prompt_prefix = "~/main ",
             })
-          end,                                                                   desc = " Find from ~/main", icon = " ", key = "m" },
+          end,                                                                   desc = " Find from ~/main",icon = " ", key = "m" },
           { action = "LazyExtras",                                               desc = " Lazy Extras",     icon = " ", key = "x" },
           { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
           { action = "qa",                                                       desc = " Quit",            icon = " ", key = "q" },
@@ -76,23 +77,6 @@ return {
       end
 
       return opts
-    end,
-  },
-  {
-    "nvimdev/dashboard-nvim",
-    optional = true,
-    opts = function(_, opts)
-      local projects = {
-        action = "Telescope projects",
-        desc = " Projects",
-        icon = " ",
-        key = "p",
-      }
-
-      projects.desc = projects.desc .. string.rep(" ", 43 - #projects.desc)
-      projects.key_format = "  %s"
-
-      table.insert(opts.config.center, 3, projects)
     end,
   },
 }

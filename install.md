@@ -11,6 +11,7 @@ sudo -S pacman copyq redshift auto-cpufreq
 - cd to dotfiles
 <details>
   <summary>If you want to customize the configs with your own preference(Recommended, esp. for ricers)</summary>
+
   - copy to your `~/.config/nvim`
     ```bash
     cp -r ~/dotfiles/nvim ~/.config/nvim
@@ -37,11 +38,11 @@ sudo -S pacman copyq redshift auto-cpufreq
   - create 2 symlinks for:
     - `~/.tmux/`
     - `~/.tmux.conf`
-  ```bash
-  cd dotfiles
-  ln -s ~/dotfiles/tmux ~/.tmux
-  ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
-  ```
+    ```bash
+    cd dotfiles
+    ln -s ~/dotfiles/tmux ~/.tmux
+    ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
+    ```
   - open tmux
     ```bash
     tmux
