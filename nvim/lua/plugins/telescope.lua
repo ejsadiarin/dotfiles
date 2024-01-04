@@ -72,7 +72,6 @@ return {
           local dir = vim.env.HOME .. "/"
           require("telescope").extensions.live_grep_args.live_grep_args({
             search_dirs = { dir },
-            -- idk if needed kekw (since it is just grepping string, not files):
             additional_args = { "--hidden" },
           })
         end,
