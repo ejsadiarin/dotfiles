@@ -123,11 +123,6 @@ return {
         desc = "Find files on main",
       },
       {
-        "<leader>fe",
-        "<CMD>Telescope git_files<CR>",
-        desc = "Find from Git root",
-      },
-      {
         "<leader>gb",
         "<CMD>Telescope git_branches<CR>",
         desc = "branches",

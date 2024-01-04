@@ -80,10 +80,7 @@
 
 ## Hacks (my favorite workflow):
 ### Project-scoped
-- use `<leader>fe` - best keymap (find git root)
-  - but what if there is no git root?
-    - THEN INITIALIZE NOW: `git init` - all repos must be initialized.
-- use `<leader>ff` (find files) and `<leader>sg` (grep) for everything project/repository-scoped
+- use `<leader>ff` (find files) and `<leader>sg` (grep) for everything project/repository-scoped - best keymaps
 - use `<leader>fg` (find git root)
   - useful for finding the parent root of a repo
 - use `<C-/>` to open terminal (cwd)
