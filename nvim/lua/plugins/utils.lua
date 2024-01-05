@@ -146,11 +146,26 @@ return {
     opts = {
       notification = {
         override_vim_notify = true,
+        view = {
+          stack_upwards = true,
+          icon_separator = " ",
+          group_separator = "---",
+          group_separator_hl = "Comment",
+        },
         window = {
           winblend = 0,
           align = "bottom",
           relative = "editor",
         },
+      },
+    },
+    keys = {
+      {
+        "<leader>sf",
+        function()
+          require("telescope").extensions.notify.notify(require("notify").history())
+        end,
+        desc = "Open notification history",
       },
     },
   },
