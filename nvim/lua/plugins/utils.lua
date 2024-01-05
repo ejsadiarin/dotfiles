@@ -143,29 +143,39 @@ return {
 
   {
     "j-hui/fidget.nvim",
-    -- opts = {
-    --   window = {
-    --     winblend = 100,
-    --     relative = "editor",
-    --   },
-    -- },
-    config = function()
-      require("fidget").setup({
+    opts = {
+      notification = {
+        override_vim_notify = true,
         window = {
-          blend = 0,
+          winblend = 0,
+          align = "bottom",
           relative = "editor",
         },
-      })
-    end,
-    tag = "legacy",
+      },
+    },
   },
 
-  -- {
-  -- 	"rcarriga/nvim-notify",
-  -- 	opts = {
-  -- 		background_colour = "#1d2021",
-  -- 	},
-  -- },
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      timeout = 3000,
+      max_height = function()
+        return math.floor(vim.o.lines * 0.75)
+      end,
+      max_width = function()
+        return math.floor(vim.o.columns * 0.25)
+      end,
+      on_open = function(win)
+        vim.api.nvim_win_set_config(win, { zindex = 100 })
+      end,
+      background_colour = "#1d2021",
+      stages = "static",
+      render = "compact",
+    },
+    -- config = function()
+    --   vim.notify = require("notify")
+    -- end,
+  },
 
   {
     "davidosomething/format-ts-errors.nvim",
