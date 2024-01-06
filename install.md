@@ -1,8 +1,18 @@
 # Installation
 - git clone gh0st dotfiles
+- install essential packages (just search how):
+  - `git`
+  - `nvim`
+  - `tmux`
+  - [`smug`](https://github.com/ivaaaan/smug) - tmux session manager written in Go
 - install other packages:
+  - `copyq`
+  - `redshift`
+  - `auto-cpufreq`
+  - `flameshot`
+- Arch:
 ```bash
-sudo -S pacman copyq redshift auto-cpufreq
+sudo -S pacman copyq redshift auto-cpufreq flameshot
 ```
 
 1. git clone the dotfiles
@@ -102,3 +112,5 @@ opacity = 0.8 # change this to your liking (i like it 0.8)
 
 ## Install Zsh configs
 
+## Install Development Tools
+- Go:

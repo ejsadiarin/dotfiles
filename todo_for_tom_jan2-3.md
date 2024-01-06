@@ -5,3 +5,5 @@ update README.md in dotfiles to include nvim and tmux docs
 debug wifi module in polybar
 remove terminal ascii art
 explore polybar modules
+
+DONE all
