@@ -26,11 +26,11 @@ super + a
 #####
 
 # Apps (browser, editor, filemanager)
-super + {b,g,n}
-	OpenApps {--browser,--editor,--filemanager}
+super + {b,g,e,n}
+	OpenApps {--browser,--editor,--filemanager,--nvim}
 
 # Terminal apps (ranger, nvim, ncmpcpp)
-shift + alt + {r,v,k}
+shift + alt + {r,n,k}
 	OpenApps {--ranger,--nvim,--music}
 
 # Clipboard history
@@ -119,7 +119,7 @@ super + m
 
 # set the window state
 super + alt + {u,i,o,p}
-bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+  bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # resize windows
 super + alt + {h,j,k,l}
@@ -154,6 +154,17 @@ super + c
 super + {h,j,k,l}
   bspc node -f {west,south,north,east}
 
+# cycle / go back through previous workspace
+super + {grave,Tab}
+  bspc node -f next.local.window
+
+# cycle through next window 
+super + shift + {grave,Tab}
+	bspc {node,desktop} -f last
+# cycle through next window (two keymaps because why not)
+super + alt + {grave,Tab}
+	bspc {node,desktop} -f last
+
 # move the window in the given direction
 super + ctrl + {h,j,k,l}
 	bspc node -s {west,south,north,east}
@@ -165,10 +176,6 @@ super + {_,shift + }{Left,Down,Up,Right}
 # Switch workspace
 super + shift + {h,l}
 	bspc desktop -f {prev,next}.local
-
-# cycle / go back through previous workspace
-super + {grave,Tab}
-	bspc {node,desktop} -f last
 
 # cycle (no shift) / change workspace number (with shift)
 super + {_,shift + }{1-9,0}
