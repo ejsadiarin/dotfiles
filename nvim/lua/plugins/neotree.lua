@@ -6,10 +6,12 @@ return {
     priority = 1000,
     opts = {
       filesystem = {
+        hijack_netrw_behavior = "open_default",
         filtered_items = {
           visible = true,
           hide_dotfiles = false,
           hide_gitignored = false,
+          -- hide_hidden = false, -- for Windows (use Linux bro)
         },
       },
     },
