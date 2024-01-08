@@ -94,6 +94,13 @@ return {
       },
     },
   },
+  {
+    "roobert/tailwindcss-colorizer-cmp.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      color_square_width = 2,
+    },
+  },
   -- highlight css colors
   -- {
   --   "brenoprata10/nvim-highlight-colors",

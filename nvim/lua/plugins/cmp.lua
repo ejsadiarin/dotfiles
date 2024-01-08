@@ -3,12 +3,17 @@ return {
     "hrsh7th/nvim-cmp",
     opts = {
       window = {
-        -- completion = {
-        --   side_padding = 0,
-        --   winhighlight = "Normal:Pmenu,FloatBorder:PmenuSel,CursorLine:PmenuSel,Search:None",
-        -- },
-        completion = require("cmp").config.window.bordered(),
-        documentation = require("cmp").config.window.bordered(),
+        completion = {
+          side_padding = 2,
+          winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:PmenuSel,Search:None",
+          border = "rounded",
+        },
+        documentation = {
+          side_padding = 2,
+          winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:PmenuSel,Search:None",
+          border = "rounded",
+          focusable = true,
+        },
       },
       formatting = {
         fields = { "kind", "abbr", "menu" },

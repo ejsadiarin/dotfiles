@@ -111,13 +111,13 @@ vim.api.nvim_exec(
 -- require("lspconfig").myservertwo.setup({})
 
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-  silent = true,
-})
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-})
+-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+--   border = "rounded",
+--   silent = true,
+-- })
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, {
+--   border = "rounded",
+-- })
 
 -- ref: https://gist.github.com/timmyha/b611a8e34a4f8d13cb52ae755dbfef2c
 -- reddit ref: https://gist.github.com/timmyha/b611a8e34a4f8d13cb52ae755dbfef2c
@@ -125,9 +125,10 @@ vim.diagnostic.config({
   virtual_text = true,
   float = {
     header = false,
-    border = "rounded",
+    border = "single",
     focusable = true,
   },
+  severity_sort = true,
 })
 
 vim.lsp.protocol.make_client_capabilities().textDocument.completion.completionItem = {

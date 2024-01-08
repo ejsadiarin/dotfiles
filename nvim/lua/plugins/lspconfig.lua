@@ -13,7 +13,16 @@ return {
       end,
     },
   },
+  -- config = function()
+  --   -- add borders to lsp info window
+  --   require("lspconfig.ui.windows").default_options.border = "single"
+  -- end,
   opts = {
+    ui = {
+      windows = {
+        border = "rounded",
+      },
+    },
     servers = {
       tsserver = {
         handlers = {
