@@ -34,22 +34,24 @@ return {
           function()
             require("neo-tree.command").execute({
               toggle = true,
-              dir = Util.root(),
+              -- dir = Util.root(),
+              dir = vim.loop.cwd(),
               -- reveal_file = reveal_file,
               -- reveal_force_cwd = true,
             })
           end,
-          desc = "Explorer NeoTree (root/dynamic)",
+          desc = "Explorer NeoTree (cwd)",
         },
         {
           "<leader>E",
           function()
             require("neo-tree.command").execute({
               toggle = true,
-              dir = vim.loop.cwd(),
+              dir = Util.root(),
+              -- dir = vim.loop.cwd(),
             })
           end,
-          desc = "Explorer NeoTree (cwd)",
+          desc = "Explorer NeoTree (root/dynamic)",
         },
         { "<leader>fe", false },
       }

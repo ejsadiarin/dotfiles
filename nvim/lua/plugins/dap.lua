@@ -36,6 +36,7 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
+    lazy = true,
     optional = true,
     dependencies = {
       {
