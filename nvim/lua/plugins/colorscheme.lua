@@ -1,4 +1,40 @@
 return {
+  -- add transparency (idk if necessary with the native transparency prop for each colorscheme)
+  --  - enable transparency so it will background will be the color of the terminal
+  --  - ref: https://github.com/xiyaowong/transparent.nvim
+  --  - command: :TransparentEnable --> will cached and transparent will be applied
+  -- {
+  --   "xiyaowong/transparent.nvim",
+  --   opts = {
+  --     groups = { -- table: default groups
+  --       "Normal",
+  --       "NormalNC",
+  --       "Comment",
+  --       "Constant",
+  --       "Special",
+  --       "Identifier",
+  --       "Statement",
+  --       "PreProc",
+  --       "Type",
+  --       "Underlined",
+  --       "Todo",
+  --       "String",
+  --       "Function",
+  --       "Conditional",
+  --       "Repeat",
+  --       "Operator",
+  --       "Structure",
+  --       "LineNr",
+  --       "NonText",
+  --       "SignColumn",
+  --       "CursorLineNr",
+  --       "EndOfBuffer",
+  --     },
+  --     extra_groups = {}, -- table: additional groups that should be cleared
+  --     exclude_groups = {}, -- table: groups you don't want to clear
+  --   },
+  -- },
+  -- Gruvbox the GOAT
   {
     "sainnhe/gruvbox-material",
     lazy = false,
@@ -23,6 +59,7 @@ return {
     end,
   },
 
+  -- extra gruvbox (heavily modified)
   {
     "ellisonleao/gruvbox.nvim",
     priority = 500,
@@ -172,101 +209,119 @@ return {
     },
   },
 
-  -- enable transparency so it will background will be the color of the terminal
-  -- ref: https://github.com/xiyaowong/transparent.nvim
-  -- command: :TransparentEnable --> will cached and transparent will be applied
+  -- Catppuccin lol
   {
-    "xiyaowong/transparent.nvim",
+    "catppuccin/nvim",
+    lazy = false,
+    name = "catppuccin",
     opts = {
-      groups = { -- table: default groups
-        "Normal",
-        "NormalNC",
-        "Comment",
-        "Constant",
-        "Special",
-        "Identifier",
-        "Statement",
-        "PreProc",
-        "Type",
-        "Underlined",
-        "Todo",
-        "String",
-        "Function",
-        "Conditional",
-        "Repeat",
-        "Operator",
-        "Structure",
-        "LineNr",
-        "NonText",
-        "SignColumn",
-        "CursorLineNr",
-        "EndOfBuffer",
+      flavour = "mocha",
+      transparent_background = true,
+      integrations = {
+        alpha = true,
+        cmp = true,
+        flash = true,
+        gitsigns = true,
+        illuminate = true,
+        indent_blankline = { enabled = true },
+        lsp_trouble = true,
+        mason = true,
+        mini = true,
+        native_lsp = {
+          enabled = true,
+          underlines = {
+            errors = { "undercurl" },
+            hints = { "undercurl" },
+            warnings = { "undercurl" },
+            information = { "undercurl" },
+          },
+        },
+        navic = { enabled = true, custom_bg = "lualine" },
+        neotest = true,
+        noice = true,
+        notify = true,
+        neotree = true,
+        semantic_tokens = true,
+        telescope = true,
+        treesitter = true,
+        which_key = true,
       },
-      extra_groups = {}, -- table: additional groups that should be cleared
-      exclude_groups = {}, -- table: groups you don't want to clear
+    },
+  },
+
+  -- Rose Pine
+  {
+    "rose-pine/neovim",
+    lazy = false,
+    name = "rose-pine",
+    opts = {
+      variant = "auto", -- auto, main, moon, or dawn
+      dark_variant = "main", -- main, moon, or dawn
+      dim_inactive_windows = false,
+      extend_background_behind_borders = true,
+
+      styles = {
+        bold = true,
+        italic = true,
+        transparency = true,
+      },
+
+      groups = {
+        border = "muted",
+        link = "iris",
+        panel = "surface",
+
+        error = "love",
+        hint = "iris",
+        info = "foam",
+        warn = "gold",
+
+        git_add = "foam",
+        git_change = "rose",
+        git_delete = "love",
+        git_dirty = "rose",
+        git_ignore = "muted",
+        git_merge = "iris",
+        git_rename = "pine",
+        git_stage = "iris",
+        git_text = "rose",
+        git_untracked = "subtle",
+
+        headings = {
+          h1 = "iris",
+          h2 = "foam",
+          h3 = "rose",
+          h4 = "gold",
+          h5 = "pine",
+          h6 = "foam",
+        },
+        -- Alternatively, set all headings at once.
+        -- headings = "subtle",
+      },
+
+      highlight_groups = {
+        -- Comment = { fg = "foam" },
+        -- VertSplit = { fg = "muted", bg = "muted" },
+      },
+
+      -- before_highlight = function(group, highlight, palette)
+      --   -- Disable all undercurls
+      --   -- if highlight.undercurl then
+      --   --     highlight.undercurl = false
+      --   -- end
+      --   --
+      --   -- Change palette colour
+      --   -- if highlight.fg == palette.pine then
+      --   --     highlight.fg = palette.foam
+      --   -- end
+      -- end,
     },
   },
 
   -- {
-  --   "eddyekofo94/gruvbox-flat.nvim",
-  --   priority = 1000,
-  --   enabled = true,
-  --   config = function()
-  --     vim.g.gruvbox__transparent = true
-  --     -- vim.cmd.colorscheme("gruvbox-flat")
-  --   end,
-  --   -- opts = {},
-  -- },
-
-  {
-    "luisiacc/gruvbox-baby",
-  },
-
-  -- Configure LazyVim to load gruvbox
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "gruvbox-material",
-    },
-  },
-
-  -- Catppuccin lol
-  --   {
-  --   "catppuccin/nvim",
-  --   lazy = false,
-  --   name = "catppuccin",
+  --   "LazyVim/LazyVim",
   --   opts = {
-  --     flavour = "mocha",
-  --     transparent_background = true,
-  --     integrations = {
-  --       alpha = true,
-  --       cmp = true,
-  --       flash = true,
-  --       gitsigns = true,
-  --       illuminate = true,
-  --       indent_blankline = { enabled = true },
-  --       lsp_trouble = true,
-  --       mason = true,
-  --       mini = true,
-  --       native_lsp = {
-  --         enabled = true,
-  --         underlines = {
-  --           errors = { "undercurl" },
-  --           hints = { "undercurl" },
-  --           warnings = { "undercurl" },
-  --           information = { "undercurl" },
-  --         },
-  --       },
-  --       navic = { enabled = true, custom_bg = "lualine" },
-  --       neotest = true,
-  --       noice = true,
-  --       notify = true,
-  --       neotree = true,
-  --       semantic_tokens = true,
-  --       telescope = true,
-  --       treesitter = true,
-  --       which_key = true,
-  --     },
+  --     colorscheme = "gruvbox-material",
   --   },
   -- },
 }
