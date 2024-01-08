@@ -5,14 +5,14 @@ return {
       window = {
         completion = {
           side_padding = 2,
-          winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:PmenuSel,Search:None",
+          winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:TelescopeSelection,Search:None",
           border = "rounded",
         },
         documentation = {
           side_padding = 2,
-          winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:PmenuSel,Search:None",
+          winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:TelescopeSelection,Search:None",
           border = "rounded",
-          focusable = true,
+          -- focusable = true,
         },
       },
       formatting = {
