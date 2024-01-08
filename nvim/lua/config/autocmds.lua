@@ -7,6 +7,7 @@
 
 -- ############################################# COLORSCHEME HIGHLIGHT GROUPS PALETTE OVERRIDE: #############################################
 -- ref: https://github.com/LazyVim/LazyVim/discussions/2278
+-- can put this in property `config` as: config = function() end
 -- local theme = require("catppuccin.palettes.macchiato")
 -- local windowBg = theme.crust
 --
