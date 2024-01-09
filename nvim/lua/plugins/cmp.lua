@@ -4,10 +4,16 @@ return {
     opts = {
       window = {
         completion = {
-          side_padding = 2,
+          side_padding = 1,
           winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:TelescopeSelection,Search:None",
           border = "rounded",
         },
+        -- completion = {
+        --   side_padding = 0,
+        --   col_offset = 3,
+        --   winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:TelescopeSelection,Search:None",
+        --   border = "rounded",
+        -- },
         documentation = {
           side_padding = 2,
           winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:TelescopeSelection,Search:None",
