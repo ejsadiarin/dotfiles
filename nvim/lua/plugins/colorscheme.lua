@@ -207,7 +207,7 @@ return {
     "LazyVim/LazyVim",
     opts = {
       -- set default colorscheme here
-      colorscheme = "gruvbox",
+      colorscheme = "gruvbox-material",
     },
   },
 }
