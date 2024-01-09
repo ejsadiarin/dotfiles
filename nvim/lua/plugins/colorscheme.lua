@@ -59,7 +59,7 @@ return {
       -- by default := transparent ? 'grey background' : 'bold'
       vim.g.gruvbox_material_current_word = "grey background"
 
-      vim.cmd.colorscheme("gruvbox-material") -- For highlights customizations go to lua/core/highlights
+      -- vim.cmd.colorscheme("gruvbox-material") -- For highlights customizations go to lua/core/highlights
     end,
   },
 
@@ -86,7 +86,7 @@ return {
       invert_tabline = false,
       invert_intend_guides = false,
       inverse = true, -- invert background for search, diffs, statuslines and errors
-      contrast = "", -- can be "hard", "soft" or empty string
+      contrast = "soft", -- can be "hard", "soft" or empty string
       palette_overrides = {},
       overrides = {},
       dim_inactive = false,
@@ -101,7 +101,7 @@ return {
     name = "catppuccin",
     opts = {
       flavour = "mocha",
-      transparent_background = true,
+      transparent_background = false,
       integrations = {
         alpha = true,
         cmp = true,
@@ -203,12 +203,13 @@ return {
     },
   },
 
-  -- {
-  --   "LazyVim/LazyVim",
-  --   opts = {
-  --     colorscheme = "gruvbox-material",
-  --   },
-  -- },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      -- set default colorscheme here
+      colorscheme = "gruvbox",
+    },
+  },
 }
 
 -- Gruvbox (heavily modified)
