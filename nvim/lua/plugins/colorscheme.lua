@@ -48,8 +48,8 @@ return {
       vim.g.gruvbox_material_enable_bold = 0
       vim.g.gruvbox_material_transparent_background = 1
       -- Themes
-      vim.g.gruvbox_material_foreground = "original" -- "original", "mix", "material" (use "mix" if too bright)
-      vim.g.gruvbox_material_background = "medium" -- "hard", "medium", "soft" (use "hard" if too bright)
+      vim.g.gruvbox_material_foreground = "mix" -- "original", "mix", "material" (use "mix" if too bright)
+      vim.g.gruvbox_material_background = "hard" -- "hard", "medium", "soft" (use "hard" if too bright)
       vim.g.gruvbox_material_ui_contrast = "high" -- "low", "high" The contrast of line numbers, indent lines, etc.
       vim.g.gruvbox_material_float_style = "dim" -- "bright", "dim" Background of floating windows
       vim.g.gruvbox_material_statusline_style = "mix" -- "default", "mix", "original"
