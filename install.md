@@ -100,7 +100,7 @@ sudo -S pacman copyq redshift auto-cpufreq flameshot
   - KEY: get from [openweathermap.org](https://openweathermap.org/)
   - CITY: find also in [openweathermap.org](https://openweathermap.org/)
 
-## Enable Alacritty Transpacency
+## Enable Alacritty Transparency
 ```toml
 # ... existing configs ... #
 [window]
@@ -114,3 +114,9 @@ opacity = 0.8 # change this to your liking (i like it 0.8)
 
 ## Install Development Tools
 - Go:
+- .NET:
+- Terraform:
+- Docker:
+- Kubernetes:
+- Ansible:
+- Python:
