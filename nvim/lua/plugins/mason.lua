@@ -5,8 +5,9 @@ return {
       -- Lua
       "lua-language-server",
       "stylua",
-      --Shell
+      -- Bash / Shell
       "shfmt",
+      "bash-language-server",
       -- Python
       "flake8",
       "pyright",
@@ -27,15 +28,18 @@ return {
       "eslint-lsp",
       -- C / C++
       "clangd",
+      -- Rust
+      "rust-analyzer",
       -- Go
       "delve",
       "goimports",
       "gofumpt",
-      -- Rust
-      "rust-analyzer",
       -- Docker-related
       "docker-compose-language-service",
       "dockerfile-language-server",
+      -- Terraform / YAML
+      "terraform-ls",
+      "yaml-language-server",
       -- Others (JSON, TOML, etc.)
       "json-lsp",
       "codelldb",
