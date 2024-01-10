@@ -30,7 +30,7 @@ super + {b,g,e,n}
 	OpenApps {--browser,--editor,--filemanager,--nvim}
 
 # Terminal apps (ranger, nvim, ncmpcpp)
-shift + alt + {r,n,k}
+shift + alt + {r,n,m}
 	OpenApps {--ranger,--nvim,--music}
 
 # Clipboard history
