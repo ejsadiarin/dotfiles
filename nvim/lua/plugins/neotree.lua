@@ -8,8 +8,9 @@ return {
     opts = {
       window = {
         -- position = "current", -- values: 'left' | 'right' | 'top' | 'bottom' | 'float' | 'current' - like netrw
-        position = "right",
-        -- width = 40,
+        position = "top",
+        -- width = 10,
+        height = 40,
       },
       filesystem = {
         -- hijack_netrw_behavior = "open_current", -- like netrw but on steriods
@@ -24,6 +25,18 @@ return {
         follow_current_file = {
           enabled = true,
           leave_dirs_open = true,
+        },
+      },
+      event_handlers = {
+        -- auto-close neo-tree on file open
+        {
+          event = "file_opened",
+          handler = function(file_path)
+            -- auto close
+            -- vimc.cmd("Neotree close")
+            -- OR
+            require("neo-tree.command").execute({ action = "close" })
+          end,
         },
       },
     },
