@@ -1,3 +1,4 @@
+-- TODO: add custom snippets for various languages (Go, terraform, etc.)
 return {
   {
     "L3MON4D3/LuaSnip",

@@ -192,7 +192,6 @@ return {
     },
   },
 
-  -- TODO: move notify window OR use mini.notify (has config in reddit)
   {
     "rcarriga/nvim-notify",
     opts = {
@@ -216,10 +215,6 @@ return {
   },
 
   {
-    "davidosomething/format-ts-errors.nvim",
-  },
-
-  {
     "barrett-ruth/live-server.nvim",
     build = "npm i -g live-server",
     config = true,
@@ -237,26 +232,6 @@ return {
     -- A proxy buffer is opened with only the javascript.
     -- Saving the proxy buffer updates the original one.
     -- You can reindent, lint, slice and dice as much as you like.
-  },
-
-  {
-    "someone-stole-my-name/yaml-companion.nvim",
-    ft = { "yaml" },
-    opts = {
-      builtin_matchers = {
-        kubernetes = { enabled = true },
-      },
-    },
-    dependencies = {
-      { "neovim/nvim-lspconfig" },
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope.nvim" },
-    },
-    config = function(_, opts)
-      local cfg = require("yaml-companion").setup(opts)
-      require("lspconfig")["yamlls"].setup(cfg)
-      require("telescope").load_extension("yaml_schema")
-    end,
   },
 
   {
