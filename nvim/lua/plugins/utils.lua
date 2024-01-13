@@ -153,7 +153,6 @@ return {
     lazy = false,
     opts = {
       notification = {
-        filter = vim.log.levels.INFO,
         override_vim_notify = true,
         -- configs = { default = require("fidget.option.notification").default_config },
         -- Conditionally redirect notifications to another backend
