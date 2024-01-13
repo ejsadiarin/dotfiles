@@ -233,32 +233,32 @@ return {
     -- You can reindent, lint, slice and dice as much as you like.
   },
 
-  {
-    "ahmedkhalf/project.nvim",
-    opts = {
-      manual_mode = false,
-    },
-    event = "VeryLazy",
-    config = function(_, opts)
-      require("project_nvim").setup(opts)
-      require("lazyvim.util").on_load("telescope.nvim", function()
-        require("telescope").load_extension("projects")
-      end)
-    end,
-    keys = {
-      {
-        "<leader>fp",
-        -- function()
-        --   vim.cmd([[Telescope projects]])
-        -- end,
-        -- or:
-        vim.schedule_wrap(function()
-          require("telescope").extensions.projects.projects({})
-        end),
-        desc = "Projects",
-      },
-    },
-  },
+  -- {
+  --   "ahmedkhalf/project.nvim",
+  --   opts = {
+  --     manual_mode = false,
+  --   },
+  --   event = "VeryLazy",
+  --   config = function(_, opts)
+  --     require("project_nvim").setup(opts)
+  --     require("lazyvim.util").on_load("telescope.nvim", function()
+  --       require("telescope").load_extension("projects")
+  --     end)
+  --   end,
+  --   keys = {
+  --     {
+  --       "<leader>fp",
+  --       -- function()
+  --       --   vim.cmd([[Telescope projects]])
+  --       -- end,
+  --       -- or:
+  --       vim.schedule_wrap(function()
+  --         require("telescope").extensions.projects.projects({})
+  --       end),
+  --       desc = "Projects",
+  --     },
+  --   },
+  -- },
 
   {
     "christoomey/vim-tmux-navigator",
