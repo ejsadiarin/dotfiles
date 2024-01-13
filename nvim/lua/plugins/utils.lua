@@ -6,9 +6,10 @@ return {
     optional = true,
     opts = {
       defaults = {
-        ["<leader>h"] = { name = "+harpoon" },
+        -- ["<leader>h"] = { name = "+harpoon" },
         ["<leader>v"] = { name = "+visual-multi" },
       },
+      ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
     },
   },
 
