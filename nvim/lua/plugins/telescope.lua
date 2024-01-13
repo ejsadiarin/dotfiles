@@ -56,15 +56,16 @@ return {
     --   },
     -- },
     keys = {
-      {
-        "<leader>sg",
-        function()
-          require("telescope").extensions.live_grep_args.live_grep_args({
-            -- cwd = require("telescope.utils").buffer_dir(),
-          })
-        end,
-        desc = "Live Grep (root/dynamic)",
-      },
+      { "<leader><space>", false },
+      -- somehow this works only on cwd (not dynamic)
+      -- {
+      --   "<leader>sg",
+      --   function()
+      --     require("telescope").extensions.live_grep_args.live_grep_args()
+      --   end,
+      --   desc = "Live Grep (root/dynamic)",
+      -- },
+      { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (dynamic)" },
       {
         "<leader>sG",
         function()
@@ -75,6 +76,13 @@ return {
           })
         end,
         desc = "Live Grep from Home",
+      },
+      {
+        "<leader>se",
+        function()
+          require("telescope").extensions.live_grep_args.live_grep_args()
+        end,
+        desc = "Live Grep Args (cwd)",
       },
       {
         "<leader>fH",

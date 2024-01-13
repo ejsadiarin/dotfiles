@@ -6,11 +6,6 @@ local util = require("lazyvim.util")
 -- remap normal mode to "kj" when insert mode
 vim.keymap.set("i", "kj", "<ESC>", { silent = true })
 
--- ####### Disabled General Keymaps ####### --
-vim.keymap.del("n", "<leader>|")
-vim.keymap.del("n", "<leader>-")
--- ######################################## --
-
 -- use Tab to switch cycle window
 vim.keymap.set("n", "<TAB>", "<C-W>w")
 vim.keymap.set("n", "<S-TAB>", "<C-W>W")
@@ -44,7 +39,7 @@ vim.keymap.set("n", "<leader>wh", "<C-W>s", { desc = "Horizontal Split" })
 vim.keymap.set("n", "<leader>wv", "<C-W>v", { desc = "Vertical Split" })
 
 -- Switch to other buffer like ctrl+tab
-vim.keymap.set("n", "<leader><space>", "<cmd>e #<cr>", { desc = "Switch buffer" })
+vim.keymap.set("n", "<leader><space>", "<CMD>e #<CR>", { desc = "Switch buffer" })
 
 -- Terminal with border
 local lazyterm = function()
@@ -218,3 +213,9 @@ vim.keymap.set("n", "<M-C-RightMouse>", "<Plug>(VM-Mouse-Column)", { desc = "Mul
 -- vim.g.VM_maps["Toggle Block"]                = '\\<BS>'
 -- let g:VM_maps["Toggle Single Region"]        = '\\<CR>'
 -- let g:VM_maps["Toggle Multiline"]            = '\\M'
+
+-- ####### Disabled General Keymaps ####### --
+vim.keymap.del("n", "<leader>|")
+vim.keymap.del("n", "<leader>-")
+vim.keymap.del("n", "<leader>`")
+-- ######################################## --
