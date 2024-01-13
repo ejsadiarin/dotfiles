@@ -88,9 +88,31 @@ end, { desc = "Find Harpoon Marks" })
 vim.keymap.set("n", "<S-p>", function()
   harpoon:list():prev()
 end)
+
 vim.keymap.set("n", "<S-n>", function()
   harpoon:list():next()
 end)
+
+vim.keymap.set("n", "<leader>h1", function()
+  harpoon:list():select(1)
+end, { desc = "...buffer 1" })
+
+vim.keymap.set("n", "<leader>h2", function()
+  harpoon:list():select(2)
+end, { desc = "...buffer 2" })
+
+vim.keymap.set("n", "<leader>h3", function()
+  harpoon:list():select(3)
+end, { desc = "...buffer 3" })
+
+vim.keymap.set("n", "<leader>h4", function()
+  harpoon:list():select(4)
+end, { desc = "...buffer 4" })
+
+vim.keymap.set("n", "<leader>h5", function()
+  harpoon:list():select(5)
+end, { desc = "...buffer 5" })
+
 -- simulate vim marks for harpoon
 vim.keymap.set("n", "<leader>hw", function()
   if harpoon:list():select(1) == nil then
@@ -121,6 +143,7 @@ vim.keymap.set("n", "<leader>hk", function()
     harpoon:list():select(4)
   end
 end, { desc = "K - keep buffer" })
+
 vim.keymap.set("n", "<leader>hm", function()
   if harpoon:list():select(5) == nil then
     harpoon:list():append()
