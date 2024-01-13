@@ -38,6 +38,10 @@ vim.keymap.set("n", "<leader>cc", "<CMD>ColorizerToggle<CR>")
 -- Save without formatting
 vim.keymap.set("n", "<leader>cs", ":noautocmd w<CR>", { desc = "Save without formatting" })
 
+-- Vertical and Horizontal Splits
+vim.keymap.set("n", "<leader>wh", "<C-W>s", { desc = "Horizontal Split" })
+vim.keymap.set("n", "<leader>wv", "<C-W>v", { desc = "Vertical Split" })
+
 -- Terminal with border
 local lazyterm = function()
   util.terminal(nil, { cwd = util.root(), border = "rounded" })
@@ -81,25 +85,49 @@ end, { desc = "Find Harpoon Marks" })
 --   -- harpoon.ui:toggle_telescope(harpoon:list())
 -- end, { desc = "Find Harpoon Marks in Project" })
 
-vim.keymap.set("n", "<C-p>", function()
+vim.keymap.set("n", "<S-p>", function()
   harpoon:list():prev()
 end)
-vim.keymap.set("n", "<C-n>", function()
+vim.keymap.set("n", "<S-n>", function()
   harpoon:list():next()
 end)
+-- simulate vim marks for harpoon
+vim.keymap.set("n", "<leader>hw", function()
+  if harpoon:list():select(1) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(1)
+  end
+end, { desc = "W - working main buffer " })
+vim.keymap.set("n", "<leader>he", function()
+  if harpoon:list():select(2) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(2)
+  end
+end, { desc = "E - (e)other working main buffer" })
+vim.keymap.set("n", "<leader>hi", function()
+  if harpoon:list():select(3) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(3)
+  end
+end, { desc = "I - interesting buffer" })
 
-vim.keymap.set("n", "<leader>h1", function()
-  harpoon:list():select(1)
-end, { desc = "...buffer 1" })
-vim.keymap.set("n", "<leader>h2", function()
-  harpoon:list():select(2)
-end, { desc = "...buffer 2" })
-vim.keymap.set("n", "<leader>h3", function()
-  harpoon:list():select(3)
-end, { desc = "...buffer 3" })
-vim.keymap.set("n", "<leader>h4", function()
-  harpoon:list():select(4)
-end, { desc = "...buffer 4" })
+vim.keymap.set("n", "<leader>hk", function()
+  if harpoon:list():select(4) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(4)
+  end
+end, { desc = "K - keep buffer" })
+vim.keymap.set("n", "<leader>hm", function()
+  if harpoon:list():select(5) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(5)
+  end
+end, { desc = "M - marked buffer (disposable)" })
 
 -- Tmux Navigation
 vim.keymap.set("n", "<C-h>", "<CMD>TmuxNavigateLeft<CR>", { desc = "Tmux Navigate Left" })
