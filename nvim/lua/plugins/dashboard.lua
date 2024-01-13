@@ -31,7 +31,6 @@ return {
           { action = "Telescope find_files",                                     desc = " Find file",       icon = " ", key = "f" },
           { action = "ene | startinsert",                                        desc = " New file",        icon = " ", key = "n" },
           { action = "Telescope oldfiles",                                       desc = " Recent files",    icon = " ", key = "r" },
-          { action = "Telescope projects",                                       desc = " Projects",        icon = " ", key = "p",},
           { action = "Telescope live_grep_args",                                 desc = " Find text",       icon = " ", key = "g" },
           { action = function ()
                       local dir = vim.env.HOME .. "/dotfiles"

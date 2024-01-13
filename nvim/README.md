@@ -46,18 +46,15 @@
   - `d` - dotfiles
   - `h` - harpoon
   - `H` - home
-  - `p` - projects
   - `x` - diagnostics
   - `g` - git
 
 ## Main commands (`<leader>` + `<verb>` + `<noun>`):
 - `<leader>ff` - (f)ind (f)iles (root/dynamic)
-- `<leader>fg` - (f)ind (g)it root (root/dynamic)
 - `<leader>fm` - (f)ind files from (m)ain (`main` - directory where I store projects)
 - `<leader>fd` - (f)ind files from (d)otfiles
 - `<leader>fc` - (f)ind files from .(c)onfig
 - `<leader>fH` - (f)ind files from (H)ome
-- `<leader>fp` - (f)ind projects (useful for changing cwd)
 - `<leader>fr` - (f)ind recent files
 - `<leader>cw` - (c)hange (w)orking directory (based on head of current buffer: `:cd %:h`)
 - `<leader>cd` - (c)ode diagnostics (current line)
@@ -66,7 +63,13 @@
 ### Harpoon
 - `<leader>fh` - find harpoon marks (workspace)
 - `<leader>ha` - add harpoon marks (workspace)
-- `<C-n> and <C-p>` - cycle through harpoon marks (workspace)
+- `<leader>h<1-5>` - generic harpoon jump keymaps
+- `<S-n> and <S-p>` - cycle through harpoon marks (workspace)
+- `<leader>hw` - (w)orking main buffer (harpoon-marked, first)
+- `<leader>he` - (e)other main buffer (harpoon-marked, second)
+- `<leader>hi` - (i)nteresting buffer (harpoon-marked, third)
+- `<leader>hk` - (k)eep buffer (harpoon-marked, fourth)
+- `<leader>hm` - (m)ark buffer - disposable (harpoon-marked, fifth)
 ### Grepping
 - `<leader>sg` - live grep with args (root/dynamic)
   - combo: `<leader>sg` search: "<prompt>" <path>/<to>/<search>
@@ -77,14 +80,27 @@
 ### Git
 - `<leader>gg` - open lazygit (root/dynamic)
 - `<leader>gs` - git status (root/dynamic)
+- `<leader>gb` - git branch (root/dynamic)
+  - can choose to checkout here 
+- `<leader>gc` - git commits (root/dynamic)
 
 ## Hacks (my favorite workflow):
 ### Project-scoped
 - use `<leader>ff` (find files) and `<leader>sg` (grep) for everything project/repository-scoped - best keymaps
-- use `<leader>fg` (find git root)
   - useful for finding the parent root of a repo
-- use `<C-/>` to open terminal (cwd)
 - use `<leader>gg` for lazygit (recommended)
+- use `<leader>cr` for local renaming
+- use `<leader>sr` for global renaming via spectre
+- use Harpoon (recommended):
+  - `<leader>fh` and `<leader>ha` for finding and adding harpoon marks, respectively
+    - `<leader>fh` - mainly for organizing harpoon marks (and seeing marks)
+  - `<S-n>` and `<S-p>` for cycling next and previous harpoon marks
+  - `<leader>h<w,e,i,k,n>` - simulate vim-marks with harpoon (perfect for my workflow)
+    - w - working (first marked buffer)
+    - e - other (second ...)
+    - i - interesting (third ...)
+    - k - keep (fourth ...)
+    - n - mark (fifth ...)
 - use visual multi-select:  
   - `<leader>vm` then `\\A` for start and select all similar words under the cursor - like `<C-S-l>` in vscode
     - doing this automatically puts you in "expand mode" (like visual mode)
@@ -92,9 +108,6 @@
   - `<leader>vm` then `\\@` for start and apply macro
     - can also do native Visual Block: `<C-v` then apply macro
   - `<M-C-k>` to select up and `<M-C-j>` to select down (start and select simultaneously)
-- use Harpoon:
-  - `<leader>fh` and `<leader>ha` for finding and adding harpoon marks, respectively
-  - `<C-n>` and `<C-p>` for cycling next and previous harpoon marks
 - for debugging and testing:
   - `<leader>cd` for code diagnostics (current line)
   - `<leader>du` open DAP UI
@@ -111,7 +124,6 @@
 
 - other useful:
   - `<leader>fr` - find recent files
-  - `<leader>fp` - find projects
   - `<leader>xx` - project diagnostics
   - `<leader>xX` - project diagnostics
 
