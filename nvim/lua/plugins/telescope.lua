@@ -56,7 +56,6 @@ return {
     --   },
     -- },
     keys = {
-      { "<leader><space>", ":silent grep ", { silent = false }, desc = "Manual Grep (rg)" },
       {
         "<leader>sg",
         function()
