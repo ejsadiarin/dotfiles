@@ -84,6 +84,14 @@ return {
         end,
         desc = "Live Grep Args (cwd)",
       },
+      { "<leader>ff", Util.telescope("files"), desc = "Find Files (dynamic)" },
+      {
+        "<leader>fF",
+        function()
+          require("telescope.builtin").git_files()
+        end,
+        desc = "Find Files (git root)",
+      },
       {
         "<leader>fH",
         function()
@@ -163,6 +171,8 @@ return {
       -- { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
       -- { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
       -- { "<leader>fc", Util.telescope.config_files(), desc = "Find Config File" },
+      -- { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
+      -- { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
     },
   },
 }
