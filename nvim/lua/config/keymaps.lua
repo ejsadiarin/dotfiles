@@ -1,16 +1,17 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
-local function map(mode, lhs, rhs, opts)
-  opts = opts or {}
-  opts.silent = opts.silent ~= false
-  vim.keymap.set(mode, lhs, rhs, opts)
-end
-
 local util = require("lazyvim.util")
 
 -- remap normal mode to "kj" when insert mode
 vim.keymap.set("i", "kj", "<ESC>", { silent = true })
+
+-- ####### Disabled General Keymaps ####### --
+vim.keymap.del("n", "<leader>|")
+vim.keymap.del("n", "<leader>-")
+-- ######################################## --
+
+-- use Tab to switch cycle window
 vim.keymap.set("n", "<TAB>", "<C-W>w")
 vim.keymap.set("n", "<S-TAB>", "<C-W>W")
 
@@ -42,18 +43,21 @@ vim.keymap.set("n", "<leader>cs", ":noautocmd w<CR>", { desc = "Save without for
 vim.keymap.set("n", "<leader>wh", "<C-W>s", { desc = "Horizontal Split" })
 vim.keymap.set("n", "<leader>wv", "<C-W>v", { desc = "Vertical Split" })
 
+-- Switch to other buffer like ctrl+tab
+vim.keymap.set("n", "<leader><space>", "<cmd>e #<cr>", { desc = "Switch buffer" })
+
 -- Terminal with border
 local lazyterm = function()
   util.terminal(nil, { cwd = util.root(), border = "rounded" })
 end
-map("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
-map("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+vim.keymap.set("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
 
+-- ############################ HARPOON START ############################ --
 -- Harpoon
 local harpoon = require("harpoon")
 harpoon:setup({})
 
-vim.keymap.set("n", "<leader>ha", function()
+vim.keymap.set("n", "<leader>a", function()
   harpoon:list():append()
 end, { desc = "Harpoon add mark" })
 
@@ -61,6 +65,53 @@ vim.keymap.set("n", "<leader>fh", function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { desc = "Find Harpoon Marks" })
 
+vim.keymap.set("n", "<S-p>", function()
+  harpoon:list():prev()
+end)
+
+vim.keymap.set("n", "<S-n>", function()
+  harpoon:list():next()
+end)
+
+-- simulate vim marks for harpoon
+vim.keymap.set("n", "<leader>1", function()
+  if harpoon:list():select(1) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(1)
+  end
+end, { desc = "working main buffer (harpoon) " })
+vim.keymap.set("n", "<leader>2", function()
+  if harpoon:list():select(2) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(2)
+  end
+end, { desc = "other main buffer (harpoon)" })
+
+vim.keymap.set("n", "<leader>3", function()
+  if harpoon:list():select(3) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(3)
+  end
+end, { desc = "interesting buffer (harpoon)" })
+
+vim.keymap.set("n", "<leader>4", function()
+  if harpoon:list():select(4) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(4)
+  end
+end, { desc = "keep buffer (harpoon)" })
+
+vim.keymap.set("n", "<leader>5", function()
+  if harpoon:list():select(5) == nil then
+    harpoon:list():append()
+  else
+    harpoon:list():select(5)
+  end
+end, { desc = "disposable buffer (harpoon)" })
 -- use telescope for Harpoon UI (cannot edit like a buffer tho)
 -- vim.keymap.set("n", "<leader>fh", function()
 --   local conf = require("telescope.config").values
@@ -84,73 +135,7 @@ end, { desc = "Find Harpoon Marks" })
 --   toggle_telescope(harpoon:list())
 --   -- harpoon.ui:toggle_telescope(harpoon:list())
 -- end, { desc = "Find Harpoon Marks in Project" })
-
-vim.keymap.set("n", "<S-p>", function()
-  harpoon:list():prev()
-end)
-
-vim.keymap.set("n", "<S-n>", function()
-  harpoon:list():next()
-end)
-
-vim.keymap.set("n", "<leader>h1", function()
-  harpoon:list():select(1)
-end, { desc = "...buffer 1" })
-
-vim.keymap.set("n", "<leader>h2", function()
-  harpoon:list():select(2)
-end, { desc = "...buffer 2" })
-
-vim.keymap.set("n", "<leader>h3", function()
-  harpoon:list():select(3)
-end, { desc = "...buffer 3" })
-
-vim.keymap.set("n", "<leader>h4", function()
-  harpoon:list():select(4)
-end, { desc = "...buffer 4" })
-
-vim.keymap.set("n", "<leader>h5", function()
-  harpoon:list():select(5)
-end, { desc = "...buffer 5" })
-
--- simulate vim marks for harpoon
-vim.keymap.set("n", "<leader>hw", function()
-  if harpoon:list():select(1) == nil then
-    harpoon:list():append()
-  else
-    harpoon:list():select(1)
-  end
-end, { desc = "W - working main buffer " })
-vim.keymap.set("n", "<leader>he", function()
-  if harpoon:list():select(2) == nil then
-    harpoon:list():append()
-  else
-    harpoon:list():select(2)
-  end
-end, { desc = "E - (e)other working main buffer" })
-vim.keymap.set("n", "<leader>hi", function()
-  if harpoon:list():select(3) == nil then
-    harpoon:list():append()
-  else
-    harpoon:list():select(3)
-  end
-end, { desc = "I - interesting buffer" })
-
-vim.keymap.set("n", "<leader>hk", function()
-  if harpoon:list():select(4) == nil then
-    harpoon:list():append()
-  else
-    harpoon:list():select(4)
-  end
-end, { desc = "K - keep buffer" })
-
-vim.keymap.set("n", "<leader>hm", function()
-  if harpoon:list():select(5) == nil then
-    harpoon:list():append()
-  else
-    harpoon:list():select(5)
-  end
-end, { desc = "M - marked buffer (disposable)" })
+-- ############################ HARPOON END ############################ --
 
 -- Tmux Navigation
 vim.keymap.set("n", "<C-h>", "<CMD>TmuxNavigateLeft<CR>", { desc = "Tmux Navigate Left" })
