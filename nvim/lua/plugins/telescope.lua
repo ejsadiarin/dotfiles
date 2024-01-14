@@ -57,6 +57,8 @@ return {
     -- },
     keys = {
       { "<leader><space>", false },
+      { "<leader>ft", false },
+      { "<leader>fT", false },
       -- somehow this works only on cwd (not dynamic)
       -- {
       --   "<leader>sg",
@@ -85,8 +87,9 @@ return {
         desc = "Live Grep Args (cwd)",
       },
       { "<leader>ff", Util.telescope("files"), desc = "Find Files (dynamic)" },
+      { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
       {
-        "<leader>fF",
+        "<leader>fe",
         function()
           require("telescope.builtin").git_files()
         end,
