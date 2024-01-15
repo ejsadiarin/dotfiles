@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+rm ~/.zshrc ~/.ideavimrc
+ln -s ~/dotfiles/.zshrc ~/.zshrc
+ln -s ~/dotfiles/.ideavimrc ~/.ideavimrc
+rm -rf ~/.config/bspwm/bspwmrc ~/.config/bspwm/sxhkdrc
+ln -s ~/dotfiles/config/bspwm/bspwmrc ~/.config/bspwm/bspwmrc
+ln -s ~/dotfiles/config/bspwm/sxhkdrc ~/.config/bspwm/sxhkdrc

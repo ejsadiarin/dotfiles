@@ -4,19 +4,27 @@
   - `git`
   - `nvim`
   - `tmux`
+  - `fzf`
+  - `fd`
+  - `rg`
   - [`smug`](https://github.com/ivaaaan/smug) - tmux session manager written in Go
 - install other packages:
   - `copyq`
   - `redshift`
   - `auto-cpufreq`
   - `flameshot`
+  - `shotwell`
 - Arch:
 ```bash
-sudo -S pacman copyq redshift auto-cpufreq flameshot
+sudo -S pacman copyq redshift auto-cpufreq flameshot shotwell
 ```
 
-1. git clone the dotfiles
+1. git clone the dotfiles:
+```bash
+git clone https://github.com/ejsadiarin/dotfiles
+```
 
+<!-- TODO: make this into a script -->
 ## Install Terminal Configs (Nvim, Tmux, Zsh)
 - cd to dotfiles
 <details>
@@ -35,7 +43,7 @@ sudo -S pacman copyq redshift auto-cpufreq flameshot
 
 <details>
   <summary>If you don't want to customize yourself (Symlinked version) - every change in this repo will change the
-    configs (if you `git pull`)</summary>
+    configs (only if you `git pull` regularly)</summary>
 
   - create a symlink to `~/.config/nvim`
     ```bash
@@ -71,17 +79,13 @@ sudo -S pacman copyq redshift auto-cpufreq flameshot
     nvim ~/.tmux.conf
     ```
   - install plugins with `prefix + I`
-    - by default prefix is `ctrl + b`
-    - in my configs prefix is: `ctrl + space`
+    - by default, prefix is `ctrl + b`
+    - in my configs prefix is: `alt + space`
 
   ## Symlink everything
   ```bash
-  rm ~/.zshrc ~/.ideavimrc 
-  ln -s ~/dotfiles/.zshrc ~/.zshrc
-  ln -s ~/dotfiles/.ideavimrc ~/.ideavimrc
-  rm -rf ~/.config/bspwm/bspwmrc ~/.config/bspwm/sxhkdrc
-  ln -s ~/dotfiles/config/bspwm/bspwmrc ~/.config/bspwm/bspwmrc 
-  ln -s ~/dotfiles/config/bspwm/sxhkdrc ~/.config/bspwm/sxhkdrc 
+  chmod +x ~/dotfiles/symlink-install
+  ~/dotfiles/symlink-install
   ```
 </details>
 
@@ -106,13 +110,13 @@ sudo -S pacman copyq redshift auto-cpufreq flameshot
 [window]
 decorations = "none"
 dynamic_title = true
-opacity = 0.8 # change this to your liking (i like it 0.8)
+opacity = 0.9 # change this to your liking (i like it 0.8)
 # ... existing configs ... #
 ```
 
 ## Install Zsh configs
 
-## Install Development Tools
+## Install Development Tools and other useful things
 - Go:
 - .NET:
 - Terraform:
@@ -120,3 +124,5 @@ opacity = 0.8 # change this to your liking (i like it 0.8)
 - Kubernetes:
 - Ansible:
 - Python:
+- Networking tools:
+  - `nmap`

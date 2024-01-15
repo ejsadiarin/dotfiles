@@ -7,6 +7,7 @@
 
 ## Pick your Wine
 <!-- TODO: dropdown menu instructions -->
+<!-- NOTE: put install.md here -->
 > Full Window Manager setup (this configs on top of [gh0stzk dotfiles](https://github.com/gh0stzk/dotfiles))
 > Standalone setup (this configs only)
 
@@ -19,10 +20,6 @@
 - Alacritty / Kitty
 - Brave
 - Firefox
-  - extensions (just log in to own profile):
-    - Vimium
-    - nightTab
-    - AdBlock
 
 ## Initialize / Installation
 - Clone repository and install script
@@ -75,6 +72,10 @@ chmod +x ExquisiteInstaller
 - flameshot for exquisite screenshots
   - open configs with `flameshot config`
 - shotwell for proper image viewing
+- copyq - clipboard manager
+- redshift - redlight filter
+- auto-cpufreq
+- thunar - file manager
 
 ### Additional Packages to install (from AUR or source binary install)
 <details>
@@ -101,6 +102,7 @@ chmod +x ExquisiteInstaller
   - my preferred configs: `turbo = never` on powersave
 --------------------------------------------------------------------
 </details>
+
 ### Optional Apps to install
 - Discord
 - Zoom
