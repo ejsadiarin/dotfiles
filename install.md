@@ -116,11 +116,46 @@ opacity = 0.9 # change this to your liking (i like it 0.8)
 
 ## Install Zsh configs
 
-## Install Development Tools and other useful things
+## Install Development Tools and other useful things (Personal)
 - Go:
+<details>
+<summary>Docker:</summary>
+-https://docs.docker.com/engine/install/linux-postinstall/
+
+  ```bash
+  sudo pacman -S docker docker-compose
+  paru -S docker-desktop
+  ```
+  - create the `docker` group (IF NECESSARY):
+  ```
+  sudo groupadd docker
+  ```
+
+  - add to user to docker group
+  ```bash
+  # check user
+  echo $USER
+  sudo usermod -aG docker $USER
+  # log out and log back in to save (can also reboot if necessary)
+  # check if docker is in groups:
+  groups
+  ```
+
+  - start/enable docker.service
+  ```bash
+  sudo systemctl enable docker.service
+  ```
+
+- check docker commands by running `docker --help` or `docker-compose --help` or `man docker`
+  some useful commands:
+  ```
+  docker ps
+  docker-compose ps
+  ```
+</details>
+
 - .NET:
 - Terraform:
-- Docker:
 - Kubernetes:
 - Ansible:
 - Python:
