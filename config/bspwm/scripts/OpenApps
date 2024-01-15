@@ -62,6 +62,9 @@ case "$1" in
 --soundcontrol)
 	pavucontrol
 	;;
+--rxfetch)
+	~/.local/bin/rxfetch
+	;;
 # Eww Widgets
 --powermenu)
 	eww -c "$WIDGET_DIR" open --toggle powermenu
