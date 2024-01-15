@@ -3,19 +3,24 @@
 # symlink nvim
 # TODO: add a backup for nvim config (see LazyVim docs)
 ln -s ~/dotfiles/nvim ~/.config/nvim
+
 # symlink tmux
 ln -s ~/dotfiles/tmux ~/.tmux
 ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
-cd
 tmux source ~/.tmux.conf
+
 # symlink home configs
-rm ~/.zshrc ~/.ideavimrc
+mv ~/.zshrc ~/.zshrc.bak
+mv ~/.ideavimrc ~/.ideavimrc.bak
 ln -s ~/dotfiles/.zshrc ~/.zshrc
 ln -s ~/dotfiles/.ideavimrc ~/.ideavimrc
+
 # symlink bspwm configs
-rm -rf ~/.config/bspwm/bspwmrc ~/.config/bspwm/sxhkdrc
+mv ~/.config/bspwm/bspwmrc ~/.config/bspwm/bspwmrc.bak
+mv ~/.config/bspwm/sxhkdrc ~/.config/bspwm/sxhkdrc.bak
 ln -s ~/dotfiles/config/bspwm/bspwmrc ~/.config/bspwm/bspwmrc
 ln -s ~/dotfiles/config/bspwm/sxhkdrc ~/.config/bspwm/sxhkdrc
 
-# TODO: print message to install nvim plugins and tmux
+# TODO: print message (instructions) to install nvim plugins and tmux
 # open nvim to install plugins
+# open tmux to install plugins via prefix + I
