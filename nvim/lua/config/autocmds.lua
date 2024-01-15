@@ -38,11 +38,20 @@
 -- vim.fn.matchadd("IP_highlight", "\\(\\d\\{1,3}\\.\\)\\{3}\\d\\{1,3}")  -- naive IPv4 regex
 -- #######################################################################################################################################
 
+-- Enter normal mode when leaving telescope
 vim.api.nvim_create_autocmd("WinLeave", {
   callback = function()
     if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
     end
+  end,
+})
+
+-- Disable autoformat for certain filetypes
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "c" },
+  callback = function()
+    vim.b.autoformat = false
   end,
 })
 
