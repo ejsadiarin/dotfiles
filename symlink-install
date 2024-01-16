@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# TODO: error handling things
 
 # symlink nvim
 # TODO: add a backup for nvim config (see LazyVim docs)
