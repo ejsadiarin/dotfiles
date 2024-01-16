@@ -1,4 +1,3 @@
-# -------------------------------------------------------------------- #
 #  ███████╗██╗  ██╗██╗  ██╗██╗  ██╗██████╗ ██████╗  ██████╗
 #  ██╔════╝╚██╗██╔╝██║  ██║██║ ██╔╝██╔══██╗██╔══██╗██╔════╝
 #  ███████╗ ╚███╔╝ ███████║█████╔╝ ██║  ██║██████╔╝██║     
@@ -150,19 +149,20 @@ super + r
 super + c
 	bspc node @/ --circulate {backward,forward}
 
-# focus window on given direction
+# focus window on given direction (when tiled)
 super + {h,j,k,l}
   bspc node -f {west,south,north,east}
 
+# focus window (perfect on floating window workspace)
+alt + {grave,Tab}
+  bspc node -f next.local.!hidden.window
+
 # cycle / go back through previous workspace
-super + {grave,Tab}
-  bspc node -f next.local.window
+# super + {grave,Tab}
+#   bspc node -f next.local.window
 
 # cycle through next window 
-super + shift + {grave,Tab}
-	bspc {node,desktop} -f last
-# cycle through next window (two keymaps because why not)
-super + alt + {grave,Tab}
+super + {grave,Tab}
 	bspc {node,desktop} -f last
 
 # move the window in the given direction
