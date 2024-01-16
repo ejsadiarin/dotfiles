@@ -101,11 +101,7 @@ pidof -q picom || { picom -b --config "$HOME"/.config/bspwm/picom.conf & }
 #pidof -q picom || { picom --legacy-backends --config "$HOME"/.config/bspwm/picom.conf & }
 
 # Swap caps lock to escape
-# TODO: make caps lock to ctrl when pressed and escape on tap
 setxkbmap -option caps:swapescape
-
-# Start eww daemon
-# eww daemon -c "$HOME"/.config/bspwm/eww &
 
 # Network Applet
 nm-applet --indicator &

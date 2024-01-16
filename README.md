@@ -125,17 +125,18 @@ pass init <generated-public-key>
 -----------------------------------------------
 ## Development
 <details>
-<summary>Install docker and docker-compose (and docker desktop if preferred) source: https://docs.docker.com/engine/install/linux-postinstall/</summary>
+<summary>Docker:</summary>
 
-```bash
-sudo pacman -S docker docker-compose
-paru -S docker-desktop
-```
-  - create the `docker` group (IF NECESSARY):
+- source: https://docs.docker.com/engine/install/linux-postinstall/
+
+  ```bash
+  sudo pacman -S docker docker-compose
+  paru -S docker-desktop
   ```
+  - create the `docker` group (IF NECESSARY):
+  ```bash
   sudo groupadd docker
   ```
-
   - add to user to docker group
   ```bash
   # check user
@@ -145,15 +146,13 @@ paru -S docker-desktop
   # check if docker is in groups:
   groups
   ```
-
   - start/enable docker.service
   ```bash
   sudo systemctl enable docker.service
   ```
-
 - check docker commands by running `docker --help` or `docker-compose --help` or `man docker`
   some useful commands:
-  ```
+  ```bash
   docker ps
   docker-compose ps
   ```
@@ -163,112 +162,127 @@ paru -S docker-desktop
 sudo pacman -S dotnet-runtime dotnet-sdk aspnet-runtime
 ```
 
-* Install VS Code and JetBrains Toolbox
-```
-paru -S 
-sudo pacman -S 
-```
-
+* Install VS Code and JetBrains Toolbox (Optional)
 * Install EF Core globally
-```
-dotnet tool install --global dotnet-ef
-```
-  * if in Linux, add /.dotnet/tools to PATH in ~/.bashrc or ~/.zshrc or any shell resource configs
+<details>
+<summary>Dotnet (C#/.NET)</summary>
+
+- Install EF Core globally
+  ```bash
+  dotnet tool install --global dotnet-ef
   ```
+- if in Linux, add /.dotnet/tools to PATH in ~/.bashrc or ~/.zshrc or any shell resource configs
+  ```bash
   export PATH="$PATH:$HOME/.dotnet/tools"
   ```
-  * Verify install of dotnet-ef
-  ```
+- Verify install of dotnet-ef
+  ```bash
   dotnet ef
   ```
+---------------------------------------------------------------
+</details>
+<details>
+<summary>PostgreSQL</summary>
 
-* Install PostgreSQL
-> PostgreSQL (details: https://wiki.archlinux.org/title/PostgreSQL):
-  `sudo -S pacman postgresql`
-  - run postgres user:
-  `sudo -iu postgres`
-  - Initialize database cluster for PostgreSQL to function correctly:
-  `initdb --locale=C.UTF-8 --encoding=UTF8 -D /var/lib/postgres/data --data-checksums`
-  - Start and Enable the `postgresql.service` via systemctl:
+### Install PostgreSQL
+- PostgreSQL (details: https://wiki.archlinux.org/title/PostgreSQL):
+  ```bash
+  sudo -S pacman postgresql
   ```
+  - run postgres user:
+  ```bash
+  sudo -iu postgres
+  ```
+  - Initialize database cluster for PostgreSQL to function correctly:
+  ```bash
+  initdb --locale=C.UTF-8 --encoding=UTF8 -D /var/lib/postgres/data --data-checksums
+  ```
+  - Start and Enable the `postgresql.service` via systemctl:
+  ```bash
   systemctl start postgresql.service
   systemctl enable postgresql.service
   ```
-  > Create a database and Access the database shell
-    Become the postgres user.
+
+  - Create a database and Access the database shell
+    - Become the postgres user.
     - Then add a new database role / user (optional, postgres user by default):
-    ```
+    ```bash
     [postgres]$ createuser --interactive
     ```
     - Then create a database:
-    `createdb myDatabaseName`
-    If did not work: add `-U postgres` to the previous command
-    
-    Access the database shell:
-    `psql -d myDatabaseName`
-
-    Some helpful commands:
-    Get help:
+    ```bash
+    createdb myDatabaseName
     ```
+    - If did not work: add `-U postgres` to the previous command
+    - Access the database shell:
+    ```bash
+    psql -d myDatabaseName
+    ```
+    - Some helpful commands (inside postgres shell):
+    Get help:
+    ```bash
     => \help
 
-    List all databases:
+    # List all databases:
 
     => \l
 
-    Connect to a particular database:
+    # Connect to a particular database:
 
     => \c database
 
-    List all users and their permission levels:
+    # List all users and their permission levels:
 
     => \du
 
-    Show summary information about all tables in the current database:
+    # Show summary information about all tables in the current database:
 
     => \dt
 
-    Exit/quit the psql shell:
+    # Exit/quit the psql shell:
 
     => \q
 
-    or press Ctrl+d.
+    # or press Ctrl+d.
 
-    There are of course many more meta-commands, but these should help you get started. To see all meta-commands run:
+    # There are of course many more meta-commands, but these should help you get started. To see all meta-commands run:
 
     => \?
     ```
-  MORE INFO ON THE ARCH WIKI: https://wiki.archlinux.org/title/PostgreSQL
+  - MORE INFO ON THE ARCH WIKI: https://wiki.archlinux.org/title/PostgreSQL
+---------------------------------------------------------------
+</details>
 
-## How to maintain?
+# How to maintain?
 REMEMBER: Most problems are user generated, DON'T BREAK YOUR OWN COMPUTER (Arch itself is stable)
 - Use timeshift for snapshots (backups)
 - DO THIS REGULARLY (from `https://forum.endeavouros.com/t/a-complete-idiots-guide-to-endeavour-os-maintenance-update-upgrade/25184`):
 ```bash
-// update mirrorlist via EOS welcome
+# update mirrorlist via EOS welcome
 update the Arch mirrors
 update the EOS mirrors
 
-// OR manually:
-  // update mirrorlist
+# OR manually:
+  # update mirrorlist
   sudo reflector --protocol https --verbose --latest 25 --sort rate --save /etc/pacman.d/mirrorlist
 
-  // update eos mirrorlist
+  # update eos mirrorlist
   eos-rankmirrors --verbose
 
-// update system
-paru // or yay (depending on your AUR helper)
+# update system
+paru # or yay (depending on your AUR helper)
 
-// clear journalctl
+# clear journalctl
 journalctl --vacuum-time=4weeks
 
-// clean cache and all uninstalled packages (keep 3 versions by default)
+# clean cache and all uninstalled packages (keep 3 versions by default)
 paccache -ruk0
 
-// remove orphans
+# remove orphans
 pacman -Rns $(pacman -Qdtq)
 ```
 
+<!-- DEPRECATED -->
 ### SCRIPT info
 - auto move `auto-cpufreq.conf` to `/etc/`
 

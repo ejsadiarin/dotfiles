@@ -7,6 +7,7 @@
   - `fzf`
   - `fd`
   - `rg`
+  - `btop` - superior system monitoring tool
   - [`smug`](https://github.com/ivaaaan/smug) - tmux session manager written in Go
 - install other packages:
   - `copyq`
@@ -117,20 +118,26 @@ opacity = 0.9 # change this to your liking (i like it 0.8)
 ## Install Zsh configs
 
 ## Install Development Tools and other useful things (Personal)
-- Go:
+<details>
+<summary>Go: (Go is a first-class citizen in this config)</summary>
+  - Install:
+  - Put in PATH:
+  - Check:
+</details>
+
 <details>
 <summary>Docker:</summary>
--https://docs.docker.com/engine/install/linux-postinstall/
+
+- source: https://docs.docker.com/engine/install/linux-postinstall/
 
   ```bash
   sudo pacman -S docker docker-compose
   paru -S docker-desktop
   ```
   - create the `docker` group (IF NECESSARY):
-  ```
+  ```bash
   sudo groupadd docker
   ```
-
   - add to user to docker group
   ```bash
   # check user
@@ -140,15 +147,13 @@ opacity = 0.9 # change this to your liking (i like it 0.8)
   # check if docker is in groups:
   groups
   ```
-
   - start/enable docker.service
   ```bash
   sudo systemctl enable docker.service
   ```
-
 - check docker commands by running `docker --help` or `docker-compose --help` or `man docker`
   some useful commands:
-  ```
+  ```bash
   docker ps
   docker-compose ps
   ```
