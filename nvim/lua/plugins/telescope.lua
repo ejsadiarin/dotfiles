@@ -88,13 +88,7 @@ return {
       },
       { "<leader>ff", Util.telescope("files"), desc = "Find Files (dynamic)" },
       { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-      {
-        "<leader>fe",
-        function()
-          require("telescope.builtin").git_files()
-        end,
-        desc = "Find Files (git root)",
-      },
+      { "<leader>fe", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
       {
         "<leader>fH",
         function()
