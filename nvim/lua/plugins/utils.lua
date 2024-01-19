@@ -98,6 +98,7 @@ return {
   {
     "roobert/tailwindcss-colorizer-cmp.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    config = true,
     opts = {
       color_square_width = 2,
     },
@@ -139,6 +140,9 @@ return {
     lazy = false,
     opts = {
       enable_close_on_slash = false,
+      autotag = {
+        enable = true,
+      },
     },
   },
   {

@@ -7,4 +7,9 @@ return {
       return true
     end
   end,
+  opts = {
+    autotag = {
+      enable = true,
+    },
+  },
 }
