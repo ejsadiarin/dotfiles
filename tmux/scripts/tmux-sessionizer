@@ -4,7 +4,9 @@ if [[ $# -eq 1 ]]; then
 	selected=$1
 else
 	# selected=$(fd -td --hidden --require-git --exclude node_modules --exclude .cargo --exclude .quokka --exclude .rustup --exclude .nuget --search-path ~/ | fzf)
-	selected=$(fd -td --require-git --exclude node_modules --exclude .cargo --exclude .quokka --exclude .rustup --exclude .nuget --search-path ~/ | fzf)
+	# selected=$(fd -td --require-git --exclude node_modules --exclude .cargo --exclude .quokka --exclude .rustup --exclude .nuget --search-path ~/ | fzf)
+	# selected=$(fd -td --hidden --require-git --exclude 'node_modules,.cargo,.quokka,.rustup,.nuget' --search-path ~/ | fzf)
+	selected=$(find ~/main ~/.local ~/ -mindepth 1 -maxdepth 3 -type d | fzf)
 	# selected=$(fd -td --hidden --require-git --search-path ~/main | fzf)
 fi
 
