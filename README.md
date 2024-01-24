@@ -156,6 +156,10 @@ pass init <generated-public-key>
   docker ps
   docker-compose ps
   ```
+  - login to docker
+  ```bash
+  docker login -u <username>
+  ```
 </details>
 * Install .NET Packages
 ```
@@ -254,6 +258,7 @@ sudo pacman -S dotnet-runtime dotnet-sdk aspnet-runtime
 </details>
 
 # How to maintain?
+
 REMEMBER: Most problems are user generated, DON'T BREAK YOUR OWN COMPUTER (Arch itself is stable)
 - Use timeshift for snapshots (backups)
 - DO THIS REGULARLY (from `https://forum.endeavouros.com/t/a-complete-idiots-guide-to-endeavour-os-maintenance-update-upgrade/25184`):
