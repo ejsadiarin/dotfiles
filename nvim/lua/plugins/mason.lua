@@ -9,10 +9,10 @@ return {
       "shfmt",
       "bash-language-server",
       -- Python
-      "flake8",
       "pyright",
       "black",
       "ruff-lsp",
+      "debugpy",
       -- C#
       "omnisharp",
       "netcoredbg",
