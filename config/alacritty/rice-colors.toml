@@ -1,0 +1,43 @@
+# Color scheme for Cynthia Rice
+
+# Default colors
+[colors.primary]
+background = "#1f2329"
+foreground = "#b8bfe5"
+
+# Cursor colors
+[colors.cursor]
+cursor = "#465b80"
+text = "#e5e5e5"
+
+# Normal colors
+[colors.normal]
+black = "#0f1319"
+# blue = "#3f5273"
+blue = "#7aa2f7"
+# cyan = "#324f66"
+cyan = "#449dab"
+# green = "#375759"
+green = "#9ece6a"
+# magenta = "#543f66"
+magenta = "#ad8ee6"
+# red = "#644d66"
+red = "#f7768e"
+white = "#b3b3b3"
+yellow = "#736871"
+
+# Bright colors
+[colors.bright]
+black = "#b3b3b3"
+# blue = "#465b80"
+blue = "#7da6ff"
+# cyan = "#385a73"
+cyan = "#0db9d7"
+# green = "#3f6566"
+green = "#b9f27c"
+# magenta = "#533969"
+magenta = "#bb9af7"
+# red = "#735771"
+red = "#ff7a93"
+white = "#e5e5e5"
+yellow = "#807476"
