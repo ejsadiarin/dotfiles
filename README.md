@@ -106,6 +106,7 @@ chmod +x ExquisiteInstaller
 ### Optional Apps to install
 - Discord
 - Zoom
+  - in `~/.config/zoomus.conf`: set `enableMiniWindow=false` to disable floating mini window
 
 ## Pass (password manager, gpg keys, credentials, etc.)
 IMPORTANT for Docker
