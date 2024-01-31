@@ -152,8 +152,9 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:$HOME/go/bin"
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@"
 
 # pnpm
 export PNPM_HOME="/home/exquisite/.local/share/pnpm"
@@ -168,6 +169,9 @@ export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 # useful commands
+# time the zsh startup: 
+# time zsh -i -c exit (or use /usr/bin/time instead of time, if time not available)
+
 # xprop | grep WM_CLASS
 # xinput => to see devices connected
 # xinput set-prop "<device name here>" "libinput Natural Scrolling Enabled" 1
