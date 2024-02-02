@@ -1,0 +1,16 @@
+#!/bin/sh
+dir=$(uuidgen | cut -d '-' -f1)
+mktemp -d /tmp/$dir
+cp $1 /tmp/$dir
+# zip -r /tmp/$dir.zip /tmp/$dir
+# zipcloak /tmp/$dir.zip
+tar czf - -C "/tmp" "$dir" | gpg -o "/tmp/$dir.tar.gz.gpg" -c
+
+# curl -F"file=@/tmp/$dir.zip" 0x0.st
+# curl -F"file=@/tmp/$dir.tar.gz.gpg" "https://0x0.st"
+curl -F"file=@/tmp/$dir.tar.gz.gpg" 0x0.st
+
+# to download (use curl or aria2c):
+# curl -o gruvboxkoi.tar.gz.gpg "https://0x0.st/HDxL.gz.gpg"
+# to decrypt/extract (will prompt for password):
+# gpg -d --output - "gruvboxkoi.tar.gz.gpg" | tar xzf -
