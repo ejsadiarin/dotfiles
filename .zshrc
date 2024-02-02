@@ -142,6 +142,7 @@ alias history="history 1"
 
 alias lg="lazygit"
 alias clpwd="pwd | xclip -selection clipboard"
+alias copy="xclip -sel clip"
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
