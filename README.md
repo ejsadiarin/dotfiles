@@ -51,7 +51,7 @@ chmod +x ExquisiteInstaller
 - Read docs starting here (up to testing ssh connection): https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ## Post Installation (IMPORTANT!)
-- Eww:
+- Eww (partially DEPRECATED):
   - script doesn't install `eww-x11` because signing keys need to be imported first before building/installing
   ```bash
   curl -sS https://github.com/elkowar.gpg | gpg --import -i -
@@ -61,7 +61,11 @@ chmod +x ExquisiteInstaller
   ```
   paru -S eww-x11
   ```
+- Eww (this):
+  - follow instructions on installing the binaries (not aur)
 
+- bswpwmrc `~/.config/bspwm/bspwmrc`:
+  - edit your xinput for laptop natural scrolling (google how to get your device id)
 
 - Neovim (`nvim/`):
   - install LazyVim

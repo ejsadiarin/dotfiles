@@ -160,6 +160,27 @@ return {
         desc = "Find files on main",
       },
       {
+        "<leader>fw",
+        function()
+          local dir = vim.env.HOME .. "/wizardry"
+          require("telescope.builtin").find_files({
+            find_command = {
+              "fd",
+              "-tf",
+              "--hidden",
+              "--exclude",
+              "node_modules",
+              "--exclude",
+              ".git",
+              "--search-path",
+              dir,
+            },
+            prompt_prefix = "~/wizardry ",
+          })
+        end,
+        desc = "Find wizardry notes",
+      },
+      {
         "<leader>gb",
         "<CMD>Telescope git_branches<CR>",
         desc = "branches",

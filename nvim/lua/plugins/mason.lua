@@ -8,6 +8,7 @@ return {
       -- Bash / Shell
       "shfmt",
       "bash-language-server",
+      "shellcheck",
       -- Python
       "pyright",
       "black",
