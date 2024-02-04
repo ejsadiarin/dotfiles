@@ -5,6 +5,18 @@ return {
       -- Lua
       "lua-language-server",
       "stylua",
+      -- Go
+      "delve",
+      "goimports",
+      "gofumpt",
+      -- Docker-related
+      "docker-compose-language-service",
+      "dockerfile-language-server",
+      -- DevOps / Infra
+      "terraform-ls",
+      "yaml-language-server",
+      "helm-ls",
+      "marksman",
       -- Bash / Shell
       "shfmt",
       "bash-language-server",
@@ -31,16 +43,6 @@ return {
       "clangd",
       -- Rust
       "rust-analyzer",
-      -- Go
-      "delve",
-      "goimports",
-      "gofumpt",
-      -- Docker-related
-      "docker-compose-language-service",
-      "dockerfile-language-server",
-      -- Terraform / YAML
-      "terraform-ls",
-      "yaml-language-server",
       -- Others (JSON, TOML, etc.)
       "json-lsp",
       "codelldb",
