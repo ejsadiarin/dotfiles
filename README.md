@@ -1,5 +1,7 @@
 # Exquisite Configs
 - flexible, heavenly fast, and exquisite. A beautiful crossover of practicality and aesthetics.
+- mainly focused on having fast keymaps/keybindings with the least mental overhead possible
+
 ### NOTE:
   - this can run on any installation/distro Linux and any de/wm (except for NixOS)
   - my current setup (as of 2024-01-02 1:20 PM): 
