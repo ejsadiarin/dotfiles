@@ -26,12 +26,17 @@ return {
       },
     },
   },
-  -- {
-  --   "L3MON4D3/LuaSnip",
-  --   keys = function()
-  --     return {}
-  --   end,
-  -- },
+  {
+    "L3MON4D3/LuaSnip",
+    opts = {
+      history = true,
+      region_check_events = "InsertEnter",
+      delete_check_events = "TextChanged,InsertLeave",
+    },
+    -- keys = function()
+    --   return {}
+    -- end,
+  },
   -- {
   --   "hrsh7th/nvim-cmp",
   --   version = false, -- last release is way too old
