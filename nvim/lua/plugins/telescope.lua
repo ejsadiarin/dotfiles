@@ -86,6 +86,17 @@ return {
         end,
         desc = "Live Grep Args (cwd)",
       },
+      {
+        "<leader>sN",
+        function()
+          local dir = vim.env.HOME .. "/wizardry"
+          require("telescope").extensions.live_grep_args.live_grep_args({
+            search_dirs = { dir },
+            additional_args = { "--hidden" },
+          })
+        end,
+        desc = "Live Grep from Home",
+      },
       { "<leader>ff", Util.telescope("files"), desc = "Find Files (dynamic)" },
       { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
       { "<leader>fe", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
