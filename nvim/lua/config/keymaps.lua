@@ -28,6 +28,14 @@ end, { noremap = true, desc = "Change cwd to head of current buffer", silent = f
 vim.keymap.set("n", "<C-U>", "<C-U>zz")
 vim.keymap.set("n", "<C-D>", "<C-D>zz")
 
+-- move lines
+vim.keymap.set("n", "<C-n>", "<CMD>m .+1<CR>==", { desc = "Move line dow(n)" })
+vim.keymap.set("n", "<C-p>", "<CMD>m .-2<CR>==", { desc = "Move line u(p)" })
+vim.keymap.set("i", "<C-n>", "<ESC><CMD>m .+1<CR>==gi", { desc = "Move line dow(n)" })
+vim.keymap.set("i", "<C-p>", "<ESC><CMD>m .-2<CR>==gi", { desc = "Move line u(p)" })
+vim.keymap.set("v", "<C-n>", ":m '>+1<CR>gv=gv", { desc = "Move line dow(n)" })
+vim.keymap.set("v", "<C-p>", ":m '<-2<CR>gv=gv", { desc = "Move line u(p)" })
+
 -- colorizer keymap
 vim.keymap.set("n", "<leader>cc", "<CMD>ColorizerToggle<CR>")
 
