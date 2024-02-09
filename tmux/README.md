@@ -3,8 +3,12 @@
   ```bash
   # git clone the repo into the directory of your choice:
   git clone 
+  # git clone tpm
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   ```
+
   - Install tmux plugins with `<prefix> + I`
+
   - Source the tmux config file:
   ```bash
   tmux source ~/<path to .tmux.conf>

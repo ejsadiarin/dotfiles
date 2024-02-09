@@ -1,0 +1,9 @@
+#!/bin/sh
+pane_height=$( expr $(tmux display-message -p '#{pane_height}') \* 3)
+pane_width=$(tmux display-message -p '#{pane_width}')
+
+if [  "$pane_width" -gt "$pane_height" ]; then
+    tmux split-window -h -c'#{pane_current_path}'
+else
+    tmux split-window -v -c'#{pane_current_path}'
+fi
