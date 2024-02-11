@@ -2,10 +2,34 @@
 - flexible, heavenly fast, and exquisite. A beautiful crossover of practicality and aesthetics.
 - mainly focused on having fast keymaps/keybindings with the least mental overhead possible
 
-### NOTE:
-  - this can run on any installation/distro Linux and any de/wm (except for NixOS)
+# NOTE (IMPORTANT READ):
+  <!-- - this can run on any installation/distro Linux and any de/wm (except for NixOS) -->
   - my current setup (as of 2024-01-02 1:20 PM): 
     - This config on top of BSPWM with [gh0stzk dotfiles](https://github.com/gh0stzk/dotfiles)
+    ![bspwm-exquisite-rice](/bspwm-best-rice.png)
+
+### If you come from Reddit and you want to see/install the config of the image above 
+1. if you just want to **SEE** the configs look here:
+  - bspwmrc: [`~/dotfiles/config/bspwm/bspwmrc`](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/bspwmrc)
+  - alacritty: [`~/dotfiles/config/alacritty`](https://github.com/ejsadiarin/dotfiles/tree/main/config/alacritty)
+  - picom.conf: [`~/dotfiles/config/bspwm/picom.conf`](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/picom.conf)
+  - sxhkdrc: [`~/dotfiles/config/bspwm/sxhkdrc`](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/sxhkdrc)
+  - dunstrc: [`~/dotfiles/config/bspwm/dunstrc`](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/dunstrc)
+  - scripts: [`~/dotfiles/config/bspwm/scripts`](https://github.com/ejsadiarin/dotfiles/tree/main/config/bspwm/scripts)
+  - [EXQUISITE rice (image above)](https://github.com/ejsadiarin/dotfiles/tree/main/config/bspwm/rices/exquisite)
+    - polybar: 
+      - [modules.ini](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/rices/exquisite/modules.ini)
+      - [config.ini](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/rices/exquisite/config.ini)
+    - eww: [`~/dotfiles/config/bspwm/eww`](https://github.com/ejsadiarin/dotfiles/tree/main/config/bspwm/eww)
+    - [`Theme.sh` that powers and connects everything together](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/rices/exquisite/Theme.sh)
+
+2. If you want to **INSTALL** exquisite rice (excluding nvim and tmux configs):
+  - install [gh0stzk dotfiles](https://github.com/gh0stzk/dotfiles?tab=readme-ov-file#-installation) first
+  - copy/replace (use `cp` or symlink it) your whole `~/.config/bspwm` for bspwm configs along with the rice config, `~/.config/alacritty` for alacritty configs, `~/.zshrc` for custom zsh (if you want the prompt) to the one in this repo [`~/dotfiles/config`](https://github.com/ejsadiarin/dotfiles/tree/main/config), [`~/dotfiles/.zshrc`](https://github.com/ejsadiarin/dotfiles/blob/main/.zshrc)
+
+
+# !!! EVERYTHING BELOW IS HEAVILY W.I.P (WORK IN PROGRESS)
+  - the install script is not yet fully functional 
 
 ## Pick your Wine
 <!-- TODO: dropdown menu instructions -->
