@@ -2,7 +2,7 @@
 #  ╔═╗═╗ ╦╔╦╗╔═╗╦═╗╔╗╔╔═╗╦    ╦═╗╦ ╦╦  ╔═╗╔═╗
 #  ║╣ ╔╩╦╝ ║ ║╣ ╠╦╝║║║╠═╣║    ╠╦╝║ ║║  ║╣ ╚═╗
 #  ╚═╝╩ ╚═ ╩ ╚═╝╩╚═╝╚╝╩ ╩╩═╝  ╩╚═╚═╝╩═╝╚═╝╚═╝
-#  https://github.com/ejsadiarin/dotfiles
+#  https://github.com/gh0stzk/dotfiles
 
 wid=$1
 class=$2
@@ -64,7 +64,7 @@ copyq)
 	;;
 zoom)
 	eval "$consequences"
-	[ "$state" ] || echo "state=floating"
+	[ "$state" ] || echo "desktop=^3 state=floating center=on follow=on"
 	;;
 python)
 	eval "$consequences"

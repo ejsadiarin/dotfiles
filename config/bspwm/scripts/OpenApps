@@ -76,7 +76,7 @@ case "$1" in
 	eww -c "$WIDGET_DIR" open --toggle music
 	;;
 --calendar)
-	oww -c "$WIDGET_DIR" open --toggle date
+	eww -c "$WIDGET_DIR" open --toggle date
 	;;
 *)
 	echo "Invalid Option"

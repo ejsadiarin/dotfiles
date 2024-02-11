@@ -21,40 +21,68 @@ set_bspwm_config() {
 
 # Reload terminal colors
 set_term_config() {
-	sed -i "$HOME"/.config/alacritty/fonts.yml \
+	sed -i "$HOME"/.config/alacritty/fonts.toml \
 		-e "s/family: .*/family: JetBrainsMono Nerd Font/g" \
 		-e "s/size: .*/size: 10/g"
 
-	cat >"$HOME"/.config/alacritty/colors.yml <<-_EOF_
+	cat >"$HOME"/.config/alacritty/colors.toml <<-_EOF_
 		        # Exquisite Colors
-		        colors:
-		          primary:
-		            background: '#070219'
-		            foreground: '#c0caf5'
+		            [colors.bright]
+		            black =  "#626483"
+		            red =    "#fb007a"
+		            green =  "#a6e22e"
+		            yellow = "#f3e430"
+		            blue =   "#58AFC2"
+		            magenta = "#472575"
+		            white =  "#f1f1f1"
+		            cyan =   "#926BCA"
 
-		          normal:
-		            black:   '#626483'
-		            red:     '#fb007a'
-		            green:   '#a6e22e'
-		            yellow:  '#f3e430'
-		            blue:    '#58AFC2'
-		            magenta: '#583794'
-		            cyan:    '#926BCA'
-		            white:   '#d9d9d9'
+		            [colors.cursor]
+		            cursor = "#ffffff"
+		            text = "#070219"
 
-		          bright:
-		            black:   '#626483'
-		            red:     '#fb007a'
-		            green:   '#a6e22e'
-		            yellow:  '#f3e430'
-		            blue:    '#58AFC2'
-		            magenta: '#472575'
-		            cyan:    '#926BCA'
-		            white:   '#f1f1f1'
-		          
-		          cursor:
-		            cursor: '#fb007a'
-		            text: '#070219'
+		            [colors.normal]
+		            black =   "#626483"
+		            red =     "#fb007a"
+		            green =   "#a6e22e"
+		            yellow =  "#f3e430"
+		            blue =    "#58AFC2"
+		            magenta = "#583794"
+		            cyan =    "#926BCA"
+		            white =   "#d9d9d9"
+
+		            [colors.primary]
+		            background = "#1d2021"
+		            foreground = "#c0caf5"
+
+		        # colors:
+		        #   primary:
+		        #     background: '#1d2021'
+		        #     foreground: '#c0caf5'
+		        #
+		        #   normal:
+		        #     black:   '#626483'
+		        #     red:     '#fb007a'
+		        #     green:   '#a6e22e'
+		        #     yellow:  '#f3e430'
+		        #     blue:    '#58AFC2'
+		        #     magenta: '#583794'
+		        #     cyan:    '#926BCA'
+		        #     white:   '#d9d9d9'
+		        #
+		        #   bright:
+		        #     black:   '#626483'
+		        #     red:     '#fb007a'
+		        #     green:   '#a6e22e'
+		        #     yellow:  '#f3e430'
+		        #     blue:    '#58AFC2'
+		        #     magenta: '#472575'
+		        #     cyan:    '#926BCA'
+		        #     white:   '#f1f1f1'
+		        #
+		        #   cursor:
+		        #     cursor: '#ffffff'
+		        #     text: '#070219'
 	_EOF_
 }
 

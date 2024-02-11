@@ -80,7 +80,7 @@ function dir_icon {
   fi
 }
 
-PS1='%B%F{blue}%f%b  %B%F{green}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
+PS1='%B%F{green}%f%b  %B%F{green}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
 
 #  ┌─┐┬  ┬ ┬┌─┐┬┌┐┌┌─┐
 #  ├─┘│  │ ││ ┬││││└─┐
@@ -168,6 +168,9 @@ esac
 # flyctl
 export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
+# pass
+export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 
 # useful commands
 # time the zsh startup: 
