@@ -16,6 +16,7 @@
   - sxhkdrc: [`~/dotfiles/config/bspwm/sxhkdrc`](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/sxhkdrc)
   - dunstrc: [`~/dotfiles/config/bspwm/dunstrc`](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/dunstrc)
   - scripts: [`~/dotfiles/config/bspwm/scripts`](https://github.com/ejsadiarin/dotfiles/tree/main/config/bspwm/scripts)
+    - if you're going to install this, make sure to get your own API key on [openweathermap](https://openweathermap.org/api) and put it in `Weather` script for your own city.
   - [EXQUISITE rice (image above)](https://github.com/ejsadiarin/dotfiles/tree/main/config/bspwm/rices/exquisite)
     - polybar: 
       - [modules.ini](https://github.com/ejsadiarin/dotfiles/blob/main/config/bspwm/rices/exquisite/modules.ini)
