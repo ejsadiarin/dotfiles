@@ -29,7 +29,7 @@
 
 
 # !!! EVERYTHING BELOW IS HEAVILY W.I.P (WORK IN PROGRESS)
-  - the install script is not yet fully functional 
+  - the install script is not yet fully functional, if you can try just backup your system :) 
 
 ## Pick your Wine
 <!-- TODO: dropdown menu instructions -->
