@@ -25,7 +25,7 @@ set_bspwm_config() {
 
 # Reload terminal colors
 set_term_config() {
-	cat > "$HOME"/.config/alacritty/rice-colors.toml << EOF
+	cat >"$HOME"/.config/alacritty/rice-colors.toml <<EOF
 # Color scheme for Pamela Rice
 
 # Default colors
@@ -72,7 +72,6 @@ set_picom_config() {
 		-e "s/\".*:class_g = 'FloaTerm'\"/\"100:class_g = 'FloaTerm'\"/g"
 }
 
-
 # Set stalonetray config
 set_stalonetray_config() {
 	sed -i "$HOME"/.config/bspwm/stalonetrayrc \
@@ -91,29 +90,29 @@ set_dunst_config() {
 		-e "s/separator_color = .*/separator_color = \"#8897F4\"/g" \
 		-e "s/font = .*/font = JetBrainsMono NF Medium 9/g" \
 		-e "s/foreground='.*'/foreground='#79E6F3'/g"
-		
+
 	sed -i '/urgency_low/Q' "$HOME"/.config/bspwm/dunstrc
-	cat >> "$HOME"/.config/bspwm/dunstrc <<- _EOF_
-			[urgency_low]
-			timeout = 3
-			background = "#1D1F28"
-			foreground = "#FDFDFD"
+	cat >>"$HOME"/.config/bspwm/dunstrc <<-_EOF_
+		[urgency_low]
+		timeout = 3
+		background = "#1D1F28"
+		foreground = "#FDFDFD"
 
-			[urgency_normal]
-			timeout = 6
-			background = "#1D1F28"
-			foreground = "#FDFDFD"
+		[urgency_normal]
+		timeout = 6
+		background = "#1D1F28"
+		foreground = "#FDFDFD"
 
-			[urgency_critical]
-			timeout = 0
-			background = "#1D1F28"
-			foreground = "#FDFDFD"
-_EOF_
+		[urgency_critical]
+		timeout = 0
+		background = "#1D1F28"
+		foreground = "#FDFDFD"
+	_EOF_
 }
 
 # Set eww colors
 set_eww_colors() {
-	cat > "$HOME"/.config/bspwm/eww/colors.scss << EOF
+	cat >"$HOME"/.config/bspwm/eww/colors.scss <<EOF
 // Eww colors for Pamela rice
 \$bg: #1D1F28;
 \$bg-alt: #1F222B;
@@ -141,7 +140,7 @@ set_jgmenu_colors() {
 }
 
 # Set Rofi launcher config
-set_launcher_config () {
+set_launcher_config() {
 	sed -i "$HOME/.config/bspwm/scripts/Launcher.rasi" \
 		-e '22s/\(font: \).*/\1"Terminess Nerd Font Mono Bold 10";/' \
 		-e 's/\(background: \).*/\1#1D1F28;/' \
@@ -149,8 +148,8 @@ set_launcher_config () {
 		-e 's/\(foreground: \).*/\1#c0caf5;/' \
 		-e 's/\(selected: \).*/\1#6C77BB;/' \
 		-e 's/[^/]*-rofi/pa-rofi/'
-		
-	# WallSelect menu colors	
+
+	# WallSelect menu colors
 	sed -i "$HOME/.config/bspwm/scripts/WallSelect.rasi" \
 		-e 's/\(main-bg: \).*/\1#1D1F28BF;/' \
 		-e 's/\(main-fg: \).*/\1#c0caf5;/' \
@@ -162,17 +161,15 @@ set_launcher_config () {
 launch_bars() {
 
 	for mon in $(polybar --list-monitors | cut -d":" -f1); do
-		(MONITOR=$mon polybar -q pam1 -c ${rice_dir}/config.ini)&
-		(MONITOR=$mon polybar -q pam2 -c ${rice_dir}/config.ini)&
-		(MONITOR=$mon polybar -q pam3 -c ${rice_dir}/config.ini)&
-		(MONITOR=$mon polybar -q pam4 -c ${rice_dir}/config.ini)&
-		(MONITOR=$mon polybar -q pam5 -c ${rice_dir}/config.ini)&
-		(MONITOR=$mon polybar -q pam6 -c ${rice_dir}/config.ini)&
+		(MONITOR=$mon polybar -q pam1 -c ${rice_dir}/config.ini) &
+		(MONITOR=$mon polybar -q pam2 -c ${rice_dir}/config.ini) &
+		(MONITOR=$mon polybar -q pam3 -c ${rice_dir}/config.ini) &
+		(MONITOR=$mon polybar -q pam4 -c ${rice_dir}/config.ini) &
+		(MONITOR=$mon polybar -q pam5 -c ${rice_dir}/config.ini) &
+		(MONITOR=$mon polybar -q pam6 -c ${rice_dir}/config.ini) &
 	done
 
 }
-
-
 
 ### ---------- Apply Configurations ---------- ###
 
