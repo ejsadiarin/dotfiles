@@ -13,4 +13,4 @@ curl -F"file=@/tmp/$dir.tar.gz.gpg" 0x0.st
 # to download (use curl or aria2c):
 # curl -o gruvboxkoi.tar.gz.gpg "https://0x0.st/HDxL.gz.gpg"
 # to decrypt/extract (will prompt for password):
-# gpg -d --output - "gruvboxkoi.tar.gz.gpg" | tar xzf -
+# gpg -d --output - "gruvboxkoi.tar.gz.gpg" | tar xzf - or gpg --decrypt "gruvboxkoi.tar.gz.gpg" | tar xz

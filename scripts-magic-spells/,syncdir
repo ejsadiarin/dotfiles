@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# should be like cp -r dirs and clean up duplicates but rsync has this kekw
+# rsync -avt <source> <destination>
