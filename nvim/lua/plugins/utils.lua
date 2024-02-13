@@ -243,6 +243,55 @@ return {
     "christoomey/vim-tmux-navigator",
     lazy = false,
   },
+  {
+    "sindrets/diffview.nvim",
+    opts = {
+      default = {
+        layout = "diff3_mixed",
+      },
+    },
+    keys = {
+      { "<leader>gd", "<CMD>DiffviewOpen<CR>", desc = "Git Diff View" },
+      { "<leader>gf", "<CMD>DiffviewFileHistory %<CR>", desc = "Git Diff File History" },
+      { "<leader>gx", "<CMD>DiffviewClose<CR>", desc = "Git Diff Close" },
+    },
+    config = function()
+      require("diffview").setup({
+        keymaps = {
+          view = {
+            ["<tab>"] = false,
+            {
+              "n",
+              "<s-tab>",
+              require("diffview.actions").select_next_entry,
+              { desc = "Open the diff for the next file" },
+            },
+            { "n", "<leader>e", require("diffview.actions").toggle_files, { desc = "Toggle file panel" } },
+          },
+          file_panel = {
+            ["<tab>"] = false,
+            {
+              "n",
+              "<s-tab>",
+              require("diffview.actions").select_next_entry,
+              { desc = "Open the diff for the next file" },
+            },
+            { "n", "<leader>e", require("diffview.actions").toggle_files, { desc = "Toggle file panel" } },
+          },
+          file_history_panel = {
+            ["<tab>"] = false,
+            {
+              "n",
+              "<s-tab>",
+              require("diffview.actions").select_next_entry,
+              { desc = "Open the diff for the next file" },
+            },
+            { "n", "<leader>e", require("diffview.actions").toggle_files, { desc = "Toggle file panel" } },
+          },
+        },
+      })
+    end,
+  },
 }
 -- icons = {
 --   misc = {
