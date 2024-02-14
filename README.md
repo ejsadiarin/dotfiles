@@ -1,6 +1,8 @@
 # Exquisite Configs
 - flexible, heavenly fast, and exquisite. A beautiful crossover of practicality and aesthetics.
 - mainly focused on having fast keymaps/keybindings with the least mental overhead possible
+- if you like this, you will surely love [Wizardry: The Akashic Records of Technology](https://github.com/ejsadiarin/wizardry)
+  - where all my knowledge, philosophy, scripts, magic spells, and configuration are archived.
 
 # NOTE (IMPORTANT READ):
   <!-- - this can run on any installation/distro Linux and any de/wm (except for NixOS) -->
