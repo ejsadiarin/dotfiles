@@ -28,6 +28,10 @@ super + a
 super + {b,g,e,n}
 	OpenApps {--browser,--editor,--filemanager,--nvim}
 
+# firefox
+super + f
+  firefox
+
 # Terminal apps (ranger, nvim, ncmpcpp)
 shift + alt + {r,n,m}
 	OpenApps {--ranger,--nvim,--music}
@@ -154,8 +158,8 @@ super + {h,j,k,l}
   bspc node -f {west,south,north,east}
 
 # focus window (perfect on floating window workspace)
-alt + {grave,Tab}
-  bspc node -f next.local.!hidden.window
+# alt + {grave,Tab}
+#   bspc node -f next.local.!hidden.window
 
 # cycle / go back through previous workspace
 # super + {grave,Tab}
@@ -202,8 +206,8 @@ super + ctrl + shift + {Left,Right}
 #####
 	
 # expand a window
-super + alt + {Left,Down,Up,Right}
 	bspc node -z {left -10 0,bottom 0 10,top 0 -10,right 10 0}
+  super + alt + {Left,Down,Up,Right}
 
 # contract a window
 super + alt + shift + {Left,Down,Up,Right}
