@@ -139,6 +139,7 @@ alias ne="clear && neofetch"
 alias re="OpenApps --rxfetch"
 
 alias history="history 1"
+alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr | head -10"
 
 alias lg="lazygit"
 alias clpwd="pwd | xclip -selection clipboard"
