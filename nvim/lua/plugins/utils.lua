@@ -219,17 +219,17 @@ return {
     -- end,
   },
 
-  {
-    "barrett-ruth/live-server.nvim",
-    build = "npm i -g live-server",
-    config = true,
-    opts = {
-      args = { "--host=localhost", "--port=8080" },
-    },
-    -- :h live-server
-    -- :LiveServerStart
-    -- :LiveServerStop
-  },
+  -- {
+  --   "barrett-ruth/live-server.nvim",
+  --   build = "npm i -g live-server",
+  --   config = true,
+  --   opts = {
+  --     args = { "--host=localhost", "--port=8080" },
+  --   },
+  --   -- :h live-server
+  --   -- :LiveServerStart
+  --   -- :LiveServerStop
+  -- },
 
   {
     "AndrewRadev/inline_edit.vim",
