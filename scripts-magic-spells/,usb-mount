@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# NOTE: use `lsblk` to identify the correct usbpart (if different then change usbpart value)
+# --> i know there are two error handling logic `set -e` and `|| {...; exit 1}`, im just paranoid kek
+
+set -e
+
+mountpoint="/mnt/$(whoami)/ejsmain"
+# mountpoint="/run/media/$(whoami)/ejsmain" # alternative mountpoint (can see in thunar)
+usbpart="/dev/sdb1"
+
+# ensure that the mountpoint exists
+if [ ! -d "$mountpoint" ]; then
+	# create mountpoint
+	echo "[ INFO ] No ejsmain detected.... creating mountpoint at $mountpoint"
+	sudo mkdir -p "$mountpoint"
+fi
+
+# open with cryptsetup
+sudo cryptsetup open "$usbpart" ejsmain || {
+	echo "[ ERROR ] Unable to open device."
+	exit 1
+}
+
+# mount
+sudo mount /dev/mapper/ejsmain "$mountpoint" || {
+	echo "[ ERROR ] Unable to mount device."
+	exit 1
+}
+
+echo "[ SUCCESS ] Device mounted at $mountpoint"
+notify-send "You can now use your USB Device on $mountpoint" "Don't forget to LOCK it after use."
