@@ -165,7 +165,7 @@ super + {h,j,k,l}
 # super + {grave,Tab}
 #   bspc node -f next.local.window
 
-# cycle through next window 
+# cycle through last window 
 super + {grave,Tab}
 	bspc {node,desktop} -f last
 
@@ -192,8 +192,8 @@ super + ctrl + shift + {Left,Right}
 #####
 
 # preselect the direction
-# super + ctrl + {h,j,k,l}
-# 	bspc node -p {west,south,north,east}
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
 
 # cancel the preselection for the focused node
 # super + ctrl + space

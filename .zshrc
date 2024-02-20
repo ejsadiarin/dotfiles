@@ -8,8 +8,8 @@
 export VISUAL="${EDITOR}"
 export EDITOR='nvim'
 export TERMINAL='alacritty'
-export BROWSER='brave-browser'
-export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
+export BROWSER='brave'
+# export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
