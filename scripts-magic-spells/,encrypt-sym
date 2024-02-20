@@ -34,7 +34,7 @@ while true; do
 		rm -rf "$1"
 		break
 		;;
-	[Nn]*) exit 0 ;;
+	[Nn]*) break ;;
 	*) printf " Error: only write 'y' or 'n'\n\n" ;;
 	esac
 done
