@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: add colors for dramatic effects kekw
+
 if [ -z "$1" ]; then
 	echo "[ ERROR ] Specify a file or directory to encrypt."
 	exit 1
@@ -34,7 +36,10 @@ while true; do
 		rm -rf "$1"
 		break
 		;;
-	[Nn]*) break ;;
+	[Nn]*)
+		echo "[ SKIPPING ] $1 will not be removed."
+		break
+		;;
 	*) printf " Error: only write 'y' or 'n'\n\n" ;;
 	esac
 done

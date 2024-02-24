@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 1 ]]; then
+	selected=$1
+else
+	# selected=$(fd -td --hidden --require-git --exclude node_modules --exclude .cargo --exclude .quokka --exclude .rustup --exclude .nuget --exclude .cache --exclude .npm --exclude .java --exclude .microsoft --exclude .mozilla --exclude .vscode --exclude .gnupg --exclude DataGripProjects --search-path ~/ | fzf)
+	# selected=$(fd -td --require-git --exclude '^\.(?!(local|config)$)' --search-path ~/ | fzf)
+	# selected=$(fd -td --hidden --require-git --exclude 'node_modules,.cargo,.quokka,.rustup,.nuget' --search-path ~/ | fzf)
+	# selected=$(find ~/main ~/.local ~/ -mindepth 1 -maxdepth 3 -type d | fzf)
+	selected=$(fd -td --require-git --max-depth 3 --exclude node_modules --search-path ~/ --search-path ~/.config --search-path ~/.local | fzf --tiebreak=length)
+fi
+
+if [[ -z $selected ]]; then
+	exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+	tmux new-session -s $selected_name -c $selected
+	exit 0
+fi
+
+if ! tmux has-session -t=$selected_name 2>/dev/null; then
+	tmux new-session -ds $selected_name -c $selected
+fi
+
+tmux switch-client -t $selected_name

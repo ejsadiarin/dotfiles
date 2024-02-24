@@ -245,11 +245,11 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    opts = {
-      default = {
-        layout = "diff3_mixed",
-      },
-    },
+    -- opts = {
+    --   default = {
+    --     layout = "diff3_mixed",
+    --   },
+    -- },
     keys = {
       { "<leader>gd", "<CMD>DiffviewOpen<CR>", desc = "Git Diff View" },
       { "<leader>gf", "<CMD>DiffviewFileHistory %<CR>", desc = "Git Diff File History" },
