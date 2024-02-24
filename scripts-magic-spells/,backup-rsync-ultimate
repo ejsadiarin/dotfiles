@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# TODO: 1: read input with options (sync all or sync specific dirs)
+# TODO: 2: add flags support
+
+usb_mountpoint="/mnt/$(whoami)/ejsmain/"
+wizardry_sms="$HOME/wizardry/scripts-magic-spells/"
+dotfiles_sms="$HOME/dotfiles/scripts-magic-spells/"
+sync_lock="$HOME/Sync/Lock/"
+
+set -e
+
+notify-send "Backup Started!" "Syncing everything..."
+notify-send "Get some coffee" "Automation is peak."
+
+{
+	# sync scripts magic spells
+	echo "[ SYNCING ] scripts magic spells..."
+	rsync -auzv --delete "$wizardry_sms" "$dotfiles_sms"
+	# sync usb
+	echo "[ CHECKING ] is USB mounted?... "
+	readme_file=$(find "$usb_mountpoint" -type f -name "README.md")
+	if [ -e "$readme_file" ]; then
+		echo "[ SUCCESS ] USB is mounted, now syncing..."
+		echo "[ SYNCING USB ] Scripts / Magic Spells..."
+		sudo rsync -auzv --delete "$wizardry_sms" "$usb_mountpoint"/scripts-magic-spells/
+		echo "[ SYNCING USB ] Lock-encrypt directory..."
+		sudo rsync -auz "$sync_lock" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
+	else
+		echo "[ ERROR ] USB is not mounted. Skipping..."
+	fi
+	# NOTE: add sync to network
+}
+
+echo "[ SUCCESS ] Everything perfectly synced!"
+notify-send "Backup Complete!" "All Synced!"
