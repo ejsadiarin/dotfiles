@@ -6,7 +6,10 @@
 usb_mountpoint="/mnt/$(whoami)/ejsmain/"
 wizardry_sms="$HOME/wizardry/scripts-magic-spells/"
 dotfiles_sms="$HOME/dotfiles/scripts-magic-spells/"
+ejs="$HOME/ejs"
 sync_lock="$HOME/Sync/Lock/"
+pkse_desktop="$HOME/Pictures/pkse"
+screenshots_desktop="$HOME/Pictures/ScreenShots"
 
 set -e
 
@@ -14,7 +17,7 @@ notify-send "Backup Started!" "Syncing everything..."
 notify-send "Get some coffee" "Automation is peak."
 
 {
-	# sync scripts magic spells
+	# sync scripts magic spells to dotfiles
 	echo "[ SYNCING ] scripts magic spells..."
 	rsync -auzv --delete "$wizardry_sms" "$dotfiles_sms"
 	# sync usb
@@ -26,6 +29,11 @@ notify-send "Get some coffee" "Automation is peak."
 		sudo rsync -auzv --delete "$wizardry_sms" "$usb_mountpoint"/scripts-magic-spells/
 		echo "[ SYNCING USB ] Lock-encrypt directory..."
 		sudo rsync -auz "$sync_lock" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
+		echo "[ SYNCING USB ] exquisite pics..."
+		sudo rsync -auz "$pkse_desktop" "$usb_mountpoint"
+		sudo rsync -auz "$screenshots_desktop" "$usb_mountpoint"
+		echo "[ SYNCING USB ] personal ejs..."
+		sudo rsync -auz "$ejs" "$usb_mountpoint"
 	else
 		echo "[ ERROR ] USB is not mounted. Skipping..."
 	fi

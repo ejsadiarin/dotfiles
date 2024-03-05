@@ -29,6 +29,9 @@ fd -tf -tx --glob ",*" --search-path $HOME -x basename {} | awk '!seen[$0]++' | 
 # or (but slower)
 find $HOME -type f -executable -name ",*" -exec basename {} \; | awk '!seen[$0]++' | fzf
 
+# finds all custom scripts with fzf --preview (extensible with a custom script)
+fd -tf -tx --glob ",*" --search-path $HOME/wizardry/scripts-magic-spells | awk '!seen[$0]++' | fzf --header "Select script to cat" --preview 'head -$LINES {}'
+
 # fzf all commands in system and see its documentation via man pages
 compgen -c | fzf | xargs man
 
@@ -135,3 +138,5 @@ fi
 
 # References and Best Resources
 - [Become a shell wizard in ~12 mins]()
+- [Advanced Bash Scripting Guide: an in-depth exploration of the art of shell scripting](https://hangar118.sdf.org/p/bash-scripting-guide/index.html)
+- [Some collection of scripts in Reddit](https://www.reddit.com/r/sysadmin/comments/rs4546/any_scripts_you_guys_have_that_make_your_life_so/)
