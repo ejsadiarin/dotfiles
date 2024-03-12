@@ -145,6 +145,8 @@ alias lg="lazygit"
 alias clpwd="pwd | xclip -selection clipboard"
 alias copy="xclip -sel clip"
 
+alias snvim="sudo -E nvim $1"
+
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 

@@ -60,4 +60,5 @@ vim.opt.laststatus = 3 -- Global statusline when on split
 
 vim.o.background = "dark"
 vim.g.markdown_recommended_style = 0 -- Disable default markdown styles (see https://www.reddit.com/r/neovim/comments/z2lhyz/comment/ixjb7je)
+vim.g.have_nerd_font = true -- Enable nerd font
 -- vim.opt.listchars = 'eol:↲'
