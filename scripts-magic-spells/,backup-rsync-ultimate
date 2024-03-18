@@ -23,7 +23,7 @@ notify-send "Get some coffee" "Automation is peak."
 	# sync usb
 	echo "[ CHECKING ] is USB mounted?... "
 	readme_file=$(find "$usb_mountpoint" -type f -name "README.md")
-	if [ -e "$readme_file" ]; then
+	if [ -n "$readme_file" ]; then
 		echo "[ SUCCESS ] USB is mounted, now syncing..."
 		echo "[ SYNCING USB ] Scripts / Magic Spells..."
 		sudo rsync -auzv --delete "$wizardry_sms" "$usb_mountpoint"/scripts-magic-spells/
@@ -33,7 +33,7 @@ notify-send "Get some coffee" "Automation is peak."
 		sudo rsync -auz "$pkse_desktop" "$usb_mountpoint"
 		sudo rsync -auz "$screenshots_desktop" "$usb_mountpoint"
 		echo "[ SYNCING USB ] personal ejs..."
-		sudo rsync -auz "$ejs" "$usb_mountpoint"
+		sudo rsync -auzv "$ejs" "$usb_mountpoint"
 	else
 		echo "[ ERROR ] USB is not mounted. Skipping..."
 	fi

@@ -1,0 +1,130 @@
+#!/bin/bash
+## This is a function. use it by source-ing it in your shell and calling one of the functions
+## source .kgc.bash
+## kgc (namespace)
+## use namespace all for all namespaces
+## This is the bash version. see .kgc.zsh here for the zsh version
+## <https://github.com/jessegoodier/jesse-zsh-profile/>
+
+# like the alias `kgp` for kubectl get pods
+# kgc is to k get containers
+# it also prints related errors to help fix.
+# Add to your zsh profile like:
+# https://github.com/jessegoodier/jesse-zsh-profile/blob/main/.zshrc#L39
+
+function kgc {
+# k get containers, show failures
+
+# get the namespace from the first argument, otherwise use the current namespace
+namespace=$1
+
+# if the namespace is "all" run kgc-all function
+if [[ $namespace == "all" ]]; then
+  kgc-all
+  return
+fi
+
+if [[ -z "$namespace" ]]; then
+  namespace=$(kubectl config view --minify --output 'jsonpath={..namespace}')
+fi
+printf "\033[0;37m%s\033[0m: \033[0;36m%s\033[0m\n" "NAMESPACE" "$namespace"
+
+# If current_failures is not declared or not an array, declare it as an array
+if [ -z "${current_failures+x}" ] || ! declare -p current_failures 2> /dev/null | grep -q '^declare -a'; then
+  declare -a current_failures
+fi
+
+# Get all pods in the namespace
+pods_json=$(kubectl get pods -n "$namespace" -o json | jq '.items[] | {name: .metadata.name, status: .status.phase, containers: .status.containerStatuses}')
+pod_list=($(echo "$pods_json" | jq -r '.name'))
+
+# Figure out the table spacing
+pod_column=0
+for pod_name in "${pod_list[@]}"; do
+  pod_chars=${#pod_name}
+  if (( pod_chars > pod_column )); then
+    pod_column=$pod_chars
+  fi
+done
+
+container_list=($(echo "$pods_json" | jq -r 'select(.containers != null) | .containers[].name'))
+
+container_column=0
+for container_name in "${container_list[@]}"; do
+  column_width=${#container_name}
+  if (( column_width > container_column )); then
+    container_column=$column_width
+  fi
+done
+
+if [[ ${pod_column} -gt 0 ]]; then
+  print_table_header
+else
+  printf "\033[0;33mNo pods found in $namespace namespace\033[0m\n"
+fi
+
+for pod in "${pod_list[@]}"; do
+  num_containers_in_this_pod=$(echo "$pods_json" | jq -r ".| select(.name == \"$pod\") |.containers| length")
+
+  if [ "$num_containers_in_this_pod" -lt 1 ]; then
+    printf "\033[0;31m%-${pod_column}s %-${container_column}s %-${status_column}s\033[0m\n" "$pod" "-" "false"
+    current_failures+=("$pod")
+    continue
+  fi
+
+  containers_in_this_pod_json=$(echo "$pods_json" | jq -r ".| select(.name == \"$pod\") |.containers[]")
+  containers_in_this_pod_list=($(echo "$containers_in_this_pod_json" | jq -r ".name"))
+  for container_name in "${containers_in_this_pod_list[@]}"; do
+    container_ready=$(echo "$containers_in_this_pod_json" | jq -r ".| select(.name == \"$container_name\") |.ready")
+
+    if [[ "$container_ready" == "true" ]]; then
+      printf "\033[32m%-${pod_column}s %-${container_column}s %-${status_column}s\n\033[0m" "$pod" "$container_name" "$container_ready"
+    else
+      terminated_reason=$(echo "$pods_json" | jq -r ".| select(.name == \"$pod\") |.containers[0].state.terminated.reason")
+      if [[ "$terminated_reason" == "Completed" ]]; then
+        printf "\033[32m%-${pod_column}s %-${container_column}s %-${status_column}s\n\033[0m" "$pod" "$container_name" "$terminated_reason"
+      else
+        if [[ $(echo "$pods_json" | jq -r ".| select(.name == \"$pod\") .status") == "Pending" ]]; then
+          printf "\033[0;33m%-${pod_column}s %-${container_column}s %-${status_column}s\033[0m\n" "$pod" "$container_name" "Pending"
+        else
+          printf "\033[0;31m%-${pod_column}s %-${container_column}s %-${status_column}s\033[0m\n" "$pod" "$container_name" "$terminated_reason"
+          current_failures+=("$pod")
+        fi
+      fi
+    fi
+  done
+done
+
+if [[ ${#current_failures[@]} -gt 0 ]]; then
+  printf "\nPods with failing containers:\n"
+  for pod in "${current_failures[@]}"; do
+    printf "\033[0;31m%s\033[0m\n" "$pod:"
+    printf "\033[0;36m%s\033[0m\n" "$(get_failure_events $pod)"
+  done
+fi
+
+replica_sets=$(kubectl get replicaset -n $namespace -o json)
+replica_sets_with_unavailable_replicas=($(jq -r '.items[] | select(.status.replicas <.spec.replicas) |.metadata.name' <<< "$replica_sets"))
+
+if [[ ${#replica_sets_with_unavailable_replicas[@]} -gt 0 ]]; then
+  printf "\nUnavailable ReplicaSets:\n"
+  for replica_set in "${replica_sets_with_unavailable_replicas[@]}"; do
+    printf "\033[0;31m%s\033[0m: \033[0;36m%s\033[0m\n" "$replica_set" "$(get_failure_events $replica_set)"
+  done
+fi
+}
+
+function get_failure_events() {
+  kubectl get events -n $namespace --sort-by=lastTimestamp --field-selector involvedObject.name=$1
+}
+
+function print_table_header() {
+  status_column=10
+  printf "%-${pod_column}s %-${container_column}s %-${status_column}s\n" "Pod" "Container Name" "Ready"
+}
+
+function kgc-all() {
+  printf "\033[0;36m%s\033[0m\n" "Getting containers in all namespaces"
+  namespaces=($(kubectl get ns -o jsonpath='{.items[*].metadata.name}'))
+  for ns in "${namespaces[@]}"; do kgc "$ns"; done
+}
