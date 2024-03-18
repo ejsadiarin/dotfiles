@@ -73,6 +73,9 @@ done
 # Load bspwm conf, colors, dunst, bars and/or eww widgets
 . ${rice_dir}/Theme.sh
 
+# Battery Warning script start
+. "$HOME"/.config/bspwm/scripts/BatteryWarning
+
 # Reload sxhkd daemon
 sxhkd -c "$HOME"/.config/bspwm/sxhkdrc &
 

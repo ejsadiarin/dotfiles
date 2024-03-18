@@ -86,7 +86,10 @@ alt + Print
 # Screenshot Select
 shift + Print
   flameshot gui -c 
-  # flameshot gui -c -p ~/Pictures/ScreenShots/Clipboard/
+
+# Screenshot Select clipboard
+ctrl + Print
+  flameshot gui -c -p ~/Pictures/ScreenShots/Clipboard/
 
 # Manage brightness
 XF86MonBrightness{Up,Down}
