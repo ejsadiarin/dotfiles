@@ -10,8 +10,8 @@ vim.keymap.set("i", "kj", "<ESC>", { silent = true })
 vim.keymap.set("n", "<TAB>", "<C-W>w")
 vim.keymap.set("n", "<S-TAB>", "<C-W>W")
 
--- unpolluted paste (access paste without "dd" buffer pollute)
-vim.keymap.set("n", "<leader>p", '"0p', { desc = "Unpolluted Paste" })
+-- unpolluted paste (paste from yank register)
+vim.keymap.set({ "n", "x" }, "<leader>p", '"0p', { desc = "Unpolluted Paste" })
 
 -- changes cwd to head of current buffer (useful for grepping and finding files)
 vim.keymap.set("n", "<leader>cw", function()
@@ -37,7 +37,7 @@ vim.keymap.set("v", "<C-n>", ":m '>+1<CR>gv=gv", { desc = "Move line dow(n)" })
 vim.keymap.set("v", "<C-p>", ":m '<-2<CR>gv=gv", { desc = "Move line u(p)" })
 
 -- colorizer keymap
-vim.keymap.set("n", "<leader>cc", "<CMD>ColorizerToggle<CR>")
+vim.keymap.set("n", "<leader>ce", "<CMD>ColorizerToggle<CR>")
 
 -- Save without formatting
 vim.keymap.set("n", "<leader>cs", ":noautocmd w<CR>", { desc = "Save without formatting" })

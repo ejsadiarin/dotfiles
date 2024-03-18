@@ -46,7 +46,7 @@ return {
       vim.g.gruvbox_material_disable_italic_comment = 0
       vim.g.gruvbox_material_enable_italic = 1
       vim.g.gruvbox_material_enable_bold = 0
-      vim.g.gruvbox_material_transparent_background = 1
+      vim.g.gruvbox_material_transparent_background = 0
       -- Themes
       vim.g.gruvbox_material_foreground = "mix" -- "original", "mix", "material" (use "mix" if too bright)
       vim.g.gruvbox_material_background = "hard" -- "hard", "medium", "soft" (use "hard" if too bright)
@@ -187,19 +187,20 @@ return {
       highlight_groups = {
         -- Comment = { fg = "foam" },
         -- VertSplit = { fg = "muted", bg = "muted" },
+        WhichKeyFloat = { bg = "#050517" },
       },
 
-      -- before_highlight = function(group, highlight, palette)
-      --   -- Disable all undercurls
-      --   -- if highlight.undercurl then
-      --   --     highlight.undercurl = false
-      --   -- end
-      --   --
-      --   -- Change palette colour
-      --   -- if highlight.fg == palette.pine then
-      --   --     highlight.fg = palette.foam
-      --   -- end
-      -- end,
+      before_highlight = function(group, highlight, palette)
+        -- Disable all undercurls (FIX: not working kekw)
+        if highlight.undercurl then
+          highlight.undercurl = false
+        end
+        --
+        -- Change palette colour
+        -- if highlight.fg == palette.pine then
+        --     highlight.fg = palette.foam
+        -- end
+      end,
     },
   },
 
@@ -207,7 +208,7 @@ return {
     "LazyVim/LazyVim",
     opts = {
       -- set default colorscheme here
-      colorscheme = "gruvbox-material",
+      colorscheme = "rose-pine-moon",
     },
   },
 }
