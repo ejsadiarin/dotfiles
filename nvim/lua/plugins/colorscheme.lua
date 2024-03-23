@@ -46,7 +46,7 @@ return {
       vim.g.gruvbox_material_disable_italic_comment = 0
       vim.g.gruvbox_material_enable_italic = 1
       vim.g.gruvbox_material_enable_bold = 0
-      vim.g.gruvbox_material_transparent_background = 0
+      vim.g.gruvbox_material_transparent_background = 1
       -- Themes
       vim.g.gruvbox_material_foreground = "mix" -- "original", "mix", "material" (use "mix" if too bright)
       vim.g.gruvbox_material_background = "hard" -- "hard", "medium", "soft" (use "hard" if too bright)
@@ -188,9 +188,13 @@ return {
         -- Comment = { fg = "foam" },
         -- VertSplit = { fg = "muted", bg = "muted" },
         WhichKeyFloat = { bg = "#050517" },
+        LazyNormal = { bg = "#050517" },
+        -- NeoTreeNormal = { bg = "#050517" },
+        -- StatusLine = { bg = "#050517" },
+        -- lualine_a_insert = { bg = "#050517" },
       },
 
-      before_highlight = function(group, highlight, palette)
+      before_highlight = function(group, highlight)
         -- Disable all undercurls (FIX: not working kekw)
         if highlight.undercurl then
           highlight.undercurl = false
