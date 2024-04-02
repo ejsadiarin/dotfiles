@@ -1,0 +1,23 @@
+#!/bin/bash
+
+from=$1
+excluded=$2
+
+# if $1 is empty
+if [ -z "$from" ]; then
+	echo "[ ERROR ]: no directory specified."
+	exit 1
+fi
+
+# if no directory found
+if [ ! -d "$from" ]; then
+	echo "[ ERROR ]: directory not found."
+	exit 1
+fi
+
+# if no second argument
+if [ -z "$excluded" ]; then
+	excluded=NULL
+fi
+
+du -hx --max-depth=1 "$from" --exclude="$excluded" | sort -h | tail -n 10
