@@ -1,6 +1,31 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+
+-- #######################################
+-- #     disabled general keymaps        #
+-- #######################################
+vim.keymap.del("n", "<leader>|")
+vim.keymap.del("n", "<leader>-")
+vim.keymap.del("n", "<leader>`")
+vim.keymap.del("n", "<leader><tab>l")
+vim.keymap.del("n", "<leader><tab>f")
+vim.keymap.del("n", "<leader><tab><tab>")
+vim.keymap.del("n", "<leader><tab>]")
+vim.keymap.del("n", "<leader><tab>d")
+vim.keymap.del("n", "<leader><tab>[")
+-- local map = vim.keymap.set
+-- map("n", "<leader>tl", "<cmd>tablast<cr>", { desc = "Last Tab" })
+-- map("n", "<leader>tf", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+-- map("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "New Tab" })
+-- map("n", "<leader>t]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+-- map("n", "<leader>td", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+-- map("n", "<leader>t[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+-- #######################################
+
+-- #######################################
+-- #         custom keymaps              #
+-- #######################################
 local util = require("lazyvim.util")
 
 -- remap normal mode to "kj" when insert mode
@@ -47,19 +72,14 @@ vim.keymap.set("n", "<leader>wh", "<C-W>s", { desc = "Horizontal Split" })
 vim.keymap.set("n", "<leader>wv", "<C-W>v", { desc = "Vertical Split" })
 
 -- Switch to other buffer like ctrl+tab
-vim.keymap.set("n", "<leader><space>", "<CMD>e #<CR>", { desc = "Switch buffer" })
+-- vim.keymap.set("n", "<leader><space>", "<CMD>e #<CR>", { desc = "Switch buffer" })
+vim.keymap.set("n", "<leader><tab>", "<CMD>e #<CR>", { desc = "Switch buffer" })
 
 -- Terminal with border
 local lazyterm = function()
   util.terminal(nil, { cwd = util.root(), border = "rounded" })
 end
 vim.keymap.set("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
-
--- Tmux Navigation
-vim.keymap.set("n", "<C-h>", "<CMD>TmuxNavigateLeft<CR>", { desc = "Tmux Navigate Left" })
-vim.keymap.set("n", "<C-j>", "<CMD>TmuxNavigateDown<CR>", { desc = "Tmux Navigate Down" })
-vim.keymap.set("n", "<C-k>", "<CMD>TmuxNavigateUp<CR>", { desc = "Tmux Navigate Up" })
-vim.keymap.set("n", "<C-l>", "<CMD>TmuxNavigateRight<CR>", { desc = "Tmux Navigate Right" })
 
 -- Multiple cursors/ visual-multi (https://github.com/mg979/vim-visual-multi/wiki/Mappings)
 vim.keymap.set("n", "<leader>vm", "<Plug>(VM-Find-Under)", { desc = "Start Visual Multi" })
@@ -136,9 +156,3 @@ vim.keymap.set("n", "<M-C-RightMouse>", "<Plug>(VM-Mouse-Column)", { desc = "Mul
 -- vim.g.VM_maps["Toggle Block"]                = '\\<BS>'
 -- let g:VM_maps["Toggle Single Region"]        = '\\<CR>'
 -- let g:VM_maps["Toggle Multiline"]            = '\\M'
-
--- ####### Disabled General Keymaps ####### --
-vim.keymap.del("n", "<leader>|")
-vim.keymap.del("n", "<leader>-")
-vim.keymap.del("n", "<leader>`")
--- ######################################## --

@@ -60,14 +60,15 @@ return {
       else
         harpoon:list():select(1)
       end
-    end, { desc = "working main buffer (harpoon) " })
+    end, { desc = "which_key_ignore" })
+
     vim.keymap.set("n", "<leader>2", function()
       if harpoon:list():select(2) == nil then
         harpoon:list():append()
       else
         harpoon:list():select(2)
       end
-    end, { desc = "other main buffer (harpoon)" })
+    end, { desc = "which_key_ignore" })
 
     vim.keymap.set("n", "<leader>3", function()
       if harpoon:list():select(3) == nil then
@@ -75,7 +76,7 @@ return {
       else
         harpoon:list():select(3)
       end
-    end, { desc = "interesting buffer (harpoon)" })
+    end, { desc = "which_key_ignore" })
 
     vim.keymap.set("n", "<leader>4", function()
       if harpoon:list():select(4) == nil then
@@ -83,7 +84,7 @@ return {
       else
         harpoon:list():select(4)
       end
-    end, { desc = "keep buffer (harpoon)" })
+    end, { desc = "which_key_ignore" })
 
     vim.keymap.set("n", "<leader>5", function()
       if harpoon:list():select(5) == nil then
@@ -91,30 +92,63 @@ return {
       else
         harpoon:list():select(5)
       end
-    end, { desc = "disposable buffer (harpoon)" })
+    end, { desc = "which_key_ignore" })
+
+    vim.keymap.set("n", "<leader>6", function()
+      if harpoon:list():select(6) == nil then
+        harpoon:list():append()
+      else
+        harpoon:list():select(6)
+      end
+    end, { desc = "which_key_ignore" })
+
+    vim.keymap.set("n", "<leader>7", function()
+      if harpoon:list():select(7) == nil then
+        harpoon:list():append()
+      else
+        harpoon:list():select(7)
+      end
+    end, { desc = "which_key_ignore" })
+
+    vim.keymap.set("n", "<leader>8", function()
+      if harpoon:list():select(8) == nil then
+        harpoon:list():append()
+      else
+        harpoon:list():select(8)
+      end
+    end, { desc = "which_key_ignore" })
+
+    vim.keymap.set("n", "<leader>9", function()
+      if harpoon:list():select(9) == nil then
+        harpoon:list():append()
+      else
+        harpoon:list():select(9)
+      end
+    end, { desc = "which_key_ignore" })
+
     -- use telescope for Harpoon UI (cannot edit like a buffer tho)
-    -- vim.keymap.set("n", "<leader>fh", function()
-    --   local conf = require("telescope.config").values
-    --   local function toggle_telescope(harpoon_files)
-    --     local file_paths = {}
-    --     for _, item in ipairs(harpoon_files.items) do
-    --       table.insert(file_paths, item.value)
-    --     end
-    --
-    --     require("telescope.pickers")
-    --       .new({}, {
-    --         prompt_title = "Harpoon",
-    --         finder = require("telescope.finders").new_table({
-    --           results = file_paths,
-    --         }),
-    --         previewer = conf.file_previewer({}),
-    --         sorter = conf.generic_sorter({}),
-    --       })
-    --       :find()
-    --   end
-    --   toggle_telescope(harpoon:list())
-    --   -- harpoon.ui:toggle_telescope(harpoon:list())
-    -- end, { desc = "Find Harpoon Marks in Project" })
+    vim.keymap.set("n", "<leader>fh", function()
+      local conf = require("telescope.config").values
+      local function toggle_telescope(harpoon_files)
+        local file_paths = {}
+        for _, item in ipairs(harpoon_files.items) do
+          table.insert(file_paths, item.value)
+        end
+
+        require("telescope.pickers")
+          .new({}, {
+            prompt_title = "Harpoon",
+            finder = require("telescope.finders").new_table({
+              results = file_paths,
+            }),
+            previewer = conf.file_previewer({}),
+            sorter = conf.generic_sorter({}),
+          })
+          :find()
+      end
+      toggle_telescope(harpoon:list())
+      -- harpoon.ui:toggle_telescope(harpoon:list())
+    end, { desc = "Find Harpoon Marks in Project" })
     -- ############################ HARPOON END ############################ --
   end,
   -- keys = {

@@ -59,6 +59,7 @@ return {
       { "<leader><space>", false },
       { "<leader>ft", false },
       { "<leader>fT", false },
+      { "<leader>,", false },
       -- somehow this works only on cwd (not dynamic)
       -- {
       --   "<leader>sg",

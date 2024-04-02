@@ -2,18 +2,6 @@
 
 return {
   {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      defaults = {
-        -- ["<leader>h"] = { name = "+harpoon" },
-        ["<leader>v"] = { name = "+visual-multi" },
-      },
-      ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-    },
-  },
-
-  {
     "smjonas/inc-rename.nvim",
     config = function()
       require("inc_rename").setup()
@@ -22,6 +10,26 @@ return {
 
   {
     "mg979/vim-visual-multi",
+  },
+
+  -- Tmux Navigation
+  -- vim.g.tmux_navigator_no_mappings = 1
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    keys = {
+      { "<M-h>", "<cmd>TmuxNavigateLeft<cr>" },
+      { "<M-j>", "<cmd>TmuxNavigateDown<cr>" },
+      { "<M-k>", "<cmd>TmuxNavigateUp<cr>" },
+      { "<M-l>", "<cmd>TmuxNavigateRight<cr>" },
+      { "<M-\\>", "<cmd>TmuxNavigatePrevious<cr>" },
+    },
   },
 
   -- {
