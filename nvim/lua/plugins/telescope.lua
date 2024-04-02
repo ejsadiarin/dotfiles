@@ -90,13 +90,13 @@ return {
       {
         "<leader>sN",
         function()
-          local dir = vim.env.HOME .. "/wizardry"
+          local dir = vim.env.HOME .. "/vault/wizardry"
           require("telescope").extensions.live_grep_args.live_grep_args({
             search_dirs = { dir },
             additional_args = { "--hidden" },
           })
         end,
-        desc = "Live Grep from Home",
+        desc = "Live Grep from Wizardry Notes",
       },
       { "<leader>ff", Util.telescope("files"), desc = "Find Files (dynamic)" },
       { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
@@ -174,7 +174,7 @@ return {
       {
         "<leader>fw",
         function()
-          local dir = vim.env.HOME .. "/wizardry"
+          local dir = vim.env.HOME .. "/vault/wizardry"
           require("telescope.builtin").find_files({
             find_command = {
               "fd",
@@ -187,7 +187,7 @@ return {
               "--search-path",
               dir,
             },
-            prompt_prefix = "~/wizardry ",
+            prompt_prefix = "~/vault/wizardry ",
           })
         end,
         desc = "Find wizardry notes",
