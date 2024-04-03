@@ -4,6 +4,15 @@ snippet meta yaml-like metadata for md
   aliases: [${9:aliases}]
   tags: 
   - ${7:tags}
-  date: ${2:year}-${3:month}-${4:day}-${5:time} (${6:date})
+  date: `strftime("%Y-%m-%d-%H%M (%B %d, %Y %X)")`
   title: ${1:title}
   ---
+
+snippet ,date my special date format 
+  `strftime("%Y-%m-%d-%H%M (%B %d, %Y %X)")`
+
+snippet ,link generate md wiki link
+  [[${1}]]
+
+snippet ,img generate md wiki link
+  ![[${1}]]
