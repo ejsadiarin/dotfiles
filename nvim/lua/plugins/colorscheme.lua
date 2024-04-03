@@ -1,39 +1,115 @@
+local latte = require("catppuccin.palettes").get_palette("latte")
+local frappe = require("catppuccin.palettes").get_palette("frappe")
+local macchiato = require("catppuccin.palettes").get_palette("frappe")
+local mocha = require("catppuccin.palettes").get_palette("mocha")
+
+local colors = require("catppuccin.palettes").get_palette() -- current flavour's palette
+
 return {
-  -- add transparency (idk if necessary with the native transparency prop for each colorscheme)
-  --  - enable transparency so it will background will be the color of the terminal
-  --  - ref: https://github.com/xiyaowong/transparent.nvim
-  --  - command: :TransparentEnable --> will cached and transparent will be applied
-  -- {
-  --   "xiyaowong/transparent.nvim",
-  --   opts = {
-  --     groups = { -- table: default groups
-  --       "Normal",
-  --       "NormalNC",
-  --       "Comment",
-  --       "Constant",
-  --       "Special",
-  --       "Identifier",
-  --       "Statement",
-  --       "PreProc",
-  --       "Type",
-  --       "Underlined",
-  --       "Todo",
-  --       "String",
-  --       "Function",
-  --       "Conditional",
-  --       "Repeat",
-  --       "Operator",
-  --       "Structure",
-  --       "LineNr",
-  --       "NonText",
-  --       "SignColumn",
-  --       "CursorLineNr",
-  --       "EndOfBuffer",
-  --     },
-  --     extra_groups = {}, -- table: additional groups that should be cleared
-  --     exclude_groups = {}, -- table: groups you don't want to clear
-  --   },
-  -- },
+  -- Catppuccin the GOAT
+  {
+    "catppuccin/nvim",
+    lazy = false,
+    priority = 1000,
+    name = "catppuccin",
+    config = function()
+      require("catppuccin").setup({
+        flavour = "mocha",
+        transparent_background = true,
+        show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+        term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
+        dim_inactive = {
+          enabled = false, -- dims the background color of inactive window
+          shade = "dark",
+          percentage = 0.15, -- percentage of the shade to apply to the inactive window
+        },
+        no_italic = false, -- Force no italic
+        no_bold = false, -- Force no bold
+        no_underline = false, -- Force no underline
+        styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+          comments = { "italic" }, -- Change the style of comments
+          conditionals = { "italic" },
+          loops = {},
+          functions = {},
+          keywords = {},
+          strings = {},
+          variables = {},
+          numbers = {},
+          booleans = {},
+          properties = {},
+          types = {},
+          operators = {},
+          -- miscs = {}, -- Uncomment to turn off hard-coded styles
+        },
+        color_overrides = {},
+        custom_highlights = function(cp)
+          return {
+            -- Example (see: https://github.com/ayamir/nvimdots/wiki/Usage#get-catppuccin-colors for more):
+            -- LspReferenceText = { bg = colors.bg_highlight },
+            -- LspReferenceRead = { bg = colors.bg_highlight },
+            -- LspReferenceWrite = { bg = colors.bg_highlight },
+            -- LspDiagnosticsDefaultError = { fg = colors.red },
+            -- LspDiagnosticsDefaultWarning = { fg = colors.yellow },
+            -- LspDiagnosticsDefaultInformation = { fg = colors.blue },
+            -- LspDiagnosticsDefaultHint = { fg = colors.cyan },
+            -- Comment = { fg = colors.flamingo },
+            -- TabLineSel = { bg = colors.pink },
+            -- CmpBorder = { fg = colors.surface2 },
+            -- Pmenu = { bg = colors.none },
+            WhichKeyFloat = { bg = "#050517" },
+            WhichKeyBorder = { bg = "#89b4fa" },
+            LazyNormal = { bg = "#050517" },
+            TroubleNormal = { bg = "" },
+            -- htmlBold = { fg = "rose" },
+            -- markdownBold = { fg = "rose" },
+            -- NeoTreeNormal = { bg = "#050517" },
+            -- StatusLine = { bg = "#050517" },
+            -- lualine_a_insert = { bg = "#050517" },
+            -- NormalFloat = { bg = cp.green },
+            ["@constant.builtin"] = { fg = cp.peach, style = {} },
+            ["@comment"] = { fg = cp.surface2, style = { "italic" } },
+          }
+        end,
+        -- highlight_overrides = {
+        --   mocha = function()
+        --     return {
+        --       WhichKeyBorder = { bg = "#89b4fa", fg = "#89b4fa" },
+        --     }
+        --   end,
+        -- },
+        -- default_integrations = false,
+        integrations = {
+          alpha = true,
+          cmp = true,
+          flash = true,
+          gitsigns = true,
+          illuminate = true,
+          indent_blankline = { enabled = true },
+          lsp_trouble = true,
+          mason = true,
+          mini = true,
+          native_lsp = {
+            enabled = true,
+            underlines = {
+              errors = { "undercurl" },
+              hints = { "undercurl" },
+              warnings = { "undercurl" },
+              information = { "undercurl" },
+            },
+          },
+          navic = { enabled = true, custom_bg = "lualine" },
+          neotest = true,
+          noice = true,
+          notify = true,
+          neotree = true,
+          semantic_tokens = true,
+          telescope = true,
+          treesitter = true,
+          -- which_key = true,
+        },
+      })
+    end,
+  },
 
   -- Gruvbox the GOAT
   {
@@ -91,82 +167,6 @@ return {
       overrides = {},
       dim_inactive = false,
       transparent_mode = true,
-    },
-  },
-
-  -- Catppuccin lol
-  {
-    "catppuccin/nvim",
-    lazy = false,
-    priority = 1000,
-    name = "catppuccin",
-    opts = {
-      flavour = "mocha",
-      transparent_background = true,
-      show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-      term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
-      dim_inactive = {
-        enabled = false, -- dims the background color of inactive window
-        shade = "dark",
-        percentage = 0.15, -- percentage of the shade to apply to the inactive window
-      },
-      no_italic = false, -- Force no italic
-      no_bold = false, -- Force no bold
-      no_underline = false, -- Force no underline
-      styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-        comments = { "italic" }, -- Change the style of comments
-        conditionals = { "italic" },
-        loops = {},
-        functions = {},
-        keywords = {},
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
-        properties = {},
-        types = {},
-        operators = {},
-        -- miscs = {}, -- Uncomment to turn off hard-coded styles
-      },
-      color_overrides = {},
-      custom_highlights = {},
-      -- default_integrations = false,
-      integrations = {
-        alpha = true,
-        cmp = true,
-        flash = true,
-        gitsigns = true,
-        illuminate = true,
-        indent_blankline = { enabled = true },
-        lsp_trouble = true,
-        mason = true,
-        mini = true,
-        native_lsp = {
-          enabled = true,
-          underlines = {
-            errors = { "undercurl" },
-            hints = { "undercurl" },
-            warnings = { "undercurl" },
-            information = { "undercurl" },
-          },
-        },
-        navic = { enabled = true, custom_bg = "lualine" },
-        neotest = true,
-        noice = true,
-        notify = true,
-        neotree = true,
-        semantic_tokens = true,
-        telescope = true,
-        treesitter = true,
-        which_key = true,
-      },
-      highlight_overrides = {
-        mocha = function()
-          return {
-            WhichKeyBorder = { bg = "#89b4fa", fg = "#89b4fa" },
-          }
-        end,
-      },
     },
   },
 
@@ -331,12 +331,39 @@ return {
       })
     end,
   },
+  {
+    "rebelot/kanagawa.nvim",
+    opts = {
+      compile = false, -- enable compiling the colorscheme
+      undercurl = true, -- enable undercurls
+      commentStyle = { italic = true },
+      functionStyle = {},
+      keywordStyle = { italic = true },
+      statementStyle = { bold = true },
+      typeStyle = {},
+      transparent = true, -- do not set background color
+      dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+      terminalColors = true, -- define vim.g.terminal_color_{0,17}
+      colors = { -- add/modify theme and palette colors
+        palette = {},
+        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+      },
+      overrides = function(colors) -- add/modify highlights
+        return {}
+      end,
+      theme = "wave", -- Load "wave" theme when 'background' option is not set
+      background = { -- map the value of 'background' option to a theme
+        dark = "wave", -- try "dragon" !
+        light = "lotus",
+      },
+    },
+  },
 
   {
     "LazyVim/LazyVim",
     opts = {
       -- set default colorscheme here
-      colorscheme = "catppuccin",
+      colorscheme = "catppuccin-mocha",
     },
   },
 }
@@ -488,5 +515,41 @@ return {
 --     },
 --     dim_inactive = true,
 --     transparent_mode = true,
+--   },
+-- },
+
+-- add transparency (idk if necessary with the native transparency prop for each colorscheme)
+--  - enable transparency so it will background will be the color of the terminal
+--  - ref: https://github.com/xiyaowong/transparent.nvim
+--  - command: :TransparentEnable --> will cached and transparent will be applied
+-- {
+--   "xiyaowong/transparent.nvim",
+--   opts = {
+--     groups = { -- table: default groups
+--       "Normal",
+--       "NormalNC",
+--       "Comment",
+--       "Constant",
+--       "Special",
+--       "Identifier",
+--       "Statement",
+--       "PreProc",
+--       "Type",
+--       "Underlined",
+--       "Todo",
+--       "String",
+--       "Function",
+--       "Conditional",
+--       "Repeat",
+--       "Operator",
+--       "Structure",
+--       "LineNr",
+--       "NonText",
+--       "SignColumn",
+--       "CursorLineNr",
+--       "EndOfBuffer",
+--     },
+--     extra_groups = {}, -- table: additional groups that should be cleared
+--     exclude_groups = {}, -- table: groups you don't want to clear
 --   },
 -- },
