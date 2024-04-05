@@ -140,7 +140,11 @@ alias ne="clear && neofetch"
 alias re="OpenApps --rxfetch"
 
 alias history="history 1"
+
+# scripts-magic-spells aliases
 alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr | head -10"
+alias ,t=",todo"
+alias ,b=",backlog"
 
 alias lg="lazygit"
 alias clpwd="pwd | xclip -selection clipboard"
