@@ -41,7 +41,7 @@ return {
     harpoon:setup({})
 
     vim.keymap.set("n", "<leader>a", function()
-      harpoon:list():append()
+      harpoon:list():add()
     end, { desc = "Harpoon add mark" })
 
     vim.keymap.set("n", "<leader>h", function()
@@ -59,7 +59,7 @@ return {
     -- simulate vim marks for harpoon
     vim.keymap.set("n", "<leader>1", function()
       if harpoon:list():select(1) == nil then
-        harpoon:list():append()
+        harpoon:list():add()
       else
         harpoon:list():select(1)
       end
@@ -67,7 +67,7 @@ return {
 
     vim.keymap.set("n", "<leader>2", function()
       if harpoon:list():select(2) == nil then
-        harpoon:list():append()
+        harpoon:list():add()
       else
         harpoon:list():select(2)
       end
@@ -75,7 +75,7 @@ return {
 
     vim.keymap.set("n", "<leader>3", function()
       if harpoon:list():select(3) == nil then
-        harpoon:list():append()
+        harpoon:list():add()
       else
         harpoon:list():select(3)
       end
@@ -83,7 +83,7 @@ return {
 
     vim.keymap.set("n", "<leader>4", function()
       if harpoon:list():select(4) == nil then
-        harpoon:list():append()
+        harpoon:list():add()
       else
         harpoon:list():select(4)
       end
@@ -91,7 +91,7 @@ return {
 
     vim.keymap.set("n", "<leader>5", function()
       if harpoon:list():select(5) == nil then
-        harpoon:list():append()
+        harpoon:list():add()
       else
         harpoon:list():select(5)
       end
@@ -99,7 +99,7 @@ return {
 
     vim.keymap.set("n", "<leader>6", function()
       if harpoon:list():select(6) == nil then
-        harpoon:list():append()
+        harpoon:list():add()
       else
         harpoon:list():select(6)
       end
@@ -107,7 +107,7 @@ return {
 
     vim.keymap.set("n", "<leader>7", function()
       if harpoon:list():select(7) == nil then
-        harpoon:list():append()
+        harpoon:list():add()
       else
         harpoon:list():select(7)
       end
@@ -115,7 +115,7 @@ return {
 
     vim.keymap.set("n", "<leader>8", function()
       if harpoon:list():select(8) == nil then
-        harpoon:list():append()
+        harpoon:list():add()
       else
         harpoon:list():select(8)
       end
@@ -123,7 +123,7 @@ return {
 
     vim.keymap.set("n", "<leader>9", function()
       if harpoon:list():select(9) == nil then
-        harpoon:list():append()
+        harpoon:list():add()
       else
         harpoon:list():select(9)
       end

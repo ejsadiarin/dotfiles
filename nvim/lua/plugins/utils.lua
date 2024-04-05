@@ -254,6 +254,47 @@ return {
       vim.cmd([[do FileType]])
     end,
   },
+
+  {
+    "shortcuts/no-neck-pain.nvim",
+    lazy = false,
+    version = "*",
+    -- opts = {
+    --   buffers = {
+    --     scratchpad = {
+    --       enabled = true,
+    --     },
+    --     bo = {
+    --       pathToFile = "~/vault/",
+    --       filetype = "md",
+    --     },
+    --   },
+    -- },
+    keys = {
+      {
+        "<leader>ue",
+        "<CMD>NoNeckPain<CR>",
+        desc = "Center the buffer",
+      },
+    },
+    -- config = function()
+    --   require("no-neck-pain").setup({
+    --     buffers = {
+    --       scratchPad = {
+    --         -- set to `false` to
+    --         -- disable auto-saving
+    --         enabled = true,
+    --         -- set to `nil` to default
+    --         -- to current working directory
+    --         location = "~/Documents/",
+    --       },
+    --       bo = {
+    --         filetype = "md",
+    --       },
+    --     },
+    --   })
+    -- end,
+  },
   -- {
   --   "lukas-reineke/headlines.nvim",
   --   dependencies = "nvim-treesitter/nvim-treesitter",
