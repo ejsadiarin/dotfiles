@@ -32,14 +32,90 @@ return {
       -- Optional, if you keep daily notes in a separate directory.
       folder = "~/vault/Personal/Journal",
       -- Optional, if you want to change the date format for the ID of daily notes.
-      date_format = "%Y-%m-%d",
+      -- date_format = "%Y-%m-%d-%H%M %X",
       -- Optional, if you want to change the date format of the default alias of daily notes.
       -- alias_format = "%B %-d, %Y",
       -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-      template = nil,
+      template = "template",
     },
 
     new_notes_location = "Journal",
+
+    -- Optional, sort search results by "path", "modified", "accessed", or "created".
+    -- The recommend value is "modified" and `true` for `sort_reversed`, which means, for example,
+    -- that `:ObsidianQuickSwitch` will show the notes sorted by latest modified time
+    sort_by = "created",
+    sort_reversed = true,
+
+    note_id_func = function(title)
+      -- Create note IDs in a Zettelkasten-like format (my own preferred way)
+      -- In this case a note with the title 'My new note' will be given an ID that looks
+      -- like '202404041426-my-new-note', and therefore the file name '202404041426-my-new-note.md'
+      local suffix = ""
+      if title ~= nil then
+        -- If title is given, transform it into valid file name.
+        suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+      else
+        -- If title is nil, just add 4 random uppercase letters to the suffix.
+        for _ = 1, 4 do
+          suffix = suffix .. string.char(math.random(65, 90))
+        end
+      end
+      local timestamp = os.time()
+      local formatted_date = os.date("%Y%m%d%H%M", timestamp)
+      return formatted_date .. "-" .. suffix
+    end,
+
+    -- Optional, alternatively you can customize the frontmatter data.
+    ---@return table
+    note_frontmatter_func = function(note)
+      -- Add the title of the note as an alias.
+      -- if note.id then
+      --   note:add_alias(note.Created)
+      -- end
+      -- note:add_field(note.Created)
+
+      local out = { date = note.date, tags = note.tags }
+
+      -- `note.metadata` contains any manually added fields in the frontmatter.
+      -- So here we just make sure those fields are kept in the frontmatter.
+      if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+        for k, v in pairs(note.metadata) do
+          out[k] = v
+          if v == "date" then
+            -- put it in front or start
+            table.insert(out, 1, v)
+          end
+        end
+      end
+
+      return out
+    end,
+
+    -- if want to jot notes before creating a title (prompts for title on write/save)
+    -- callbacks = {
+    --   -- Runs right before writing/saving the buffer for a note.
+    --   ---@param client obsidian.Client
+    --   ---@param note obsidian.Note
+    --   ---@diagnostic disable-next-line: unused-local
+    --   pre_write_note = function(client, note)
+    --     local util = require("obsidian.util")
+    --
+    --     if not note.title then
+    --       local title = util.input("Enter title: ")
+    --       if not title or string.len(title) == 0 then
+    --         return
+    --       end
+    --
+    --       note.title = title
+    --       local insert_at = 0
+    --       if note.frontmatter_end_line ~= nil then
+    --         insert_at = note.frontmatter_end_line + 1
+    --       end
+    --       vim.api.nvim_buf_set_lines(0, insert_at, insert_at, false, { "# " .. title })
+    --     end
+    --   end,
+    -- },
 
     picker = {
       -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.
@@ -154,6 +230,17 @@ return {
       "<leader>ol",
       "<CMD>ObsidianLinks<CR>",
       desc = "See all links in current note/buffer",
+    },
+    {
+      "<leader>oj",
+      function()
+        local dir = vim.env.HOME .. "/vault/Personal/Journal"
+        require("telescope.builtin").find_files({
+          find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
+          prompt_prefix = "Journal | ",
+        })
+      end,
+      desc = "Find files from Home",
     },
   },
 }

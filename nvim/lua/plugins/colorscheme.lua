@@ -15,7 +15,7 @@ return {
     config = function()
       require("catppuccin").setup({
         flavour = "mocha",
-        transparent_background = true,
+        transparent_background = false,
         show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
         term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
         dim_inactive = {
@@ -41,7 +41,40 @@ return {
           operators = {},
           -- miscs = {}, -- Uncomment to turn off hard-coded styles
         },
-        color_overrides = {},
+        color_overrides = {
+          mocha = {
+            -- CUSTOM:
+            base = "#050517",
+
+            -- DEFAULT mocha for reference:
+            -- rosewater = "#f5e0dc",
+            -- flamingo = "#f2cdcd",
+            -- pink = "#f5c2e7",
+            -- mauve = "#cba6f7",
+            -- red = "#f38ba8",
+            -- maroon = "#eba0ac",
+            -- peach = "#fab387",
+            -- yellow = "#f9e2af",
+            -- green = "#a6e3a1",
+            -- teal = "#94e2d5",
+            -- sky = "#89dceb",
+            -- sapphire = "#74c7ec",
+            -- blue = "#89b4fa",
+            -- lavender = "#b4befe",
+            -- text = "#cdd6f4",
+            -- subtext1 = "#bac2de",
+            -- subtext0 = "#a6adc8",
+            -- overlay2 = "#9399b2",
+            -- overlay1 = "#7f849c",
+            -- overlay0 = "#6c7086",
+            -- surface2 = "#585b70",
+            -- surface1 = "#45475a",
+            -- surface0 = "#313244",
+            -- base = "#1e1e2e",
+            -- mantle = "#181825",
+            -- crust = "#11111b",
+          },
+        },
         custom_highlights = function(cp)
           return {
             -- Example (see: https://github.com/ayamir/nvimdots/wiki/Usage#get-catppuccin-colors for more):
@@ -56,27 +89,31 @@ return {
             -- TabLineSel = { bg = colors.pink },
             -- CmpBorder = { fg = colors.surface2 },
             -- Pmenu = { bg = colors.none },
-            WhichKeyFloat = { bg = "#050517" },
+            -- Normal = { bg = "#050517" },
+            -- TODO: move this to highlight_overrides:
+            WhichKeyFloat = { bg = "#0f0f24" },
             WhichKeyBorder = { bg = "#89b4fa" },
             LazyNormal = { bg = "#050517" },
             TroubleNormal = { bg = "" },
+            MasonNormal = { bg = "#050517" },
+            NormalFloat = { bg = cp.base },
             -- htmlBold = { fg = "rose" },
             -- markdownBold = { fg = "rose" },
             -- NeoTreeNormal = { bg = "#050517" },
             -- StatusLine = { bg = "#050517" },
             -- lualine_a_insert = { bg = "#050517" },
-            -- NormalFloat = { bg = cp.green },
             ["@constant.builtin"] = { fg = cp.peach, style = {} },
             ["@comment"] = { fg = cp.surface2, style = { "italic" } },
           }
         end,
-        -- highlight_overrides = {
-        --   mocha = function()
-        --     return {
-        --       WhichKeyBorder = { bg = "#89b4fa", fg = "#89b4fa" },
-        --     }
-        --   end,
-        -- },
+        highlight_overrides = {
+          mocha = function(c)
+            return {
+              NeoTreeNormal = { bg = c.base },
+              -- HarpoonNormal = { bg = c.base },
+            }
+          end,
+        },
         -- default_integrations = false,
         integrations = {
           alpha = true,
@@ -330,33 +367,6 @@ return {
         end,
       })
     end,
-  },
-  {
-    "rebelot/kanagawa.nvim",
-    opts = {
-      compile = false, -- enable compiling the colorscheme
-      undercurl = true, -- enable undercurls
-      commentStyle = { italic = true },
-      functionStyle = {},
-      keywordStyle = { italic = true },
-      statementStyle = { bold = true },
-      typeStyle = {},
-      transparent = true, -- do not set background color
-      dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-      terminalColors = true, -- define vim.g.terminal_color_{0,17}
-      colors = { -- add/modify theme and palette colors
-        palette = {},
-        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-      },
-      overrides = function(colors) -- add/modify highlights
-        return {}
-      end,
-      theme = "wave", -- Load "wave" theme when 'background' option is not set
-      background = { -- map the value of 'background' option to a theme
-        dark = "wave", -- try "dragon" !
-        light = "lotus",
-      },
-    },
   },
 
   {
