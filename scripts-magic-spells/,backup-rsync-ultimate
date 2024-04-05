@@ -38,12 +38,12 @@ notify-send "Get some coffee" "Automation is peak."
 
 # sync scripts magic spells to dotfiles
 echo "[ SYNCING ] scripts magic spells..."
-if [ ! -d "$dotfiles_sms/scripts-magic-spells" ]; then
+if [ ! -d "$dotfiles_sms" ]; then
 	# if new then add
 	sudo rsync -auzv "$wizardry_sms" "$dotfiles_sms"
 else
 	# just sync the files
-	sudo rsync -auzv --delete "$wizardry_sms"/ "$dotfiles_sms"/
+	sudo rsync -auzv --delete --progress "$wizardry_sms/" "$dotfiles_sms/"
 fi
 
 # ############################ #
@@ -100,11 +100,11 @@ else
 			# if on usb with existing dirs, then just sync (add "/")
 			find_readme_file=$(find "$usb_mountpoint" -type f -name "README.md")
 			if [ -n "$find_readme_file" ]; then
-				echo "[ SUCCESS ] USB is mounted, now syncing..."
 
 				basename_dir=$(basename "$dir")
 
 				if [[ "$dir" == "$sync_lock" ]]; then
+					echo "[ SUCCESS ] USB is mounted, now syncing..."
 					echo "[ SYNCING USB ] Lock-encrypt directory..."
 					sudo rsync -auz "$sync_lock/" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
 
