@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# this is the daily todo
+# - create new todolist with date (YYYY-MM-DD) as its filename
+# - store in vault/Personal/todos
+# - requires "shortcuts/no-neck-pain.nvim" plugin to center the buffer
+
+set -e
+
+date_today=$(date -u +%Y-%m-%d)
+todo_file="$VAULT/Personal/todos/"$date_today.md
+
+# check if $VAULT path exists
+cd "$VAULT" || {
+	echo "No VAULT env path created. Set a VAULT path in your .zshrc or .bashrc first."
+	exit 1
+}
+
+# if [ -z "$vault_check" ]; then
+# 	echo "No VAULT env path created. Set a VAULT path in your .zshrc or .bashrc first."
+# 	exit 1
+# fi
+
+new_todo() {
+	touch "$todo_file"
+	cat >"$todo_file" <<EOF
+# TODO for $date_today:
+- [] 100 Pushups
+- [] 
+- [] 
+
+EOF
+}
+
+if [ ! -f "$todo_file" ]; then
+	echo "[ NEW ] Creating $date_today.md..."
+	new_todo
+fi
+
+nvim '+ normal Gzz' "$todo_file" -c ":NoNeckPain"
+# nvim '+ normal Gzzo' "$todo_file" -c :NoNeckPain
