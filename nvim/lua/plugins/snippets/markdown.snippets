@@ -1,12 +1,12 @@
 snippet meta yaml-like metadata for md
   ---
-  id: ${8:id}
-  aliases: [${9:aliases}]
+  date: `strftime("%Y-%m-%dT%H:%M")`
   tags: 
-  - ${7:tags}
-  date: `strftime("%Y-%m-%d-%H%M (%B %d, %Y %X)")`
-  title: ${1:title}
+  - ${1:tags}
   ---
+  <!-- `strftime("%Y-%m-%d-%H%M (%B %d, %Y %X)")` -->
+
+  # ${2:title}
 
 snippet ,date my special date format 
   `strftime("%Y-%m-%d-%H%M (%B %d, %Y %X)")`
@@ -16,3 +16,4 @@ snippet ,link generate md wiki link
 
 snippet ,img generate md wiki link
   ![[${1}]]
+
