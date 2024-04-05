@@ -1,44 +1,152 @@
 #!/bin/bash
 
+# NOTE: needs a README.md file on the usb to be detected, only when all already exists (personal choice)
+
 # TODO: 1: read input with options (sync all or sync specific dirs)
 # TODO: 2: add flags support
 
-usb_mountpoint="/mnt/$(whoami)/ejsmain/"
-wizardry_sms="$HOME/wizardry/scripts-magic-spells/"
-dotfiles_sms="$HOME/dotfiles/scripts-magic-spells/"
-ejs="$HOME/ejs"
-sync_lock="$HOME/Sync/Lock/"
+usb_mountpoint="/mnt/$(whoami)/ejsmain"
+wizardry_sms="$HOME/vault/wizardry/scripts-magic-spells"
+dotfiles_sms="$HOME/dotfiles/scripts-magic-spells"
+vault="$HOME/vault"
+dotfiles="$HOME/dotfiles"
+sync_lock="$HOME/Sync/Lock"
+reddit="$HOME/Sync/reddit"
 pkse_desktop="$HOME/Pictures/pkse"
 screenshots_desktop="$HOME/Pictures/ScreenShots"
+password_store="$HOME/.password-store"
+
+dirs_to_sync_usb=(
+	"$vault"
+	"$sync_lock"
+	"$password_store"
+	"$dotfiles"
+	"$reddit"
+	"$pkse_desktop"
+	"$screenshots_desktop"
+	"$wizardry_sms"
+)
 
 set -e
 
 notify-send "Backup Started!" "Syncing everything..."
 notify-send "Get some coffee" "Automation is peak."
 
-{
-	# sync scripts magic spells to dotfiles
-	echo "[ SYNCING ] scripts magic spells..."
-	rsync -auzv --delete "$wizardry_sms" "$dotfiles_sms"
-	# sync usb
-	echo "[ CHECKING ] is USB mounted?... "
-	readme_file=$(find "$usb_mountpoint" -type f -name "README.md")
-	if [ -n "$readme_file" ]; then
-		echo "[ SUCCESS ] USB is mounted, now syncing..."
-		echo "[ SYNCING USB ] Scripts / Magic Spells..."
-		sudo rsync -auzv --delete "$wizardry_sms" "$usb_mountpoint"/scripts-magic-spells/
-		echo "[ SYNCING USB ] Lock-encrypt directory..."
-		sudo rsync -auz "$sync_lock" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
-		echo "[ SYNCING USB ] exquisite pics..."
-		sudo rsync -auz "$pkse_desktop" "$usb_mountpoint"
-		sudo rsync -auz "$screenshots_desktop" "$usb_mountpoint"
-		echo "[ SYNCING USB ] personal ejs..."
-		sudo rsync -auzv "$ejs" "$usb_mountpoint"
-	else
-		echo "[ ERROR ] USB is not mounted. Skipping..."
-	fi
-	# NOTE: add sync to network
-}
+# ############################ #
+#         LOCAL SYNC           #
+# ############################ #
+
+# sync scripts magic spells to dotfiles
+echo "[ SYNCING ] scripts magic spells..."
+if [ ! -d "$dotfiles_sms/scripts-magic-spells" ]; then
+	# if new then add
+	sudo rsync -auzv "$wizardry_sms" "$dotfiles_sms"
+else
+	# just sync the files
+	sudo rsync -auzv --delete "$wizardry_sms"/ "$dotfiles_sms"/
+fi
+
+# ############################ #
+#           USB SYNC           #
+# ############################ #
+
+# sync usb
+echo "[ CHECKING ] is USB mounted?... "
+if [ ! -d "$usb_mountpoint" ]; then
+	echo "[ SKIP ] USB mountpoint not found. Skipping..."
+else
+	for dir in "${dirs_to_sync_usb[@]}"; do
+		# if on new usb, copy directly
+		if [ ! -d "$dir" ]; then
+			echo "[ DETECTED ] NEW USB: Just get some coffee and backseat. This may take a while..."
+
+			if [[ "$dir" == "$sync_lock" ]]; then
+				echo "[ SYNCING USB ] NEW: Lock-encrypt directory..."
+				sudo rsync -auz "$sync_lock" "$usb_mountpoint"/Lock-encrypt
+
+			elif [[ "$dir" == "$vault" ]]; then
+				echo "[ SYNCING USB ] NEW: VAULT..."
+				sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
+
+			elif [[ "$dir" == "$password_store" ]]; then
+				echo "[ SYNCING USB ] NEW: PASSWORD STORE..."
+				sudo rsync -auz --delete "$dir" "$usb_mountpoint"
+
+			elif [[ "$dir" == "$dotfiles" ]]; then
+				echo "[ SYNCING USB ] Dotfiles..."
+				sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
+
+			elif [[ "$dir" == "$pkse_desktop" ]]; then
+				echo "[ SYNCING USB ] NEW: exquisite pics..."
+				sudo rsync -auz "$dir" "$usb_mountpoint"
+
+			elif [[ "$dir" == "$screenshots_desktop" ]]; then
+				echo "[ SYNCING USB ] NEW: personal screenshots..."
+				sudo rsync -auz "$dir" "$usb_mountpoint"
+
+			elif [[ "$dir" == "$reddit" ]]; then
+				echo "[ SYNCING USB ] NEW: personal reddit..."
+				sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
+
+			elif [[ "$dir" == "$wizardry_sms" ]]; then
+				echo "[ SYNCING USB ] NEW: scripts magic spells..."
+				sudo rsync -auzv --delete "$wizardry_sms" "$usb_mountpoint"/scripts-magic-spells
+
+			elif [[ "$dir" == "$dotfiles_sms" ]]; then
+				echo "[ SYNCING USB ] NEW: scripts magic spells..."
+			fi
+
+		else
+			# if on usb with existing dirs, then just sync (add "/")
+			find_readme_file=$(find "$usb_mountpoint" -type f -name "README.md")
+			if [ -n "$find_readme_file" ]; then
+				echo "[ SUCCESS ] USB is mounted, now syncing..."
+
+				basename_dir=$(basename "$dir")
+
+				if [[ "$dir" == "$sync_lock" ]]; then
+					echo "[ SYNCING USB ] Lock-encrypt directory..."
+					sudo rsync -auz "$sync_lock/" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
+
+				elif [[ "$dir" == "$vault" ]]; then
+					echo "[ SYNCING USB ] VAULT..."
+					sudo rsync -auzv --delete "$dir/" "$usb_mountpoint/$basename_dir/"
+
+				elif [[ "$dir" == "$password_store" ]]; then
+					echo "[ SYNCING USB ] PASSWORD STORE..."
+					sudo rsync -auz --delete "$dir/" "$usb_mountpoint/$basename_dir/"
+
+				elif [[ "$dir" == "$dotfiles" ]]; then
+					echo "[ SYNCING USB ] Dotfiles..."
+					sudo rsync -auzv --delete "$dir/" "$usb_mountpoint/$basename_dir/"
+
+				elif [[ "$dir" == "$pkse_desktop" ]]; then
+					echo "[ SYNCING USB ] exquisite pics..."
+					sudo rsync -auz "$dir/" "$usb_mountpoint/$basename_dir/"
+
+				elif [[ "$dir" == "$wizardry_sms" ]]; then
+					echo "[ SYNCING USB ] Scripts / Magic Spells..."
+					sudo rsync -auzv --delete "$wizardry_sms/" "$usb_mountpoint"/scripts-magic-spells/
+
+				elif [[ "$dir" == "$screenshots_desktop" ]]; then
+					echo "[ SYNCING USB ] exquisite screenshots..."
+					sudo rsync -auz "$dir/" "$usb_mountpoint/$basename_dir/"
+
+				elif [[ "$dir" == "$reddit" ]]; then
+					echo "[ SYNCING USB ] personal reddit..."
+					sudo rsync -auzv "$dir/" "$usb_mountpoint/$basename_dir/"
+				fi
+
+			else
+				echo "[ ERROR ] USB is not mounted. Skipping..."
+			fi
+			# NOTE: add sync to network (nfs)
+			# TODO: add pv for progress bar pipe
+			# | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
+		fi
+	done
+
+fi
 
 echo "[ SUCCESS ] Everything perfectly synced!"
 notify-send "Backup Complete!" "All Synced!"
