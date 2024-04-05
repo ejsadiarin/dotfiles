@@ -1,9 +1,12 @@
 ---
-title: Social Engineering
-date: 2024-02-10-21:14 (February 10, 2024 9:14 PM)
+id: social-engineering
+aliases: []
 tags:
-- Social Engineering
+  - Social Engineering
+date: 2024-02-10T21:14
+title: Social Engineering
 ---
+<!-- 2024-02-10-2114 (February 10, 2024 9:14 PM) -->
 
 # Social Engineering
 
@@ -14,3 +17,4 @@ tags:
   - Counter (worst outcome): recruiter will say "If I'm going to hire you, then we'll know".
 
 ### Test
+![[social-engineering/test.md]]

@@ -15,7 +15,7 @@ super + t
 	OpenApps --terminal
 
 # Open floating Terminal
-super + alt + Return
+super + shift + t
 	OpenApps --floating
 
 # Application menu
@@ -87,9 +87,13 @@ alt + Print
 shift + Print
   flameshot gui -c 
 
-# Screenshot Select clipboard
+# Screenshot Now for Vault
 ctrl + Print
-  flameshot gui -c -p ~/Pictures/ScreenShots/Clipboard/
+  flameshot full -c -p ~/vault/assets/
+
+# Screenshot Select for Vault
+ctrl + shift + Print
+  flameshot gui -c -p ~/vault/assets/
 
 # Manage brightness
 XF86MonBrightness{Up,Down}

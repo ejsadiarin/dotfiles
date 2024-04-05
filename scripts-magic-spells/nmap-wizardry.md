@@ -1,13 +1,15 @@
 ---
+id: nmap-wizardry
+aliases: []
+tags:
+  - Security
+  - Wizardry
+  - Networking
+date: 2024-03-27T11:11
 title: nmap Wizardry
-date: 2024-03-27-1111 (March 27, 2024 11:11 AM)
-tags: 
-- nmap
-- Security
-- Wizardry
-- Networking
 ---
-
+<!-- 2024-03-27-1111 (March 27, 2024 11:11 AM) -->
+	
 # `nmap` Wizardry
 - [nmap](https://nmap.org/) is a powerful network scanning tool that can be used for a variety of purposes. This guide will cover some of the more advanced features of nmap, including how to scan for specific services, detect operating systems, and more.
 

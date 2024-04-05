@@ -11,8 +11,8 @@ export TERMINAL='alacritty'
 export BROWSER='firefox'
 # export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
-if [ -d "$HOME/.local/bin" ] ;
-  then PATH="$HOME/.local/bin:$PATH"
+if [ -d "$HOME/.local/bin" ]; then
+  PATH="$HOME/.local/bin:$PATH"
 fi
 
 #  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
@@ -153,6 +153,10 @@ alias snvim="sudo -E nvim $1"
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
 #  comment this out if not want ascii art every terminal open
 # $HOME/.local/bin/colorscript -r
+
+export PATH="$PATH:$HOME/vault/wizardry/scripts-magic-spells"
+export SCRIPTS="$HOME/vault/wizardry/scripts-magic-spells"
+export VAULT="$HOME/vault"
 
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:$HOME/go/bin"
