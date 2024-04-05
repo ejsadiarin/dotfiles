@@ -65,7 +65,7 @@ vim.keymap.set("v", "<C-p>", ":m '<-2<CR>gv=gv", { desc = "Move line u(p)" })
 vim.keymap.set("n", "<leader>ce", "<CMD>ColorizerToggle<CR>")
 
 -- Save without formatting
-vim.keymap.set("n", "<leader>cs", ":noautocmd w<CR>", { desc = "Save without formatting" })
+vim.keymap.set("n", "<leader>cS", ":noautocmd w<CR>", { desc = "Save without formatting" })
 
 -- Vertical and Horizontal Splits
 vim.keymap.set("n", "<leader>wh", "<C-W>s", { desc = "Horizontal Split" })
