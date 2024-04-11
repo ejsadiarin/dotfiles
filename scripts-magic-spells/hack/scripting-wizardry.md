@@ -1,10 +1,9 @@
 ---
-id: scripting-wizardry
-aliases: []
 tags:
   - Linux
   - Bash
   - Scripting
+  - Wizardry
 date: 2024-02-18T00:04
 title: Scripting Wizardry
 ---
