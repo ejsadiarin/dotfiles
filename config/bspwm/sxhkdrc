@@ -87,13 +87,9 @@ alt + Print
 shift + Print
   flameshot gui -c 
 
-# Screenshot Now for Vault
+# Screenshot Now for Vault (just copy paste, obsidian handles the rest)
 ctrl + Print
-  flameshot full -c -p ~/vault/assets/
-
-# Screenshot Select for Vault
-ctrl + shift + Print
-  flameshot gui -c -p ~/vault/assets/
+  flameshot full -c
 
 # Manage brightness
 XF86MonBrightness{Up,Down}

@@ -26,6 +26,10 @@ return {
         name = "Wizardry",
         path = "~/vault/wizardry",
       },
+      {
+        name = "Anime",
+        path = "~/vault/Personal/anime/",
+      },
     },
 
     daily_notes = {
@@ -46,6 +50,14 @@ return {
     -- that `:ObsidianQuickSwitch` will show the notes sorted by latest modified time
     sort_by = "created",
     sort_reversed = true,
+
+    -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
+    completion = {
+      -- Set to false to disable completion.
+      nvim_cmp = true,
+      -- Trigger completion at 2 chars.
+      min_chars = 2,
+    },
 
     note_id_func = function(title)
       -- Create note IDs in a Zettelkasten-like format (my own preferred way)

@@ -43,7 +43,7 @@ vim.opt.foldenable = true -- Enable folding
 vim.opt.hlsearch = true -- Highlight on search
 vim.opt.incsearch = true -- While typing a search command, show where the pattern matches
 
-vim.opt.conceallevel = 2 -- so that `` is visible in markdown files
+vim.opt.conceallevel = 1 -- so that `` is visible in markdown files
 vim.opt.formatoptions = vim.o.formatoptions:gsub("cro", "") -- Avoid comments to continue on new lines
 vim.opt.updatetime = 300 -- Faster completion
 vim.opt.mouse = "a" -- Enable mouse mode

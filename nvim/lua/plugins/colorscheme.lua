@@ -2,6 +2,7 @@ local latte = require("catppuccin.palettes").get_palette("latte")
 local frappe = require("catppuccin.palettes").get_palette("frappe")
 local macchiato = require("catppuccin.palettes").get_palette("frappe")
 local mocha = require("catppuccin.palettes").get_palette("mocha")
+-- local custom_mocha = require("catppuccin.palettes").get_palette("mocha")
 
 local colors = require("catppuccin.palettes").get_palette() -- current flavour's palette
 
@@ -15,7 +16,7 @@ return {
     config = function()
       require("catppuccin").setup({
         flavour = "mocha",
-        transparent_background = false,
+        transparent_background = true,
         show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
         term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
         dim_inactive = {
@@ -97,6 +98,7 @@ return {
             TroubleNormal = { bg = "" },
             MasonNormal = { bg = "#050517" },
             NormalFloat = { bg = cp.base },
+            Normal = { bg = "" },
             -- htmlBold = { fg = "rose" },
             -- markdownBold = { fg = "rose" },
             -- NeoTreeNormal = { bg = "#050517" },
