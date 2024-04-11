@@ -80,7 +80,8 @@ function dir_icon {
   fi
 }
 
-PS1='%B%F{blue} %f%b %B%F{white} %f%b %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
+# PS1='%B%F{blue} %f%b %B%F{white} %f%b %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
+PS1='%B%F{blue} %f%b %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{white}.%F{red})  %f%b'
 # PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
 
 #  ┌─┐┬  ┬ ┬┌─┐┬┌┐┌┌─┐
@@ -237,3 +238,5 @@ export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 # Firewalld
 # - see fedora docs: https://docs.fedoraproject.org/en-US/quick-docs/firewalld/
 # - useful to install the GUI version also
+
+eval $(thefuck --alias)
