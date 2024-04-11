@@ -7,7 +7,7 @@
 
 set -e
 
-date_today=$(date -u +%Y-%m-%d)
+date_today=$(date +%Y-%m-%d)
 todo_file="$VAULT/Personal/todos/"$date_today.md
 
 # check if $VAULT path exists
@@ -25,9 +25,10 @@ new_todo() {
 	touch "$todo_file"
 	cat >"$todo_file" <<EOF
 # TODO for $date_today:
-- [] 100 Pushups
-- [] 
-- [] 
+
+- [ ] 100 Pushups
+- [ ] 
+- [ ] 
 
 EOF
 }
