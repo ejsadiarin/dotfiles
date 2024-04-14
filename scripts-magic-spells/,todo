@@ -27,7 +27,7 @@ new_todo() {
 # TODO for $date_today:
 
 - [ ] 100 Pushups
-- [ ] 
+- [ ] finish the default-responses files in \`Personal/Brain-Configuration/\`  
 - [ ] 
 
 EOF
