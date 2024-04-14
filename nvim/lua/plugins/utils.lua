@@ -295,6 +295,18 @@ return {
     --   })
     -- end,
   },
+
+  -- undotree
+  {
+    "mbbill/undotree",
+    keys = {
+      {
+        "<leader>cu",
+        vim.cmd.UndotreeToggle,
+        desc = "Toggle Undo-tree",
+      },
+    },
+  },
   -- {
   --   "lukas-reineke/headlines.nvim",
   --   dependencies = "nvim-treesitter/nvim-treesitter",
