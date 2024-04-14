@@ -185,6 +185,8 @@ export PATH="$FLYCTL_INSTALL/bin:$PATH"
 # pass
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 
+eval $(thefuck --alias)
+
 # useful commands
 # time the zsh startup: 
 # time zsh -i -c exit (or use /usr/bin/time instead of time, if time not available)
@@ -238,5 +240,3 @@ export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 # Firewalld
 # - see fedora docs: https://docs.fedoraproject.org/en-US/quick-docs/firewalld/
 # - useful to install the GUI version also
-
-eval $(thefuck --alias)
