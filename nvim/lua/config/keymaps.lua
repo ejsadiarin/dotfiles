@@ -14,6 +14,7 @@ vim.keymap.del("n", "<leader><tab><tab>")
 vim.keymap.del("n", "<leader><tab>]")
 vim.keymap.del("n", "<leader><tab>d")
 vim.keymap.del("n", "<leader><tab>[")
+
 -- local map = vim.keymap.set
 -- map("n", "<leader>tl", "<cmd>tablast<cr>", { desc = "Last Tab" })
 -- map("n", "<leader>tf", "<cmd>tabfirst<cr>", { desc = "First Tab" })
