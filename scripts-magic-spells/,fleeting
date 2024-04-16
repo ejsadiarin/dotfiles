@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# ,fleeting is for fleeting notes template
+# fleeting note is just a random note
+
+set -e
+
+if [ $# -eq 0 ]; then
+	echo "[ ERROR ] No title argument passed/specified. Please try again."
+	exit 1
+fi
+
+title="$*"
+new_fleeting_note="$VAULT/Fleeting/$title.md"
+date=$(date +"%Y-%m-%d-%H%m")
+date_detailed=$(date +"%B %d, %Y %I:%M %p %A")
+final_date="$date ($date_detailed)"
+
+# check if $VAULT path exists
+if [ ! -d "$VAULT" ]; then
+	echo "No VAULT env path created. Set a VAULT path in your .zshrc or .bashrc first."
+	exit 1
+fi
+
+new_journal() {
+	touch "$new_fleeting_note"
+	cat >"$new_fleeting_note" <<EOF
+
+
+<!-- $final_date -->
+EOF
+}
+
+new_journal
+
+nvim '+ normal gg' "$new_fleeting_note" -c ":NoNeckPain"
