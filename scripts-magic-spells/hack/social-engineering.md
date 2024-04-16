@@ -1,6 +1,4 @@
 ---
-id: social-engineering
-aliases: []
 tags:
   - Social Engineering
 date: 2024-02-10T21:14

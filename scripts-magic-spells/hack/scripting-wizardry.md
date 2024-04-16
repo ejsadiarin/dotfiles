@@ -91,6 +91,14 @@ find $HOME -type f -size 0
 if ! sudo eject "$usbdisk"; then
   echo "[ ERROR ] Unable to eject the device."
 fi
+
+- $#
+  - checks if there is an argument specified
+```bash
+title="$*" # handles spaces for args
+if [ $# -eq 0 ]; then
+  echo "[ ERROR ] No argument specified"
+fi
 ```
 
 ### `if` flags:
@@ -145,3 +153,6 @@ fi
 - [Some collection of scripts in Reddit](https://www.reddit.com/r/sysadmin/comments/rs4546/any_scripts_you_guys_have_that_make_your_life_so/)
 - [Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html)
 - [Unofficial Bash Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
+
+-  [mischavandenburg's github](https://github.com/mischavandenburg/dotfiles/blob/main/scripts/)
+- [system scripts by slyfox](https://github.com/slyfox1186/script-repo)
