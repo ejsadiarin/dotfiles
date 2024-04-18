@@ -1,0 +1,176 @@
+#!/bin/bash
+
+# Source: https://gist.github.com/vfarcic/78c1d2a87baf31512b87a2254194b11c
+
+###############################################################
+# How To Create A Complete Internal Developer Platform (IDP)? #
+# https://youtu.be/Rg98GoEHBd4                                #
+###############################################################
+
+# Additional Info:
+# - DevOps MUST Build Internal Developer Platform (IDP): https://youtu.be/j5i00z3QXyU
+# - How To Create A "Proper" CLI With Shell And Charm Gum: https://youtu.be/U8zCHA-9VLA
+# - Crossplane - GitOps-based Infrastructure as Code through Kubernetes API: https://youtu.be/n8KjVmuHm7A
+# - How To Shift Left Infrastructure Management Using Crossplane Compositions: https://youtu.be/AtbS1u2j7po
+# - Argo CD - Applying GitOps Principles To Manage A Production Environment In Kubernetes: https://youtu.be/vpWQeoaiRM4
+# - How To Apply GitOps To Everything - Combining Argo CD And Crossplane: https://youtu.be/yrj4lmScKHQ
+# - SchemaHero - Database Schema Migrations Inside Kubernetes: https://youtu.be/SofQxb4CDQQ
+# - Manage Kubernetes Secrets With External Secrets Operator (ESO): https://youtu.be/SyRZe5YVCVk
+# - Github Actions Review And Tutorial: https://youtu.be/eZcAvTb0rbA
+# - GitHub CLI (gh) - How to manage repositories more efficiently: https://youtu.be/BII6ZY2Rnlc
+# - How To Build A UI For An Internal Developer Platform (IDP) With Port?: https://youtu.be/ro-h7tsp0qI
+
+#########
+# Setup #
+#########
+
+# This is a very big and complex demo and there is a strong
+#   chance that I did not take into the account all the
+#   permutations those trying it might have.
+# Please let me know through a comment in the video or a direct
+#   message in Twitter (@vfarcic) or Slack (Kubernetes or CNCF
+#   workspaces) and I'll do my best to fix your issues and make
+#   this demo more robust.
+
+# Install `gum` by following the instructions in
+#   https://github.com/charmbracelet/gum#installation
+# Watch https://youtu.be/U8zCHA-9VLA if you are not familiar with
+#   Charm Gum.
+
+curl -o setup.sh \
+    https://raw.githubusercontent.com/vfarcic/idp-demo/main/setup.sh
+
+chmod +x setup.sh
+
+./setup.sh
+
+source .env
+
+cd idp-demo
+
+##############################
+# Control Plane (Crossplane) #
+##############################
+
+kubectl get crds
+
+#########################################
+# User-Friendly Interfaces (Crossplane) #
+#########################################
+
+kubectl get crds | grep devopstoolkitseries
+
+kubectl explain appclaims.devopstoolkitseries.com --recursive
+
+cat crossplane/app.yaml
+
+#################################################
+# Syncronization From Git With GitOps (Argo CD) #
+#################################################
+
+helm upgrade --install argocd argo-cd \
+    --repo https://argoproj.github.io/argo-helm \
+    --namespace argocd --create-namespace \
+    --values argocd/helm-values.yaml --wait
+
+echo "http://gitops.$INGRESS_HOST.nip.io"
+
+kubectl apply --filename argocd/project.yaml
+
+kubectl apply --filename argocd/apps.yaml
+
+##################################
+# Schema Management (SchemaHero) #
+##################################
+
+cp argocd/schema-hero.yaml infra/.
+
+git add .
+
+git commit -m "Add SchemaHero"
+
+git push
+
+#########################################
+# Secrets Management (External Secrets) #
+#########################################
+
+cp argocd/external-secrets.yaml infra/.
+
+git add . 
+
+git commit -m "External Secrets"
+
+git push
+
+cp eso/secret-store-$HYPERSCALER.yaml infra/.
+
+git add . 
+
+git commit -m "External Secrets Store"
+
+git push
+
+#########################################
+# Graphical User Interface (GUI) (Port) #
+#########################################
+
+# Open https://app.getport.io/dev-portal in a browser
+
+cat port/environment-blueprint.json
+
+cat port/backend-app-blueprint.json
+
+# Replace `[...]` with the "Client ID"
+export CLIENT_ID=[...]
+
+# Replace `[...]` with the "Client Secret"
+export CLIENT_SECRET=[...]
+
+cat argocd/port.yaml \
+    | sed -e "s@CLIENT_ID@$CLIENT_ID@g" \
+    | sed -e "s@CLIENT_SECRET@$CLIENT_SECRET@g" \
+    | tee infra/port.yaml
+
+git add .
+
+git commit -m "Port"
+
+git push
+
+cat port/backend-app-action.json
+
+####################################
+# CI/CD Pipelines (GitHub Actions) #
+####################################
+
+cat .github/workflows/create-app-db.yaml
+
+cat scripts/create-repo-app-db.sh
+
+cat scripts/create-argocd-app.sh
+
+##################
+# The End Result #
+##################
+
+kubectl --namespace production get appclaims
+
+kubectl --namespace production get all,ingresses,secrets
+
+kubectl get managed
+
+kubectl --namespace production get all,ingresses,secrets
+
+###########
+# Destroy #
+###########
+
+cd ..
+
+curl -o destroy.sh \
+    https://raw.githubusercontent.com/vfarcic/idp-demo/main/destroy.sh
+
+chmod +x destroy.sh
+
+./destroy.sh
