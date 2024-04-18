@@ -27,9 +27,10 @@ new_todo() {
 # TODO for $date_today:
 
 - [ ] 100 Pushups
+- [ ] 30 day devops challenge 
+- [ ] complete 1 sadservers challenge/task
 - [ ] finish the default-responses files in \`Personal/Brain-Configuration/\`  
 - [ ] continue tarkinge
-- [ ] 30 day devops challenge 
 
 EOF
 }

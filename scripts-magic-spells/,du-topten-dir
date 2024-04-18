@@ -20,4 +20,4 @@ if [ -z "$excluded" ]; then
 	excluded=NULL
 fi
 
-du -hx --max-depth=1 "$from" --exclude="$excluded" | sort -h | tail -n 10
+du -hx --max-depth=4 "$from" --exclude="$excluded" | sort -h | tail -n 10
