@@ -1,0 +1,27 @@
+version: "3.6"
+services:
+  ollama:
+    image: ollama/ollama
+    restart: unless-stopped
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - "/dockerData/ollama:/root/.ollama"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+  open-webui:
+    image: "ghcr.io/open-webui/open-webui:main"
+    restart: unless-stopped
+    container_name: open-webui
+    volumes:
+      - "/dockerData/open-webui:/app/backend/data"
+    environment:
+      - "OLLAMA_BASE_URL=http://192.168.86.2:11434"
+    ports:
+      - "2039:8080"
