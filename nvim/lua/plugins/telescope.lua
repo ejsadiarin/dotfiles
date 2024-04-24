@@ -100,7 +100,29 @@ return {
       },
       { "<leader>ff", Util.telescope("files"), desc = "Find Files (dynamic)" },
       { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-      { "<leader>fe", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+      {
+        "<leader>fe",
+        function()
+          local cwd = vim.fn.getcwd()
+          require("telescope.builtin").find_files({
+            find_command = {
+              "fd",
+              "-tf",
+              "--hidden",
+              "--exclude",
+              ".git",
+              "--exclude",
+              ".obsidian",
+              "--exclude",
+              "node_modules",
+              "--search-path",
+              cwd,
+            },
+            prompt_prefix = "   ",
+          })
+        end,
+        desc = "Special Find",
+      },
       {
         "<leader>fH",
         function()
@@ -123,7 +145,7 @@ return {
               "--search-path",
               dir,
             },
-            prompt_prefix = "~/ ",
+            prompt_prefix = "   ~ | ",
           })
         end,
         desc = "Find files from Home",
@@ -134,7 +156,7 @@ return {
           local dir = vim.env.HOME .. "/dotfiles"
           require("telescope.builtin").find_files({
             find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
-            prompt_prefix = "~/dotfiles ",
+            prompt_prefix = "   dotfiles | ",
           })
         end,
         desc = "Exquisite Dotfiles",
@@ -145,7 +167,7 @@ return {
           local dir = vim.env.HOME .. "/.config"
           require("telescope.builtin").find_files({
             find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
-            prompt_prefix = "~/.configs ",
+            prompt_prefix = "   .configs | ",
           })
         end,
         desc = "Find files on .configs",
@@ -166,7 +188,7 @@ return {
               "--search-path",
               dir,
             },
-            prompt_prefix = "~/main ",
+            prompt_prefix = "   main | ",
           })
         end,
         desc = "Find files on main",
@@ -187,7 +209,7 @@ return {
               "--search-path",
               dir,
             },
-            prompt_prefix = "~/vault/wizardry ",
+            prompt_prefix = "   wizardry | ",
           })
         end,
         desc = "Find wizardry notes",

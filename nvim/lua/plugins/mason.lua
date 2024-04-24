@@ -44,6 +44,8 @@ return {
       -- Rust
       "rust-analyzer",
       -- Others (JSON, TOML, etc.)
+      "ansible-lint",
+      "helm-ls",
       "json-lsp",
       "codelldb",
       "taplo",
