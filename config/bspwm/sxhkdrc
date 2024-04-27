@@ -32,9 +32,9 @@ super + {b,g,e,n}
 super + f
   firefox
 
-# Terminal apps (ranger, nvim, ncmpcpp)
-shift + alt + {r,n,m}
-	OpenApps {--ranger,--nvim,--music}
+# Terminal apps (ranger, ncmpcpp)
+shift + alt + {r,m}
+	OpenApps {--ranger,--music}
 
 # Clipboard history
 super + v

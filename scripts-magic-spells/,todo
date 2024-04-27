@@ -26,11 +26,10 @@ new_todo() {
 	cat >"$todo_file" <<EOF
 # TODO for $date_today:
 
-- [ ] 100 Pushups
+- [ ] 100 Pushups/Workout/Rest Day
 - [ ] 30 day devops challenge 
-- [ ] complete 1 sadservers challenge/task
+- [ ] r/linuxupskillchallenge daily
 - [ ] finish the default-responses files in \`Personal/Brain-Configuration/\`  
-- [ ] continue tarkinge
 
 EOF
 }

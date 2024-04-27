@@ -6,9 +6,6 @@
 #  ██╔══██╗╚════██║██╔═══╝ ██║███╗██║██║╚██╔╝██║██╔══██╗██║
 #  ██████╔╝███████║██║     ╚███╔███╔╝██║ ╚═╝ ██║██║  ██║╚██████╗
 #  ╚═════╝ ╚══════╝╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
-#	- z0mbi3
-#	- https://github.com/gh0stzk/dotfiles
-#	- z0mbi3.zk@protonmail.com
 #
 
 read -r RICETHEME <"$HOME"/.config/bspwm/.rice
@@ -74,7 +71,7 @@ done
 . ${rice_dir}/Theme.sh
 
 # Battery Warning script start
-. "$HOME"/.config/bspwm/scripts/BatteryWarning
+# . "$HOME"/.config/bspwm/scripts/BatteryWarning
 
 # Reload sxhkd daemon
 sxhkd -c "$HOME"/.config/bspwm/sxhkdrc &
@@ -118,3 +115,6 @@ copyq
 
 # Enable Blue Light Filter using Redshift
 redshift -P -O 5500
+
+# Enable syncthing
+syncthing

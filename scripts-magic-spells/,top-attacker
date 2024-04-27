@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# lists out the top persistent attackers by specified number as parameter
+
+set -e
+
+if [ -z "$1" ]; then
+	echo -e "\nUsage: $(basename "$0") <num> - Lists the top <num> attackers by IP"
+	exit 0
+fi
+
+echo " "
+echo "Persistent recent attackers"
+echo " "
+echo "Attempts       IP"
+echo "-----------------------"
+grep "Disconnected from authenticating user root" /var/log/auth.log | cut -d: -f 4 | cut -d " " | sort | uniq -c | sort -nr | head -"$1"

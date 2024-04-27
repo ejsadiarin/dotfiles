@@ -5,7 +5,7 @@
 #  ┬  ┬┌─┐┬─┐┌─┐
 #  └┐┌┘├─┤├┬┘└─┐
 #   └┘ ┴ ┴┴└─└─┘
-export VISUAL="${EDITOR}"
+export VISUAL="nvim"
 export EDITOR='nvim'
 export TERMINAL='alacritty'
 export BROWSER='firefox'
@@ -14,6 +14,34 @@ export BROWSER='firefox'
 if [ -d "$HOME/.local/bin" ]; then
   PATH="$HOME/.local/bin:$PATH"
 fi
+
+export PATH="$PATH:$HOME/vault/wizardry/scripts-magic-spells"
+export SCRIPTS="$HOME/vault/wizardry/scripts-magic-spells"
+export VAULT="$HOME/vault"
+export XDG_CONFIG_HOME="$HOME/.config"
+
+export PATH="$PATH:$HOME/.dotnet/tools"
+export PATH="$PATH:$HOME/go/bin"
+
+export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # fix perf issue
+
+# pnpm
+export PNPM_HOME="/home/exquisite/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# flyctl
+export FLYCTL_INSTALL="$HOME/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
+# pass
+export PASSWORD_STORE_ENABLE_EXTENSIONS=true
+
 
 #  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
 #  │  │ │├─┤ ││  ├┤ ││││ ┬││││├┤ 
@@ -146,6 +174,7 @@ alias history="history 1"
 alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr | head -10"
 alias ,t=",todo"
 alias ,b=",backlog"
+alias ,datezet="date +%Y%m%d"
 
 alias lg="lazygit"
 alias clpwd="pwd | xclip -selection clipboard"
@@ -158,33 +187,6 @@ alias snvim="sudo -E nvim $1"
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
 #  comment this out if not want ascii art every terminal open
 # $HOME/.local/bin/colorscript -r
-
-export PATH="$PATH:$HOME/vault/wizardry/scripts-magic-spells"
-export SCRIPTS="$HOME/vault/wizardry/scripts-magic-spells"
-export VAULT="$HOME/vault"
-
-export PATH="$PATH:$HOME/.dotnet/tools"
-export PATH="$PATH:$HOME/go/bin"
-
-export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # fix perf issue
-
-# pnpm
-export PNPM_HOME="/home/exquisite/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-# flyctl
-export FLYCTL_INSTALL="$HOME/.fly"
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
-
-# pass
-export PASSWORD_STORE_ENABLE_EXTENSIONS=true
-
 eval $(thefuck --alias)
 
 # useful commands
