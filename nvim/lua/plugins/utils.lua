@@ -47,29 +47,6 @@ return {
   --   cmdline = { enabled = false },
   --   messages = { enabled = false },
   -- },
-  {
-    "folke/noice.nvim",
-    opts = {
-      cmdline = {
-        enabled = false,
-      },
-      messages = {
-        enabled = false,
-      },
-      presets = {
-        inc_rename = false,
-      },
-    },
-    config = function(_, opts)
-      table.insert(opts.routes, {
-        filter = {
-          event = "notify",
-          find = "No information available",
-        },
-        opts = { skip = true },
-      })
-    end,
-  },
   -- extend noice functionality
   --  {
   -- 	"folke/noice.nvim",
@@ -309,17 +286,6 @@ return {
   },
 
   {
-    "mbbill/undotree",
-    keys = {
-      {
-        "<leader>cu",
-        vim.cmd.UndotreeToggle,
-        desc = "Toggle Undo-tree",
-      },
-    },
-  },
-
-  {
     "laytan/cloak.nvim",
     lazy = false,
     opts = {
@@ -355,6 +321,27 @@ return {
       { "<leader>uh", "<CMD>CloakToggle<CR>", desc = "Hide/Toggle Cloak" },
     },
   },
+
+  {
+    "mfussenegger/nvim-ansible",
+    keys = {
+      {
+        "<leader>,r",
+        function()
+          require("ansible").run()
+        end,
+        silent = true,
+        desc = "Run Ansible Playbook",
+      },
+      {
+        "<leader>,a",
+        "<CMD>set ft=yaml.ansible<CR>",
+        silent = true,
+        desc = "set ft=yaml.ansible",
+      },
+    },
+  },
+
   -- {
   --   "lukas-reineke/headlines.nvim",
   --   dependencies = "nvim-treesitter/nvim-treesitter",
