@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# tmux-safe-kill-pane, will have a confirmation message before killing the LAST pane,
+# otherwise just kill it mercilessly (if not LAST pane)
+
+# current_pane_id=$(tmux display-message -p '#P')
+total_panes=$(tmux list-panes | wc -l)
+
+if [ "$total_panes" -eq 1 ]; then
+	tmux confirm-before -p "Kill LAST pane? (y/n)" kill-pane
+	exit 0
+else
+	tmux kill-pane
+fi
