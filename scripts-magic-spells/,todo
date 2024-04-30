@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# this is the daily todo
-# - create new todolist with date (YYYY-MM-DD) as its filename
-# - store in vault/Personal/todos
+# this is the daily todo (daily quest)
+# - creates new todolist with date (YYYY-MM-DD) as its filename
+# - stores in vault/Personal/todos
 # - requires "shortcuts/no-neck-pain.nvim" plugin to center the buffer
 
 set -e
@@ -24,12 +24,16 @@ cd "$VAULT" || {
 new_todo() {
 	touch "$todo_file"
 	cat >"$todo_file" <<EOF
-# TODO for $date_today:
+# DAILY QUEST for $date_today:
 
-- [ ] 100 Pushups/Workout/Rest Day
+- [ ] 100 Pushups
+- [ ] 100 Sit-ups
+- [ ] 100 Squats
+- [ ] Workout/Rest Day
+
 - [ ] 30 day devops challenge 
 - [ ] r/linuxupskillchallenge daily
-- [ ] finish the default-responses files in \`Personal/Brain-Configuration/\`  
+- [ ] finish one file in the default-responses files in \`Personal/Brain-Configuration/\`  
 
 EOF
 }
