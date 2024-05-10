@@ -38,7 +38,7 @@ set timeoutlen=5000
 " New Syntax:
 Plug 'machakann/vim-highlightedyank'
 " Plug 'tpope/vim-commentary'
-" Plug 'preservim/nerdtree'
+Plug 'preservim/nerdtree'
 " Plug 'tpope/vim-surround'
 " map ysiw or add surround inner word to gsa
 " Plug 'terryma/vim-multiple-cursors'

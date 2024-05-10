@@ -64,7 +64,7 @@ copyq)
 	;;
 zoom)
 	eval "$consequences"
-	[ "$state" ] || echo "desktop=^3 state=floating center=on follow=on"
+	[ "$state" ] || echo "desktop=^4 state=floating center=on follow=on"
 	;;
 python)
 	eval "$consequences"
