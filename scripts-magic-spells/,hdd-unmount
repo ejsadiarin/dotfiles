@@ -7,6 +7,7 @@ set -e
 
 mountpoint="/mnt/hdd"
 # hdd_disk="/dev/sda1"
+disk_name="hdd"
 
 # ensure that the mountpoint exists
 if [ -d "$mountpoint" ]; then
@@ -20,7 +21,7 @@ if [ -d "$mountpoint" ]; then
 	notify-send "Device unmounted." "$mountpoint has been unmounted."
 
 	# close with cryptsetup (encrypt)
-	sudo cryptsetup luksClose sda1 || {
+	sudo cryptsetup luksClose "$disk_name" || {
 		echo "[ ERROR ] Unable to close the device."
 		exit 1
 	}

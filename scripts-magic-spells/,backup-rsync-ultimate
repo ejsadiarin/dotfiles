@@ -6,6 +6,7 @@
 # TODO: add pv for progress bar pipe
 # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
 # TODO: refactor finding mountpoints (use 'lsblk -J' piped with jq to query mountpoints)
+# TODO: add a dry-run option
 
 usb_mountpoint="/mnt/$(whoami)/ejsmain"
 wizardry_sms="$HOME/vault/wizardry/scripts-magic-spells"
@@ -119,7 +120,8 @@ usb_sync() {
 					if [[ "$dir" == "$sync_lock" ]]; then
 						echo "[ SUCCESS ] USB is mounted, now syncing..."
 						echo "[ SYNCING USB ] Lock-encrypt directory..."
-						sudo rsync -auz "$sync_lock/" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
+						# finds and syncs files added "newer than 3 days" (or files in the last 3 days) with -mtime -3
+						rsync -auz --progress --files-from=<(find "$sync_lock/" -mtime -3 -type f -exec basename {} \;) "$sync_lock/" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
 
 					elif [[ "$dir" == "$vault" ]]; then
 						echo "[ SYNCING USB ] VAULT..."
@@ -175,6 +177,10 @@ else
 		notify-send "Get some coffee" "Automation is peak."
 		local_sync
 		usb_sync
+		;;
+	-c | --check | check | -n | --dry-run | dry-run)
+		# TODO: add dry-run, adding flag for rsync -n
+		notify-send "Backup DRY RUN!" "Checking everything..."
 		;;
 	-l | --local | local)
 		notify-send "Backup Started!" "Syncing everything..."
