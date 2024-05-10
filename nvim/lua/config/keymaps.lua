@@ -32,6 +32,8 @@ local util = require("lazyvim.util")
 -- remap normal mode to "kj" when insert mode
 vim.keymap.set("i", "kj", "<ESC>", { silent = true })
 
+vim.keymap.set("n", "<leader>,t", "<CMD>TodoTrouble keywords=PRIO,PRIORITY<CR>")
+
 -- use Tab to switch cycle window
 vim.keymap.set("n", "<TAB>", "<C-W>w")
 vim.keymap.set("n", "<S-TAB>", "<C-W>W")

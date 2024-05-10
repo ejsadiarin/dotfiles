@@ -22,7 +22,7 @@ return {
       "bash-language-server",
       "shellcheck",
       -- Python
-      "pyright",
+      -- "pyright",
       "black",
       "ruff-lsp",
       "debugpy",

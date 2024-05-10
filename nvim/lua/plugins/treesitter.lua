@@ -10,19 +10,23 @@ return {
   opts = function(_, opts)
     -- add tsx and treesitter
     vim.list_extend(opts.ensure_installed, {
+      "c",
+      "cmake",
+      "vimdoc", -- this is "help"
+      "lua",
+      "vim",
       "bash",
       "html",
       "javascript",
       "json",
-      "lua",
       "markdown",
       "markdown_inline",
       "python",
       "query",
       "regex",
+      "rust",
       "tsx",
       "typescript",
-      "vim",
       "yaml",
       "go",
       "tsx",

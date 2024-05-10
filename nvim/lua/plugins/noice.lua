@@ -3,6 +3,13 @@ return {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
+      routes = {
+        filter = {
+          event = "notify",
+          find = "No information available",
+        },
+        opts = { skip = true },
+      },
       cmdline = {
         enabled = false,
       },
@@ -15,7 +22,7 @@ return {
       },
       lsp = {
         progress = {
-          enabled = true,
+          enabled = false,
           -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
           -- See the section on formatting for more details on how to customize.
           --- @type NoiceFormat|string
@@ -33,7 +40,7 @@ return {
         },
         hover = {
           enabled = false,
-          silent = false, -- set to true to not show a message if hover is not available
+          silent = true, -- set to true to not show a message if hover is not available
           view = nil, -- when nil, use defaults from documentation
           ---@type NoiceViewOptions
           opts = {}, -- merged with defaults from documentation
@@ -54,7 +61,6 @@ return {
           -- Messages shown by lsp servers
           enabled = true,
           view = "notify",
-          opts = {},
         },
         -- defaults for hover and signature help
         documentation = {
@@ -115,13 +121,6 @@ return {
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = true, -- add a border to hover docs and signature help
-      },
-      routes = {
-        filter = {
-          event = "notify",
-          find = "No information available",
-        },
-        opts = { skip = true },
       },
     },
     dependencies = {
