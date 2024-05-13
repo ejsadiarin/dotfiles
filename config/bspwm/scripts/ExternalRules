@@ -62,6 +62,10 @@ copyq)
 	eval "$consequences"
 	[ "$state" ] || echo "state=floating center=on"
 	;;
+Shotwell)
+	eval "$consequences"
+	[ "$state" ] || echo "state=floating center=on"
+	;;
 zoom)
 	eval "$consequences"
 	[ "$state" ] || echo "desktop=^4 state=floating center=on follow=on"

@@ -35,6 +35,27 @@ new_todo() {
 - [ ] r/linuxupskillchallenge daily
 - [ ] finish one file in the default-responses files in \`Personal/Brain-Configuration/\`  
 
+- [ ] finish shifting application (open 8am to 8pm everyday till may 22)
+  - [x] FB: https://www.facebook.com/photo?fbid=829390939227633&set=pcb.829391029227624
+  - [ ] print Shifting Fee Assessment: https://drive.google.com/file/d/1A2ZTMBsh0GwE-A1pSBo6jNPal3aUN9BD/view?pli=1
+  - [ ] Payment: 550 to be paid ONLY AT THE DLSU CASHIER
+  - [ ] fill up Form: https://docs.google.com/forms/d/e/1FAIpQLScOyOK8U8AyIzVng6cNeHJY-BR_qPBHl6CpkSsJ04r20BTCBA/viewform?pli=1
+
+- [ ] add networking k8s: https://www.reddit.com/r/kubernetes/s/TOZlIZ3Ggg and [THIS](https://www.reddit.com/r/kubernetes/comments/1cj88by/the_torture_starts_here/)
+
+# Mini Backlog:
+- [ ] VLANS: https://www.youtube.com/watch?v=JszGeQPTo4w&ab_channel=CrosstalkSolutions
+- [ ] create own statusline/lualine
+- [ ] continue sort lock
+
+- [ ] finish the ansible playbook for machine setup - all roles
+  - make one for debian and arch (specific, not using ansible.builtin.packages)
+
+- [ ] git intricasies https://www.reddit.com/r/linux/s/NSmM0zzAxu 
+- [ ] setup cron jobs automation
+- [ ] look into webhooks
+
+
 EOF
 }
 
