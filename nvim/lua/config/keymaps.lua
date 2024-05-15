@@ -42,7 +42,7 @@ vim.keymap.set("n", "<S-TAB>", "<C-W>W")
 vim.keymap.set({ "n", "x" }, "<leader>p", '"0p', { desc = "Unpolluted Paste" })
 
 -- changes cwd to head of current buffer (useful for grepping and finding files)
-vim.keymap.set("n", "<leader>cw", function()
+vim.keymap.set("n", "<leader>cW", function()
   -- Define the change_cwd_head_of_buffer function
   _G.utils = _G.utils or {}
   function _G.utils.change_cwd_to_head_of_buffer()
@@ -51,6 +51,17 @@ vim.keymap.set("n", "<leader>cw", function()
   end
   _G.utils.change_cwd_to_head_of_buffer()
 end, { noremap = true, desc = "Change cwd to head of current buffer", silent = false })
+
+-- show path of current buffer
+vim.keymap.set("n", "<leader>cw", function()
+  -- Define the change_cwd_head_of_buffer function
+  _G.utils = _G.utils or {}
+  function _G.utils.show_path_of_current_buffer()
+    local bufname = vim.fn.expand("%:p:h")
+    vim.cmd(string.format('echom "Path: %s"', bufname))
+  end
+  _G.utils.show_path_of_current_buffer()
+end, { noremap = true, desc = "Show path of current buffer ", silent = false })
 
 -- center cursor when scrolling up and down via keymaps
 vim.keymap.set("n", "<C-U>", "<C-U>zz")
