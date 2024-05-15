@@ -1,3 +1,18 @@
+-- local function lsp_progress()
+--   local messages = vim.lsp.util.get_progress_messages()
+--   if #messages == 0 then
+--     return
+--   end
+--   local status = {}
+--   for _, msg in pairs(messages) do
+--     table.insert(status, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
+--   end
+--   local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+--   local ms = vim.loop.hrtime() / 1000000
+--   local frame = math.floor(ms / 120) % #spinners
+--   return table.concat(status, " | ") .. " " .. spinners[frame + 1]
+-- end
+
 return {
   {
     "nvim-lualine/lualine.nvim",
@@ -25,14 +40,49 @@ return {
         options = {
           theme = "auto",
           globalstatus = true,
+          icons_enabled = true,
           disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
+          section_separators = { left = "", right = "" },
+          -- section_separators = { left = "", right = "" },
+          -- component_separators = { left = "", right = " 󰇙 " },
+          component_separators = { left = "", right = "" },
         },
         sections = {
-          lualine_a = { "mode" },
-          lualine_b = { "branch" },
+          lualine_a = {
+            {
+              "mode",
+              -- {'branch', icon = ''} / {'branch', icon = {'', color={fg='green'}}}
+
+              -- icon position can also be set to the right side from table. Example:
+              -- {'branch', icon = {'', align='right', color={fg='green'}}}
+              icon = nil,
+            },
+          },
+          lualine_b = {},
 
           lualine_c = {
-            LazyVim.lualine.root_dir(),
+            -- LazyVim.lualine.root_dir(),
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            {
+              "filename",
+              path = 4,
+              padding = { left = 1, right = 1 },
+              shorting_target = 20, -- Shortens path to leave 40 spaces in the window
+              -- for other components. (terrible name, any suggestions?)
+              symbols = {
+                modified = "[+]", -- Text to show when the file is modified.
+                readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
+                unnamed = "[No Name]", -- Text to show for unnamed buffers.
+                newfile = "[New]", -- Text to show for newly created file before first write
+              },
+              color = { fg = "#f38ba8" },
+            },
+            -- { LazyVim.lualine.pretty_path() },
+            {
+              "branch",
+              icon = { "", align = "left", color = { fg = "#a6e3a1" } },
+              padding = { left = 1, right = 1 },
+            },
             {
               "diagnostics",
               symbols = {
@@ -41,10 +91,10 @@ return {
                 info = icons.diagnostics.Info,
                 hint = icons.diagnostics.Hint,
               },
+              padding = { left = 1, right = 1 },
             },
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { LazyVim.lualine.pretty_path() },
           },
+
           lualine_x = {
           -- stylua: ignore
           {
@@ -71,10 +121,14 @@ return {
             },
             {
               "diff",
+              colored = true,
               symbols = {
+                -- added = " ",
                 added = icons.git.added,
-                modified = icons.git.modified,
-                removed = icons.git.removed,
+                modified = " ",
+                removed = " ",
+                -- modified = icons.git.modified,
+                -- removed = icons.git.removed,
               },
               source = function()
                 local gitsigns = vim.b.gitsigns_status_dict
@@ -87,15 +141,14 @@ return {
                 end
               end,
             },
+            { "filetype", separator = "", padding = { left = 1, right = 1 } },
+            -- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 1 } },
           },
           lualine_y = {
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
-            function()
-              return " " .. os.date("%R")
-            end,
+            { "progress", padding = { left = 0, right = 1 } },
           },
         },
         extensions = { "neo-tree", "lazy" },
