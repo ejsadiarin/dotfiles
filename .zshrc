@@ -110,13 +110,18 @@ _comp_options+=(globdots)
 #           Styles           #
 ##############################
 zstyle ':completion:*' verbose true
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} 'ma=48;5;197;1'
-# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-# zstyle ':completion:*' menu no
+
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} 'ma=48;5;197;1'
+# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+#
+zstyle ':completion:*' menu no
+# zstyle ':completion:*:*:*:*:*' menu select
+#
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+# zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
 zstyle ':completion:*:warnings' format "%B%F{red}No matches for:%f %F{magenta}%d%b"
 zstyle ':completion:*:descriptions' format '%F{yellow}[-- %d --]%f'
 zstyle ':vcs_info:*' formats ' %B[%F{blue}%f %F{yellow}%b%f]'
@@ -230,6 +235,10 @@ eval "$(thefuck --alias)"
 # ctrl+r for fzf reverse search
 eval "$(fzf --zsh)" 
 
+# eval "$(zoxide init --cmd cd zsh)" 
+
+# if on MacOS uncomment: for homebrew installed apps available on PATH 
+# eval "$(/opt/homebrew/bin/brew shellenv)" 
 
 ##############################
 #        Useful Things       #
