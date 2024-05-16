@@ -55,6 +55,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
 
 # source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -91,14 +92,14 @@ bindkey '^[[1;5C' forward-word
 ##############################
 #          Autoload          #
 ##############################
-autoload -Uz compinit
 autoload -Uz compinit && compinit
+# autoload -Uz compinit
 
-for dump in ~/.config/zsh/zcompdump(N.mh+24); do
-  compinit -d ~/.config/zsh/zcompdump
-done
-
-compinit -C -d ~/.config/zsh/zcompdump
+# for dump in ~/.config/zsh/zcompdump(N.mh+24); do
+#   compinit -d ~/.config/zsh/zcompdump
+# done
+#
+# compinit -C -d ~/.config/zsh/zcompdump
 
 autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
@@ -111,21 +112,22 @@ _comp_options+=(globdots)
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} 'ma=48;5;197;1'
+# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd' fzf-preview 'ls --color $realpath'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+# zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':completion:*:warnings' format "%B%F{red}No matches for:%f %F{magenta}%d%b"
 zstyle ':completion:*:descriptions' format '%F{yellow}[-- %d --]%f'
 zstyle ':vcs_info:*' formats ' %B[%F{blue}%f %F{yellow}%b%f]'
 
-expand-or-complete-with-dots() {
-echo -n "\e[31m…\e[0m"
-zle expand-or-complete
-zle redisplay
-}
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
+# expand-or-complete-with-dots() {
+# echo -n "\e[31m…\e[0m"
+# zle expand-or-complete
+# zle redisplay
+# }
+# zle -N expand-or-complete-with-dots
+# bindkey "^I" expand-or-complete-with-dots
 
 ##############################
 #          History           #
