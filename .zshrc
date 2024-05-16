@@ -1,10 +1,6 @@
-#  ╔═╗╔═╗╦ ╦╦═╗╔═╗  ╔═╗╔═╗╔╗╔╔═╗╦╔═╗	- ejsadiarin
-#  ╔═╝╚═╗╠═╣╠╦╝║    ║  ║ ║║║║╠╣ ║║ ╦	- https://github.com/ejsadiarin/dotfiles
-#  ╚═╝╚═╝╩ ╩╩╚═╚═╝  ╚═╝╚═╝╝╚╝╚  ╩╚═╝	- My .zshrc config
-
-#  ┬  ┬┌─┐┬─┐┌─┐
-#  └┐┌┘├─┤├┬┘└─┐
-#   └┘ ┴ ┴┴└─└─┘
+##############################
+#         Variables          #
+##############################
 export VISUAL="nvim"
 export EDITOR='nvim'
 export TERMINAL='alacritty'
@@ -42,11 +38,61 @@ export PATH="$FLYCTL_INSTALL/bin:$PATH"
 # pass
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 
+# initialize zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-#  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
-#  │  │ │├─┤ ││  ├┤ ││││ ┬││││├┤ 
-#  ┴─┘└─┘┴ ┴─┴┘  └─┘┘└┘└─┘┴┘└┘└─┘
+if [ ! -d "$ZINIT_HOME" ]; then
+  mkdir -p "$(dirname $ZINIT_HOME)"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+source "${ZINIT_HOME}/zinit.zsh"
+
+
+##############################
+#          Plugins           #
+##############################
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+##############################
+#        Keybindings         #
+##############################
+# --> note that ^ means ctrl
+# --> do "zle -al | fzf" to see all bindkey actions
+
+# enable vim-like keybindings (insert mode by default, do esc for normal)
+bindkey -e
+
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^b' backward-word
+bindkey '^f' forward-word
+bindkey '^l' forward-char
+bindkey '^h' backward-char
+# bindkey '^f' forward-word
+bindkey '^r' reverse-search-history
+bindkey '^w' backward-kill-word
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Enable Ctrl + Left Arrow to move one word left
+bindkey '^[[1;5D' backward-word
+
+# Enable Ctrl + Right Arrow to move one word right
+bindkey '^[[1;5C' forward-word
+
+##############################
+#          Autoload          #
+##############################
 autoload -Uz compinit
+autoload -Uz compinit && compinit
 
 for dump in ~/.config/zsh/zcompdump(N.mh+24); do
   compinit -d ~/.config/zsh/zcompdump
@@ -59,47 +105,52 @@ autoload -Uz vcs_info
 precmd () { vcs_info }
 _comp_options+=(globdots)
 
+##############################
+#           Styles           #
+##############################
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} 'ma=48;5;197;1'
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd' fzf-preview 'ls --color $realpath'
 zstyle ':completion:*:warnings' format "%B%F{red}No matches for:%f %F{magenta}%d%b"
 zstyle ':completion:*:descriptions' format '%F{yellow}[-- %d --]%f'
 zstyle ':vcs_info:*' formats ' %B[%F{blue}%f %F{yellow}%b%f]'
 
-#  ┬ ┬┌─┐┬┌┬┐┬┌┐┌┌─┐  ┌┬┐┌─┐┌┬┐┌─┐
-#  │││├─┤│ │ │││││ ┬   │││ │ │ └─┐
-#  └┴┘┴ ┴┴ ┴ ┴┘└┘└─┘  ─┴┘└─┘ ┴ └─┘
 expand-or-complete-with-dots() {
-  echo -n "\e[31m…\e[0m"
-  zle expand-or-complete
-  zle redisplay
+echo -n "\e[31m…\e[0m"
+zle expand-or-complete
+zle redisplay
 }
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
 
-#  ┬ ┬┬┌─┐┌┬┐┌─┐┬─┐┬ ┬
-#  ├─┤│└─┐ │ │ │├┬┘└┬┘
-#  ┴ ┴┴└─┘ ┴ └─┘┴└─ ┴ 
+##############################
+#          History           #
+##############################
 HISTFILE=~/.config/zsh/zhistory
+# HISTFILE=~/.zsh_history
 HISTSIZE=25000
 SAVEHIST=25000
 
-#  ┌─┐┌─┐┬ ┬  ┌─┐┌─┐┌─┐┬    ┌─┐┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
-#  ┌─┘└─┐├─┤  │  │ ││ ││    │ │├─┘ │ ││ ││││└─┐
-#  └─┘└─┘┴ ┴  └─┘└─┘└─┘┴─┘  └─┘┴   ┴ ┴└─┘┘└┘└─┘
-setopt AUTOCD              # change directory just by typing its name
-setopt PROMPT_SUBST        # enable command substitution in prompt
-setopt MENU_COMPLETE       # Automatically highlight first element of completion menu
-setopt LIST_PACKED		   # The completion menu takes less space.
-setopt AUTO_LIST           # Automatically list choices on ambiguous completion.
-setopt HIST_IGNORE_DUPS	   # Do not write events to history that are duplicates of previous events
-setopt HIST_FIND_NO_DUPS   # When searching history don't display results already cycled through twice
-setopt COMPLETE_IN_WORD    # Complete from both ends of a word.
+setopt autocd                  # change directory just by typing its name
+setopt prompt_subst            # enable command substitution in prompt
+setopt menu_complete           # Automatically highlight first element of completion menu
+setopt list_packed		         # The completion menu takes less space.
+setopt auto_list               # Automatically list choices on ambiguous completion.
+setopt hist_ignore_space       # When searching history don't display results already cycled through twice
+setopt hist_ignore_dups	       # Do not write events to history that are duplicates of previous events
+setopt hist_ignore_all_dups	   # Do not write events to history that are duplicates of previous events
+setopt hist_find_no_dups       # When searching history don't display results already cycled through twice
+setopt complete_in_word        # Complete from both ends of a word.
+setopt appendhistory           # Append commands to history file rather than overwriting it
+setopt sharehistory            # Share history of commands across all sessions
 
-#  ┌┬┐┬ ┬┌─┐  ┌─┐┬─┐┌─┐┌┬┐┌─┐┌┬┐
-#   │ ├─┤├┤   ├─┘├┬┘│ ││││├─┘ │ 
-#   ┴ ┴ ┴└─┘  ┴  ┴└─└─┘┴ ┴┴   ┴
+##############################
+#           Prompt           #
+##############################
 function dir_icon {
   if [[ "$PWD" == "$HOME" ]]; then
     echo "%B%F{black}%f%b"
@@ -112,25 +163,9 @@ function dir_icon {
 PS1='%B%F{blue} %f%b %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{white}.%F{red})  %f%b'
 # PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
 
-#  ┌─┐┬  ┬ ┬┌─┐┬┌┐┌┌─┐
-#  ├─┘│  │ ││ ┬││││└─┐
-#  ┴  ┴─┘└─┘└─┘┴┘└┘└─┘
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# Enable Ctrl + Left Arrow to move one word left
-bindkey '^[[1;5D' backward-word
-
-# Enable Ctrl + Right Arrow to move one word right
-bindkey '^[[1;5C' forward-word
-
-#  ┌─┐┬ ┬┌─┐┌┐┌┌─┐┌─┐  ┌┬┐┌─┐┬─┐┌┬┐┬┌┐┌┌─┐┬  ┌─┐  ┌┬┐┬┌┬┐┬  ┌─┐
-#  │  ├─┤├─┤││││ ┬├┤    │ ├┤ ├┬┘│││││││├─┤│  └─┐   │ │ │ │  ├┤ 
-#  └─┘┴ ┴┴ ┴┘└┘└─┘└─┘   ┴ └─┘┴└─┴ ┴┴┘└┘┴ ┴┴─┘└─┘   ┴ ┴ ┴ ┴─┘└─┘
+##############################
+#           Title            #
+##############################
 function xterm_title_precmd () {
 	print -Pn -- '\e]2;%n@%m %~\a'
 	[[ "$TERM" == 'screen'* ]] && print -Pn -- '\e_\005{g}%n\005{-}@\005{m}%m\005{-} \005{B}%~\005{-}\e\\'
@@ -146,9 +181,9 @@ if [[ "$TERM" == (kitty*|alacritty*|termite*|gnome*|konsole*|kterm*|putty*|rxvt*
 	add-zsh-hook -Uz preexec xterm_title_preexec
 fi
 
-#  ┌─┐┬  ┬┌─┐┌─┐
-#  ├─┤│  │├─┤└─┐
-#  ┴ ┴┴─┘┴┴ ┴└─┘
+##############################
+#          Aliases           #
+##############################
 alias mirrors="sudo reflector --verbose --latest 5 --country 'United States' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
 
 alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
@@ -182,13 +217,21 @@ alias copy="xclip -sel clip"
 
 alias snvim="sudo -E nvim $1"
 
-#  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
-#  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
-#  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
+
+##############################
+#            Eval            #
+##############################
 #  comment this out if not want ascii art every terminal open
 # $HOME/.local/bin/colorscript -r
-eval $(thefuck --alias)
+eval "$(thefuck --alias)"
 
+# ctrl+r for fzf reverse search
+eval "$(fzf --zsh)" 
+
+
+##############################
+#        Useful Things       #
+##############################
 # useful commands
 # time the zsh startup: 
 # time zsh -i -c exit (or use /usr/bin/time instead of time, if time not available)
