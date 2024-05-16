@@ -37,13 +37,16 @@ new_todo() {
 
 - [ ] finish shifting application (open 8am to 8pm everyday till may 22)
   - [x] FB: https://www.facebook.com/photo?fbid=829390939227633&set=pcb.829391029227624
-  - [ ] print Shifting Fee Assessment: https://drive.google.com/file/d/1A2ZTMBsh0GwE-A1pSBo6jNPal3aUN9BD/view?pli=1
+  - [x] print Shifting Fee Assessment: https://drive.google.com/file/d/1A2ZTMBsh0GwE-A1pSBo6jNPal3aUN9BD/view?pli=1
   - [ ] Payment: 550 to be paid ONLY AT THE DLSU CASHIER
   - [ ] fill up Form: https://docs.google.com/forms/d/e/1FAIpQLScOyOK8U8AyIzVng6cNeHJY-BR_qPBHl6CpkSsJ04r20BTCBA/viewform?pli=1
 
 
 # Mini Backlog:
 - [ ] VLANS: https://www.youtube.com/watch?v=JszGeQPTo4w&ab_channel=CrosstalkSolutions
+- [ ] offsite and onsite Git server 
+  - [ ] offsite: cloud server, codeberg
+  - [ ] onsite: self-hosted gitlab or gitea
 - [ ] continue sort lock
 
 - [ ] finish the ansible playbook for machine setup - all roles
