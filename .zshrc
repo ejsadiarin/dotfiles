@@ -80,8 +80,8 @@ bindkey '^h' backward-char
 bindkey '^r' reverse-search-history
 bindkey '^w' backward-kill-word
 
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
 
 # Enable Ctrl + Left Arrow to move one word left
 bindkey '^[[1;5D' backward-word

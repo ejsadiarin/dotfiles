@@ -167,10 +167,10 @@ return {
           local dir = vim.env.HOME .. "/.config"
           require("telescope.builtin").find_files({
             find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
-            prompt_prefix = "   .configs | ",
+            prompt_prefix = "   .config | ",
           })
         end,
-        desc = "Find files on .configs",
+        desc = "Find files on .config",
       },
       {
         "<leader>fm",

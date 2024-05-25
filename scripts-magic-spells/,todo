@@ -35,14 +35,13 @@ new_todo() {
 - [ ] r/linuxupskillchallenge daily
 - [ ] finish one file in the default-responses files in \`Personal/Brain-Configuration/\`  
 
-- [ ] finish shifting application (open 8am to 8pm everyday till may 22)
-  - [x] FB: https://www.facebook.com/photo?fbid=829390939227633&set=pcb.829391029227624
-  - [x] print Shifting Fee Assessment: https://drive.google.com/file/d/1A2ZTMBsh0GwE-A1pSBo6jNPal3aUN9BD/view?pli=1
-  - [ ] Payment: 550 to be paid ONLY AT THE DLSU CASHIER
-  - [ ] fill up Form: https://docs.google.com/forms/d/e/1FAIpQLScOyOK8U8AyIzVng6cNeHJY-BR_qPBHl6CpkSsJ04r20BTCBA/viewform?pli=1
+- [ ] get groupmate for ccprog3
+- [ ] nstp form for off campus need notarized
+
+- [ ] add docker wiz: https://www.reddit.com/r/selfhosted/s/IIY6Q8MXvd 
 
 
-# Mini Backlog:
+# Side Quests:
 - [ ] VLANS: https://www.youtube.com/watch?v=JszGeQPTo4w&ab_channel=CrosstalkSolutions
 - [ ] offsite and onsite Git server 
   - [ ] offsite: cloud server, codeberg
@@ -57,7 +56,28 @@ new_todo() {
 - [ ] look into webhooks
 
 - [ ] add networking k8s: https://www.reddit.com/r/kubernetes/s/TOZlIZ3Ggg and [THIS](https://www.reddit.com/r/kubernetes/comments/1cj88by/the_torture_starts_here/)
-- [ ] add this dotval: 0;s;1;P;c;5;u;0A0A0AFF;o;1;d;1;0b;0;1b;0;S;c;0
+
+- [ ] https://smallstep.com/blog/build-a-tiny-ca-with-raspberry-pi-yubikey/ 
+- [ ] 455250 482004 491968 mibry
+- [ ] https://github.com/caronc/apprise?ref=selfh.st -> notification
+- [ ] https://selfh.st/apps/ https://awesome-selfhosted.net/ 
+- [ ] https://docs.docker.com/config/daemon/ipv6/ -> enable IPv6 Docker config
+- [ ] https://github.com/prometheus/blackbox_exporter -> probe/ping external services/endpoints (ex. alerts when token expired on some REST API)
+- [ ] make a script to check if system got updated correctly: \$(uname -r) then \$(ls /usr/lib/modules)
+
+
+
+# KNOW HOW TO:
+- [ ] basic understanding of the filesystem, what goes where, and how to move around in it.    
+- [ ] basic networking setup and troubleshooting.    
+- [ ] basic administrative tasks like installing/uninstalling stuff, installing updates, reading and setting file permissions, etc.   
+- [ ] ssh basics (key generation and placement, connection, etc) 
+## What would make a candidate really stand out:    
+- [ ] knowing how to join a Linux machine to a domain and managing ssh/sudo access to it using domain credentials instead of keys (familiarity with sssd is helpful here).      
+- [ ] familiarity with ansible and satellite server.      
+- [ ] knowing how to mount basic data disks and network shares.      
+- [ ] how to grow root and swap partitions without downtime (I guess also worth saying familiarity with LVM for this one).      
+- [ ] familiarity with Podman.       
 
 
 EOF
@@ -68,5 +88,5 @@ if [ ! -f "$todo_file" ]; then
 	new_todo
 fi
 
-nvim '+ normal Gzz' "$todo_file" -c ":NoNeckPain"
+nvim '+ normal gg' "$todo_file" -c ":NoNeckPain"
 # nvim '+ normal Gzzo' "$todo_file" -c :NoNeckPain
