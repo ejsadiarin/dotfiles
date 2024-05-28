@@ -1,3 +1,5 @@
+local compare = require("cmp.config.compare")
+
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -20,9 +22,59 @@ return {
           border = "rounded",
           -- focusable = true,
         },
+        -- completion = { border = vim.g.border_style, scrolloff = vim.o.scrolloff, scrollbar = "║" },
+        -- documentation = { border = vim.g.border_style, scrolloff = vim.o.scrolloff, scrollbar = "║" },
+        -- preview = { border = vim.g.border_style, scrolloff = vim.o.scrolloff, scrollbar = "║" },
+      },
+      -- sorting = defaults.sorting,
+      sorting = {
+        comparators = {
+          -- Original order: https://github.com/hrsh7th/nvim-cmp/blob/538e37ba87284942c1d76ed38dd497e54e65b891/lua/cmp/config/default.lua#L65-L74
+          -- Definitions of compare function https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
+          compare.offset,
+          compare.recently_used, -- higher
+          compare.score,
+          compare.exact, -- lower
+          compare.kind, -- higher (prioritize snippets)
+          compare.locality,
+          compare.length,
+          compare.order,
+        },
       },
       formatting = {
         fields = { "kind", "abbr", "menu" },
+        format = function(entry, item)
+          -- load lspkind icons
+          -- item.kind = string.format(" %s  %s", user_icons.kinds[item.kind], item.kind)
+          local icons = require("lazyvim.config").icons.kinds
+          if icons[item.kind] then
+            item.kind = icons[item.kind] .. item.kind
+          end
+
+          item.menu = ({
+            cmp_tabnine = "[Tabnine]",
+            copilot = "[Copilot]",
+            spell = "[Spell]",
+            buffer = "[Buffer]",
+            orgmode = "[Org]",
+            look = "[Dictionary]",
+            nvim_lsp = "[LSP]",
+            git = "[Git]",
+            nvim_lua = "[Lua]",
+            path = "[Path]",
+            tmux = "[Tmux]",
+            latex_symbols = "[Latex]",
+            luasnip = "[Snippet]",
+          })[entry.source.name]
+
+          local label = item.abbr
+          local truncated_label = vim.fn.strcharpart(label, 0, 50)
+          if truncated_label ~= label then
+            item.abbr = truncated_label .. "..."
+          end
+
+          return item
+        end,
       },
     },
   },

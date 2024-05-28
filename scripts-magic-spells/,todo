@@ -38,8 +38,6 @@ new_todo() {
 - [ ] get groupmate for ccprog3
 - [ ] nstp form for off campus need notarized
 
-- [ ] add docker wiz: https://www.reddit.com/r/selfhosted/s/IIY6Q8MXvd 
-
 
 # Side Quests:
 - [ ] VLANS: https://www.youtube.com/watch?v=JszGeQPTo4w&ab_channel=CrosstalkSolutions
@@ -57,11 +55,8 @@ new_todo() {
 
 - [ ] add networking k8s: https://www.reddit.com/r/kubernetes/s/TOZlIZ3Ggg and [THIS](https://www.reddit.com/r/kubernetes/comments/1cj88by/the_torture_starts_here/)
 
-- [ ] https://smallstep.com/blog/build-a-tiny-ca-with-raspberry-pi-yubikey/ 
 - [ ] 455250 482004 491968 mibry
 - [ ] https://github.com/caronc/apprise?ref=selfh.st -> notification
-- [ ] https://selfh.st/apps/ https://awesome-selfhosted.net/ 
-- [ ] https://docs.docker.com/config/daemon/ipv6/ -> enable IPv6 Docker config
 - [ ] https://github.com/prometheus/blackbox_exporter -> probe/ping external services/endpoints (ex. alerts when token expired on some REST API)
 - [ ] make a script to check if system got updated correctly: \$(uname -r) then \$(ls /usr/lib/modules)
 
