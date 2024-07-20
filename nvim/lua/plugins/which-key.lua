@@ -6,12 +6,14 @@ return {
     vim.o.timeoutlen = 300
   end,
   optional = true,
-  opts = function(_, opts)
-    opts.defaults["<leader>v"] = { name = "+visual-multi" }
-    opts.defaults["<leader>o"] = { name = "+obsidian" }
-    opts.defaults["<leader>,"] = { name = "+specials" }
-    opts.defaults["<leader><tab>"] = nil -- HACK: adding this makes the <leader><tab> work (see in keymaps.lua) for some reason, related to this? https://github.com/folke/which-key.nvim/blob/4433e5ec9a507e5097571ed55c02ea9658fb268a/lua/which-key/keys.lua#L6
-  end,
+  opts = {
+    spec = {
+      { "<leader>,", group = "specials" },
+      { "<leader>o", group = "obsidian" },
+      { "<leader>v", group = "visual-multi" },
+      { "<leader><tab>", group = nil }, -- HACK: adding this makes the <leader><tab> work (see in keymaps.lua) for some reason, related to this? https://github.com/folke/which-key.nvim/blob/4433e5ec9a507e5097571ed55c02ea9658fb268a/lua/which-key/keys.lua#L6
+    },
+  },
   -- opts = {
   --   defaults = {
   --     -- ["<leader>h"] = { name = "+harpoon" },

@@ -3,17 +3,12 @@ local Util = require("lazyvim.util")
 return {
   {
     "nvim-telescope/telescope.nvim",
+    -- cmd = "Telescope",
+    -- enabled = function()
+    --   return LazyVim.pick.want() == "telescope"
+    -- end,
+    -- version = false, -- telescope did only one release, so use HEAD for now
     dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        -- enabled = vim.fn.executable("make") == 1,
-        config = function()
-          Util.on_load("telescope.nvim", function()
-            require("telescope").load_extension("fzf")
-          end)
-        end,
-      },
       {
         "nvim-telescope/telescope-live-grep-args.nvim",
         -- This will not install any breaking changes.
@@ -28,11 +23,43 @@ return {
         -- end,
       },
     },
+    --   -- {
+    --   --   "nvim-telescope/telescope-fzf-native.nvim",
+    --   --   build = "make",
+    --   --   -- enabled = vim.fn.executable("make") == 1,
+    --   --   config = function()
+    --   --     Util.on_load("telescope.nvim", function()
+    --   --       require("telescope").load_extension("fzf")
+    --   --     end)
+    --   --   end,
+    --   -- },
+    --   {
+    --     "nvim-telescope/telescope-fzf-native.nvim",
+    --     build = have_make and "make"
+    --       or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    --     enabled = have_make or have_cmake,
+    --     config = function(plugin)
+    --       LazyVim.on_load("telescope.nvim", function()
+    --         local ok, err = pcall(require("telescope").load_extension, "fzf")
+    --         if not ok then
+    --           local lib = plugin.dir .. "/build/libfzf." .. (LazyVim.is_win() and "dll" or "so")
+    --           if not vim.uv.fs_stat(lib) then
+    --             LazyVim.warn("`telescope-fzf-native.nvim` not built. Rebuilding...")
+    --             require("lazy").build({ plugins = { plugin }, show = false }):wait(function()
+    --               LazyVim.info("Rebuilding `telescope-fzf-native.nvim` done.\nPlease restart Neovim.")
+    --             end)
+    --           else
+    --             LazyVim.error("Failed to load `telescope-fzf-native.nvim`:\n" .. err)
+    --           end
+    --         end
+    --       end)
+    --     end,
+    --   },
     config = function()
-      Util.on_load("telescope.nvim", function()
-        local telescope = require("telescope")
-        telescope.load_extension("live_grep_args")
-      end)
+      local telescope = require("telescope")
+      telescope.load_extension("live_grep_args")
+      -- Util.on_load("telescope.nvim", function()
+      -- end)
     end,
     -- pickers = {
     --   buffers = {
@@ -68,38 +95,38 @@ return {
       --   end,
       --   desc = "Live Grep (root/dynamic)",
       -- },
-      { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (dynamic)" },
-      {
-        "<leader>sG",
-        function()
-          local dir = vim.env.HOME .. "/"
-          require("telescope").extensions.live_grep_args.live_grep_args({
-            search_dirs = { dir },
-            additional_args = { "--hidden" },
-          })
-        end,
-        desc = "Live Grep from Home",
-      },
-      {
-        "<leader>se",
-        function()
-          require("telescope").extensions.live_grep_args.live_grep_args()
-        end,
-        desc = "Live Grep Args (cwd)",
-      },
-      {
-        "<leader>sN",
-        function()
-          local dir = vim.env.HOME .. "/vault/wizardry"
-          require("telescope").extensions.live_grep_args.live_grep_args({
-            search_dirs = { dir },
-            additional_args = { "--hidden" },
-          })
-        end,
-        desc = "Live Grep from Wizardry Notes",
-      },
-      { "<leader>ff", Util.telescope("files"), desc = "Find Files (dynamic)" },
-      { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+      { "<leader>sg", Util.pick("live_grep"), desc = "Grep (dynamic)" },
+      -- {
+      --   "<leader>sG",
+      --   function()
+      --     local dir = vim.env.HOME .. "/"
+      --     require("telescope").extensions.live_grep_args.live_grep_args({
+      --       search_dirs = { dir },
+      --       additional_args = { "--hidden" },
+      --     })
+      --   end,
+      --   desc = "Live Grep from Home",
+      -- },
+      -- {
+      --   "<leader>se",
+      --   function()
+      --     require("telescope").extensions.live_grep_args.live_grep_args()
+      --   end,
+      --   desc = "Live Grep Args (cwd)",
+      -- },
+      -- {
+      --   "<leader>sN",
+      --   function()
+      --     local dir = vim.env.HOME .. "/vault/wizardry"
+      --     require("telescope").extensions.live_grep_args.live_grep_args({
+      --       search_dirs = { dir },
+      --       additional_args = { "--hidden" },
+      --     })
+      --   end,
+      --   desc = "Live Grep from Wizardry Notes",
+      -- },
+      -- { "<leader>ff", Util.pick.telescope("files"), desc = "Find Files (dynamic)" },
+      -- { "<leader>fF", Util.pick.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
       {
         "<leader>fe",
         function()

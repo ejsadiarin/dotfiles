@@ -41,6 +41,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.test.core" },
     { import = "lazyvim.plugins.extras.editor.aerial" },
     { import = "lazyvim.plugins.extras.editor.leap" },
+    { import = "lazyvim.plugins.extras.editor.telescope" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- { import = "lazyvim.plugins.extras.editor.navic" },
     -- import/override with your plugins

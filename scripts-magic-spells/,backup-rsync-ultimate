@@ -18,16 +18,18 @@ reddit="$HOME/Sync/reddit"
 pkse_desktop="$HOME/Pictures/pkse"
 screenshots_desktop="$HOME/Pictures/ScreenShots"
 password_store="$HOME/.password-store"
+camera="/mnt/hdd/camera"
 
 dirs_to_sync_usb=(
-	"$vault"
-	"$sync_lock"
-	"$password_store"
-	"$dotfiles"
-	"$reddit"
-	"$pkse_desktop"
-	"$screenshots_desktop"
-	"$wizardry_sms"
+  "$vault"
+  "$sync_lock"
+  "$password_store"
+  "$dotfiles"
+  "$reddit"
+  "$camera"
+  "$pkse_desktop"
+  "$screenshots_desktop"
+  "$wizardry_sms"
 )
 
 set -e
@@ -36,18 +38,18 @@ set -e
 #         LOCAL SYNC           #
 # ############################ #
 local_sync() {
-	notify-send "Starting LOCAL SYNC"
-	# sync scripts magic spells to dotfiles
-	echo "[ SYNCING ] scripts magic spells..."
-	if [ ! -d "$dotfiles_sms" ]; then
-		# if new then add
-		sudo rsync -auzv "$wizardry_sms" "$dotfiles_sms"
-	else
-		# just sync the files
-		sudo rsync -auzv --delete --progress "$wizardry_sms/" "$dotfiles_sms/"
-	fi
-	echo "[ SUCCESS ] Everything perfectly synced!"
-	notify-send "Backup Complete!" "All Synced!"
+  notify-send "Starting LOCAL SYNC"
+  # sync scripts magic spells to dotfiles
+  echo "[ SYNCING ] scripts magic spells..."
+  if [ ! -d "$dotfiles_sms" ]; then
+    # if new then add
+    sudo rsync -auzv "$wizardry_sms" "$dotfiles_sms"
+  else
+    # just sync the files
+    sudo rsync -auzv --delete --progress "$wizardry_sms/" "$dotfiles_sms/"
+  fi
+  echo "[ SUCCESS ] Everything perfectly synced!"
+  notify-send "Backup Complete!" "All Synced!"
 }
 
 # ############################ #
@@ -55,152 +57,160 @@ local_sync() {
 # ############################ #
 
 usb_sync() {
-	# sync usb
-	echo "[ CHECKING ] is USB mounted?... "
+  # sync usb
+  echo "[ CHECKING ] is USB mounted?... "
 
-	# find command outputs string to stdout, so use -n or -z for conditionals
-	find_readme_file=$(find "$usb_mountpoint" -type f -name "README.md")
+  # find command outputs string to stdout, so use -n or -z for conditionals
+  find_readme_file=$(find "$usb_mountpoint" -type f -name "README.md")
 
-	# HACK: since using: if [ ! -d "$usb_mountpoint" ]... is always true
-	# --> instead find the README.md file in the mountpoint (indicates USB is properly mounted)
-	if [ -z "$find_readme_file" ]; then
-		echo "[ SKIP ] USB mountpoint not found. Skipping..."
-		notify-send "SKIPPED" "USB mountpoint not found. Skipping..."
-	else
-		notify-send "DETECTED" "USB mountpoint detected."
-		notify-send "Starting USB SYNC"
-		for dir in "${dirs_to_sync_usb[@]}"; do
-			# if on new usb, copy directly
-			if [ ! -d "$dir" ]; then
-				echo "[ DETECTED ] NEW USB: Just get some coffee and backseat. This may take a while..."
+  # HACK: since using: if [ ! -d "$usb_mountpoint" ]... is always true
+  # --> instead find the README.md file in the mountpoint (indicates USB is properly mounted)
+  if [ -z "$find_readme_file" ]; then
+    echo "[ SKIP ] USB mountpoint not found. Skipping..."
+    notify-send "SKIPPED" "USB mountpoint not found. Skipping..."
+  else
+    notify-send "DETECTED" "USB mountpoint detected."
+    notify-send "Starting USB SYNC"
+    for dir in "${dirs_to_sync_usb[@]}"; do
+      # if on new usb, copy directly
+      if [ ! -d "$dir" ]; then
+        echo "[ DETECTED ] NEW USB: Just get some coffee and backseat. This may take a while..."
 
-				if [[ "$dir" == "$sync_lock" ]]; then
-					echo "[ SYNCING USB ] NEW: Lock-encrypt directory..."
-					sudo rsync -auz "$sync_lock" "$usb_mountpoint"/Lock-encrypt
+        if [[ "$dir" == "$sync_lock" ]]; then
+          echo "[ SYNCING USB ] NEW: Lock-encrypt directory..."
+          sudo rsync -auz "$sync_lock" "$usb_mountpoint"/Lock-encrypt
 
-				elif [[ "$dir" == "$vault" ]]; then
-					echo "[ SYNCING USB ] NEW: VAULT..."
-					sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
+        elif [[ "$dir" == "$vault" ]]; then
+          echo "[ SYNCING USB ] NEW: VAULT..."
+          sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
 
-				elif [[ "$dir" == "$password_store" ]]; then
-					echo "[ SYNCING USB ] NEW: PASSWORD STORE..."
-					sudo rsync -auz --delete "$dir" "$usb_mountpoint"
+        elif [[ "$dir" == "$password_store" ]]; then
+          echo "[ SYNCING USB ] NEW: PASSWORD STORE..."
+          sudo rsync -auz --delete "$dir" "$usb_mountpoint"
 
-				elif [[ "$dir" == "$dotfiles" ]]; then
-					echo "[ SYNCING USB ] Dotfiles..."
-					sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
+        elif [[ "$dir" == "$dotfiles" ]]; then
+          echo "[ SYNCING USB ] Dotfiles..."
+          sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
 
-				elif [[ "$dir" == "$pkse_desktop" ]]; then
-					echo "[ SYNCING USB ] NEW: exquisite pics..."
-					sudo rsync -auz "$dir" "$usb_mountpoint"
+        elif [[ "$dir" == "$camera" ]]; then
+          echo "[ SYNCING USB ] NEW: camera pics..."
+          sudo rsync -auz "$dir" "$usb_mountpoint"
 
-				elif [[ "$dir" == "$screenshots_desktop" ]]; then
-					echo "[ SYNCING USB ] NEW: personal screenshots..."
-					sudo rsync -auz "$dir" "$usb_mountpoint"
+        elif [[ "$dir" == "$pkse_desktop" ]]; then
+          echo "[ SYNCING USB ] NEW: exquisite pics..."
+          sudo rsync -auz "$dir" "$usb_mountpoint"
 
-				elif [[ "$dir" == "$reddit" ]]; then
-					echo "[ SYNCING USB ] NEW: personal reddit..."
-					sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
+        elif [[ "$dir" == "$screenshots_desktop" ]]; then
+          echo "[ SYNCING USB ] NEW: personal screenshots..."
+          sudo rsync -auz "$dir" "$usb_mountpoint"
 
-				elif [[ "$dir" == "$wizardry_sms" ]]; then
-					echo "[ SYNCING USB ] NEW: scripts magic spells..."
-					sudo rsync -auzv --delete "$wizardry_sms" "$usb_mountpoint"/scripts-magic-spells
+        elif [[ "$dir" == "$reddit" ]]; then
+          echo "[ SYNCING USB ] NEW: personal reddit..."
+          sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
 
-				elif [[ "$dir" == "$dotfiles_sms" ]]; then
-					echo "[ SYNCING USB ] NEW: scripts magic spells..."
-				fi
+        elif [[ "$dir" == "$wizardry_sms" ]]; then
+          echo "[ SYNCING USB ] NEW: scripts magic spells..."
+          sudo rsync -auzv --delete "$wizardry_sms" "$usb_mountpoint"/scripts-magic-spells
 
-			else
-				# if have README.md file, then usb_mountpoint is mounted properly
-				if [ -n "$find_readme_file" ]; then
+        elif [[ "$dir" == "$dotfiles_sms" ]]; then
+          echo "[ SYNCING USB ] NEW: scripts magic spells..."
+        fi
 
-					basename_dir=$(basename "$dir")
+      else
+        # if have README.md file, then usb_mountpoint is mounted properly
+        if [ -n "$find_readme_file" ]; then
 
-					# if on usb with existing dirs, then just sync (add "/")
-					if [[ "$dir" == "$sync_lock" ]]; then
-						echo "[ SUCCESS ] USB is mounted, now syncing..."
-						echo "[ SYNCING USB ] Lock-encrypt directory..."
-						# finds and syncs files added "newer than 3 days" (or files in the last 3 days) with -mtime -3
-						rsync -auz --progress --files-from=<(find "$sync_lock/" -mtime -4 -type f -exec basename {} \;) "$sync_lock/" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}')
+          basename_dir=$(basename "$dir")
 
-					elif [[ "$dir" == "$vault" ]]; then
-						echo "[ SYNCING USB ] VAULT..."
-						sudo rsync -auzv --delete "$dir/" "$usb_mountpoint/$basename_dir/"
+          # if on usb with existing dirs, then just sync (add "/")
+          if [[ "$dir" == "$sync_lock" ]]; then
+            echo "[ SUCCESS ] USB is mounted, now syncing..."
+            echo "[ SYNCING USB ] Lock-encrypt directory..."
+            # finds and syncs files added "newer than 3 days" (or files in the last 3 days) with -mtime -3
+            rsync -auz --progress --files-from=<(find "$sync_lock/" -mtime -10 -type f -exec basename {} \;) "$sync_lock/" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}'),back
 
-					elif [[ "$dir" == "$password_store" ]]; then
-						echo "[ SYNCING USB ] PASSWORD STORE..."
-						sudo rsync -auz --delete "$dir/" "$usb_mountpoint/$basename_dir/"
+          elif [[ "$dir" == "$vault" ]]; then
+            echo "[ SYNCING USB ] VAULT..."
+            sudo rsync -auzv --delete "$dir/" "$usb_mountpoint/$basename_dir/"
 
-					elif [[ "$dir" == "$dotfiles" ]]; then
-						echo "[ SYNCING USB ] Dotfiles..."
-						sudo rsync -auzv --delete "$dir/" "$usb_mountpoint/$basename_dir/"
+          elif [[ "$dir" == "$password_store" ]]; then
+            echo "[ SYNCING USB ] PASSWORD STORE..."
+            sudo rsync -auz --delete "$dir/" "$usb_mountpoint/$basename_dir/"
 
-					elif [[ "$dir" == "$pkse_desktop" ]]; then
-						echo "[ SYNCING USB ] exquisite pics..."
-						sudo rsync -auz "$dir/" "$usb_mountpoint/$basename_dir/"
+          elif [[ "$dir" == "$dotfiles" ]]; then
+            echo "[ SYNCING USB ] Dotfiles..."
+            sudo rsync -auzv --delete "$dir/" "$usb_mountpoint/$basename_dir/"
 
-					elif [[ "$dir" == "$wizardry_sms" ]]; then
-						echo "[ SYNCING USB ] Scripts / Magic Spells..."
-						sudo rsync -auzv --delete "$wizardry_sms/" "$usb_mountpoint"/scripts-magic-spells/
+          elif [[ "$dir" == "$camera" ]]; then
+            echo "[ SYNCING USB ] camera pics..."
+            sudo rsync -auz "$dir/" "$usb_mountpoint/$basename_dir/"
 
-					elif [[ "$dir" == "$screenshots_desktop" ]]; then
-						echo "[ SYNCING USB ] exquisite screenshots..."
-						sudo rsync -auz "$dir/" "$usb_mountpoint/$basename_dir/"
+          elif [[ "$dir" == "$pkse_desktop" ]]; then
+            echo "[ SYNCING USB ] exquisite pics..."
+            sudo rsync -auz "$dir/" "$usb_mountpoint/$basename_dir/"
 
-					elif [[ "$dir" == "$reddit" ]]; then
-						echo "[ SYNCING USB ] personal reddit..."
-						sudo rsync -auzv "$dir/" "$usb_mountpoint/$basename_dir/"
-					fi
-				fi
-			fi
-		done
-		echo "[ SUCCESS ] Everything perfectly synced!"
-		notify-send "Backup Complete!" "All Synced!"
-	fi
+          elif [[ "$dir" == "$wizardry_sms" ]]; then
+            echo "[ SYNCING USB ] Scripts / Magic Spells..."
+            sudo rsync -auzv --delete "$wizardry_sms/" "$usb_mountpoint"/scripts-magic-spells/
+
+          elif [[ "$dir" == "$screenshots_desktop" ]]; then
+            echo "[ SYNCING USB ] exquisite screenshots..."
+            sudo rsync -auz "$dir/" "$usb_mountpoint/$basename_dir/"
+
+          elif [[ "$dir" == "$reddit" ]]; then
+            echo "[ SYNCING USB ] personal reddit..."
+            sudo rsync -auzv "$dir/" "$usb_mountpoint/$basename_dir/"
+          fi
+        fi
+      fi
+    done
+    echo "[ SUCCESS ] Everything perfectly synced!"
+    notify-send "Backup Complete!" "All Synced!"
+  fi
 }
 
 if [ "$#" -eq 0 ]; then
-	echo "Running this script with no args is equal to running it with -a, -all, all option (default behavior)"
-	read -rp "Do you want to continue? (y/n) " yn
-	case $yn in
-	[Yy]*)
-		local_sync
-		usb_sync
-		;;
-	[Nn]*) echo "Aborting..." ;;
-	*) printf " Error: only write 'y' or 'n'\n\n" ;;
-	esac
+  echo "Running this script with no args is equal to running it with -a, -all, all option (default behavior)"
+  read -rp "Do you want to continue? (y/n) " yn
+  case $yn in
+  [Yy]*)
+    local_sync
+    usb_sync
+    ;;
+  [Nn]*) echo "Aborting..." ;;
+  *) printf " Error: only write 'y' or 'n'\n\n" ;;
+  esac
 else
-	case "$1" in
-	-a | --all | all)
-		notify-send "Backup Started!" "Syncing everything..."
-		notify-send "Get some coffee" "Automation is peak."
-		local_sync
-		usb_sync
-		;;
-	-c | --check | check | -n | --dry-run | dry-run)
-		# TODO: add dry-run, adding flag for rsync -n
-		notify-send "Backup DRY RUN!" "Checking everything..."
-		;;
-	-l | --local | local)
-		notify-send "Backup Started!" "Syncing everything..."
-		notify-send "Get some coffee" "Automation is peak."
-		local_sync
-		;;
-	-u | --usb | usb)
-		notify-send "Backup Started!" "Syncing everything..."
-		notify-send "Get some coffee" "Automation is peak."
-		usb_sync
-		;;
-	-h | --help | help)
-		echo -e "Updates [options]
+  case "$1" in
+  -a | --all | all)
+    notify-send "Backup Started!" "Syncing everything..."
+    notify-send "Get some coffee" "Automation is peak."
+    local_sync
+    usb_sync
+    ;;
+  -c | --check | check | -n | --dry-run | dry-run)
+    # TODO: add dry-run, adding flag for rsync -n
+    notify-send "Backup DRY RUN!" "Checking everything..."
+    ;;
+  -l | --local | local)
+    notify-send "Backup Started!" "Syncing everything..."
+    notify-send "Get some coffee" "Automation is peak."
+    local_sync
+    ;;
+  -u | --usb | usb)
+    notify-send "Backup Started!" "Syncing everything..."
+    notify-send "Get some coffee" "Automation is peak."
+    usb_sync
+    ;;
+  -h | --help | help)
+    echo -e "Updates [options]
 Options:
   -a, --all, all        Sync to ALL backups (default)
   -l, --local, local    Start LOCAL-ONLY sync
   -u, --usb, usb        Start USB sync\n"
-		;;
-	*)
-		echo "Invalid option: Run -h, --help, help to see available flags"
-		;;
-	esac
+    ;;
+  *)
+    echo "Invalid option: Run -h, --help, help to see available flags"
+    ;;
+  esac
 fi

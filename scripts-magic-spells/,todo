@@ -35,8 +35,7 @@ new_todo() {
 - [ ] r/linuxupskillchallenge daily
 - [ ] finish one file in the default-responses files in \`Personal/Brain-Configuration/\`  
 
-- [ ] get groupmate for ccprog3
-- [ ] nstp form for off campus need notarized
+- [ ] know how to use the sea salt spray
 
 
 # Side Quests:
@@ -83,5 +82,5 @@ if [ ! -f "$todo_file" ]; then
 	new_todo
 fi
 
-nvim '+ normal gg' "$todo_file" -c ":NoNeckPain"
+nvim "$todo_file" -c ":NoNeckPain" '+ normal gg'
 # nvim '+ normal Gzzo' "$todo_file" -c :NoNeckPain
