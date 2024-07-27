@@ -326,8 +326,9 @@ return {
   {
     "mfussenegger/nvim-ansible",
     keys = {
+      { "<leader>,e", "", desc = "+ansible", mode = { "n", "v" } },
       {
-        "<leader>,r",
+        "<leader>,er",
         function()
           require("ansible").run()
         end,
@@ -335,7 +336,7 @@ return {
         desc = "Run Ansible Playbook",
       },
       {
-        "<leader>,a",
+        "<leader>,ea",
         "<CMD>set ft=yaml.ansible<CR>",
         silent = true,
         desc = "set ft=yaml.ansible",
