@@ -224,6 +224,7 @@ alias copy="xclip -sel clip"
 
 alias snvim="sudo -E nvim $1"
 
+alias nvim-ks='NVIM_APPNAME="nvim-ks" nvim'
 
 ##############################
 #            Eval            #
