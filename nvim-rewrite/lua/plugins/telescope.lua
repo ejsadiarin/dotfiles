@@ -54,7 +54,12 @@ return {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {
+          find_files = {
+            -- sort files by modified time (rg sorts result by modification date, fd don't)
+            find_command = { 'rg', '--files', '--sortr=modified' },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -78,6 +83,12 @@ return {
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+      vim.keymap.set('n', '<leader>ff', function()
+        builtin.find_files {
+          prompt_prefix = '   ',
+        }
+      end, { desc = '[F]ind [F]iles' })
 
       vim.keymap.set('n', '<leader>fe', function()
         local cwd = vim.fn.getcwd()
