@@ -48,6 +48,10 @@ local_sync() {
     # just sync the files
     sudo rsync -auzv --delete --progress "$wizardry_sms/" "$dotfiles_sms/"
   fi
+	# TEMP: sync nvim-config (rewrite)
+  echo "[ SYNCING ] nvim rewrite..."
+	rsync -auz ~/.config/nvim-ks/ ~/dotfiles/nvim-rewrite/
+
   echo "[ SUCCESS ] Everything perfectly synced!"
   notify-send "Backup Complete!" "All Synced!"
 }
