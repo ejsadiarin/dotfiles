@@ -28,9 +28,16 @@ return {
         --- diagnostics_dict is a dictionary from error level ("error", "warning" or "info")to number of errors for each level.
         --- this should return a string
         --- Don't get too fancy as this function will be executed a lot
-        diagnostics_indicator = function(count, level, diagnostics_dict, context)
-          local icon = level:match 'error' and ' ' or ' '
-          return ' ' .. icon .. count
+        diagnostics_indicator = function(count, level, diag_dict, context)
+          -- local icon = level:match 'error' and ' ' or ' '
+          local icons = {
+            error = ' ',
+            warning = ' ',
+            hint = ' ',
+            info = ' ',
+          }
+          local ret = (diag_dict.error and icons.error .. diag_dict.error .. ' ' or '') .. (diag_dict.warning and icons.warning .. diag_dict.warning or '')
+          return vim.trim(ret) -- return ' ' .. icon .. count
         end,
         -- diagnostics_indicator = function(_, _, diag)
         --   -- local icons = require('lazyvim.config').icons.diagnostics

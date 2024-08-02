@@ -131,7 +131,9 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line [D]iagnostics' })
+vim.keymap.set('n', '<leader>cd', function()
+  vim.diagnostic.open_float { border = 'single' } -- enable border on diagnostic float window
+end, { desc = 'Line [D]iagnostics' })
 
 -- Open Lazy (:Lazy)
 vim.keymap.set('n', '<leader>l', '<cmd>Lazy<CR>', { desc = 'Open [L]azy' })

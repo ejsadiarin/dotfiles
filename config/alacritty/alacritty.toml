@@ -26,8 +26,8 @@ opacity = 0.75
 # y = 15
 # x = 3
 # y = 7
-x = 10
-y = 10
+x = 0
+y = 0
 
 [env]
 # for tmux (but idk if needed since it has *:RGB - which is a wildcard for any term configs, terminal agnostic for true colors)
