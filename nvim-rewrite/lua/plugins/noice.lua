@@ -1,9 +1,21 @@
--- TODO: install noice nvim
+-- This config disables Noice's cmdline and messages (ideally cmdline is the only one disabled but current nvim limitation)
+-- enabled notify, lsp docs border here
+
 return {
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
     opts = {
+      views = {
+        -- Fix default lsp progress postion in Noice 'mini' view (ref: https://github.com/folke/noice.nvim/discussions/443)
+        mini = {
+          position = {
+            row = -2,
+            column = '100%',
+          },
+        },
+        notify = {},
+      },
       routes = {
         filter = {
           event = 'notify',
@@ -23,7 +35,7 @@ return {
       },
       lsp = {
         progress = {
-          enabled = false,
+          enabled = true,
           -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
           -- See the section on formatting for more details on how to customize.
           --- @type NoiceFormat|string
@@ -54,7 +66,7 @@ return {
             luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
             throttle = 50, -- Debounce lsp signature help request by 50ms
           },
-          view = nil, -- when nil, use defaults from documentation
+          view = 'hover', -- when nil, use defaults from documentation
           ---@type NoiceViewOptions
           opts = {}, -- merged with defaults from documentation
         },
@@ -131,6 +143,9 @@ return {
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
       'rcarriga/nvim-notify',
+    },
+    keys = {
+      { '<leader>nh', '<cmd>Noice last<cr>', { desc = '[N]otification [H]istory (Noice)' } },
     },
   },
 }

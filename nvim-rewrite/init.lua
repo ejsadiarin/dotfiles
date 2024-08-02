@@ -131,9 +131,13 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = '[C]ode Line [D]iagnostics' })
 
 -- Open Lazy (:Lazy)
 vim.keymap.set('n', '<leader>l', '<cmd>Lazy<CR>', { desc = 'Open [L]azy' })
+
+-- Open Mason (:Mason)
+vim.keymap.set('n', '<leader>m', '<cmd>Mason<CR>', { desc = 'Open [M]ason' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -158,7 +162,9 @@ vim.keymap.set('n', '<A-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<A-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<A-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- [[ Basic Autocommands ]]
+-- ################################
+-- #    AUTOCOMMANDS (AUTOCMD)    #
+-- ################################
 --  See `:help lua-guide-autocommands`
 
 -- Highlight when yanking (copying) text
@@ -191,6 +197,24 @@ vim.api.nvim_create_autocmd('UILeave', {
     io.write '\027]111\027\\'
   end,
 })
+
+-- local _border = 'single'
+--
+-- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+--   border = _border,
+-- })
+--
+-- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+--   border = _border,
+-- })
+--
+-- vim.diagnostic.config {
+--   float = { border = _border },
+-- }
+
+-- require('lspconfig.ui.windows').default_options = {
+--   border = _border,
+-- }
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info

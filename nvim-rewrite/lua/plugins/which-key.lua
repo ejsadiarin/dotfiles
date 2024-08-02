@@ -26,6 +26,7 @@ return {
         { '<leader>d', group = '[D]ebug' },
         { '<leader>c', group = '[C]ode' },
         { '<leader>f', group = '[F]ind Files' },
+        { '<leader>n', group = '[N]otifications (Noice)' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]indow' },
         { '<leader>u', group = '[U]I' },
