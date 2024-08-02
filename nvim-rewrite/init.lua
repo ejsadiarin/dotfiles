@@ -167,6 +167,32 @@ vim.keymap.set('n', '<A-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<A-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<A-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- changes cwd to head of current buffer (useful for grepping and finding files)
+vim.keymap.set('n', '<leader>cW', function()
+  -- Define the change_cwd_head_of_buffer function
+  _G.utils = _G.utils or {}
+  function _G.utils.change_cwd_to_head_of_buffer()
+    local bufname = vim.fn.expand '%:p:h'
+    vim.cmd(string.format('cd %s | echom "CWD changed to: %s"', vim.fn.fnameescape(bufname), bufname))
+  end
+  _G.utils.change_cwd_to_head_of_buffer()
+end, { noremap = true, desc = 'Change cwd to head of current buffer', silent = false })
+
+-- show path of current buffer
+vim.keymap.set('n', '<leader>cw', function()
+  -- Define the change_cwd_head_of_buffer function
+  _G.utils = _G.utils or {}
+  function _G.utils.show_path_of_current_buffer()
+    local bufname = vim.fn.expand '%:p:h'
+    vim.cmd(string.format('echom "Path: %s"', bufname))
+  end
+  _G.utils.show_path_of_current_buffer()
+end, { noremap = true, desc = 'Show path of current buffer ', silent = false })
+
+-- Hold v mode when indenting
+vim.keymap.set('v', '<', '<gv', { noremap = true, silent = true })
+vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true })
+
 -- ################################
 -- #    AUTOCOMMANDS (AUTOCMD)    #
 -- ################################
@@ -192,6 +218,22 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'CursorMoved' }, {
     cursor_pos = vim.fn.getpos '.'
   end,
 })
+
+-- -- TODO: add shadow dimming to floating windows
+-- vim.api.nvim_create_autocmd({ 'BufWinEnter', 'filetype' }, {
+--   desc = 'Add shadow dimming to floating windows',
+--   -- pattern = '*',
+--   pattern = { 'lspinfo', 'mason' },
+--   callback = function()
+--     require('lspconfig.ui.windows').default_options.border = 'single'
+--     -- vim.diagnostic.open_float { border = 'single' } -- enable border on diagnostic float window
+--     -- if vim.api.nvim_win_get_config(0).relative ~= '' then -- window with this window_id is floating
+--     -- vim.api.nvim_win_set_config(0, {
+--     --   border = 'shadow',
+--     -- })
+--     -- end
+--   end,
+-- })
 
 -- Retain cursor position after yank (cursor pos at end, not at start)
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -233,11 +275,11 @@ vim.api.nvim_create_autocmd('filetype', {
   end,
 })
 
--- -- TODO: moving qflist on cursor move
--- vim.api.nvim_create_autocmd('filetype', {
---   pattern = { 'qf', 'help' },
+-- TODO: moving qflist on cursor move
+-- vim.api.nvim_create_autocmd('CursorMoved', {
+--   pattern = 'qf',
 --   callback = function()
---     vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = 0, nowait = true, silent = true })
+--     vim.cmd [[ copen ]]
 --   end,
 -- })
 
@@ -387,6 +429,7 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
+      require('lspconfig.ui.windows').default_options.border = 'rounded'
       -- Brief aside: **What is LSP?**
       --
       -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -455,7 +498,7 @@ require('lazy').setup({
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>cr', vim.lsp.buf.rename, 'Code [R]ename')
+          map('<leader>cr', vim.lsp.buf.rename, 'Code [r]ename')
           -- TODO: add grug_far plugin here for search/replace <leader>sr
 
           -- Execute a code action, usually your cursor needs to be on top of an error
@@ -502,7 +545,7 @@ require('lazy').setup({
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>uh', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            end, 'Toggle Inlay [h]ints')
           end
         end,
       })
@@ -559,7 +602,11 @@ require('lazy').setup({
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      require('mason').setup()
+      require('mason').setup {
+        ui = {
+          border = 'rounded',
+        },
+      }
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
@@ -756,6 +803,16 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'plugins' },
+
+  --  Here are programming language specific configurations (uncomment to enable)
+  -- require 'code.go'
+  -- require 'code.python'
+  -- require 'code.yaml'
+  -- require 'code.typescript'
+  -- require 'code.java'
+  -- require 'code.csharp'
+  -- require 'code.helm'
+  -- require 'code.markdown'
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
