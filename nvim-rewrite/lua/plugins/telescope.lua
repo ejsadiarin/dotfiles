@@ -75,22 +75,28 @@ return {
       local builtin = require 'telescope.builtin' -- TODO: maybe seperate all telescope configs in one file?
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>st', builtin.builtin, { desc = '[S]earch [T]elescope Builtins' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
-      vim.keymap.set('n', '<leader>ff', function()
+      vim.keymap.set('n', '<leader>fe', function()
         builtin.find_files {
           prompt_prefix = '   ',
         }
-      end, { desc = '[F]ind [F]iles' })
+      end, { desc = '[F]ind Local Recent Files' })
 
-      vim.keymap.set('n', '<leader>fe', function()
+      vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = '[F]ind Global [R]ecent Files' })
+
+      vim.keymap.set('n', '<leader>fg', function()
+        builtin.git_files {
+          prompt_prefix = '   ',
+        }
+      end, { desc = '[F]ind [G]it Files' })
+
+      vim.keymap.set('n', '<leader>ff', function()
         local cwd = vim.fn.getcwd()
         builtin.find_files {
           find_command = {
@@ -108,7 +114,7 @@ return {
           },
           prompt_prefix = '   ',
         }
-      end, { desc = 'Special Find' })
+      end, { desc = '[F]ind [F]iles' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
