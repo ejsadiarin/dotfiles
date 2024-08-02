@@ -7,7 +7,7 @@ return {
     version = '*',
     dependencies = 'nvim-tree/nvim-web-devicons',
     keys = {
-      { '<leader>bd', '<cmd>:bd<cr>', desc = '[B]uffer [D]elete' },
+      { '<leader>bd', '<cmd>:bd<cr>', desc = 'Buffer [D]elete' },
       { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete Other Buffers' },
       { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
       { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },

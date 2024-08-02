@@ -131,13 +131,16 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = '[C]ode Line [D]iagnostics' })
+vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line [D]iagnostics' })
 
 -- Open Lazy (:Lazy)
 vim.keymap.set('n', '<leader>l', '<cmd>Lazy<CR>', { desc = 'Open [L]azy' })
 
 -- Open Mason (:Mason)
 vim.keymap.set('n', '<leader>m', '<cmd>Mason<CR>', { desc = 'Open [M]ason' })
+
+-- Open LspInfo (:LspInfo)
+vim.keymap.set('n', '<leader>cl', '<cmd>LspInfo<CR>', { desc = 'Open [L]SP Info' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -172,9 +175,31 @@ vim.keymap.set('n', '<A-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  pattern = '*',
+  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+-- save cursor position
+vim.api.nvim_create_autocmd({ 'VimEnter', 'CursorMoved' }, {
+  desc = 'Retain cursor at end after yanking',
+  group = vim.api.nvim_create_augroup('save-cursor-position', { clear = true }),
+  callback = function()
+    cursor_pos = vim.fn.getpos '.'
+  end,
+})
+
+-- Retain cursor position after yank (cursor pos at end, not at start)
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Retain cursor at end after yanking',
+  group = vim.api.nvim_create_augroup('retain-cursor-yank', { clear = true }),
+  pattern = '*',
+  callback = function()
+    if vim.v.event.operator == 'y' then
+      vim.fn.setpos('.', cursor_pos)
+    end
   end,
 })
 
@@ -198,20 +223,33 @@ vim.api.nvim_create_autocmd('UILeave', {
   end,
 })
 
+-- add 'q' keymap on command mode to close quickfix window and 'help' filetypes
+vim.api.nvim_create_autocmd('filetype', {
+  pattern = { 'qf', 'help' },
+  callback = function()
+    vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = 0, nowait = true, silent = true })
+  end,
+})
+
+-- -- TODO: moving qflist on cursor move
+-- vim.api.nvim_create_autocmd('filetype', {
+--   pattern = { 'qf', 'help' },
+--   callback = function()
+--     vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = 0, nowait = true, silent = true })
+--   end,
+-- })
+
+-- Floating window borders (NOTE: already done on noice.lua and cmp configs)
 -- local _border = 'single'
---
 -- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
 --   border = _border,
 -- })
---
 -- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 --   border = _border,
 -- })
---
 -- vim.diagnostic.config {
 --   float = { border = _border },
 -- }
-
 -- require('lspconfig.ui.windows').default_options = {
 --   border = _border,
 -- }
@@ -377,7 +415,7 @@ require('lazy').setup({
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
       --    function will be executed to configure the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+        group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
         callback = function(event)
           -- NOTE: Remember that Lua is a real programming language, and as such it is possible
           -- to define small helper and utility functions so you don't have to repeat yourself.
@@ -407,20 +445,20 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>ss', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
+          map('<leader>ss', require('telescope.builtin').lsp_document_symbols, 'Document [s]ymbols')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('<leader>sS', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace [S]ymbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>cr', vim.lsp.buf.rename, 'Code Rename')
+          map('<leader>cr', vim.lsp.buf.rename, 'Code [R]ename')
           -- TODO: add grug_far plugin here for search/replace <leader>sr
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          map('<leader>ca', vim.lsp.buf.code_action, 'Code [A]ction')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -433,7 +471,7 @@ require('lazy').setup({
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+            local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
               group = highlight_augroup,
@@ -447,10 +485,10 @@ require('lazy').setup({
             })
 
             vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+              group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
               callback = function(event2)
                 vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+                vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }
               end,
             })
           end
@@ -555,7 +593,7 @@ require('lazy').setup({
           require('conform').format { async = true, lsp_fallback = true }
         end,
         mode = '',
-        desc = '[C]ode [F]ormat',
+        desc = '[F]ormat',
       },
     },
     opts = {

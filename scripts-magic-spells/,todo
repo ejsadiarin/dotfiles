@@ -12,8 +12,8 @@ todo_file="$VAULT/Personal/todos/"$date_today.md
 
 # check if $VAULT path exists
 cd "$VAULT" || {
-	echo "No VAULT env path created. Set a VAULT path in your .zshrc or .bashrc first."
-	exit 1
+  echo "No VAULT env path created. Set a VAULT path in your .zshrc or .bashrc first."
+  exit 1
 }
 
 # if [ -z "$vault_check" ]; then
@@ -22,33 +22,37 @@ cd "$VAULT" || {
 # fi
 
 new_todo() {
-	touch "$todo_file"
-	cat >"$todo_file" <<EOF
+  touch "$todo_file"
+  cat >"$todo_file" <<EOF
 # DAILY QUEST for $date_today:
 
 - [ ] 100 Pushups
 - [ ] 100 Sit-ups
 - [ ] 100 Squats
-- [ ] Workout/Rest Day
+- [x] Workout/Rest Day
 
-- [ ] 30 day devops challenge 
+- [ ] 30 day devops challenge
 - [ ] r/linuxupskillchallenge daily
-- [ ] finish one file in the default-responses files in \`Personal/Brain-Configuration/\`  
-
-- [ ] know how to use the sea salt spray
+- [ ] finish one file in the default-responses files in \$(Personal/Brain-Configuration/)
 
 
 # Side Quests:
+
 - [ ] VLANS: https://www.youtube.com/watch?v=JszGeQPTo4w&ab_channel=CrosstalkSolutions
-- [ ] offsite and onsite Git server 
+- [ ] offsite and onsite Git server
+
   - [ ] offsite: cloud server, codeberg
   - [ ] onsite: self-hosted gitlab or gitea
+
+- [ ] ntfy.sh docker setup
+
 - [ ] continue sort lock
 
 - [ ] finish the ansible playbook for machine setup - all roles
+
   - make one for debian and arch (specific, not using ansible.builtin.packages)
 
-- [ ] git intricasies https://www.reddit.com/r/linux/s/NSmM0zzAxu 
+- [ ] git intricasies https://www.reddit.com/r/linux/s/NSmM0zzAxu
 - [ ] setup cron jobs automation
 - [ ] look into webhooks
 
@@ -59,27 +63,28 @@ new_todo() {
 - [ ] https://github.com/prometheus/blackbox_exporter -> probe/ping external services/endpoints (ex. alerts when token expired on some REST API)
 - [ ] make a script to check if system got updated correctly: \$(uname -r) then \$(ls /usr/lib/modules)
 
-
-
 # KNOW HOW TO:
-- [ ] basic understanding of the filesystem, what goes where, and how to move around in it.    
-- [ ] basic networking setup and troubleshooting.    
-- [ ] basic administrative tasks like installing/uninstalling stuff, installing updates, reading and setting file permissions, etc.   
-- [ ] ssh basics (key generation and placement, connection, etc) 
-## What would make a candidate really stand out:    
-- [ ] knowing how to join a Linux machine to a domain and managing ssh/sudo access to it using domain credentials instead of keys (familiarity with sssd is helpful here).      
-- [ ] familiarity with ansible and satellite server.      
-- [ ] knowing how to mount basic data disks and network shares.      
-- [ ] how to grow root and swap partitions without downtime (I guess also worth saying familiarity with LVM for this one).      
-- [ ] familiarity with Podman.       
+
+- [ ] basic understanding of the filesystem, what goes where, and how to move around in it.
+- [ ] basic networking setup and troubleshooting.
+- [ ] basic administrative tasks like installing/uninstalling stuff, installing updates, reading and setting file permissions, etc.
+- [ ] ssh basics (key generation and placement, connection, etc)
+
+## What would make a candidate really stand out:
+
+- [ ] knowing how to join a Linux machine to a domain and managing ssh/sudo access to it using domain credentials instead of keys (familiarity with sssd is helpful here).
+- [ ] familiarity with ansible and satellite server.
+- [ ] knowing how to mount basic data disks and network shares.
+- [ ] how to grow root and swap partitions without downtime (I guess also worth saying familiarity with LVM for this one).
+- [ ] familiarity with Podman.
 
 
 EOF
 }
 
 if [ ! -f "$todo_file" ]; then
-	echo "[ NEW ] Creating $date_today.md..."
-	new_todo
+  echo "[ NEW ] Creating $date_today.md..."
+  new_todo
 fi
 
 nvim "$todo_file" -c ":NoNeckPain" '+ normal gg'
