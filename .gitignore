@@ -1,6 +1,3 @@
 tmux/plugins
 .git/
 nvim/lazy-lock.json
-nvim/lazyvim.json
-nvim/LICENSE
-nvim/.github
