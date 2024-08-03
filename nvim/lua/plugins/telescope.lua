@@ -1,257 +1,143 @@
-local Util = require("lazyvim.util")
-
 return {
-  {
-    "nvim-telescope/telescope.nvim",
-    -- cmd = "Telescope",
-    -- enabled = function()
-    --   return LazyVim.pick.want() == "telescope"
-    -- end,
-    -- version = false, -- telescope did only one release, so use HEAD for now
+  { -- Fuzzy Finder (files, lsp, etc)
+    'nvim-telescope/telescope.nvim',
+    event = 'VimEnter',
+    branch = '0.1.x',
     dependencies = {
-      {
-        "nvim-telescope/telescope-live-grep-args.nvim",
-        -- This will not install any breaking changes.
-        -- For major updates, this must be adjusted manually.
-        version = "^1.0.0",
-        -- build = "make",
-        -- enabled = vim.fn.executable("make") == 1,
-        -- config = function()
-        --   Util.on_load("telescope.nvim", function()
-        --     require("telescope").load_extension("live-grep-args")
-        --   end)
-        -- end,
+      'nvim-lua/plenary.nvim',
+      { -- If encountering errors, see telescope-fzf-native README for installation instructions
+        'nvim-telescope/telescope-fzf-native.nvim',
+
+        -- `build` is used to run some command when the plugin is installed/updated.
+        -- This is only run then, not every time Neovim starts up.
+        build = 'make',
+
+        -- `cond` is a condition used to determine whether this plugin should be
+        -- installed and loaded.
+        cond = function()
+          return vim.fn.executable 'make' == 1
+        end,
       },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
+
+      -- Useful for getting pretty icons, but requires a Nerd Font.
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
-    --   -- {
-    --   --   "nvim-telescope/telescope-fzf-native.nvim",
-    --   --   build = "make",
-    --   --   -- enabled = vim.fn.executable("make") == 1,
-    --   --   config = function()
-    --   --     Util.on_load("telescope.nvim", function()
-    --   --       require("telescope").load_extension("fzf")
-    --   --     end)
-    --   --   end,
-    --   -- },
-    --   {
-    --     "nvim-telescope/telescope-fzf-native.nvim",
-    --     build = have_make and "make"
-    --       or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-    --     enabled = have_make or have_cmake,
-    --     config = function(plugin)
-    --       LazyVim.on_load("telescope.nvim", function()
-    --         local ok, err = pcall(require("telescope").load_extension, "fzf")
-    --         if not ok then
-    --           local lib = plugin.dir .. "/build/libfzf." .. (LazyVim.is_win() and "dll" or "so")
-    --           if not vim.uv.fs_stat(lib) then
-    --             LazyVim.warn("`telescope-fzf-native.nvim` not built. Rebuilding...")
-    --             require("lazy").build({ plugins = { plugin }, show = false }):wait(function()
-    --               LazyVim.info("Rebuilding `telescope-fzf-native.nvim` done.\nPlease restart Neovim.")
-    --             end)
-    --           else
-    --             LazyVim.error("Failed to load `telescope-fzf-native.nvim`:\n" .. err)
-    --           end
-    --         end
-    --       end)
-    --     end,
-    --   },
     config = function()
-      local telescope = require("telescope")
-      telescope.load_extension("live_grep_args")
-      -- Util.on_load("telescope.nvim", function()
-      -- end)
+      -- Telescope is a fuzzy finder that comes with a lot of different things that
+      -- it can fuzzy find! It's more than just a "file finder", it can search
+      -- many different aspects of Neovim, your workspace, LSP, and more!
+      --
+      -- The easiest way to use Telescope, is to start by doing something like:
+      --  :Telescope help_tags
+      --
+      -- After running this command, a window will open up and you're able to
+      -- type in the prompt window. You'll see a list of `help_tags` options and
+      -- a corresponding preview of the help.
+      --
+      -- Two important keymaps to use while in Telescope are:
+      --  - Insert mode: <c-/>
+      --  - Normal mode: ?
+      --
+      -- This opens a window that shows you all of the keymaps for the current
+      -- Telescope picker. This is really useful to discover what Telescope can
+      -- do as well as how to actually do it!
+
+      -- [[ Configure Telescope ]]
+      -- See `:help telescope` and `:help telescope.setup()`
+      require('telescope').setup {
+        -- You can put your default mappings / updates / etc. in here
+        --  All the info you're looking for is in `:help telescope.setup()`
+        --
+        -- defaults = {
+        --   mappings = {
+        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+        --   },
+        -- },
+        pickers = {
+          find_files = {
+            -- sort files by modified time (rg sorts result by modification date, fd don't)
+            find_command = { 'rg', '--files', '--sortr=modified' },
+          },
+        },
+        extensions = {
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown(),
+          },
+        },
+      }
+
+      -- Enable Telescope extensions if they are installed
+      pcall(require('telescope').load_extension, 'fzf')
+      pcall(require('telescope').load_extension, 'ui-select')
+
+      -- See `:help telescope.builtin`
+      local builtin = require 'telescope.builtin' -- TODO: maybe seperate all telescope configs in one file?
+      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Search [H]elp' })
+      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = 'Search [K]eymaps' })
+      vim.keymap.set('n', '<leader>st', builtin.builtin, { desc = 'Search [T]elescope Builtins' })
+      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = 'Search current [W]ord' })
+      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Search by [G]rep' })
+      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = 'Search [D]iagnostics' })
+      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = 'Search [R]esume' })
+      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+      vim.keymap.set('n', '<leader>fe', function()
+        builtin.find_files {
+          prompt_prefix = '   ',
+        }
+      end, { desc = '[F]ind Local Recent Files' })
+
+      vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = '[F]ind Global [R]ecent Files' })
+
+      vim.keymap.set('n', '<leader>fg', function()
+        builtin.git_files {
+          prompt_prefix = '   ',
+        }
+      end, { desc = '[F]ind [G]it Files' })
+
+      vim.keymap.set('n', '<leader>ff', function()
+        local cwd = vim.fn.getcwd()
+        builtin.find_files {
+          find_command = {
+            'fd',
+            '-tf',
+            '--hidden',
+            '--exclude',
+            '.git',
+            '--exclude',
+            '.obsidian',
+            '--exclude',
+            'node_modules',
+            '--search-path',
+            cwd,
+          },
+          prompt_prefix = '   ',
+        }
+      end, { desc = '[F]ind [F]iles' })
+
+      -- Slightly advanced example of overriding default behavior and theme
+      vim.keymap.set('n', '<leader>/', function()
+        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          winblend = 10,
+          previewer = false,
+        })
+      end, { desc = '[/] Fuzzily search in current buffer' })
+
+      -- It's also possible to pass additional configuration options.
+      --  See `:help telescope.builtin.live_grep()` for information about particular keys
+      vim.keymap.set('n', '<leader>s/', function()
+        builtin.live_grep {
+          grep_open_files = true,
+          prompt_title = 'Live Grep in Open Files',
+        }
+      end, { desc = '[S]earch [/] in Open Files' })
+
+      -- Shortcut for searching your Neovim configuration files
+      vim.keymap.set('n', '<leader>sn', function()
+        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      end, { desc = '[S]earch [N]eovim files' })
     end,
-    -- pickers = {
-    --   buffers = {
-    --     initial_mode = "normal",
-    --   },
-    -- },
-    -- extensions = {
-    --   live_grep_args = {
-    --     auto_quoting = true, -- enable/disable auto-quoting
-    --     -- define mappings, e.g.
-    --     mappings = { -- extend mappings
-    --       i = {
-    --         ["<C-k>"] = require("telescope-live_grep_args").actions.quote_prompt(),
-    --         ["<C-i>"] = require("telescope-live_grep_args").actions.quote_prompt({ postfix = " --iglob " }),
-    --       },
-    --     },
-    --     -- ... also accepts theme settings, for example:
-    --     -- theme = "dropdown", -- use dropdown theme
-    --     -- theme = { }, -- use own theme spec
-    --     -- layout_config = { mirror=true }, -- mirror preview pane
-    --   },
-    -- },
-    keys = {
-      { "<leader><space>", false },
-      { "<leader>ft", false },
-      { "<leader>fT", false },
-      { "<leader>,", false },
-      -- somehow this works only on cwd (not dynamic)
-      -- {
-      --   "<leader>sg",
-      --   function()
-      --     require("telescope").extensions.live_grep_args.live_grep_args()
-      --   end,
-      --   desc = "Live Grep (root/dynamic)",
-      -- },
-      { "<leader>sg", Util.pick("live_grep"), desc = "Grep (dynamic)" },
-      -- {
-      --   "<leader>sG",
-      --   function()
-      --     local dir = vim.env.HOME .. "/"
-      --     require("telescope").extensions.live_grep_args.live_grep_args({
-      --       search_dirs = { dir },
-      --       additional_args = { "--hidden" },
-      --     })
-      --   end,
-      --   desc = "Live Grep from Home",
-      -- },
-      -- {
-      --   "<leader>se",
-      --   function()
-      --     require("telescope").extensions.live_grep_args.live_grep_args()
-      --   end,
-      --   desc = "Live Grep Args (cwd)",
-      -- },
-      -- {
-      --   "<leader>sN",
-      --   function()
-      --     local dir = vim.env.HOME .. "/vault/wizardry"
-      --     require("telescope").extensions.live_grep_args.live_grep_args({
-      --       search_dirs = { dir },
-      --       additional_args = { "--hidden" },
-      --     })
-      --   end,
-      --   desc = "Live Grep from Wizardry Notes",
-      -- },
-      -- { "<leader>ff", Util.pick.telescope("files"), desc = "Find Files (dynamic)" },
-      -- { "<leader>fF", Util.pick.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-      {
-        "<leader>fe",
-        function()
-          local cwd = vim.fn.getcwd()
-          require("telescope.builtin").find_files({
-            find_command = {
-              "fd",
-              "-tf",
-              "--hidden",
-              "--exclude",
-              ".git",
-              "--exclude",
-              ".obsidian",
-              "--exclude",
-              "node_modules",
-              "--search-path",
-              cwd,
-            },
-            prompt_prefix = "   ",
-          })
-        end,
-        desc = "Special Find",
-      },
-      {
-        "<leader>fH",
-        function()
-          local dir = vim.env.HOME .. "/"
-          require("telescope.builtin").find_files({
-            find_command = {
-              "fd",
-              "-tf",
-              "--hidden",
-              "--exclude",
-              "node_modules",
-              "--exclude",
-              ".git",
-              "--exclude",
-              ".quokka",
-              "--exclude",
-              ".cargo",
-              "--exclude",
-              ".vscode",
-              "--search-path",
-              dir,
-            },
-            prompt_prefix = "   ~ | ",
-          })
-        end,
-        desc = "Find files from Home",
-      },
-      {
-        "<leader>fd",
-        function()
-          local dir = vim.env.HOME .. "/dotfiles"
-          require("telescope.builtin").find_files({
-            find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
-            prompt_prefix = "   dotfiles | ",
-          })
-        end,
-        desc = "Exquisite Dotfiles",
-      },
-      {
-        "<leader>fc",
-        function()
-          local dir = vim.env.HOME .. "/.config"
-          require("telescope.builtin").find_files({
-            find_command = { "fd", "-tf", "--hidden", "--search-path", dir },
-            prompt_prefix = "   .config | ",
-          })
-        end,
-        desc = "Find files on .config",
-      },
-      {
-        "<leader>fm",
-        function()
-          local dir = vim.env.HOME .. "/main"
-          require("telescope.builtin").find_files({
-            find_command = {
-              "fd",
-              "-tf",
-              "--hidden",
-              "--exclude",
-              "node_modules",
-              "--exclude",
-              ".git",
-              "--search-path",
-              dir,
-            },
-            prompt_prefix = "   main | ",
-          })
-        end,
-        desc = "Find files on main",
-      },
-      {
-        "<leader>fw",
-        function()
-          local dir = vim.env.HOME .. "/vault/wizardry"
-          require("telescope.builtin").find_files({
-            find_command = {
-              "fd",
-              "-tf",
-              "--hidden",
-              "--exclude",
-              "node_modules",
-              "--exclude",
-              ".git",
-              "--search-path",
-              dir,
-            },
-            prompt_prefix = "   wizardry | ",
-          })
-        end,
-        desc = "Find wizardry notes",
-      },
-      {
-        "<leader>gb",
-        "<CMD>Telescope git_branches<CR>",
-        desc = "branches",
-      },
-      -- replaced keymaps:
-      -- { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
-      -- { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-      -- { "<leader>fc", Util.telescope.config_files(), desc = "Find Config File" },
-      -- { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
-      -- { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-    },
   },
 }

@@ -1,34 +1,39 @@
+-- NOTE: Plugins can also be configured to run Lua code when they are loaded.
+--
+-- This is often very useful to both group configuration, as well as handle
+-- lazy loading plugins that don't need to be loaded immediately at startup.
+--
+-- For example, in the following configuration, we use:
+--  event = 'VimEnter'
+--
+-- which loads which-key before all the UI elements are loaded. Events can be
+-- normal autocommands events (`:help autocmd-events`).
+--
+-- Then, because we use the `config` key, the configuration only runs
+-- after the plugin has been loaded:
+--  config = function() ... end
+
 return {
-  "folke/which-key.nvim",
-  event = "VeryLazy",
-  init = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 300
-  end,
-  optional = true,
-  opts = {
-    spec = {
-      { "<leader>,", group = "specials" },
-      { "<leader>o", group = "obsidian" },
-      { "<leader>v", group = "visual-multi" },
-      { "<leader><tab>", group = nil }, -- HACK: adding this makes the <leader><tab> work (see in keymaps.lua) for some reason, related to this? https://github.com/folke/which-key.nvim/blob/4433e5ec9a507e5097571ed55c02ea9658fb268a/lua/which-key/keys.lua#L6
-    },
+  { -- Useful plugin to show you pending keybinds.
+    'folke/which-key.nvim',
+    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+    config = function() -- This is the function that runs, AFTER loading
+      require('which-key').setup()
+
+      -- Document existing key chains
+      require('which-key').add {
+        { '<leader>b', group = '[B]uffer' },
+        { '<leader>d', group = '[D]ebug' },
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>f', group = '[F]ind Files' },
+        { '<leader>n', group = '[N]otifications (Noice)' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>w', group = '[W]indow' },
+        { '<leader>u', group = '[U]I' },
+        { '<leader>g', group = '[G]it' },
+        { '<leader>x', group = '[X]iagnostics (Trouble)' },
+        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+      }
+    end,
   },
-  -- opts = {
-  --   defaults = {
-  --     -- ["<leader>h"] = { name = "+harpoon" },
-  --     ["<leader>v"] = { name = "+visual-multi" },
-  --     ["<leader><tab>"] = nil,
-  --     ["<leader><1>"] = "which_key_ignore",
-  --     ["<leader><2>"] = "which_key_ignore",
-  --     ["<leader><3>"] = "which_key_ignore",
-  --     ["<leader><4>"] = "which_key_ignore",
-  --     ["<leader><5>"] = "which_key_ignore",
-  --     ["<leader><6>"] = "which_key_ignore",
-  --     ["<leader><7>"] = "which_key_ignore",
-  --     ["<leader><8>"] = "which_key_ignore",
-  --     ["<leader><9>"] = "which_key_ignore",
-  --   },
-  --   ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-  -- },
 }
