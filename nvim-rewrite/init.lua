@@ -216,22 +216,6 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'CursorMoved' }, {
   end,
 })
 
--- -- TODO: add shadow dimming to floating windows
--- vim.api.nvim_create_autocmd({ 'BufWinEnter', 'filetype' }, {
---   desc = 'Add shadow dimming to floating windows',
---   -- pattern = '*',
---   pattern = { 'lspinfo', 'mason' },
---   callback = function()
---     require('lspconfig.ui.windows').default_options.border = 'single'
---     -- vim.diagnostic.open_float { border = 'single' } -- enable border on diagnostic float window
---     -- if vim.api.nvim_win_get_config(0).relative ~= '' then -- window with this window_id is floating
---     -- vim.api.nvim_win_set_config(0, {
---     --   border = 'shadow',
---     -- })
---     -- end
---   end,
--- })
-
 -- Retain cursor position after yank (cursor pos at end, not at start)
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Retain cursor at end after yanking',
@@ -266,9 +250,62 @@ vim.api.nvim_create_autocmd('UILeave', {
 
 -- add 'q' keymap on command mode to close quickfix window and 'help' filetypes
 vim.api.nvim_create_autocmd('filetype', {
-  pattern = { 'qf', 'help' },
+  pattern = {
+    'qf',
+    'help',
+    'PlenaryTestPopup',
+    'grug-far',
+    'lspinfo',
+    'notify',
+    'spectre_panel',
+    'startuptime',
+    'tsplayground',
+    'neotest-output',
+    'checkhealth',
+    'neotest-summary',
+    'neotest-output-panel',
+    'dbout',
+    'gitsigns.blame',
+  },
   callback = function()
     vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = 0, nowait = true, silent = true })
+  end,
+})
+
+-- go to last loc when opening a buffer
+vim.api.nvim_create_autocmd('BufReadPost', {
+  group = vim.api.nvim_create_augroup('last-loc', { clear = true }),
+  callback = function(event)
+    local exclude = { 'gitcommit' }
+    local buf = event.buf
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
+      return
+    end
+    vim.b[buf].lazyvim_last_loc = true
+    local mark = vim.api.nvim_buf_get_mark(buf, '"')
+    local lcount = vim.api.nvim_buf_line_count(buf)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
+-- Fix conceallevel for json files
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = vim.api.nvim_create_augroup('json-conceallevel', { clear = true }),
+  pattern = { 'json', 'jsonc', 'json5' },
+  callback = function()
+    vim.opt_local.conceallevel = 0
+  end,
+})
+
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ 'VimResized' }, {
+  group = vim.api.nvim_create_augroup('resize-splits', { clear = true }),
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd 'tabdo wincmd ='
+    vim.cmd('tabnext ' .. current_tab)
   end,
 })
 
@@ -483,7 +520,7 @@ require('lazy').setup({
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+          map('<leader>cD', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
@@ -778,6 +815,237 @@ require('lazy').setup({
     end,
   },
 
+  { -- Autocompletion
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
+    dependencies = {
+      -- Snippet Engine & its associated nvim-cmp source
+      {
+        'L3MON4D3/LuaSnip',
+        build = (function()
+          -- Build Step is needed for regex support in snippets.
+          -- This step is not supported in many windows environments.
+          -- Remove the below condition to re-enable on windows.
+          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+            return
+          end
+          return 'make install_jsregexp'
+        end)(),
+        dependencies = {
+          -- `friendly-snippets` contains a variety of premade snippets.
+          --    See the README about individual language/framework/plugin snippets:
+          --    https://github.com/rafamadriz/friendly-snippets
+          -- {
+          --   'rafamadriz/friendly-snippets',
+          --   config = function()
+          --     require('luasnip.loaders.from_vscode').lazy_load()
+          --   end,
+          -- },
+        },
+      },
+      'saadparwaiz1/cmp_luasnip',
+
+      -- Adds other completion capabilities.
+      --  nvim-cmp does not ship with all sources by default. They are split
+      --  into multiple repos for maintenance purposes.
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path',
+    },
+    config = function()
+      -- See `:help cmp`
+      local cmp = require 'cmp'
+      local luasnip = require 'luasnip'
+      luasnip.config.setup {}
+      local compare = require 'cmp.config.compare'
+
+      cmp.setup {
+        window = {
+          -- completion = cmp.config.window.bordered(),
+          -- documentation = cmp.config.window.bordered(),
+          completion = {
+            side_padding = 1,
+            winhighlight = 'Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:TelescopeSelection,Search:None',
+            border = 'rounded',
+          },
+          -- completion = {
+          --   side_padding = 0,
+          --   col_offset = 3,
+          --   winhighlight = "Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:TelescopeSelection,Search:None",
+          --   border = "rounded",
+          -- },
+          documentation = {
+            side_padding = 2,
+            winhighlight = 'Normal:FloatNormal,FloatBorder:FloatNormal,CursorLine:TelescopeSelection,Search:None',
+            border = 'rounded',
+            -- focusable = true,
+          },
+        },
+
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        completion = { completeopt = 'menu,menuone,noinsert' },
+
+        -- For an understanding of why these mappings were
+        -- chosen, you will need to read `:help ins-completion`
+        --
+        -- No, but seriously. Please read `:help ins-completion`, it is really good!
+        mapping = cmp.mapping.preset.insert {
+          -- Select the [n]ext item
+          ['<C-n>'] = cmp.mapping.select_next_item(),
+          -- Select the [p]revious item
+          ['<C-p>'] = cmp.mapping.select_prev_item(),
+
+          -- Scroll the documentation window [b]ack / [f]orward
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+          -- Accept ([y]es) the completion.
+          --  This will auto-import if your LSP supports it.
+          --  This will expand snippets if the LSP sent a snippet.
+          -- ['<C-y>'] = cmp.mapping.confirm { select = true },
+
+          -- If you prefer more traditional completion keymaps,
+          -- you can uncomment the following lines
+          ['<CR>'] = cmp.mapping.confirm { select = true },
+          --['<Tab>'] = cmp.mapping.select_next_item(),
+          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+
+          -- Manually trigger a completion from nvim-cmp.
+          --  Generally you don't need this, because nvim-cmp will display
+          --  completions whenever it has completion options available.
+          ['<C-Space>'] = cmp.mapping.complete {},
+
+          -- Think of <c-l> as moving to the right of your snippet expansion.
+          --  So if you have a snippet that's like:
+          --  function $name($args)
+          --    $body
+          --  end
+          --
+          -- <c-l> will move you to the right of each of the expansion locations.
+          -- <c-h> is similar, except moving you backwards.
+          ['<C-l>'] = cmp.mapping(function()
+            if luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
+            end
+          end, { 'i', 's' }),
+          ['<C-h>'] = cmp.mapping(function()
+            if luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            end
+          end, { 'i', 's' }),
+
+          -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+          --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+        },
+        sources = {
+          {
+            name = 'lazydev',
+            -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+            group_index = 0,
+          },
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
+          { name = 'path' },
+        },
+
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            -- Original order: https://github.com/hrsh7th/nvim-cmp/blob/538e37ba87284942c1d76ed38dd497e54e65b891/lua/cmp/config/default.lua#L65-L74
+            -- Definitions of compare function https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
+            compare.offset,
+            compare.recently_used, -- higher
+            compare.score,
+            compare.exact, -- lower
+            compare.kind, -- higher (prioritize snippets)
+            compare.locality,
+            compare.length,
+            compare.order,
+          },
+        },
+        formatting = {
+          fields = { 'kind', 'abbr', 'menu' },
+          expandable_indicator = true,
+          format = function(entry, item)
+            -- load lspkind icons
+            -- item.kind = string.format(" %s  %s", user_icons.kinds[item.kind], item.kind)
+            local icons = {
+              Array = ' ',
+              Boolean = '󰨙 ',
+              Class = ' ',
+              Codeium = '󰘦 ',
+              Color = ' ',
+              Control = ' ',
+              Collapsed = ' ',
+              Constant = '󰏿 ',
+              Constructor = ' ',
+              Copilot = ' ',
+              Enum = ' ',
+              EnumMember = ' ',
+              Event = ' ',
+              Field = ' ',
+              File = ' ',
+              Folder = ' ',
+              Function = '󰊕 ',
+              Interface = ' ',
+              Key = ' ',
+              Keyword = ' ',
+              Method = '󰊕 ',
+              Module = ' ',
+              Namespace = '󰦮 ',
+              Null = ' ',
+              Number = '󰎠 ',
+              Object = ' ',
+              Operator = ' ',
+              Package = ' ',
+              Property = ' ',
+              Reference = ' ',
+              Snippet = ' ',
+              String = ' ',
+              Struct = '󰆼 ',
+              TabNine = '󰏚 ',
+              Text = ' ',
+              TypeParameter = ' ',
+              Unit = ' ',
+              Value = ' ',
+              Variable = '󰀫 ',
+            }
+            if icons[item.kind] then
+              item.kind = icons[item.kind] .. item.kind
+            end
+
+            item.menu = ({
+              cmp_tabnine = '[Tabnine]',
+              copilot = '[Copilot]',
+              spell = '[Spell]',
+              buffer = '[Buffer]',
+              orgmode = '[Org]',
+              look = '[Dictionary]',
+              nvim_lsp = '[LSP]',
+              git = '[Git]',
+              nvim_lua = '[Lua]',
+              path = '[Path]',
+              tmux = '[Tmux]',
+              latex_symbols = '[Latex]',
+              luasnip = '[Snippet]',
+            })[entry.source.name]
+
+            local label = item.abbr
+            local truncated_label = vim.fn.strcharpart(label, 0, 50)
+            if truncated_label ~= label then
+              item.abbr = truncated_label .. '...'
+            end
+
+            return item
+          end,
+        },
+      }
+    end,
+  },
+
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -800,6 +1068,11 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'plugins' },
+  -- TODO: require 'snippets', for md luasnip
+
+  --  Here are extension configurations for optional things (ex. Copilot)
+  require 'extensions.copilot',
+  require 'extensions.copilot-chat',
 
   --  Here are programming language specific configurations (uncomment to enable)
   -- require 'code.go'
