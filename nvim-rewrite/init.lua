@@ -121,6 +121,16 @@ vim.keymap.set('i', 'kj', '<ESC>', { silent = true })
 -- use Tab to switch cycle window
 vim.keymap.set('n', '<TAB>', '<C-W>w')
 vim.keymap.set('n', '<S-TAB>', '<C-W>W')
+vim.keymap.set('n', '<leader>wh', '<C-W>s', { desc = '[H]orizontal Split' })
+vim.keymap.set('n', '<leader>wv', '<C-W>v', { desc = '[V]ertical Split' })
+
+-- move lines
+vim.keymap.set('n', '<C-n>', '<CMD>m .+1<CR>==', { desc = 'Move line dow(n)' })
+vim.keymap.set('n', '<C-p>', '<CMD>m .-2<CR>==', { desc = 'Move line u(p)' })
+vim.keymap.set('i', '<C-n>', '<ESC><CMD>m .+1<CR>==gi', { desc = 'Move line dow(n)' })
+vim.keymap.set('i', '<C-p>', '<ESC><CMD>m .-2<CR>==gi', { desc = 'Move line u(p)' })
+vim.keymap.set('v', '<C-n>', ":m '>+1<CR>gv=gv", { desc = 'Move line dow(n)' })
+vim.keymap.set('v', '<C-p>', ":m '<-2<CR>gv=gv", { desc = 'Move line u(p)' })
 
 -- Switch to previous latest buffer (like ctrl+tab)
 vim.keymap.set('n', '<leader><tab>', '<cmd>e #<CR>', { desc = 'Switch to latest buffer' })
@@ -317,21 +327,6 @@ vim.api.nvim_create_autocmd({ 'VimResized' }, {
 --   end,
 -- })
 
--- Floating window borders (NOTE: already done on noice.lua and cmp configs)
--- local _border = 'single'
--- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
---   border = _border,
--- })
--- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
---   border = _border,
--- })
--- vim.diagnostic.config {
---   float = { border = _border },
--- }
--- require('lspconfig.ui.windows').default_options = {
---   border = _border,
--- }
-
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -443,6 +438,21 @@ require('lazy').setup({
     },
     keys = {
       { '<leader>uH', '<CMD>CloakToggle<CR>', desc = '[H]ide/Toggle Cloak' },
+    },
+  },
+
+  -- Ensure the servers and tools above are installed
+  --  To check the current status of installed tools and/or manually install
+  --  other tools, you can run
+  --    :Mason
+  --
+  --  You can press `g?` for help in this menu.
+  {
+    'williamboman/mason.nvim',
+    opts = {
+      ui = {
+        border = 'rounded',
+      },
     },
   },
 
@@ -627,18 +637,6 @@ require('lazy').setup({
               -- diagnostics = { disable = { 'missing-fields' } },
             },
           },
-        },
-      }
-
-      -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      --    :Mason
-      --
-      --  You can press `g?` for help in this menu.
-      require('mason').setup {
-        ui = {
-          border = 'rounded',
         },
       }
 
@@ -1079,7 +1077,7 @@ require('lazy').setup({
   -- require 'code.python'
   -- require 'code.yaml'
   -- require 'code.typescript'
-  -- require 'code.java'
+  require 'code.java',
   -- require 'code.csharp'
   -- require 'code.helm'
   -- require 'code.markdown'

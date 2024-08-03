@@ -181,8 +181,6 @@ return {
           { name = 'copilot', priority = 100 },
         },
 
-        -- HACK: fix this missing properties
-        -- sorting = defaults.sorting,
         sorting = {
           priority_weight = 2,
           comparators = {

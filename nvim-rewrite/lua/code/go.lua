@@ -1,1 +1,5 @@
-return {}
+return {
+  -- Treesitter
+  -- Mason
+  -- Lspconfig?
+}
