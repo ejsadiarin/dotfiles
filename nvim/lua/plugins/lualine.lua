@@ -4,13 +4,6 @@
 -- See the kickstart.nvim README for more information
 --
 
-local colors = {
-  [''] = '#ffffff',
-  ['Normal'] = '#87af5f',
-  ['Warning'] = '#d7875f',
-  ['InProgress'] = '#d7af87',
-}
-
 return {
   {
     'nvim-lualine/lualine.nvim',

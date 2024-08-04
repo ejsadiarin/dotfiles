@@ -144,94 +144,63 @@ return {
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
       -- code above is similar to: capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      --    :Mason
-      --
-      --  You can press `g?` for help in this menu.
-      require('mason').setup {
-        ui = {
-          border = 'rounded',
-        },
-      }
-
-      -- -- You can add other tools here that you want Mason to install
-      -- -- for you, so that they are available from within Neovim.
-      -- -- local ensure_installed = vim.tbl_keys(servers or {})
-      -- -- vim.list_extend(ensure_installed, {
-      -- --   'stylua', -- Used to format Lua code
-      -- --   -- 'prettierd',
-      -- --   -- 'prettier',
-      -- --   -- 'isort', -- python formatter
-      -- --   -- 'black', -- python formatter
-      -- --   -- 'pylint',
-      -- --   -- 'eslint_d',
-      -- -- })
-      -- require('mason-tool-installer').setup {
-      --   ensure_installed = {
-      --     -- Go
-      --     'goimports', -- for formatting imports
-      --     'gofumpt', -- gofmt
-      --     'gomodifytags', -- add tags to struct fields
-      --     'impl', -- generate interface methods
-      --     -- Lua
-      --     'stylua', -- Used to format Lua code
-      --     -- Python
-      --     'isort', -- python formatter
-      --     'black', -- python formatter
-      --     'pylint',
-      --     -- HTML, CSS, JS, misc.
-      --     'eslint_d',
-      --     'prettierd',
-      --     'prettier',
+      -- -- Ensure the servers and tools above are installed
+      -- --  To check the current status of installed tools and/or manually install
+      -- --  other tools, you can run
+      -- --    :Mason
+      -- --
+      -- --  You can press `g?` for help in this menu.
+      -- require('mason').setup {
+      --   ui = {
+      --     border = 'rounded',
       --   },
       -- }
 
-      require('mason-lspconfig').setup {
-        handlers = {
-          -- See :help mason-lspconfig-dynamic-server-setup
-          function(server_name) -- default handler
-            -- See :help lspconfig-setup
-            require('lspconfig')[server_name].setup {}
-          end,
-
-          -- NOTE: This is the LSP configuration handlers
-          -- Enable the following language servers.
-          -- Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-          --
-          --  Add any additional override configuration in the following tables. Available keys are:
-          --  - cmd (table): Override the default command used to start the server
-          --  - filetypes (table): Override the default list of associated filetypes for the server
-          --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-          --  - settings (table): Override the default settings passed when initializing the server.
-          --
-          --  For example: (to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/)
-          --   lua_ls = {
-          --     cmd = {...},
-          --     filetypes = { ...},
-          --     capabilities = {},
-          --     settings = {...}
-          --
-          --	...etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-          --  -- Some languages (like typescript) have entire language plugins that can be useful:
-          --  --    https://github.com/pmizio/typescript-tools.nvim
-          --  --
-          --  -- But for many setups, the LSP (`tsserver`) will work just fine
-          --  tsserver = {},
-          --
-
-          ['lua_ls'] = function()
-            -- if you install the language server for lua it will load the config from lua/plugins/lsp/lua_ls.lua
-            require 'plugins.lsp.lua_ls'
-          end,
-          ['gopls'] = function()
-            require 'plugins.lsp.gopls'
-          end,
-          ['pyright'] = function() end,
-          ['clangd'] = function() end,
-        },
-      }
+      --   require('mason-lspconfig').setup {
+      --     handlers = {
+      --       -- See :help mason-lspconfig-dynamic-server-setup
+      --       function(server_name) -- default handler
+      --         -- See :help lspconfig-setup
+      --         require('lspconfig')[server_name].setup {}
+      --       end,
+      --
+      --       -- NOTE: This is the LSP configuration handlers
+      --       -- Enable the following language servers.
+      --       -- Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+      --       --
+      --       --  Add any additional override configuration in the following tables. Available keys are:
+      --       --  - cmd (table): Override the default command used to start the server
+      --       --  - filetypes (table): Override the default list of associated filetypes for the server
+      --       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
+      --       --  - settings (table): Override the default settings passed when initializing the server.
+      --       --
+      --       --  For example: (to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/)
+      --       --   lua_ls = {
+      --       --     cmd = {...},
+      --       --     filetypes = { ...},
+      --       --     capabilities = {},
+      --       --     settings = {...}
+      -- --     }
+      --       --
+      --       --	...etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
+      --       --  -- Some languages (like typescript) have entire language plugins that can be useful:
+      --       --  --    https://github.com/pmizio/typescript-tools.nvim
+      --       --  --
+      --       --  -- But for many setups, the LSP (`tsserver`) will work just fine
+      --       --  tsserver = {},
+      --       --
+      --
+      --       ['lua_ls'] = function()
+      --         -- if you install the language server for lua it will load the config from lua/plugins/lsp/lua_ls.lua
+      --         require 'plugins.lsp.lua_ls'
+      --       end,
+      --       ['gopls'] = function()
+      --         require 'plugins.lsp.gopls'
+      --       end,
+      --       ['pyright'] = function() end,
+      --       ['clangd'] = function() end,
+      --     },
+      --   }
     end,
   },
 }

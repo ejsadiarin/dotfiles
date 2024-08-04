@@ -15,6 +15,21 @@ return {
         help = true,
       },
     },
+    -- if want no cmp and disabled by default:
+    -- keys = {
+    --   { "<leader>,ae", "<CMD>Copilot enable<CR>", desc = "Enable Copilot AI" },
+    -- },
+    -- config = function()
+    --   require("copilot").setup({
+    --     suggestion = {
+    --       auto_trigger = true,
+    --       keymap = {
+    --         accept = "<Tab>",
+    --       },
+    --     },
+    --   })
+    --   vim.cmd("Copilot disable")
+    -- end,
   },
 
   {
