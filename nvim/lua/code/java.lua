@@ -1,5 +1,7 @@
 return {
   'nvim-java/nvim-java',
+  -- event = 'VeryLazy',
+  ft = 'java',
   opts = {
     --  list of file that exists in root of the project
     root_markers = {
@@ -35,11 +37,10 @@ return {
 
     notifications = {
       -- enable 'Configuring DAP' & 'DAP configured' messages on start up
-      dap = false,
+      dap = true,
     },
 
-    -- We do multiple verifications to make sure things are in place to run this
-    -- plugin
+    -- We do multiple verifications to make sure things are in place to run this plugin
     verification = {
       -- nvim-java checks for the order of execution of following
       -- * require('java').setup()

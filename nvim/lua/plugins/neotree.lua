@@ -1,6 +1,16 @@
 -- Neo-tree is a Neovim plugin to browse the file system
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 
+--
+-- vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+--   group = vim.api.nvim_create_augroup('remove-neotree-file', { clear = true }),
+--   callback = function()
+--     local current_tab = vim.fn.tabpagenr()
+--     vim.cmd 'tabdo wincmd ='
+--     vim.cmd('tabnext ' .. current_tab)
+--   end,
+-- })
+
 return {
   'nvim-neo-tree/neo-tree.nvim',
   branch = 'v3.x',
@@ -12,6 +22,30 @@ return {
     'MunifTanjim/nui.nvim',
   },
   cmd = 'Neotree',
+  init = function()
+    -- Hijacking netrw when loading neo-tree lazily (Better netrw hijacking)
+    -- see issue: https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1247
+    -- see fix: https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Tips#hijacking-netrw-when-loading-neo-tree-lazily
+    vim.api.nvim_create_autocmd('BufNewFile', {
+      group = vim.api.nvim_create_augroup('RemoteFile', { clear = true }),
+      callback = function()
+        local f = vim.fn.expand '%:p'
+        for _, v in ipairs { 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
+          local p = v .. '://'
+          if string.sub(f, 1, #p) == p then
+            vim.cmd [[
+          unlet g:loaded_netrw
+          unlet g:loaded_netrwPlugin
+          runtime! plugin/netrwPlugin.vim
+          silent Explore %
+        ]]
+            vim.api.nvim_clear_autocmds { group = 'RemoteFile' }
+            break
+          end
+        end
+      end,
+    })
+  end,
   keys = {
     { '<leader>e', '<cmd>Neotree toggle<cr>', silent = true, desc = 'Explorer NeoTree' },
   },
@@ -24,6 +58,19 @@ return {
   opts = {
     sources = { 'filesystem', 'buffers', 'git_status' },
     open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
+    event_handlers = {
+      -- auto-close neo-tree on file open
+      {
+        event = 'file_open_requested',
+        -- event = 'file_open',
+        handler = function()
+          -- auto close
+          -- vimc.cmd("Neotree close")
+          -- OR
+          require('neo-tree.command').execute { action = 'close' }
+        end,
+      },
+    },
     filesystem = {
       filtered_items = {
         visible = true, -- If you set this to `true`, all "hide" just mean "dimmed out"
@@ -38,18 +85,6 @@ return {
         enabled = true,
         leave_dirs_open = true,
       },
-      -- event_handlers = {
-      --   -- auto-close neo-tree on file open
-      --   {
-      --     event = 'file_opened',
-      --     handler = function()
-      --       -- auto close
-      --       -- vimc.cmd("Neotree close")
-      --       -- OR
-      --       require('neo-tree.command').execute { action = 'close' }
-      --     end,
-      --   },
-      -- },
       -- window = {
       --   mappings = {
       --     ['\\'] = 'close_window',

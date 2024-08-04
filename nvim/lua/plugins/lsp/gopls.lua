@@ -1,5 +1,3 @@
--- local dap = require 'dap'
--- local mason_tool_installer = require 'mason-tool-installer'
 local lspconfig = require 'lspconfig'
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -53,58 +51,4 @@ lspconfig.gopls.setup {
       }
     end
   end,
-}
-
--- local lspconfig = require 'lspconfig'
--- local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
--- local GoConfig =
--- require('mason-lspconfig').setup {
---   handlers = {
---     function(config)
---       require('mason-lspconfig').default_setup(config)
---     end,
---
---     -- This is a custom handler for gopls
---     -- It will install gopls if it's not already installed
---     -- and then call the default setup
---     ['gopls'] = function(config)
---       require('mason-lspconfig').default_setup(config)
---     end,
---   },
--- }
---
-
-return {
-  {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = {
-        'go',
-        'gomod',
-        'gowork',
-        'gosum',
-      },
-    },
-  },
-  {
-    'williamboman/mason.nvim',
-    opts = {
-      ensure_installed = {
-        'goimports', -- for formatting imports
-        'gofumpt', -- gofmt
-        'gomodifytags', -- add tags to struct fields
-        'impl', -- generate interface methods
-        'delve', -- debugger
-      },
-    },
-  },
-  {
-    'stevearc/conform.nvim',
-    optional = true,
-    opts = {
-      formatters_by_ft = {
-        go = { 'goimports', 'gofumpt' },
-      },
-    },
-  },
 }
