@@ -70,8 +70,9 @@ return {
         'gofumpt', -- gofmt
         'gomodifytags', -- add tags to struct fields
         'impl', -- generate interface methods
+        -- { 'golangci-lint', version = 'v1.47.0' },
         -- Bash
-        'bashls',
+        { 'bashls', auto_update = true },
         'shellcheck', -- for lint
         -- Lua
         'lua_ls',
