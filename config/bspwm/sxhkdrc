@@ -32,6 +32,10 @@ super + {b,g,e,n}
 super + f
   firefox
 
+# open spotify on firefox
+super + o
+  firefox --new-window https://open.spotify.com/
+
 # Terminal apps (ranger, ncmpcpp)
 shift + alt + {r,m}
 	OpenApps {--ranger,--music}

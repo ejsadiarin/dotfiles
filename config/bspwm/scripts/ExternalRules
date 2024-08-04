@@ -82,6 +82,14 @@ Spotify)
 	eval "$consequences"
 	[ "$state" ] || echo "state=pseudo_tiled desktop=^6 follow=on"
 	;;
+jetbrains-idea)
+  eval "$consequences"
+  [ "$state" ] || echo "state=floating center=on desktop=^2"
+  ;;
+View-MainView) # PRIO: temporary rule for the MCO2 CCPROG3 proj
+  eval "$consequences"
+  [ "$state" ] || echo "state=pseudo_tiled center=on desktop=^5 follow=on"
+  ;;
 esac
 
 case "$instance" in

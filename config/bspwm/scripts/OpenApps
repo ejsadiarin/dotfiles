@@ -19,7 +19,7 @@ case "$1" in
 	RiceSelector
 	;;
 --terminal)
-	alacritty
+	kitty
 	;;
 --floating)
 	alacritty --class FloaTerm,FloaTerm -o window.dimensions.lines=22 window.dimensions.columns=90
