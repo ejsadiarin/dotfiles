@@ -34,21 +34,7 @@ load 'essentials.globals'
 load 'essentials.keymaps'
 load 'essentials.signs'
 
---  Here are extension configurations for optional things (ex. Copilot)
-load 'extensions.copilot'
-load 'extensions.copilot-chat'
-load 'extensions.cloak'
-
---  Here are programming language specific configurations (uncomment to enable)
--- require 'code.go'
--- require 'code.python'
--- require 'code.yaml'
--- require 'code.typescript'
--- require 'code.java'
--- require 'code.csharp'
--- require 'code.helm'
--- require 'code.markdown'
-
+-- require('lazy').setup(spec, opts)
 require('lazy').setup({
   -- NOTE: Plugins can specify dependencies.
   --
@@ -73,12 +59,22 @@ require('lazy').setup({
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
+  --  Here are extension configurations for optional things (ex. Copilot)
+  require 'extensions.copilot',
+  require 'extensions.copilot-chat',
+  require 'extensions.cloak',
+  require 'extensions.flash',
+
+  --  Here are programming language specific configurations (uncomment to enable)
+  --  NOTE: go, python, js/ts, c -> are enabled by default
+  require 'extensions.java',
+  -- require 'extensions.yaml',
+  -- require 'extensions.docker',
+
   -- This is the easiest way to modularize your config.
   --
-  -- IMPORT PLUGINS:
   -- NOTE: For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'plugins' },
-  -- TODO: require 'snippets', for md luasnip
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

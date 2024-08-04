@@ -7,17 +7,26 @@ return {
     -- NOTE: And you can specify dependencies as well
     dependencies = {
       -- Creates a beautiful debugger UI
-      'rcarriga/nvim-dap-ui',
+      {
+        'rcarriga/nvim-dap-ui',
+        lazy = true,
+      },
 
       -- Required dependency for nvim-dap-ui
-      'nvim-neotest/nvim-nio',
+      {
+        'nvim-neotest/nvim-nio',
+        lazy = true,
+      },
 
       -- Installs the debug adapters for you
       'williamboman/mason.nvim',
       'jay-babu/mason-nvim-dap.nvim',
 
       -- Add your own debuggers here
-      'leoluz/nvim-dap-go',
+      {
+        'leoluz/nvim-dap-go',
+        lazy = true,
+      },
     },
     keys = function(_, keys)
       local dap = require 'dap'
@@ -46,8 +55,7 @@ return {
       local dapui = require 'dapui'
 
       require('mason-nvim-dap').setup {
-        -- Makes a best effort to setup the various debuggers with
-        -- reasonable debug configurations
+        -- Makes a best effort to setup the various debuggers with reasonable debug configurations
         automatic_installation = true,
 
         -- You can provide additional configuration to the handlers,

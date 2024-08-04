@@ -5,17 +5,37 @@ return {
     build = ':TSUpdate',
     opts = {
       ensure_installed = {
+        'go',
+        'gomod',
+        'gowork',
+        'gosum',
         'bash',
-        'c',
-        'diff',
-        'html',
+        'yaml',
+        'dockerfile',
+        'python',
+        'json',
+        'vim',
+        'vimdoc', -- this is "help"
+        'markdown',
+        'markdown_inline',
+
         'lua',
         'luadoc',
+
+        'c',
+        'cmake',
+        'diff',
+
+        'html',
+        'css',
+        'javascript',
+        'tsx',
+        'typescript',
+
         'markdown',
         'markdown_inline',
         'query',
-        'vim',
-        'vimdoc',
+        'regex',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,

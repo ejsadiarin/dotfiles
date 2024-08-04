@@ -156,29 +156,37 @@ return {
         },
       }
 
-      -- You can add other tools here that you want Mason to install
-      -- for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-        -- 'prettierd',
-        -- 'prettier',
-        -- 'isort', -- python formatter
-        -- 'black', -- python formatter
-        -- 'pylint',
-        -- 'eslint_d',
-      })
-      require('mason-tool-installer').setup {
-        ensure_installed = {
-          'stylua', -- Used to format Lua code
-          -- 'prettierd',
-          -- 'prettier',
-          -- 'isort', -- python formatter
-          -- 'black', -- python formatter
-          -- 'pylint',
-          -- 'eslint_d',
-        },
-      }
+      -- -- You can add other tools here that you want Mason to install
+      -- -- for you, so that they are available from within Neovim.
+      -- -- local ensure_installed = vim.tbl_keys(servers or {})
+      -- -- vim.list_extend(ensure_installed, {
+      -- --   'stylua', -- Used to format Lua code
+      -- --   -- 'prettierd',
+      -- --   -- 'prettier',
+      -- --   -- 'isort', -- python formatter
+      -- --   -- 'black', -- python formatter
+      -- --   -- 'pylint',
+      -- --   -- 'eslint_d',
+      -- -- })
+      -- require('mason-tool-installer').setup {
+      --   ensure_installed = {
+      --     -- Go
+      --     'goimports', -- for formatting imports
+      --     'gofumpt', -- gofmt
+      --     'gomodifytags', -- add tags to struct fields
+      --     'impl', -- generate interface methods
+      --     -- Lua
+      --     'stylua', -- Used to format Lua code
+      --     -- Python
+      --     'isort', -- python formatter
+      --     'black', -- python formatter
+      --     'pylint',
+      --     -- HTML, CSS, JS, misc.
+      --     'eslint_d',
+      --     'prettierd',
+      --     'prettier',
+      --   },
+      -- }
 
       require('mason-lspconfig').setup {
         handlers = {
@@ -217,14 +225,11 @@ return {
             -- if you install the language server for lua it will load the config from lua/plugins/lsp/lua_ls.lua
             require 'plugins.lsp.lua_ls'
           end,
-          -- ['gopls'] = function()
-          --   require 'plugins.lsp.gopls'
-          -- end,
-          -- ['pyright'] = function()
-          --   -- if you install the language server for lua it will
-          --   -- load the config from lua/plugins/lsp/lua_ls.lua
-          --   -- require('plugins.lsp.lua_ls')
-          -- end,
+          ['gopls'] = function()
+            require 'plugins.lsp.gopls'
+          end,
+          ['pyright'] = function() end,
+          ['clangd'] = function() end,
         },
       }
     end,
