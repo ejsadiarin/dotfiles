@@ -11,9 +11,8 @@ return {
     },
   },
 
-  -- This is where to configure LSP servers
   {
-    'williamboman/mason-lspconfig.nvim',
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
     opts = {
       ensure_installed = {
         -- Go
@@ -54,8 +53,15 @@ return {
         'clangd',
 
         -- Java
-        'java',
+        'jdtls',
       },
+    },
+  },
+
+  -- This is where to configure LSP servers
+  {
+    'williamboman/mason-lspconfig.nvim',
+    opts = {
       handlers = {
         -- See :help mason-lspconfig-dynamic-server-setup
         function(server_name) -- default handler
@@ -100,9 +106,7 @@ return {
         ['bashls'] = function() end,
         ['tsserver'] = function() end,
         ['marksman'] = function()
-          require('lspconfig').marksman.setup {
-            capabilities = require('cmp_nvim_lsp').default_capabilities(),
-          }
+          require('lspconfig').marksman.setup {}
         end,
         ['jdtls'] = function() end,
       },

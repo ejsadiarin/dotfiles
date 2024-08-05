@@ -64,13 +64,8 @@ require('lazy').setup({
   require 'extensions.copilot-chat',
   require 'extensions.cloak',
   require 'extensions.flash',
-
-  --  Here are programming language specific configurations (uncomment to enable)
-  --  NOTE: go, python, js/ts, c -> are enabled by default
   require 'extensions.java',
-  require 'extensions.markdown',
-  -- require 'extensions.yaml',
-  -- require 'extensions.docker',
+  require 'extensions.markview',
 
   -- This is the easiest way to modularize your config.
   --
