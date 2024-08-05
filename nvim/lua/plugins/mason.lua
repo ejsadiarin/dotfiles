@@ -92,8 +92,11 @@ return {
         --  --
         --  -- But for many setups, the LSP (`tsserver`) will work just fine
         --  tsserver = {},
-        --
+        --  or
+        --  ['tsserver'] = function() end,
 
+        -- Custom language-specific configurations here
+        -- NOTE: the default handler above deals with the 'setups' so no need to setup if will not configure an LSP
         ['lua_ls'] = function()
           -- if you install the language server for lua it will load the config from lua/plugins/lsp/lua_ls.lua
           require 'plugins.lsp.lua_ls'
@@ -105,10 +108,8 @@ return {
         ['clangd'] = function() end,
         ['bashls'] = function() end,
         ['tsserver'] = function() end,
-        ['marksman'] = function()
-          require('lspconfig').marksman.setup {}
-        end,
-        ['jdtls'] = function() end,
+        ['marksman'] = function() end,
+        ['jdtls'] = function() end, -- already configured via ftplugin/java.lua (`nvim-jdtls`)
       },
     },
   },

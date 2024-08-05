@@ -37,10 +37,10 @@ return {
   --     require('copilot_cmp').setup()
   --   end,
   -- },
-
-  -- { -- Autocompletion extension for Copilot-cmp
+  --
+  -- -- Autocompletion (CMP)
+  -- {
   --   'hrsh7th/nvim-cmp',
-  --   optional = true,
   --   event = 'InsertEnter',
   --   dependencies = {
   --     -- Snippet Engine & its associated nvim-cmp source
@@ -59,12 +59,17 @@ return {
   --         -- `friendly-snippets` contains a variety of premade snippets.
   --         --    See the README about individual language/framework/plugin snippets:
   --         --    https://github.com/rafamadriz/friendly-snippets
-  --         -- {
-  --         --   'rafamadriz/friendly-snippets',
-  --         --   config = function()
-  --         --     require('luasnip.loaders.from_vscode').lazy_load()
-  --         --   end,
-  --         -- },
+  --         -- NOTE: Custom snippets are inside `lua/snippets` (files have '.snippets' extension)
+  --         {
+  --           'rafamadriz/friendly-snippets',
+  --           config = function()
+  --             require('luasnip.loaders.from_vscode').lazy_load()
+  --             require('luasnip.loaders.from_lua').lazy_load { paths = './lua/snippets' }
+  --             require('luasnip.loaders.from_snipmate').lazy_load {
+  --               paths = vim.fn.stdpath 'config' .. '/lua/snippets',
+  --             }
+  --           end,
+  --         },
   --       },
   --     },
   --     'saadparwaiz1/cmp_luasnip',
@@ -82,7 +87,7 @@ return {
   --     luasnip.config.setup {}
   --     local compare = require 'cmp.config.compare'
   --
-  --     -- for Copilot <TAB> completion
+  --     -- Enable for Copilot <TAB> completion ('copilot-cmp')
   --     local has_words_before = function()
   --       if vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt' then
   --         return false
@@ -164,7 +169,17 @@ return {
   --             luasnip.expand_or_jump()
   --           end
   --         end, { 'i', 's' }),
+  --         ['<Tab>'] = cmp.mapping(function()
+  --           if luasnip.expand_or_locally_jumpable() then
+  --             luasnip.expand_or_jump()
+  --           end
+  --         end, { 'i', 's' }),
   --         ['<C-h>'] = cmp.mapping(function()
+  --           if luasnip.locally_jumpable(-1) then
+  --             luasnip.jump(-1)
+  --           end
+  --         end, { 'i', 's' }),
+  --         ['<S-Tab>'] = cmp.mapping(function()
   --           if luasnip.locally_jumpable(-1) then
   --             luasnip.jump(-1)
   --           end
@@ -173,7 +188,7 @@ return {
   --         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
   --         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
   --
-  --         -- Copilot TAB (same as above)
+  --         -- Enable Copilot TAB (same as above)
   --         ['<Tab>'] = vim.schedule_wrap(function(fallback)
   --           if cmp.visible() and has_words_before() then
   --             cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
@@ -191,6 +206,7 @@ return {
   --         { name = 'nvim_lsp' },
   --         { name = 'luasnip' },
   --         { name = 'path' },
+  --         { name = 'buffer' },
   --         { name = 'copilot', priority = 100 },
   --       },
   --

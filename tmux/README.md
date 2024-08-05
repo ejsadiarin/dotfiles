@@ -24,3 +24,4 @@ tmux source ~/<path to .tmux.conf>
 ## [Mappings](#mappings)
 
 - test [link](https://google.com/)
+  date today is
