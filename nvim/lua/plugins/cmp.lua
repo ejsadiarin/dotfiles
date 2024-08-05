@@ -43,6 +43,15 @@ return {
       luasnip.config.setup {}
       local compare = require 'cmp.config.compare'
 
+      -- -- Enable for Copilot <TAB> completion ('copilot-cmp')
+      -- local has_words_before = function()
+      --   if vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt' then
+      --     return false
+      --   end
+      --   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      --   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match '^%s*$' == nil
+      -- end
+
       cmp.setup {
         window = {
           -- completion = cmp.config.window.bordered(),
@@ -124,6 +133,15 @@ return {
 
           -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+
+          -- Enable Copilot TAB (same as above)
+          -- ['<Tab>'] = vim.schedule_wrap(function(fallback)
+          --   if cmp.visible() and has_words_before() then
+          --     cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+          --   else
+          --     fallback()
+          --   end
+          -- end),
         },
         sources = {
           {
@@ -134,6 +152,7 @@ return {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          -- { name = 'copilot', priority = 100 },
         },
 
         sorting = {

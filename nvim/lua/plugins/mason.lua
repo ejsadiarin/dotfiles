@@ -1,3 +1,5 @@
+-- Install and Configure LSP servers via 'mason-lspconfig'
+
 return {
   {
     'williamboman/mason.nvim',
@@ -9,9 +11,51 @@ return {
     },
   },
 
+  -- This is where to configure LSP servers
   {
     'williamboman/mason-lspconfig.nvim',
     opts = {
+      ensure_installed = {
+        -- Go
+        'gopls',
+        'goimports', -- for formatting imports
+        'gofumpt', -- gofmt
+        'gomodifytags', -- add tags to struct fields
+        'impl', -- generate interface methods
+        -- { 'golangci-lint', version = 'v1.47.0' },
+
+        -- Bash
+        'bashls', -- lsp
+        'shellcheck', -- lint
+        'shfmt', -- formatter
+
+        -- Markdown
+        'marksman', -- lsp
+        'markdownlint-cli2', -- linter
+        'markdown-toc', -- table of contents formatter
+
+        -- Lua
+        'lua_ls',
+        'stylua', -- Used to format Lua code
+
+        -- Python
+        'pyright', -- python formatter
+        'isort', -- python formatter
+        'black', -- python formatter
+        'pylint',
+
+        -- HTML, CSS, JS, misc.
+        'tsserver',
+        'eslint_d',
+        'prettierd',
+        'prettier',
+
+        -- C
+        'clangd',
+
+        -- Java
+        'java',
+      },
       handlers = {
         -- See :help mason-lspconfig-dynamic-server-setup
         function(server_name) -- default handler
@@ -55,40 +99,12 @@ return {
         ['clangd'] = function() end,
         ['bashls'] = function() end,
         ['tsserver'] = function() end,
-      },
-    },
-  },
-
-  -- Mason Auto-Installer (with Auto-update, pin versions, etc.)
-  {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    opts = {
-      ensure_installed = {
-        -- Go
-        'gopls',
-        'goimports', -- for formatting imports
-        'gofumpt', -- gofmt
-        'gomodifytags', -- add tags to struct fields
-        'impl', -- generate interface methods
-        -- { 'golangci-lint', version = 'v1.47.0' },
-        -- Bash
-        { 'bashls', auto_update = true },
-        'shellcheck', -- for lint
-        -- Lua
-        'lua_ls',
-        'stylua', -- Used to format Lua code
-        -- Python
-        'pyright', -- python formatter
-        'isort', -- python formatter
-        'black', -- python formatter
-        'pylint',
-        -- HTML, CSS, JS, misc.
-        'tsserver',
-        'eslint_d',
-        'prettierd',
-        'prettier',
-        -- C
-        'clangd',
+        ['marksman'] = function()
+          require('lspconfig').marksman.setup {
+            capabilities = require('cmp_nvim_lsp').default_capabilities(),
+          }
+        end,
+        ['jdtls'] = function() end,
       },
     },
   },

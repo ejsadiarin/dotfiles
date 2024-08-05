@@ -68,6 +68,7 @@ require('lazy').setup({
   --  Here are programming language specific configurations (uncomment to enable)
   --  NOTE: go, python, js/ts, c -> are enabled by default
   require 'extensions.java',
+  require 'extensions.markdown',
   -- require 'extensions.yaml',
   -- require 'extensions.docker',
 

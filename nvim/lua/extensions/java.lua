@@ -18,7 +18,7 @@ return {
 
     -- load java test plugins
     java_test = {
-      enable = false,
+      enable = true,
     },
 
     -- load java debugger plugins
@@ -59,4 +59,12 @@ return {
       invalid_mason_registry = true,
     },
   },
+  config = function()
+    require('lspconfig').jdtls.setup {
+      handlers = {
+        -- By assigning an empty function, you can remove the notifications printed to the cmd
+        ['$/progress'] = function(_, result, ctx) end,
+      },
+    }
+  end,
 }

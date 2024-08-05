@@ -43,6 +43,10 @@ vim.keymap.set('n', '<leader>m', '<cmd>Mason<CR>', { desc = 'Open [M]ason' })
 -- Open LspInfo (:LspInfo)
 vim.keymap.set('n', '<leader>cl', '<cmd>LspInfo<CR>', { desc = 'Open [L]SP Info' })
 
+-- Highlights Under Cursor
+vim.keymap.set('n', '<leader>ui', vim.show_pos, { desc = 'UI: [i]nspect Pos' })
+vim.keymap.set('n', '<leader>uI', '<cmd>InspectTree<cr>', { desc = 'UI: [I]nspect Tree' })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -62,6 +66,11 @@ vim.keymap.set('n', '<A-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<A-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<A-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<A-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Vertical and Horizontal Splits
+vim.keymap.set('n', '<leader>wh', '<C-W>s', { desc = 'Horizontal Split' })
+vim.keymap.set('n', '<leader>wv', '<C-W>v', { desc = 'Vertical Split' })
+vim.keymap.set('n', '<leader>wd', '<C-W>c', { desc = 'Delete Window' })
 
 -- changes cwd to head of current buffer (useful for grepping and finding files)
 vim.keymap.set('n', '<leader>cW', function()

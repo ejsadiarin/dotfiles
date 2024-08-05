@@ -38,6 +38,8 @@ end)
 vim.opt.tabstop = 2 -- Insert 2 spaces for a tab
 vim.opt.softtabstop = 2 -- Number of spaces tabs count for while editing
 vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
+vim.opt.expandtab = true -- convert tabs to spaces
+vim.opt.smartindent = true -- Makes indenting smart
 vim.opt.breakindent = true -- Enable break indent
 
 -- Save undo history
