@@ -28,6 +28,15 @@ return {
         'shellcheck', -- lint
         'shfmt', -- formatter
 
+        -- Docker
+        'dockerls', -- lsp
+        'docker_compose_language_service', -- lsp for compose
+        'hadolint', -- linter
+
+        -- Ansible
+        'ansiblels',
+        'ansible-lint',
+
         -- Markdown
         'marksman', -- lsp
         'markdownlint-cli2', -- linter
@@ -54,6 +63,9 @@ return {
 
         -- Java
         'jdtls',
+
+        -- C#
+        'omnisharp',
       },
     },
   },
@@ -103,6 +115,12 @@ return {
         ['gopls'] = function()
           require 'plugins.lsp.gopls'
         end,
+        ['dockerls'] = function()
+          require('lspconfig').dockerls.setup {}
+        end,
+        ['docker_compose_language_service'] = function()
+          require('lspconfig').docker_compose_language_service.setup {}
+        end,
         ['pyright'] = function() end,
         ['clangd'] = function() end,
         ['bashls'] = function() end,
@@ -110,7 +128,10 @@ return {
         ['marksman'] = function()
           require('lspconfig').marksman.setup {}
         end,
-        ['jdtls'] = function() end, -- already configured via ftplugin/java.lua (with `nvim-jdtls`)
+        ['jdtls'] = function() end, -- NOTE: this is already configured via ftplugin/java.lua (with `nvim-jdtls`)
+        ['omnisharp'] = function()
+          require('lspconfig').omnisharp.setup {}
+        end,
       },
     },
   },

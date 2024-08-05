@@ -33,6 +33,7 @@ return {
         'typescript',
 
         'java',
+        'c_sharp',
 
         'markdown',
         'markdown_inline',
