@@ -21,6 +21,7 @@ return {
         'gofumpt', -- gofmt
         'gomodifytags', -- add tags to struct fields
         'impl', -- generate interface methods
+        'delve', -- debugger
         -- { 'golangci-lint', version = 'v1.47.0' },
 
         -- Bash
@@ -39,7 +40,7 @@ return {
 
         -- Markdown
         'marksman', -- lsp
-        'markdownlint-cli2', -- linter
+        -- 'markdownlint-cli2', -- linter
         'markdown-toc', -- table of contents formatter
 
         -- Lua
@@ -47,25 +48,29 @@ return {
         'stylua', -- Used to format Lua code
 
         -- Python
-        'pyright', -- python formatter
-        'isort', -- python formatter
+        'pyright', -- lsp
+        'isort', -- sorter
         'black', -- python formatter
-        'pylint',
+        'pylint', -- linter
+        'debugpy', -- debugger
 
         -- HTML, CSS, JS, misc.
-        'tsserver',
-        'eslint_d',
-        'prettierd',
-        'prettier',
+        'tsserver', -- lsp
+        'eslint_d', -- linter daemon
+        'prettierd', -- formatter daemon
+        'prettier', -- formatter
+        'js-debug-adapter', -- debugger
 
         -- C
         'clangd',
 
         -- Java
         'jdtls',
+        'java-debug-adapter',
 
         -- C#
-        'omnisharp',
+        'omnisharp', -- lsp
+        'netcoredbg', -- debugger
       },
     },
   },

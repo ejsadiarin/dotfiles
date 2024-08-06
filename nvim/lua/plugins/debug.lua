@@ -2,20 +2,19 @@ return {
   {
     -- NOTE: Yes, you can install new plugins here!
     'mfussenegger/nvim-dap',
-    event = 'VeryLazy',
-    -- cmd = 'Dap',
+    -- lazy = true,
+    event = 'VeryLazy', -- 'VeryLazy'
+    -- cmd = { 'DapContinue', 'DapNew', 'DapToggleBreakpoint' },
     -- NOTE: And you can specify dependencies as well
     dependencies = {
       -- Creates a beautiful debugger UI
       {
         'rcarriga/nvim-dap-ui',
-        lazy = true,
       },
 
       -- Required dependency for nvim-dap-ui
       {
         'nvim-neotest/nvim-nio',
-        lazy = true,
       },
 
       -- Installs the debug adapters for you
@@ -25,7 +24,6 @@ return {
       -- Add your own debuggers here
       {
         'leoluz/nvim-dap-go',
-        lazy = true,
       },
     },
     keys = function(_, keys)
@@ -60,13 +58,37 @@ return {
 
         -- You can provide additional configuration to the handlers,
         -- see mason-nvim-dap README for more information
-        handlers = {},
+        handlers = {
+          function(config)
+            -- all sources with no handler get passed here
+
+            -- Keep original functionality
+            require('mason-nvim-dap').default_setup(config)
+          end,
+          -- python = function(config)
+          --   config.adapters = {
+          --     type = 'executable',
+          --     command = '/usr/bin/python3',
+          --     args = {
+          --       '-m',
+          --       'debugpy.adapter',
+          --     },
+          --   }
+          --   require('mason-nvim-dap').default_setup(config) -- don't forget this!
+          -- end,
+          -- go = function (config)
+          -- end
+        },
 
         -- You'll need to check that you have the required things installed
         -- online, please don't ask me how to install them :)
         ensure_installed = {
           -- Update this to ensure that you have the debuggers for the langs you want
           'delve',
+          'js-debug-adapter',
+          'debugpy',
+          'java-debug-adapter',
+          'netcoredbg',
         },
       }
 
@@ -111,7 +133,8 @@ return {
 
   {
     'theHamsta/nvim-dap-virtual-text',
-    event = 'VeryLazy',
+    lazy = true,
+    -- event = 'VeryLazy',
     opts = {
       -- enable this plugin (the default)
       enabled = true,

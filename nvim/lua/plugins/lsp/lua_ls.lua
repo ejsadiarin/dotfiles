@@ -26,9 +26,9 @@ lspconfig.lua_ls.setup {
         enable = false,
       },
       diagnostics = { disable = { 'missing-fields' } },
-      -- workspace = {
-      --   checkThirdParty = false
-      -- },
+      workspace = {
+        checkThirdParty = false,
+      },
     },
   },
 }

@@ -148,5 +148,6 @@ return {
   },
 }
 
--- Good resources for structuring modular configs:
+-- NOTE: Good resources for structuring modular configs:
 -- https://github.com/VonHeikemen/lazy-template/blob/main/lua/plugins/lspconfig.lua
+-- THIS: https://github.com/MuhametSmaili/nvim/blob/main/lua/smaili/plugins/lsp/init.lua

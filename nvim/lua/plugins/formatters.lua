@@ -2,6 +2,7 @@ return {
   {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
+    lazy = true,
     cmd = { 'ConformInfo' },
     keys = {
       {
@@ -38,8 +39,9 @@ return {
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, java = true }
         return {
+          -- async = true,
           timeout_ms = 500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
@@ -50,16 +52,16 @@ return {
         -- Conform can also run multiple formatters sequentially
         ['python'] = { 'isort', 'black' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        ['javascript'] = { 'prettierd', 'prettier', stop_after_first = true },
-        ['typescript'] = { 'prettierd', 'prettier', stop_after_first = true },
-        ['javascriptreact'] = { 'prettierd', 'prettier', stop_after_first = true },
-        ['typescriptreact'] = { 'prettierd', 'prettier', stop_after_first = true },
-        ['css'] = { 'prettierd', 'prettier', stop_after_first = true },
-        ['html'] = { 'prettierd', 'prettier', stop_after_first = true },
-        ['json'] = { 'prettierd', 'prettier', stop_after_first = true },
-        ['yaml'] = { 'prettierd', 'prettier', stop_after_first = true },
-        ['markdown'] = { 'prettierd', 'prettier', 'markdownlint-cli2', 'markdownlint-toc' },
-        ['markdown.mdx'] = { 'prettier', 'markdownlint-cli2', 'markdown-toc' },
+        ['javascript'] = { 'prettierd', 'prettier' }, -- ['javascript'] = { 'prettierd', 'prettier', stop_after_first = true },
+        ['typescript'] = { 'prettierd', 'prettier' },
+        ['javascriptreact'] = { 'prettierd', 'prettier' },
+        ['typescriptreact'] = { 'prettierd', 'eslint_d' },
+        ['css'] = { 'prettierd', 'prettier' },
+        ['html'] = { 'prettierd', 'prettier' },
+        ['json'] = { 'prettierd', 'prettier' },
+        ['yaml'] = { 'prettierd', 'prettier' },
+        ['markdown'] = { 'prettierd', 'prettier', 'markdown-toc' },
+        ['markdown.mdx'] = { 'prettierd', 'prettier', 'markdown-toc' },
       },
     },
   },

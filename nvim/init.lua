@@ -22,17 +22,14 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  To update plugins you can run
 --    :Lazy update
+--
 
-local load = function(mod)
-  package.loaded[mod] = nil
-  require(mod)
-end
-
-load 'essentials.autocommands'
-load 'essentials.options'
-load 'essentials.globals'
-load 'essentials.keymaps'
-load 'essentials.signs'
+-- Here are essentials
+require 'essentials.autocommands'
+require 'essentials.options'
+require 'essentials.globals'
+require 'essentials.keymaps'
+require 'essentials.signs'
 
 -- require('lazy').setup(spec, opts)
 require('lazy').setup({
@@ -66,21 +63,29 @@ require('lazy').setup({
   require 'extensions.flash',
   require 'extensions.java',
   require 'extensions.markview',
+  -- require 'extensions.csharp',
 
   -- This is the easiest way to modularize your config.
   --
   -- NOTE: For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'plugins' },
+  { import = '' },
 }, {
+  defaults = {
+    lazy = false,
+  },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
+    cache = {
+      enabled = true,
+    },
     rtp = {
       -- disable some rtp plugins
       disabled_plugins = {
         'gzip',
         -- "matchit",
         -- "matchparen",
-        -- "netrwPlugin",
+        'netrwPlugin',
         'tarPlugin',
         'tohtml',
         'tutor',
