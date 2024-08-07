@@ -69,7 +69,7 @@ require('lazy').setup({
   --
   -- NOTE: For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'plugins' },
-  { import = '' },
+  { import = 'extensions.go' },
 }, {
   defaults = {
     lazy = false,

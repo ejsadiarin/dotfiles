@@ -43,10 +43,10 @@ return {
       -- Autoinstall languages that are not installed
       auto_install = true,
       ensure_installed = {
-        'go',
-        'gomod',
-        'gowork',
-        'gosum',
+        -- 'go',
+        -- 'gomod',
+        -- 'gowork',
+        -- 'gosum',
         'bash',
         'yaml',
         'dockerfile',

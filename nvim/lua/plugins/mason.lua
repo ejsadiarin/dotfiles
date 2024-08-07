@@ -15,14 +15,14 @@ return {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     opts = {
       ensure_installed = {
-        -- Go
-        'gopls',
-        'goimports', -- for formatting imports
-        'gofumpt', -- gofmt
-        'gomodifytags', -- add tags to struct fields
-        'impl', -- generate interface methods
-        'delve', -- debugger
-        -- { 'golangci-lint', version = 'v1.47.0' },
+        -- -- Go
+        -- 'gopls',
+        -- 'goimports', -- for formatting imports
+        -- 'gofumpt', -- gofmt
+        -- 'gomodifytags', -- add tags to struct fields
+        -- 'impl', -- generate interface methods
+        -- 'delve', -- debugger
+        -- -- { 'golangci-lint', version = 'v1.47.0' },
 
         -- Bash
         'bashls', -- lsp
@@ -117,9 +117,9 @@ return {
           -- if you install the language server for lua it will load the config from lua/plugins/lsp/lua_ls.lua
           require 'plugins.lsp.lua_ls'
         end,
-        ['gopls'] = function()
-          require 'plugins.lsp.gopls'
-        end,
+        -- ['gopls'] = function()
+        --   require 'plugins.lsp.gopls'
+        -- end,
         ['dockerls'] = function()
           require('lspconfig').dockerls.setup {}
         end,
