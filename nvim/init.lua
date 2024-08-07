@@ -57,19 +57,22 @@ require('lazy').setup({
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   --  Here are extension configurations for optional things (ex. Copilot)
-  require 'extensions.copilot',
-  require 'extensions.copilot-chat',
-  require 'extensions.cloak',
-  require 'extensions.flash',
-  require 'extensions.java',
-  require 'extensions.markview',
-  -- require 'extensions.csharp',
+  { import = 'extensions.copilot' },
+  { import = 'extensions.copilot-chat' },
+  { import = 'extensions.cloak' },
+  { import = 'extensions.flash' },
+  { import = 'extensions.markview' },
 
   -- This is the easiest way to modularize your config.
   --
   -- NOTE: For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'plugins' },
+
+  -- Here are specific programming language module configurations (uncomment to enable)
   { import = 'extensions.go' },
+  { import = 'extensions.java' },
+  -- { import = 'extensions.csharp' },
+  -- { import = 'extensions.markdown' },
 }, {
   defaults = {
     lazy = false,

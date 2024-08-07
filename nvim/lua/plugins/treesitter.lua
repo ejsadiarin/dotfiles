@@ -74,7 +74,7 @@ return {
         'json5',
         'jsonc',
 
-        'java',
+        -- 'java',
         'c_sharp',
 
         'sql',

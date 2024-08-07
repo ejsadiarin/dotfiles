@@ -14,6 +14,14 @@ vim.opt.cursorline = true -- Show which line your cursor is on
 -- vim.opt.pumblend = 0 -- related to autocomplete documentation bg transparent, idk not make transparent bg
 -- vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
+-- Fold options
+-- vim.opt.foldtext = 'v:lua.FoldText()' -- custom fold (see: lua/scripts/foldtext.lua)
+-- vim.opt.foldmethod = 'indent'
+-- these opts only folds all standard function blocks and not the sub-blocks inside that
+-- vim.opt.foldlevel = 2
+-- vim.opt.foldlevelstart = 1
+-- vim.opt.foldnestmax = 2
+
 vim.opt.encoding = 'UTF-8'
 
 vim.opt.number = true -- Set numbered lines

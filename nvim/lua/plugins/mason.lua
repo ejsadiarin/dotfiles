@@ -56,6 +56,8 @@ return {
 
         -- HTML, CSS, JS, misc.
         'tsserver', -- lsp
+        'html', -- lsp
+        'cssls', -- lsp
         'eslint_d', -- linter daemon
         'prettierd', -- formatter daemon
         'prettier', -- formatter
@@ -65,8 +67,8 @@ return {
         'clangd',
 
         -- Java
-        'jdtls',
-        'java-debug-adapter',
+        -- 'jdtls',
+        -- 'java-debug-adapter',
 
         -- C#
         'omnisharp', -- lsp

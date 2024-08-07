@@ -1,7 +1,14 @@
 -- ref: https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#configuration-quickstart
 -- video guide for verbose: https://www.youtube.com/watch?v=94IU4cBdhfM
+-- local install_path = require('mason-registry'):get_inso
+
+local mason_registry = require 'mason-registry'
+local lombok_jar = mason_registry.get_package('lombok-nightly'):get_install_path() .. '/lombok.jar' -- check if lombok.jar is in packages 'lombok-nightly' or 'jdtls'
+local jdtls_bin = mason_registry.get_package('jdtls'):get_install_path() .. '/bin/jdtls'
+
 local config = {
-  cmd = { vim.fn.expand '~/.local/share/nvim/mason/packages/jdtls/bin/jdtls' },
+  -- cmd = { vim.fn.expand '~/.local/share/nvim/mason/packages/jdtls/bin/jdtls' },
+  cmd = { jdtls_bin },
   root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
   settings = {
     java = {
@@ -10,6 +17,9 @@ local config = {
       },
     },
   },
+  -- init_options = {
+  --   bundles = {},
+  -- },
 }
 require('jdtls').start_or_attach(config)
 

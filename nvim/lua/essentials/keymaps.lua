@@ -156,3 +156,9 @@ vim.keymap.set('n', '<leader>ch', function()
   -- return M
   M.toggle()
 end, { desc = 'Toggle C[h]eckbox' })
+
+-- Toggle and create folds
+-- vim.keymap.set('n', '<leader>zf', 'zfaf', { silent = true, desc = 'Create fold on [f]unction' })
+-- vim.keymap.set('n', '<leader>zo', 'zR', { silent = true, desc = 'Open all folds' })
+-- vim.keymap.set('n', '<leader>zc', 'zM', { silent = true, desc = 'Close all folds' })
+-- vim.keymap.set('n', '<leader>zd', 'zE', { silent = true, desc = 'Delete all folds (in file)' })

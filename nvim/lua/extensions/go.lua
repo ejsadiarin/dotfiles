@@ -1,21 +1,73 @@
--- local lspconfig = require 'lspconfig'
+-- Configures everything for Go programming language support
 
 return {
+
   {
     'williamboman/mason-lspconfig.nvim',
     opts = {
       handlers = {
         ['gopls'] = function()
-          require 'plugins.lsp.gopls'
+          require('lspconfig').gopls.setup {
+            cmd = { 'gopls', 'serve' },
+            filetypes = { 'go' },
+            capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            settings = {
+              gopls = {
+                gofumpt = true,
+                codelenses = {
+                  gc_details = false,
+                  generate = true,
+                  regenerate_cgo = true,
+                  run_govulncheck = true,
+                  test = true,
+                  tidy = true,
+                  upgrade_dependency = true,
+                  vendor = true,
+                },
+                hints = {
+                  assignVariableTypes = true,
+                  compositeLiteralFields = true,
+                  compositeLiteralTypes = true,
+                  constantValues = true,
+                  functionTypeParameters = true,
+                  parameterNames = true,
+                  rangeVariableTypes = true,
+                },
+                analyses = {
+                  fieldalignment = true,
+                  nilness = true,
+                  unusedparams = true,
+                  unusedwrite = true,
+                  useany = true,
+                },
+                usePlaceholders = true,
+                completeUnimported = true,
+                staticcheck = true,
+                directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
+                semanticTokens = true,
+              },
+            },
+            on_init = function(client)
+              if client.name == 'gopls' and not client.server_capabilities.semanticTokensProvider then
+                local semantic = client.config.capabilities.textDocument.semanticTokens
+                client.server_capabilities.semanticTokensProvider = {
+                  full = true,
+                  legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
+                  range = true,
+                }
+              end
+            end,
+          }
         end,
-        -- ['go'] = function()
+        -- ['gopls'] = function()
         --   require('lspconfig').html.setup(vim.tbl_deep_extend('force', lsp_options, {
-        --     filetypes = { 'html', 'htmldjango' },
+        --     filetypes = { 'go' },
         --   }))
         -- end,
       },
     },
   },
+
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     opts = {
@@ -31,6 +83,7 @@ return {
       },
     },
   },
+
   {
     'nvim-treesitter/nvim-treesitter',
     opts = {
@@ -42,6 +95,7 @@ return {
       },
     },
   },
+
   {
     'jay-babu/mason-nvim-dap.nvim',
     opts = {
@@ -51,6 +105,7 @@ return {
       },
     },
   },
+
   {
     'leoluz/nvim-dap-go',
     ft = 'go',
