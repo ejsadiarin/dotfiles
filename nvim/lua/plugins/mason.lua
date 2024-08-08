@@ -116,12 +116,9 @@ return {
 
         -- NOTE: Custom language-specific configurations here
         ['lua_ls'] = function()
-          -- if you install the language server for lua it will load the config from lua/plugins/lsp/lua_ls.lua
-          require 'plugins.lsp.lua_ls'
+          -- if you install the language server for lua it will load the config from lua/essentials/lua.lua
+          require 'essentials.lua'
         end,
-        -- ['gopls'] = function()
-        --   require 'plugins.lsp.gopls'
-        -- end,
         ['dockerls'] = function()
           require('lspconfig').dockerls.setup {}
         end,
@@ -135,7 +132,15 @@ return {
         ['marksman'] = function()
           require('lspconfig').marksman.setup {}
         end,
-        ['jdtls'] = function() end, -- NOTE: this is already configured via ftplugin/java.lua (with `nvim-jdtls`)
+        ['jdtls'] = function() -- NOTE: this is already configured via ftplugin/java.lua (with `nvim-jdtls`)
+          require('lspconfig').jdtls.setup {
+            handlers = {
+              -- By assigning an empty function, you can remove the notifications
+              -- printed to the cmd
+              ['$/progress'] = function(_, result, ctx) end,
+            },
+          }
+        end,
         ['omnisharp'] = function()
           require('lspconfig').omnisharp.setup {}
         end,

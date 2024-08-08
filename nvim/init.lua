@@ -56,12 +56,11 @@ require('lazy').setup({
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
-  --  Here are extension configurations for optional things (ex. Copilot)
+  --  Here are extension plugin configurations for optional things (ex. Copilot)
   { import = 'extensions.copilot' },
   { import = 'extensions.copilot-chat' },
   { import = 'extensions.cloak' },
   { import = 'extensions.flash' },
-  { import = 'extensions.markview' },
 
   -- This is the easiest way to modularize your config.
   --
@@ -72,7 +71,12 @@ require('lazy').setup({
   { import = 'extensions.go' },
   { import = 'extensions.java' },
   -- { import = 'extensions.csharp' },
-  -- { import = 'extensions.markdown' },
+  { import = 'extensions.markdown' },
+  -- { import = 'extensions.bash' },
+  -- { import = 'extensions.python' },
+  -- { import = 'extensions.yaml' },
+  -- { import = 'extensions.ansible' },
+  -- { import = 'extensions.docker' },
 }, {
   defaults = {
     lazy = false,

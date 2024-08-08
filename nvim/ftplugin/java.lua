@@ -3,7 +3,7 @@
 -- local install_path = require('mason-registry'):get_inso
 
 local mason_registry = require 'mason-registry'
-local lombok_jar = mason_registry.get_package('lombok-nightly'):get_install_path() .. '/lombok.jar' -- check if lombok.jar is in packages 'lombok-nightly' or 'jdtls'
+-- local lombok_jar = mason_registry.get_package('lombok-nightly'):get_install_path() .. '/lombok.jar' -- check if lombok.jar is in packages 'lombok-nightly' or 'jdtls'
 local jdtls_bin = mason_registry.get_package('jdtls'):get_install_path() .. '/bin/jdtls'
 
 local config = {
