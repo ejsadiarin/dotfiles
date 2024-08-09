@@ -1,28 +1,11 @@
 -- Install and Configure LSP servers via 'mason-lspconfig'
 
 return {
-  {
-    'williamboman/mason.nvim',
-    config = true,
-    opts = {
-      ui = {
-        border = 'rounded',
-      },
-    },
-  },
 
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     opts = {
       ensure_installed = {
-        -- -- Go
-        -- 'gopls',
-        -- 'goimports', -- for formatting imports
-        -- 'gofumpt', -- gofmt
-        -- 'gomodifytags', -- add tags to struct fields
-        -- 'impl', -- generate interface methods
-        -- 'delve', -- debugger
-        -- -- { 'golangci-lint', version = 'v1.47.0' },
 
         -- Bash
         'bashls', -- lsp
@@ -37,15 +20,6 @@ return {
         -- Ansible
         'ansiblels',
         'ansible-lint',
-
-        -- Markdown
-        'marksman', -- lsp
-        -- 'markdownlint-cli2', -- linter
-        'markdown-toc', -- table of contents formatter
-
-        -- Lua
-        'lua_ls',
-        'stylua', -- Used to format Lua code
 
         -- Python
         'pyright', -- lsp
@@ -66,10 +40,6 @@ return {
         -- C
         'clangd',
 
-        -- Java
-        -- 'jdtls',
-        -- 'java-debug-adapter',
-
         -- C#
         'omnisharp', -- lsp
         'netcoredbg', -- debugger
@@ -85,6 +55,7 @@ return {
         -- See :help mason-lspconfig-dynamic-server-setup
         function(server_name) -- default handler
           -- See :help lspconfig-setup
+          --
           require('lspconfig')[server_name].setup {}
         end,
 
@@ -115,10 +86,6 @@ return {
         --  ['tsserver'] = function() end,
 
         -- NOTE: Custom language-specific configurations here
-        ['lua_ls'] = function()
-          -- if you install the language server for lua it will load the config from lua/essentials/lua.lua
-          require 'essentials.lua'
-        end,
         ['dockerls'] = function()
           require('lspconfig').dockerls.setup {}
         end,
@@ -131,15 +98,6 @@ return {
         ['tsserver'] = function() end,
         ['marksman'] = function()
           require('lspconfig').marksman.setup {}
-        end,
-        ['jdtls'] = function() -- NOTE: this is already configured via ftplugin/java.lua (with `nvim-jdtls`)
-          require('lspconfig').jdtls.setup {
-            handlers = {
-              -- By assigning an empty function, you can remove the notifications
-              -- printed to the cmd
-              ['$/progress'] = function(_, result, ctx) end,
-            },
-          }
         end,
         ['omnisharp'] = function()
           require('lspconfig').omnisharp.setup {}

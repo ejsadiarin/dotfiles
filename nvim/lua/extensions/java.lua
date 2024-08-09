@@ -1,4 +1,4 @@
--- Configuration exists in `ftplugin/java.lua`
+-- Configuration for java support made easy thanks to LazyVim extras (for 'nvim-jdtls')
 
 -- From 'LazyVim java packages':
 -- Utility function to extend or override a config table, similar to the way
@@ -33,6 +33,7 @@ return {
 
   {
     'mfussenegger/nvim-jdtls',
+    ft = 'java',
     dependencies = {
       {
         'mfussenegger/nvim-dap',

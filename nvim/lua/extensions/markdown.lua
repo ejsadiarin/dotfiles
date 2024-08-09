@@ -1,4 +1,35 @@
 return {
+  {
+    'neovim/nvim-lspconfig',
+    opts = {
+      servers = {
+        marksman = {},
+      },
+    },
+  },
+
+  {
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    opts = {
+      ensure_installed = {
+        -- Markdown
+        'marksman', -- lsp
+        -- 'markdownlint-cli2', -- linter
+        'markdown-toc', -- table of contents formatter
+      },
+    },
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter',
+    opts = {
+      ensure_installed = {
+        'markdown',
+        'markdown_inline',
+      },
+    },
+  },
+
   -- Beautiful Markdown Renderer (like conceallevel = 3 but on steroids)
   {
     'OXY2DEV/markview.nvim',

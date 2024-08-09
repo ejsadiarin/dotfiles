@@ -43,10 +43,6 @@ return {
       -- Autoinstall languages that are not installed
       auto_install = true,
       ensure_installed = {
-        -- 'go',
-        -- 'gomod',
-        -- 'gowork',
-        -- 'gosum',
         'bash',
         'yaml',
         'dockerfile',
@@ -54,8 +50,6 @@ return {
         'json',
         'vim',
         'vimdoc', -- this is "help"
-        'markdown',
-        'markdown_inline',
 
         'lua',
         'luadoc',
