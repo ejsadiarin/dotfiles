@@ -61,6 +61,7 @@ require('lazy').setup({
   { import = 'extensions.copilot-chat' },
   { import = 'extensions.cloak' },
   { import = 'extensions.flash' },
+  -- { import = 'extensions.obsidian' },
 
   -- This is the easiest way to modularize your config.
   --
@@ -71,12 +72,14 @@ require('lazy').setup({
   { import = 'extensions.go' },
   { import = 'extensions.java' },
   -- { import = 'extensions.csharp' },
+  -- { import = 'extensions.webdev' },
   { import = 'extensions.markdown' },
   -- { import = 'extensions.bash' },
   -- { import = 'extensions.python' },
   -- { import = 'extensions.yaml' },
   -- { import = 'extensions.ansible' },
   -- { import = 'extensions.docker' },
+  -- { import = 'extensions.sql' },
 }, {
   defaults = {
     lazy = false,
