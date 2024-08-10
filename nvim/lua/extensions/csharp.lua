@@ -18,6 +18,7 @@ return {
     opts = {
       servers = {
         omnisharp = {
+          filetypes = { 'cs', 'csharp' },
           -- handlers = {
           --   ['textDocument/definition'] = require('omnisharp_extended').definition_handler,
           --   ['textDocument/typeDefinition'] = require('omnisharp_extended').type_definition_handler,
@@ -64,11 +65,6 @@ return {
   },
 
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = { ensure_installed = { 'c_sharp' } },
-  },
-
-  {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     opts = {
       ensure_installed = {
@@ -78,6 +74,11 @@ return {
         'netcoredbg', -- debugger
       },
     },
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter',
+    opts = { ensure_installed = { 'c_sharp' } },
   },
 
   {
@@ -128,6 +129,16 @@ return {
         end
       end
     end,
+  },
+
+  {
+    'jay-babu/mason-nvim-dap.nvim',
+    opts = {
+      -- automatic_installation = true,
+      ensure_installed = {
+        'netcoredbg',
+      },
+    },
   },
 }
 

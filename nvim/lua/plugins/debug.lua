@@ -123,8 +123,8 @@ return {
           -- 'delve',
           'js-debug-adapter',
           'debugpy',
-          'java-debug-adapter',
-          'netcoredbg',
+          -- 'java-debug-adapter',
+          -- 'netcoredbg',
         },
       }
 

@@ -197,4 +197,14 @@ return {
       },
     },
   },
+
+  {
+    'jay-babu/mason-nvim-dap.nvim',
+    opts = {
+      -- automatic_installation = true,
+      ensure_installed = {
+        'java-debug-adapter',
+      },
+    },
+  },
 }

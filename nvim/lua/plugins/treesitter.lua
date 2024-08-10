@@ -46,7 +46,6 @@ return {
         'bash',
         'yaml',
         'dockerfile',
-        'python',
         'json',
         'vim',
         'vimdoc', -- this is "help"

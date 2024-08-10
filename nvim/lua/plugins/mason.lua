@@ -21,13 +21,6 @@ return {
         'ansiblels',
         'ansible-lint',
 
-        -- Python
-        'pyright', -- lsp
-        'isort', -- sorter
-        'black', -- python formatter
-        'pylint', -- linter
-        'debugpy', -- debugger
-
         -- HTML, CSS, JS, misc.
         'tsserver', -- lsp
         'html', -- lsp
