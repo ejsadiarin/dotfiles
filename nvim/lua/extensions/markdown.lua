@@ -74,4 +74,14 @@ return {
       { '<leader>um', '<cmd>Markview<cr>', desc = 'MD: Toggle [m]arkdown View' },
     },
   },
+
+  -- optional (personally nah)
+  -- {
+  --   'mfussenegger/nvim-lint',
+  --   opts = {
+  --     linters_by_ft = {
+  --       markdown = { 'markdownlint-cli2' },
+  --     }
+  --   }
+  -- },
 }

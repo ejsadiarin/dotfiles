@@ -43,34 +43,15 @@ return {
       -- Autoinstall languages that are not installed
       auto_install = true,
       ensure_installed = {
-        'bash',
-        'yaml',
-        'dockerfile',
-        'json',
-        'vim',
-        'vimdoc', -- this is "help"
-
         'lua',
         'luadoc',
-
-        'c',
-        'cmake',
-        'diff',
-
-        'html',
-        'css',
-        'javascript',
-        'tsx',
-        'typescript',
-        'jsdoc',
+        'yaml',
+        'dockerfile',
+        'vim',
+        'vimdoc', -- this is "help"
         'json',
         'json5',
         'jsonc',
-
-        -- 'java',
-        'c_sharp',
-
-        'sql',
         'toml',
         'gitignore',
         'gitcommit',
@@ -78,6 +59,10 @@ return {
         'query',
         'regex',
         'xml',
+        'c',
+        'cmake',
+        'diff',
+        'sql',
       },
       highlight = {
         enable = true,
