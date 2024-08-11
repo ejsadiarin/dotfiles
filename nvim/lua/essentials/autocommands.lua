@@ -124,3 +124,12 @@ vim.api.nvim_create_autocmd({ 'VimResized' }, {
 --     vim.cmd [[ copen ]]
 --   end,
 -- })
+
+-- -- set conceallevel = 0 for markdown files
+-- vim.api.nvim_create_autocmd('FileType', {
+--   group = vim.api.nvim_create_augroup('markdown-conceallevel', { clear = true }),
+--   pattern = 'markdown',
+--   callback = function()
+--     vim.opt_local.conceallevel = 0 -- so that everything is visible in markdown files
+--   end,
+-- })

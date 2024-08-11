@@ -60,7 +60,8 @@ vim.opt.cmdheight = 1 -- More space in the neovim command line for displaying me
 vim.opt.breakindent = true -- Enable break indent
 -- vim.opt.wildignore:append({ "*/node_modules/*" }) -- Ignore when expanding wildcards, completing file or directory names
 
-vim.opt.conceallevel = 1 -- so that `` is visible in markdown files
+vim.opt.conceallevel = 0 -- default
+
 -- vim.opt.formatoptions = vim.o.formatoptions:gsub("cro", "") -- Avoid comments to continue on new lines
 
 vim.opt.signcolumn = 'yes' -- Keep signcolumn on by default

@@ -162,3 +162,6 @@ end, { desc = 'Toggle C[h]eckbox' })
 -- vim.keymap.set('n', '<leader>zo', 'zR', { silent = true, desc = 'Open all folds' })
 -- vim.keymap.set('n', '<leader>zc', 'zM', { silent = true, desc = 'Close all folds' })
 -- vim.keymap.set('n', '<leader>zd', 'zE', { silent = true, desc = 'Delete all folds (in file)' })
+
+-- conceallevel change
+vim.keymap.set('n', '<leader>uC', ':set conceallevel=', { desc = 'Change [C]onceallevel' })
