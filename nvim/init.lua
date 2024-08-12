@@ -70,14 +70,12 @@ require('lazy').setup({
 
   -- Here are specific programming language module configurations (uncomment to enable)
   { import = 'extensions.go' },
+  { import = 'extensions.yaml-json' },
+  { import = 'extensions.markdown' },
   { import = 'extensions.java' },
   -- { import = 'extensions.csharp' },
-  -- { import = 'extensions.webdev' },
-  { import = 'extensions.markdown' },
+  { import = 'extensions.webdev' },
   -- { import = 'extensions.python' },
-  { import = 'extensions.yaml-json' },
-  -- { import = 'extensions.ansible' },
-  -- { import = 'extensions.docker' },
   -- { import = 'extensions.sql' },
 }, {
   defaults = {

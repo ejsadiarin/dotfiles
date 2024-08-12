@@ -117,6 +117,17 @@ vim.api.nvim_create_autocmd({ 'VimResized' }, {
   end,
 })
 
+-- auto insert mode on terminal mode when 'term://' opened
+vim.api.nvim_create_autocmd({ 'TermOpen', 'BufEnter' }, {
+  group = vim.api.nvim_create_augroup('auto-insert-on-term-mode', { clear = true }),
+  pattern = { '*' },
+  callback = function()
+    if vim.opt.buftype:get() == 'terminal' then
+      vim.cmd ':startinsert'
+    end
+  end,
+})
+
 -- TODO: moving qflist on cursor move
 -- vim.api.nvim_create_autocmd('CursorMoved', {
 --   pattern = 'qf',

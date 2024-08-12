@@ -205,6 +205,8 @@ return {
         'bashls', -- lsp
         'shellcheck', -- lint
         'shfmt', -- formatter
+        -- C
+        'clangd',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

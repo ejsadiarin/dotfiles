@@ -17,11 +17,13 @@ return {
         notify = {},
       },
       routes = {
-        filter = {
-          event = 'notify',
-          find = 'No information available',
+        {
+          filter = {
+            event = 'notify',
+            find = 'No information available',
+          },
+          opts = { skip = true },
         },
-        opts = { skip = true },
       },
       cmdline = {
         enabled = false,
