@@ -14,14 +14,14 @@
       - unzip
       - zip
       - gzip
-      - gpg
+      # - gpg (in aur)
       - pass
       - yq
       - jq
       - open-iscsi
       - tar
       - wget
-      - aria2c
+      # - aria2c (in aur)
       # - qemu-guest-agent
     state: present
   become: true

@@ -5,3 +5,16 @@
     update_cache: true
   become: true
   when: machine_os == 'debian'
+
+- name: Zsh | Install zsh
+  community.general.pacman:
+    name: zsh
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+
+- name: Zsh | Copy .zshrc
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/dotfiles/.zshrc"
+    dest: "{{ ansible_user_dir }}/.zshrc"
+    state: link

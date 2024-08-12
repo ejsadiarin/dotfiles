@@ -21,6 +21,10 @@
       ansible.builtin.include_role:
         name: system_update
 
+    - name: Configure NTP timesync
+      ansible.builtin.include_role:
+        name: timezone_ntp
+
     - name: Register Host User
       ansible.builtin.set_fact:
         # ERROR: remove ansible_env['USER']
@@ -28,4 +32,8 @@
         # host_user: "{{ ansible_user_id | ansible_env['USER'] }}"
       when: host_user is not defined
 
-  tasks:
+  roles:
+    - essentials
+    - zsh
+    - neovim
+    - tmux

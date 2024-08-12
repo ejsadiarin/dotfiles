@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+# NOTE: RUN ON CONTROL NODE (if configuring on multiple servers/machines/computers)
+
+# get dotfiles config with git clone
+# install ansible (add distro-specific conditions)
+# run ansible-playbook main.yml --ask-become-pass
+# switch case for dry-run, run local, run on remote (pass hosts.ini from inventory)
