@@ -1,0 +1,7 @@
+- name: Essentials | Configure install packages for Archlinux
+  ansible.builtin.import_tasks: archlinux.yml
+  when: machine_os == 'archlinux'
+
+- name: Essentials | Configure install packages for Debian
+  ansible.builtin.import_tasks: debian.yml
+  when: machine_os == 'debian'

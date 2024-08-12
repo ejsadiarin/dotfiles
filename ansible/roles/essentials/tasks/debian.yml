@@ -1,0 +1,28 @@
+- name: Essentials Debian | Install essential packages
+  ansible.builtin.apt:
+    name:
+      - git
+      - fd-find
+      - ripgrep
+      - curl
+      - fzf
+      - cmake
+      - gcc
+      - vim
+      # - pkg-config
+      - libtool
+      - unzip
+      - zip
+      - gzip
+      - gpg
+      - pass
+      - yq
+      - jq
+      - open-iscsi
+      - tar
+      - wget
+      - aria2c
+      - qemu-guest-agent
+    state: present
+    update_cache: true
+  become: true

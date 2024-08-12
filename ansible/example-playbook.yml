@@ -1,0 +1,24 @@
+- name: Example Playbook with a Role in Pre-tasks
+  hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: Run system update role
+      include_role:
+        name: system_update_role
+
+  roles:
+    - common
+    - webserver
+
+  tasks:
+    - name: Install additional package
+      ansible.builtin.package:
+        name: curl
+        state: present
+
+  post_tasks:
+    - name: Clean up temporary files
+      ansible.builtin.file:
+        path: /tmp/tempfile
+        state: absent

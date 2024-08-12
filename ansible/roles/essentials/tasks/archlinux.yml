@@ -1,0 +1,27 @@
+- name: Essentials Arch | Install essential packages
+  community.general.pacman:
+    name:
+      - git
+      - fd
+      - ripgrep
+      - curl
+      - fzf
+      - cmake
+      - gcc
+      - vim
+      # - pkg-config
+      - libtool
+      - unzip
+      - zip
+      - gzip
+      - gpg
+      - pass
+      - yq
+      - jq
+      - open-iscsi
+      - tar
+      - wget
+      - aria2c
+      # - qemu-guest-agent
+    state: present
+  become: true

@@ -1,0 +1,35 @@
+default_roles:
+  - neovim
+  - zsh
+  - tmux
+  - docker
+  - tldr
+  - lsd
+  - git
+  # - obsidian
+  - k8s
+  - helm
+  # - syncthing
+
+machine_os: "" # this is populated on runtime (playbook execution, see: main.yml)
+
+git_user_name: "ejsadiarin"
+
+# use ANSIBLE_VAULT for the below:
+git_user_email:
+# OPENAI_KEY:
+# OPENAI_API_KEY:
+
+# k8s:
+#   repo_version: "v1.26"
+#
+# helm:
+#   repos:
+#     - name: traefik
+#       url: https://helm.traefik.io/traefik
+#
+# go:
+
+# ssh_key:
+#   id_ed25519:
+#   id_ed25519.pub:

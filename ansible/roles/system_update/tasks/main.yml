@@ -1,0 +1,16 @@
+- name: Debian | Update Machine
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: full
+    autoremove: true
+    autoclean: true
+  become: true
+  when: machine_os == 'debian'
+
+- name: Arch | Update Machine
+  community.general.pacman:
+    update_cache: true
+    upgrade: true
+    state: latest
+  become: true
+  when: machine_os == 'archlinux'

@@ -1,0 +1,31 @@
+# Main Playbook
+# run on local: ansible-playbook main.yml --ask-become-pass
+# run on remotes: ansible-playbook main.yml --ask-pass --ask-become-pass -i inventory/hosts.ini
+# for dry-run (check mode): ansible-playbook --check main.yml --ask-become-pass
+
+- name: Exquisite Dotfiles Configuration
+  hosts: localhost # if have multiple hosts on hosts.ini file then: 'all', 'linux', 'webservers', etc.
+  connection: local
+  gather_facts: true
+
+  pre_tasks:
+    - name: Detect OS and put in machine_os variable
+      ansible.builtin.set_fact:
+        machine_os: "{{ ansible_facts['os_family'] | lower }}" # can be 'archlinux', 'debian', 'redhat', etc.
+
+    - name: Debug machine_os
+      ansible.builtin.debug:
+        msg: "The machine is {{ machine_os }}"
+
+    - name: Run system_update role
+      ansible.builtin.include_role:
+        name: system_update
+
+    - name: Register Host User
+      ansible.builtin.set_fact:
+        # ERROR: remove ansible_env['USER']
+        host_user: "{{ ansible_env['USER'] }}"
+        # host_user: "{{ ansible_user_id | ansible_env['USER'] }}"
+      when: host_user is not defined
+
+  tasks:

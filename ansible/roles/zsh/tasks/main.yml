@@ -1,0 +1,7 @@
+- name: Zsh | Install zsh
+  ansible.builtin.apt:
+    name: zsh
+    state: present
+    update_cache: true
+  become: true
+  when: machine_os == 'debian'
