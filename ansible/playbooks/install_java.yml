@@ -1,0 +1,13 @@
+- name: Development (Arch) | Install Java
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Development (Arch) | Install Java
+      community.general.pacman:
+        name:
+          - jdk-openjdk
+        state: present
+      become: true
+      when: ansible_facts['os_family']|lower  == 'archlinux' # can be 'archlinux', 'debian', 'redhat', etc.

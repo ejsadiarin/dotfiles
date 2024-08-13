@@ -1,7 +1,17 @@
+####################
+#     REQUIRED:    #
+####################
 git_user_name: "ejsadiarin"
-
-# use ANSIBLE_VAULT for the below:
 git_user_email:
+# Development
+wants_development: true
+wants_java: true
+wants_csharp_dotnet: true
+#
+#
+####################
+#     OPTIONAL:    #
+####################
 # OPENAI_KEY:
 # OPENAI_API_KEY:
 

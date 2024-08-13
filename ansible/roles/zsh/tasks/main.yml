@@ -18,3 +18,9 @@
     src: "{{ ansible_user_dir }}/dotfiles/.zshrc"
     dest: "{{ ansible_user_dir }}/.zshrc"
     state: link
+
+- name: Zsh | Make zsh the default shell
+  become: true
+  ansible.builtin.user:
+    name: "{{ host_user }}" # defined in pre-tasks in main playbook
+    shell: /bin/zsh

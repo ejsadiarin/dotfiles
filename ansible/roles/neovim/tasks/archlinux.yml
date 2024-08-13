@@ -1,0 +1,26 @@
+- name: Neovim | Make sure 'dependencies' are installed
+  community.general.pacman:
+    name:
+      # make sure 'dependencies' are installed
+      - gcc
+      - make
+      - git
+      - ripgrep
+      - fd
+      - unzip
+    state: present
+    extra_args: --noconfirm
+  become: true
+
+- name: Neovim | Install latest stable Neovim version via pacman
+  community.general.pacman:
+    name: neovim
+    state: latest
+    extra_args: --noconfirm
+  become: true
+
+- name: Neovim | Copy own nvim configs
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/dotfiles/nvim"
+    dest: "{{ ansible_user_dir }}/.config/nvim"
+    state: link

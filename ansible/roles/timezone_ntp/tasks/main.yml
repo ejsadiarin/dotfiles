@@ -10,7 +10,7 @@
     dest: /etc/systemd/timesyncd.conf
     owner: root
     group: root
-    mode: -rw-r--r--
+    mode: -rw-r--r-- # "0644"
   notify: Timezone/NTP | Restart timesyncd.service
 
 - name: Timezone/NTP | Copy ntp.conf
@@ -19,5 +19,5 @@
     dest: /etc/ntp.conf
     owner: root
     group: root
-    mode: -rw-r--r--
+    mode: -rw-r--r-- # "0644"
   notify: Timezone/NTP | Restart timesyncd.service

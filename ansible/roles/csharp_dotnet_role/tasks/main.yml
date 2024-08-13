@@ -1,0 +1,19 @@
+- name: Development (Arch) | Install CSharp/Dotnet
+  community.general.pacman:
+    name:
+      - dotnet-runtime
+      - dotnet-sdk
+      - aspnet-runtime
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+
+- name: Development (Debian) | Install CSharp/Dotnet
+  ansible.builtin.apt:
+    name:
+      - dotnet-runtime
+      - dotnet-sdk
+      - aspnet-runtime
+    state: present
+  become: true
+  when: machine_os == 'debian'

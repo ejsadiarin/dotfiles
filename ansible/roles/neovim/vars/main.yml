@@ -1,0 +1,2 @@
+neovim_version_latest_stable: "0.10.1"
+neovim_appimage_url: "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"

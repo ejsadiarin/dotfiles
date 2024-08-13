@@ -1,0 +1,15 @@
+- name: Development (Arch) | Install Java
+  community.general.pacman:
+    name:
+      - jdk-openjdk
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+
+- name: Development (Debian) | Install Java
+  ansible.builtin.apt:
+    name:
+      - jdk-openjdk
+    state: present
+  become: true
+  when: machine_os == 'debian'
