@@ -2,10 +2,36 @@
 
 # NOTE: RUN ON CONTROL NODE (if configuring on multiple servers/machines/computers)
 
+CRE=$(tput setaf 1)
+CYE=$(tput setaf 3)
+CGR=$(tput setaf 2)
+CBL=$(tput setaf 4)
+BLD=$(tput bold)
+CNC=$(tput sgr0)
+
 # get dotfiles config with git clone
 # install ansible (add distro-specific conditions)
 # run ansible-playbook main.yml --ask-become-pass
 # switch case for dry-run, run local, run on remote (pass hosts.ini from inventory)
 
-#
+# Only Install Paru if system is 'Arch'
+if [ -f /etc/arch-release ]; then # check_if_arch='cat /etc/os-release | grep -i "arch"'
+  if command -v paru >/dev/null 2>&1; then
+    printf "%s%sParu is already installed%s\n" "${BLD}" "${CGR}" "${CNC}"
+  else
+    printf "%s%sInstalling paru%s\n" "${BLD}" "${CBL}" "${CNC}"
+    {
+      cd "$HOME" || exit
+      git clone https://aur.archlinux.org/paru-bin.git
+      cd paru-bin || exit
+      makepkg -si --noconfirm
+    } || {
+      printf "\n%s%sFailed to install Paru. You may need to install it manually%s\n" "${BLD}" "${CRE}" "${CNC}"
+    }
+  fi
+else
+  echo 'Skipping: Not an Arch-based system... btw'
+fi
+
+# Install required collections from ansible-galaxy
 ansible-galaxy collection install -r ./collection/requirements.yml

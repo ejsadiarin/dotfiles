@@ -1,0 +1,30 @@
+- name: Tmux (Arch) | Install tmux
+  community.general.pacman:
+    name: tmux
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+
+- name: Tmux (Debian) | Install tmux
+  ansible.builtin.apt:
+    name: tmux
+    state: present
+  become: true
+  when: machine_os == 'debian'
+
+- name: Tmux | Link tmux.conf config
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/dotfiles/tmux/.tmux.conf"
+    dest: "{{ ansible_user_dir }}/.tmux.conf"
+    state: link
+
+- name: Tmux | Link dotfiles/tmux configs to ~/.tmux
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/dotfiles/tmux"
+    dest: "{{ ansible_user_dir }}/.tmux"
+    state: link
+
+- name: Tmux | Install tpm
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"

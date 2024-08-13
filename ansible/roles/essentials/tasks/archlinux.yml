@@ -14,7 +14,7 @@
       - unzip
       - zip
       - gzip
-      # - gpg (in aur)
+      - gnupg # gpg
       - pass
       - yq
       - jq

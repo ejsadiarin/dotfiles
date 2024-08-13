@@ -37,15 +37,16 @@
     - zsh
     - neovim
     - tmux
+    # - ssh
 
     # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
   tasks:
     - name: Optional | Install Java
       ansible.builtin.include_role:
         name: java_role
-      when: wants_java == true
+      when: wants_java # defaults to true
 
     - name: Optional | Install C#/Dotnet
       ansible.builtin.include_role:
         name: csharp_dotnet_role
-      when: wants_csharp_dotnet == true
+      when: wants_csharp_dotnet # defaults to true
