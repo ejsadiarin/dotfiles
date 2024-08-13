@@ -35,3 +35,48 @@ shred -uvz decrypted_mp
 gpg --symmetric master_password
 shred -uvz master_password
 ```
+
+# Post-Installation
+
+- zsh, neovim, and tmux plugins are 'separately installed' so we just need to open them to install the necessary plugins
+
+## zsh
+
+- opening zsh will automatically install the plugins
+
+```bash
+zsh
+```
+
+## neovim
+
+- opening nvim will also automatically install the plugins
+  - do a `:checkhealth` after to see 'missing' deps, etc.
+
+```bash
+nvim
+```
+
+## tmux
+
+- open tmux
+
+```bash
+tmux
+```
+
+- source the .tmux.conf file inside tmux
+
+```bash
+cd
+tmux source .tmux.conf
+```
+
+- then install plugins with `<prefix>+I`
+  - this config uses `M-Space` (or `Alt-Space`) as prefix
+  - so do: `M-Space + I` (`Alt-Space + I`)
+
+```bash
+cd
+tmux source .tmux.conf
+```

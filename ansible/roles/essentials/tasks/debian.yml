@@ -2,7 +2,7 @@
   ansible.builtin.apt:
     name:
       - git
-      - fd-find
+      - fd-find # NOTE: binary is 'fdfind' in debian, might need to mv it to 'fd' for convenience
       - ripgrep
       - curl
       - fzf
@@ -14,14 +14,15 @@
       - unzip
       - zip
       - gzip
-      - gpg
+      - lsd
+      - gnupg
       - pass
       - yq
       - jq
       - open-iscsi
       - tar
       - wget
-      - aria2c
+      # - aria2c
       - qemu-guest-agent
     state: present
     update_cache: true

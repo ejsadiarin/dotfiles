@@ -20,17 +20,19 @@
 
 - name: Neovim | Create /opt/nvim directory as download directory
   ansible.builtin.file:
-    state: directory
+    path: "/opt/nvim"
     owner: root
     group: root
     mode: "0755" # drwxr-x-r-x
-    path: "/opt/nvim"
+    state: directory
+  become: true
 
 - name: Neovim | Get/Install nvim.appimage
   ansible.builtin.get_url:
     url: "{{ neovim_appimage_url }}"
     dest: "/opt/nvim/nvim.appimage"
     mode: "0555" # -r-x-r-x-r-x
+  become: true
 
 - name: Neovim | Copy nvim.appimage bin to /usr/local/bin/nvim for global PATH
   ansible.builtin.copy:
@@ -40,6 +42,7 @@
     group: root
     mode: "0755" # -rwx-r-x-r-x
     remote_src: true
+  become: true
 
 - name: Neovim | Copy own nvim configs
   ansible.builtin.file:

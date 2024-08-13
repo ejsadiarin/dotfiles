@@ -11,6 +11,7 @@
     owner: root
     group: root
     mode: -rw-r--r-- # "0644"
+  become: true
   notify: Timezone/NTP | Restart timesyncd.service
 
 - name: Timezone/NTP | Copy ntp.conf
@@ -20,4 +21,5 @@
     owner: root
     group: root
     mode: -rw-r--r-- # "0644"
+  become: true
   notify: Timezone/NTP | Restart timesyncd.service

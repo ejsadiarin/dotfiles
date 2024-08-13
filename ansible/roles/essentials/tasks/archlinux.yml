@@ -14,6 +14,7 @@
       - unzip
       - zip
       - gzip
+      - lsd
       - gnupg # gpg
       - pass
       - yq
