@@ -1,0 +1,3 @@
+# install collections via: ansible-galaxy collection install -r arch.yml
+collections:
+  - name: kewlfft.aur # https://github.com/kewlfft/ansible-aur

@@ -2,4 +2,3 @@
 collections:
   - name: community.general
   # - name: kubernetes.core
-  - name: kewlfft.aur # https://github.com/kewlfft/ansible-aur
