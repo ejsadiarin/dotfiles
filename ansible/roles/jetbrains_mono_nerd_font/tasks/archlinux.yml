@@ -5,5 +5,4 @@
       - ttf-jetbrains-mono-nerd
     state: present
   become: true
-  when: machine_os == 'archlinux'
   notify: Nerd Font | Refresh fc-cache list

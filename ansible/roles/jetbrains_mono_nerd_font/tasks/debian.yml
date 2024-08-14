@@ -22,3 +22,5 @@
     src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip"
     dest: /usr/share/fonts/jetbrains-mono-nerd-font/
     remote_src: true
+  become: true
+  notify: Nerd Font | Refresh fc-cache list
