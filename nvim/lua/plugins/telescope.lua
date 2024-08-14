@@ -58,7 +58,7 @@ return {
         pickers = {
           find_files = {
             -- sort files by modified time (rg sorts result by modification date, fd don't)
-            find_command = { 'rg', '--files', '--sortr=modified' },
+            find_command = { 'rg', '--files', '--hidden', '--sortr=modified' },
           },
         },
         extensions = {
