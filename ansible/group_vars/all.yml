@@ -11,8 +11,8 @@ git_user_email: !vault |
   63646430386662616539333437613765333562323061616461316533323637303665613431623838
   3839333863313536613733666165356338383566353836663363
 # Development
-wants_java: true
-wants_csharp_dotnet: true
+wants_java: false
+wants_csharp_dotnet: false
 #
 # maybe like exclude_roles?
 #

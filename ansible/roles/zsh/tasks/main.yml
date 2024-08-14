@@ -20,7 +20,7 @@
     state: link
 
 - name: Zsh | Make zsh the default shell
-  become: true
+  # become: true
   ansible.builtin.user:
     name: "{{ host_user }}" # defined in pre-tasks in main playbook
-    shell: /bin/zsh
+    shell: /usr/bin/zsh

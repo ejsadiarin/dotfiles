@@ -38,7 +38,7 @@ shred -uvz master_password
 
 # Post-Installation
 
-- zsh, neovim, and tmux plugins are 'separately installed' so we just need to open them to install the necessary plugins
+- **zsh, neovim, and tmux plugins are 'separately installed' so we just need to open them to install the necessary plugins**
 
 ## zsh
 
@@ -75,8 +75,3 @@ tmux source .tmux.conf
 - then install plugins with `<prefix>+I`
   - this config uses `M-Space` (or `Alt-Space`) as prefix
   - so do: `M-Space + I` (`Alt-Space + I`)
-
-```bash
-cd
-tmux source .tmux.conf
-```

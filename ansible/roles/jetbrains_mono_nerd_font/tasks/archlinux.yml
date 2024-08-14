@@ -1,0 +1,9 @@
+- name: Nerd Font (Arch) | Install Jetbrains Mono Nerd Font
+  community.general.pacman:
+    name:
+      - ttf-jetbrains-mono
+      - ttf-jetbrains-mono-nerd
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+  notify: Nerd Font | Refresh fc-cache list

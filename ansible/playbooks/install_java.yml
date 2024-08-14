@@ -11,3 +11,12 @@
         state: present
       become: true
       when: ansible_facts['os_family']|lower  == 'archlinux' # can be 'archlinux', 'debian', 'redhat', etc.
+
+    - name: Development (Debian) | Install Java
+      ansible.builtin.apt:
+        name:
+          - openjdk-17-jdk
+          - openjdk-17-jre
+        state: present
+      become: true
+      when: ansible_facts['os_family']|lower  == 'debian' # can be 'archlinux', 'debian', 'redhat', etc.
