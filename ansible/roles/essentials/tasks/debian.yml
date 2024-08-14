@@ -52,10 +52,8 @@
   ansible.builtin.copy:
     src: /usr/bin/fdfind
     dest: /usr/bin/fd
-  become: true
-
-- name: Essentials Debian | Remove 'fdfind'
-  ansible.builtin.file:
-    path: /usr/bin/fdfind
-    state: absent
+    owner: root
+    group: root
+    mode: "0755" # -rwx-r-x-r-x
+    remote_src: true
   become: true
