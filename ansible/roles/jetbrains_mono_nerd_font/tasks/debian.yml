@@ -17,7 +17,7 @@
   ignore_errors: true
 
 - name: Nerd Font (Debian) | Get/Install Jetbrains Mono Nerd Font
-  when: jetbrains_mono_nf_exists.rc is failed
+  when: jetbrains_mono_nf_exists is failed
   ansible.builtin.unarchive:
     src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip"
     dest: /usr/share/fonts/jetbrains-mono-nerd-font/
