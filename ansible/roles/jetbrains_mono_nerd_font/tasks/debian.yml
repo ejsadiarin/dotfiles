@@ -5,13 +5,19 @@
     state: present
   become: true
 
+- name: Nerd Font (Debian) | Ensure fonts directory for JetBrainsMonoNerdFont exists
+  ansible.builtin.file:
+    state: directory
+    path: /usr/share/fonts/jetbrains-mono-nerd-font
+  become: true
+
 - name: Nerd Font (Debian) | Check if JetBrainsMono Nerd Font exists
   ansible.builtin.shell: "fc-list | grep -i 'JetBrainsMonoNerdFont'"
   register: jetbrains_mono_nf_exists
   ignore_errors: true
 
 - name: Nerd Font (Debian) | Get/Install Jetbrains Mono Nerd Font
-  when: jetbrains_mono_nf_exists is failed
+  when: jetbrains_mono_nf_exists.rc is failed
   ansible.builtin.unarchive:
     src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip"
     dest: /usr/share/fonts/jetbrains-mono-nerd-font/
