@@ -41,5 +41,15 @@
 
 - name: Essentials Debian | Install fzf
   ansible.builtin.shell: "{{ ansible_user_dir }}/.fzf/install"
-#
-# - name: Essentials Debian | Move/Rename common binaries
+
+- name: Essentials Debian | Copy 'fdfind' to 'fd' binary
+  ansible.builtin.copy:
+    src: /usr/bin/fdfind
+    dest: /usr/bin/fd
+  become: true
+
+- name: Essentials Debian | Remove 'fdfind'
+  ansible.builtin.file:
+    path: /usr/bin/fdfind
+    state: absent
+  become: true
