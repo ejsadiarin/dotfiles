@@ -47,3 +47,13 @@
 
 - name: Essentials Debian | Install fzf
   ansible.builtin.shell: "{{ ansible_user_dir }}/.fzf/install"
+
+- name: Essentials Debian | Copy fzf binary to system-wide binaries
+  ansible.builtin.copy:
+    src: "{{ ansible_user_dir }}/.fzf/bin/fzf"
+    dest: "/usr/local/bin/fzf" # or "/usr/bin/nvim" directly?
+    owner: root
+    group: root
+    mode: "0755" # -rwx-r-x-r-x
+    remote_src: true
+  become: true
