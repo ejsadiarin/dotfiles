@@ -165,3 +165,6 @@ end, { desc = 'Toggle C[h]eckbox' })
 
 -- conceallevel change
 vim.keymap.set('n', '<leader>uC', ':set conceallevel=', { desc = 'Change [C]onceallevel' })
+
+-- unpolluted paste (paste from yank register)
+vim.keymap.set({ 'n', 'x' }, '<leader>p', '"0p', { desc = 'Unpolluted [p]aste' })
