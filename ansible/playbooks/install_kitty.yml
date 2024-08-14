@@ -1,0 +1,19 @@
+- name: Install kitty (terminal emulator)
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Install kitty in Arch
+      community.general.pacman:
+        name: kitty
+        state: present
+      become: true
+      when: ansible_facts['os_family']|lower  == 'archlinux' # can be 'archlinux', 'debian', 'redhat', etc.
+
+    - name: Install kitty in Debian
+      ansible.builtin.apt:
+        name: kitty
+        state: present
+      become: true
+      when: ansible_facts['os_family']|lower  == 'debian' # can be 'archlinux', 'debian', 'redhat', etc.

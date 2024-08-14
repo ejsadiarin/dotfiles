@@ -33,6 +33,12 @@
     state: absent
   become: true
 
+- name: Essentials Debian | Ensure old fzf is removed
+  ansible.builtin.file:
+    path: /usr/bin/fzf
+    state: absent
+  become: true
+
 - name: Essentials Debian | Clone latest fzf
   ansible.builtin.git:
     repo: https://github.com/junegunn/fzf.git
