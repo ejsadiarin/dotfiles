@@ -5,7 +5,6 @@
       - fd-find # NOTE: binary is 'fdfind' in debian, might need to mv it to 'fd' for convenience
       - ripgrep
       - curl
-      - fzf
       - cmake
       - gcc
       - vim
@@ -27,4 +26,20 @@
     state: present
     update_cache: true
   become: true
+
+- name: Essentials Debian | Remove apt fzf
+  ansible.builtin.apt:
+    name: fzf
+    state: absent
+  become: true
+
+- name: Essentials Debian | Clone latest fzf
+  ansible.builtin.git:
+    repo: https://github.com/junegunn/fzf.git
+    depth: 1
+    dest: "{{ ansible_user_dir }}/.fzf"
+
+- name: Essentials Debian | Install fzf
+  ansible.builtin.shell: "{{ ansible_user_dir }}/.fzf/install"
+#
 # - name: Essentials Debian | Move/Rename common binaries
