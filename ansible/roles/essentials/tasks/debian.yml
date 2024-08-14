@@ -47,13 +47,3 @@
 
 - name: Essentials Debian | Install fzf
   ansible.builtin.shell: "{{ ansible_user_dir }}/.fzf/install"
-
-- name: Essentials Debian | Copy 'fdfind' to 'fd' binary
-  ansible.builtin.copy:
-    src: /usr/bin/fdfind
-    dest: /usr/bin/fd
-    owner: root
-    group: root
-    mode: "0755" # -rwx-r-x-r-x
-    remote_src: true
-  become: true
