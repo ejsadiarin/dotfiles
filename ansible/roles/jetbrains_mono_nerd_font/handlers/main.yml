@@ -1,1 +1,2 @@
 - name: Nerd Font | Refresh fc-cache list
+  ansible.builtin.shell: "fc-cache -fv"
