@@ -1,0 +1,13 @@
+- name: Go | Install Go for Arch (Golang)
+  community.general.pacman:
+    name: go
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+
+- name: Go | Install Go for Debian (Golang)
+  ansible.builtin.apt:
+    name: go
+    state: present
+  become: true
+  when: machine_os = 'debian'

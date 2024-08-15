@@ -31,16 +31,23 @@
       ansible.builtin.include_role:
         name: timezone_ntp
 
+    - name: Configure Locale to UTF-8
+      ansible.builtin.shell: "localectl set-locale LANG=en_US.UTF-8"
+
   roles:
     - essentials
-    - development # by default installs: go, js/ts, python
     - zsh
     - neovim
     - tmux
     - jetbrains_mono_nerd_font
     - ssh
+    - go_role
+    - js_ts_role
+    - python_role
+    - java_role
+    - csharp_dotnet_role
 
-    # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
+  # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
   tasks:
     - name: Optional | Install Java
       ansible.builtin.include_role:

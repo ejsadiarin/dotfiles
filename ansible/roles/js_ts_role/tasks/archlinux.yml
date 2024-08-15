@@ -1,0 +1,14 @@
+- name: JavaScript/TypeScript | Install JS/TS for Arch
+  community.general.pacman:
+    name:
+      - nodejs
+      - pnpm
+      - npm
+    state: present
+  become: true
+
+- name: JavaScript/TypeScript | Install nvm
+  kewlfft.aur.aur:
+    name: nvm
+    state: present
+  become: true

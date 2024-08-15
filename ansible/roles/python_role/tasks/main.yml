@@ -1,0 +1,19 @@
+- name: Python | Install Python for Arch
+  community.general.pacman:
+    name:
+      - python
+      - python-pip
+      - python-pipx
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+
+- name: Python | Install Python for Debian
+  ansible.builtin.apt:
+    name:
+      - python
+      - python-pip
+      - python-pipx
+    state: present
+  become: true
+  when: machine_os == 'debian'

@@ -1,7 +1,7 @@
-- name: Neovim | Detect OS for Archlinux
+- name: JavaScript/TypeScript | Detect OS for Archlinux
   ansible.builtin.import_tasks: archlinux.yml
   when: machine_os == 'archlinux'
 
-- name: Neovim | Detect OS for Debian
+- name: JavaScript/TypeScript | Detect OS for Debian
   ansible.builtin.import_tasks: debian.yml
   when: machine_os == 'debian'
