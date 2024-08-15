@@ -38,7 +38,7 @@
     - neovim
     - tmux
     - jetbrains_mono_nerd_font
-    # - ssh
+    - ssh
 
     # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
   tasks:

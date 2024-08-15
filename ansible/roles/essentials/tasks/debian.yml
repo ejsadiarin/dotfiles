@@ -21,6 +21,7 @@
       - open-iscsi
       - tar
       - wget
+      - libmagickwand-dev
       # - aria2c
       - qemu-guest-agent
     state: present

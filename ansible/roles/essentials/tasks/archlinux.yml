@@ -22,6 +22,7 @@
       - open-iscsi
       - tar
       - wget
+      - imagemagick
       # - aria2c (in aur)
       # - qemu-guest-agent
     state: present
