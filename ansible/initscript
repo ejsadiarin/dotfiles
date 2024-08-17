@@ -342,7 +342,6 @@ debian_setup() {
     stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
     write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
   fi
-  i
 
   stdout_msg "DONE" "debian-setup" "Setup done! [$date_today]"
   write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
