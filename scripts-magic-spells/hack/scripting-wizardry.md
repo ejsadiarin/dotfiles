@@ -7,13 +7,15 @@ tags:
 date: 2024-02-18T00:04
 title: Scripting Wizardry
 ---
+
 <!-- 2024-02-18-0004 (February 18, 2024 12:04 AM) -->
 
 # Scripting Wizardry - The Only Practical Guide You'll Ever Need
+
 - become a wizard in the terminal/shell
 
 ## The only important things to know in order to get comfortable
- 
+
 1. Use pipe/piping/pipelines `|` and subshells `$()`
 2. Use scripts and aliases for fast and easy executables
 3. Use man pages or tldr for quick reference
@@ -25,6 +27,7 @@ title: Scripting Wizardry
 - `;` is used to run multiple commands in a single line.
 
 ## Examples (and useful oneliners):
+
 ```bash
 # finds all my custom scripts prefixed with comma and fzf it
 fd -tf -tx --glob ",*" --search-path $HOME -x basename {} | awk '!seen[$0]++' | fzf
@@ -62,13 +65,17 @@ find $HOME -type f -size 0
 ```
 
 ## Error Handling
+
 - Exit status: `0` - success, `1` - failure
 - `set -e` at the beginning of the script:
+
   - This will cause the script to exit immediately if a command fails. (return non-zero exit status)
   - lifehack, but cannot echo for custom error messages/feedback to stdout.
 
 - `command || { echo "Error message; exit 1; }`
+
   - if `command` fails, then `echo` will run and exit.
+
   ```bash
   sudo umount "$mountpoint" || {
     echo "[ ERROR ] Unable to unmount the device."
@@ -77,8 +84,10 @@ find $HOME -type f -size 0
   ```
 
 - `$? -ne 0`
+
   - if exit status (`$?`) is `n`ot `e`qual to `0` then do something.
   - this is simplified by `set -e`:
+
   ```bash
   sudo eject "$usbdisk"
   if [ $? -ne 0 ]; then
@@ -87,7 +96,8 @@ find $HOME -type f -size 0
   ```
 
 - `if ! command; then`
-```bash
+
+````bash
 if ! sudo eject "$usbdisk"; then
   echo "[ ERROR ] Unable to eject the device."
 fi
@@ -99,9 +109,10 @@ title="$*" # handles spaces for args
 if [ $# -eq 0 ]; then
   echo "[ ERROR ] No argument specified"
 fi
-```
+````
 
 ### `if` flags:
+
 `-e`:
 Checks if a file exists.
 Example: [ -e file.txt ]
@@ -112,8 +123,9 @@ Example: [ -n "$variable" ]
 
 `-z`:
 Checks if a string is empty.
+
 - if empty, return `true` (0)
-Example: [ -z "$variable" ]
+  Example: [ -z "$variable" ]
 
 `-d`:
 Checks if a path exists and is a directory.
@@ -133,6 +145,7 @@ Example: [ -w file.txt ]
 
 `-x`:
 Checks if a file is executable.
+Returns:
 Example: [ -x script.sh ]
 
 `-s`:
@@ -140,6 +153,7 @@ Checks if a file is not empty (has a size greater than zero).
 Example: [ -s file.txt ]
 
 - usage:
+
 ```bash
 if [ -<flag> <condition> ]; then
     # do something
@@ -147,6 +161,7 @@ fi
 ```
 
 # References and Best Resources
+
 - [Become a shell wizard in ~12 mins](https://www.youtube.com/watch?v=IYZDIhfAUM0)
 - [Bash Scripting Pro Course in 30 mins](https://www.youtube.com/watch?v=4ygaA_y1wvQ)
 - [Advanced Bash Scripting Guide: an in-depth exploration of the art of shell scripting](https://hangar118.sdf.org/p/bash-scripting-guide/index.html)
@@ -154,5 +169,5 @@ fi
 - [Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html)
 - [Unofficial Bash Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
 
--  [mischavandenburg's github](https://github.com/mischavandenburg/dotfiles/blob/main/scripts/)
+- [mischavandenburg's github](https://github.com/mischavandenburg/dotfiles/blob/main/scripts/)
 - [system scripts by slyfox](https://github.com/slyfox1186/script-repo)
