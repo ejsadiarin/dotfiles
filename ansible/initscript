@@ -225,7 +225,8 @@ arch_setup() {
     stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
     write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
 
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collections/requirements.yml "$DOTFILES"/ansible/collections/arch.yml
+    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
+    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml
 
     stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
     write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
@@ -233,7 +234,8 @@ arch_setup() {
     stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
     write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
 
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collections/requirements.yml "$DOTFILES"/ansible/collections/arch.yml
+    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
+    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml
 
     stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
     write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
@@ -324,7 +326,7 @@ debian_setup() {
     stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
     write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
 
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collections/requirements.yml
+    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
 
     stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
     write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
@@ -332,7 +334,7 @@ debian_setup() {
     stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
     write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
 
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collections/requirements.yml
+    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
 
     stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
     write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
