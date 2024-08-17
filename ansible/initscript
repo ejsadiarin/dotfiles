@@ -1,6 +1,9 @@
 #!/usr/bin/bash
 
-# NOTE: RUN ON CONTROL NODE (if configuring on multiple servers/machines/computers)
+# Initialization Script for dotfiles
+# Author: Ej Sadiarin github.com/ejsadiarin
+#
+# NOTE: ONLY RUN ON CONTROL NODE (if configuring on multiple servers/machines/computers)
 
 set -e
 
