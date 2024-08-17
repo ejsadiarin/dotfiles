@@ -2,3 +2,5 @@ tmux/plugins
 .git/
 nvim/lazy-lock.json
 .exquisite_log
+.exquisite_release
+ansible/color.sh
