@@ -228,20 +228,29 @@ arch_setup() {
     stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
     write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
 
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml
+    {
+      ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+      ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml >/dev/null 2>&1
+      stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
+      write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
+    } || {
+      stdout_msg "ERROR" "ansible-galaxy" "Failed to install collections. Install manually."
+      write_to_exquilog "ERROR" "ansible-galaxy" "Failed to install openssh."
+    }
 
-    stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
-    write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
   else
     stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
     write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
 
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml
-
-    stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
-    write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
+    {
+      ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+      ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml >/dev/null 2>&1
+      stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
+      write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
+    } || {
+      stdout_msg "ERROR" "ansible-galaxy" "Failed to update collections. Update manually."
+      write_to_exquilog "ERROR" "ansible-galaxy" "Failed to update openssh."
+    }
   fi
 
   stdout_msg "DONE" "arch-setup" "Setup done! [$date_today]"

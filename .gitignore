@@ -4,3 +4,8 @@ nvim/lazy-lock.json
 .exquisite_log
 .exquisite_release
 ansible/color.sh
+decrypted_mp
+ansible/decrypted_mp
+master_password
+ansible/master_password
+out

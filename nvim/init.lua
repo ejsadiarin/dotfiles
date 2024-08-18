@@ -73,7 +73,7 @@ require('lazy').setup({
   { import = 'extensions.yaml-json' },
   { import = 'extensions.markdown' },
   { import = 'extensions.java' },
-  -- { import = 'extensions.csharp' },
+  { import = 'extensions.csharp' },
   { import = 'extensions.webdev' },
   -- { import = 'extensions.python' },
   -- { import = 'extensions.sql' },
