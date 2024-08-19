@@ -10,4 +10,4 @@
     name: go
     state: present
   become: true
-  when: machine_os = 'debian'
+  when: machine_os == 'debian'

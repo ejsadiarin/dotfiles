@@ -1,0 +1,115 @@
+- name: Git | Configure username
+  community.general.git_config:
+    name: user.name
+    scope: global
+    value: git_user_name
+
+- name: Git | Configure email
+  community.general.git_config:
+    name: user.email
+    scope: global
+    value: git_user_email
+
+- name: Git | Configure default editor
+  community.general.git_config:
+    name: core.editor
+    scope: global
+    value: nvim
+
+- name: Git | Configure auto color UI
+  community.general.git_config:
+    name: color.ui
+    scope: global
+    value: nvim
+
+- name: Git | Configure merge tool
+  community.general.git_config:
+    name: merge.tool
+    scope: global
+    value: nvimdiff2
+
+- name: Git | Configure core.autocrlf to normalize git endings
+  community.general.git_config:
+    name: core.autocrlf
+    scope: global
+    value: input # normalize line endings (input - Linux, true - windows)
+
+- name: Git | Configure default branch
+  community.general.git_config:
+    name: init.defaultBranch
+    scope: global
+    value: main
+
+- name: Git | Configure rebase auto stash
+  community.general.git_config:
+    name: rebase.autoStash
+    scope: global
+    value: true
+
+- name: Git | Configure pull rebase
+  community.general.git_config:
+    name: pull.rebase
+    scope: global
+    value: true
+
+- name: Git | Configure undo alias
+  community.general.git_config:
+    name: alias.undo
+    scope: global
+    value: "reset HEAD~1 --mixed"
+
+- name: Git | Configure signing key
+  community.general.git_config:
+    name: user.signingkey
+    scope: global
+    value: "{{ ansible_user_dir }}/.ssh/id_ed25519.pub"
+
+- name: Git | Get config values
+  community.general.git_config_info:
+    scope: global
+  register: git_config_values
+
+- name: Git | Display config values
+  ansible.builtin.debug:
+    var: git_config_values
+#
+# - name: Git | Configure gpg.format
+#   community.general.git_config:
+#     name: gpg.format
+#     scope: global
+#     value: ssh
+#
+# - name: Git | Configure commit.gpgsign
+#   community.general.git_config:
+#     name: commit.gpgsign
+#     scope: global
+#     value: true
+#
+# - name: Git | Configure tag.gpgsign
+#   community.general.git_config:
+#     name: tag.gpgsign
+#     scope: global
+#     value: true
+#
+# - name: Git | Ensure ~/.config/git/allowed_signers exists
+#   ansible.builtin.file:
+#     path: "{{ ansible_user_dir }}/.config/git"
+#     state: directory
+#     mode: "0755"
+# - name: Git | Configure ~/.config/git/allowed_signers
+#   ansible.builtin.copy:
+#     src: allowed_signers
+#     dest: "{{ ansible_user_dir }}/.config/git/allowed_signers"
+#     mode: "0600"
+#
+# - name: Git | Configure gpg.ssh.allowedSignersFile
+#   community.general.git_config:
+#     name: gpg.ssh.allowedSignersFile
+#     scope: global
+#     value: "{{ ansible_user_dir }}/.config/git/allowed_signers"
+#
+# - name: Git | Configure fetch prune
+#   community.general.git_config:
+#     name: fetch.prune
+#     scope: global
+#     value: true

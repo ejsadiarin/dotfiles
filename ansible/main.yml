@@ -36,6 +36,7 @@
 
   roles:
     - essentials
+    - git
     - zsh
     - neovim
     - tmux
