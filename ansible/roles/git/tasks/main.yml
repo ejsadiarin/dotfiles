@@ -20,7 +20,7 @@
   community.general.git_config:
     name: color.ui
     scope: global
-    value: nvim
+    value: auto
 
 - name: Git | Configure merge tool
   community.general.git_config:
