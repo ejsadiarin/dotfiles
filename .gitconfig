@@ -1,7 +1,0 @@
-[user]
-	name = ejsadiarin
-	email = ekwtech.container720@passinbox.com
-[merge]
-	tool = nvimdiff2
-[core]
-	autocrlf = input ; normalize line endings (input - Linux, true - windows)
