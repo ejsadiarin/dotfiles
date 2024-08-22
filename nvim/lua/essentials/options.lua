@@ -43,9 +43,9 @@ vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 
-vim.opt.tabstop = 2 -- Insert 2 spaces for a tab
-vim.opt.softtabstop = 2 -- Number of spaces tabs count for while editing
-vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
+vim.opt.tabstop = 4 -- Insert 2 spaces for a tab
+vim.opt.softtabstop = 4 -- Number of spaces tabs count for while editing
+vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
 vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.smartindent = true -- Makes indenting smart
 vim.opt.breakindent = true -- Enable break indent
@@ -85,7 +85,7 @@ vim.opt.laststatus = 3 -- Global statusline when on split
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
-vim.opt.list = true
+vim.opt.list = false -- if true then 'listchars' will display the whitespace
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
