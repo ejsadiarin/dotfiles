@@ -58,6 +58,7 @@ require('lazy').setup({
 
   --  Here are extension plugin configurations for optional things (ex. Copilot)
   { import = 'extensions.copilot' },
+  -- { import = 'extensions.avante' },
   { import = 'extensions.copilot-chat' },
   { import = 'extensions.cloak' },
   { import = 'extensions.flash' },

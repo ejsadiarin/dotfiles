@@ -42,7 +42,7 @@ return {
             },
 
             {
-              '<leader>cD',
+              '<leader>D',
               function()
                 require('omnisharp_extended').telescope_lsp_type_definition()
               end,

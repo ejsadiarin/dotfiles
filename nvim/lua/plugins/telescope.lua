@@ -58,7 +58,7 @@ return {
         pickers = {
           find_files = {
             -- sort files by modified time (rg sorts result by modification date, fd don't)
-            find_command = { 'rg', '--files', '--hidden', '--sortr=modified', '--glob', '!.git' },
+            find_command = { 'rg', '--files', '--hidden', '--sortr=modified', '--glob', '!.git', '--glob', '!node_modules' },
           },
         },
         extensions = {
@@ -79,6 +79,16 @@ return {
       vim.keymap.set('n', '<leader>st', builtin.builtin, { desc = 'Search: [t]elescope Builtins' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = 'Search: Current [w]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Search: By [g]rep' })
+      vim.keymap.set('n', '<leader>sG', function()
+        builtin.live_grep {
+          find_command = {
+            'rg',
+            '--hidden',
+            '--glob',
+            '!.git',
+          },
+        }
+      end, { desc = 'Search: unfiltered [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = 'Search: [d]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = 'Search: [r]esume' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })

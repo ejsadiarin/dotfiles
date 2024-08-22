@@ -2,8 +2,8 @@
 
 return {
   {
-    'pmizio/typescript-tools.nvim',
-    ft = {
+    'yioneko/nvim-vtsls',
+    filetypes = {
       'javascript',
       'javascriptreact',
       'javascript.jsx',
@@ -11,40 +11,110 @@ return {
       'typescriptreact',
       'typescript.tsx',
     },
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    opts = {},
+    configs = function()
+      require('lspconfig.configs').vtsls = require('vtsls').lspconfig -- set default server config, optional but recommended
+      -- require('lspconfig').vtsls.setup { --[[ your custom server config here ]]
+      -- }
+    end,
   },
 
   {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {
-        tsserver = {},
+        tsserver = {
+          enabled = false,
+        },
+        vtsls = {
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
+            },
+          },
+        },
         html = {},
         cssls = {},
         tailwindcss = {},
       },
-      -- setup = {},
+      setup = {
+        tsserver = function()
+          -- disable tsserver
+          return true
+        end,
+        vtsls = function(_, opts)
+          -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
+          -- copy typescript settings to javascript
+          -- opts.settings.javascript = vim.tbl_deep_extend('force', {}, opts.settings.typescript, opts.settings.javascript or {})
+        end,
+      },
     },
   },
 
+  -- {
+  --   'williamboman/mason.nvim',
+  --   opts = {
+  --     ensure_installed = {
+  --       -- HTML, CSS, JS, misc.
+  --       'tsserver', -- javascript & typescript lsp
+  --       'html-lsp', -- html lsp
+  --       'html', -- html lsp
+  --       'css-lsp', -- css lsp
+  --       'cssls', -- css lsp
+  --       'tailwindcss-language-server', -- tailwind lsp
+  --       'tailwindcss', -- tailwind lsp
+  --       'eslint_d', -- linter daemon
+  --       'prettierd', -- formatter daemon
+  --       'js-debug-adapter', -- debugger
+  --     },
+  --   },
+  -- },
+
   {
     'williamboman/mason.nvim',
-    opts = {
-      ensure_installed = {
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      table.insert(opts.ensure_installed, {
         -- HTML, CSS, JS, misc.
         'tsserver', -- javascript & typescript lsp
+        'vtsls', -- javascript & typescript lsp
+        'emmet-language-server',
         'html-lsp', -- html lsp
-        'html', -- html lsp
         'css-lsp', -- css lsp
-        'cssls', -- css lsp
         'tailwindcss-language-server', -- tailwind lsp
-        'tailwindcss', -- tailwind lsp
         'eslint_d', -- linter daemon
         'prettierd', -- formatter daemon
         'js-debug-adapter', -- debugger
-      },
-    },
+      })
+    end,
   },
 
   -- {

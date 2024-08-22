@@ -55,7 +55,7 @@ return {
         ['javascript'] = { 'prettierd', 'prettier' }, -- ['javascript'] = { 'prettierd', 'prettier', stop_after_first = true },
         ['typescript'] = { 'prettierd', 'prettier' },
         ['javascriptreact'] = { 'prettierd', 'prettier' },
-        ['typescriptreact'] = { 'prettierd', 'eslint_d' },
+        ['typescriptreact'] = { 'prettierd', 'prettier', stop_after_first = true },
         ['css'] = { 'prettierd', 'prettier' },
         ['html'] = { 'prettierd', 'prettier' },
         ['json'] = { 'prettierd', 'prettier' },
