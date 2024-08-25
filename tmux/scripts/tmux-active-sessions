@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
 if [[ $# -eq 1 ]]; then
-	selected=$1
+    selected=$1
 else
-	selected=$(tmux list-sessions | fzf)
-	# selected=$(tmux list-sessions | cut -d: -f1 | fzf)
+    # selected=$(tmux list-sessions | cut -d: -f1 | fzf)
+    selected=$(tmux list-sessions | fzf --tmux)
 fi
 
 # if session is not selected (empty, did not select anything in fzf), then exit
 if [[ -z $selected ]]; then
-	exit 0
+    exit 0
 fi
 
 selected_name=$(echo "$selected" | cut -d: -f1)
