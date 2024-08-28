@@ -219,6 +219,7 @@ alias ,b=",backlog"
 alias ,datezet="date +%Y%m%d"
 
 alias lg="lazygit"
+alias lzd="lazydocker"
 alias clpwd="pwd | xclip -selection clipboard"
 alias copy="xclip -sel clip"
 
