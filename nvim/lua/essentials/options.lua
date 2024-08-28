@@ -43,9 +43,9 @@ vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 
-vim.opt.tabstop = 4 -- Insert 2 spaces for a tab
-vim.opt.softtabstop = 4 -- Number of spaces tabs count for while editing
-vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
+vim.opt.tabstop = 2 -- Insert 2 spaces for a tab
+vim.opt.softtabstop = 2 -- Number of spaces tabs count for while editing
+vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
 vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.smartindent = true -- Makes indenting smart
 vim.opt.breakindent = true -- Enable break indent
@@ -97,4 +97,4 @@ vim.opt.sidescrolloff = 5 -- minimal number of screen columns to keep to the lef
 -- vim.opt.linebreak = true -- Wrap long lines at a character in 'breakat'
 -- vim.opt.textwidth = 120 -- Maximum width of text that is being inserted vim.cmd("set fo-=1") -- Don't break lines after a one-letter word
 -- vim.opt.list = false -- Hide characters on tabs and spaces
--- vim.opt.fillchars.eob = " " -- Empty lines at the end of a buffer as ` `
+-- vim.opt.fillchars.eob = ' ' -- Empty lines at the end of a buffer as ` `
