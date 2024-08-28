@@ -186,6 +186,150 @@ return {
             },
           },
         },
+        gopls = {
+          cmd = { 'gopls', 'serve' },
+          filetypes = { 'go' },
+          settings = {
+            gopls = {
+              gofumpt = true,
+              codelenses = {
+                gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+              analyses = {
+                fieldalignment = true,
+                nilness = true,
+                unusedparams = true,
+                unusedwrite = true,
+                useany = true,
+              },
+              usePlaceholders = true,
+              completeUnimported = true,
+              staticcheck = true,
+              directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
+              semanticTokens = true,
+            },
+          },
+          ---@param client vim.lsp.Client
+          on_init = function(client)
+            if client.name == 'gopls' and not client.server_capabilities.semanticTokensProvider then
+              local semantic = client.config.capabilities.textDocument.semanticTokens
+              client.server_capabilities.semanticTokensProvider = {
+                full = true,
+                legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
+                range = true,
+              }
+            end
+          end,
+        },
+        tsserver = {
+          enabled = false,
+          on_init = function()
+            -- disable tsserver
+            return true
+          end,
+        },
+        vtsls = {
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
+            },
+          },
+          on_init = function()
+            require('lspconfig.configs').vtsls = require('vtsls').lspconfig -- set default server config, optional but recommended
+          end,
+        },
+        omnisharp = {
+          filetypes = { 'cs', 'csharp' },
+          -- handlers = {
+          --   ['textDocument/definition'] = require('omnisharp_extended').definition_handler,
+          --   ['textDocument/typeDefinition'] = require('omnisharp_extended').type_definition_handler,
+          --   ['textDocument/references'] = require('omnisharp_extended').references_handler,
+          --   ['textDocument/implementation'] = require('omnisharp_extended').implementation_handler,
+          -- },
+          keys = {
+            {
+              'gd',
+              function()
+                require('omnisharp_extended').telescope_lsp_definitions()
+              end,
+              desc = '[G]oto [D]efinition',
+            },
+            {
+              'gr',
+              function()
+                require('omnisharp_extended').telescope_lsp_references()
+              end,
+              desc = '[G]oto [R]eferences',
+            },
+
+            {
+              '<leader>D',
+              function()
+                require('omnisharp_extended').telescope_lsp_type_definition()
+              end,
+              desc = 'Type [D]efinition',
+            },
+            {
+              'gI',
+              function()
+                require('omnisharp_extended').telescope_lsp_implementation()
+              end,
+              desc = '[G]oto [I]mplementation',
+            },
+          },
+          enable_roslyn_analyzers = true,
+          organize_imports_on_format = true,
+          enable_import_completion = true,
+        },
+        html = {},
+        cssls = {},
+        tailwindcss = {},
+        marksman = {},
       }
 
       require('mason').setup {
@@ -197,6 +341,8 @@ return {
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
+      -- WARN: All LSP listed below will be AUTOMATICALLY INSTALLED, comment to disable
+      -- do `:checkhealth` after to see installed status
       vim.list_extend(ensure_installed, {
         -- Lua
         'lua_ls', -- lsp
@@ -207,6 +353,51 @@ return {
         'shfmt', -- formatter
         -- C
         'clangd',
+        -- Go
+        'gopls',
+        'goimports', -- for formatting imports
+        'gofumpt', -- gofmt
+        'gomodifytags', -- add tags to struct fields
+        'impl', -- generate interface methods
+        'delve', -- debugger
+        'golangci-lint',
+        -- Python
+        'basedpyright', -- lsp
+        'isort', -- sorter
+        'black', -- python formatter
+        'pylint', -- linter
+        'debugpy', -- debugger
+        -- HTML, CSS, JS, misc.
+        'tsserver', -- javascript & typescript lsp
+        'vtsls', -- javascript & typescript lsp
+        'emmet-language-server',
+        'html-lsp', -- html lsp
+        'css-lsp', -- css lsp
+        'tailwindcss-language-server', -- tailwind lsp
+        'eslint_d', -- linter daemon
+        'prettierd', -- formatter daemon
+        'js-debug-adapter', -- debugger
+        -- YAML, JSON, Docker, configs, etc.
+        'yamlls', -- linter
+        -- Docker
+        'dockerls', -- lsp
+        'docker_compose_language_service', -- lsp for compose
+        'hadolint', -- linter
+        -- Ansible
+        'ansiblels', -- lsp
+        'ansible-lint', -- linter
+        -- Java
+        'jdtls',
+        'java-debug-adapter',
+        'java-test',
+        -- C#
+        'omnisharp', -- lsp
+        'csharpier', -- lsp
+        'netcoredbg', -- debugger
+        -- Markdown
+        'marksman', -- lsp
+        -- 'markdownlint-cli2', -- linter
+        'markdown-toc', -- table of contents formatter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
