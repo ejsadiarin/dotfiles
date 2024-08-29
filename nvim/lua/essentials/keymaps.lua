@@ -72,6 +72,12 @@ vim.keymap.set('n', '<leader>wh', '<C-W>s', { desc = 'Horizontal Split' })
 vim.keymap.set('n', '<leader>wv', '<C-W>v', { desc = 'Vertical Split' })
 vim.keymap.set('n', '<leader>wd', '<C-W>c', { desc = 'Delete Window' })
 
+-- resize splits
+vim.keymap.set('n', '<M-Left>', '<C-W>5<')
+vim.keymap.set('n', '<M-Right>', '<C-W>5>')
+vim.keymap.set('n', '<M-Up>', '<C-W>+')
+vim.keymap.set('n', '<M-Down>', '<C-W>-')
+
 -- changes cwd to head of current buffer (useful for grepping and finding files)
 vim.keymap.set('n', '<leader>cW', function()
   -- Define the change_cwd_head_of_buffer function
