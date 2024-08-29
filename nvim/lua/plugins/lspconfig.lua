@@ -326,6 +326,25 @@ return {
           organize_imports_on_format = true,
           enable_import_completion = true,
         },
+        jsonls = {
+          settings = {
+            json = {
+              schemas = require('schemastore').json.schemas(),
+              validate = { enable = true },
+            },
+          },
+        },
+        yamlls = {
+          settings = {
+            yaml = {
+              schemaStore = {
+                enable = false,
+                url = '',
+              },
+              schemas = require('schemastore').yaml.schemas(),
+            },
+          },
+        },
         html = {},
         cssls = {},
         tailwindcss = {},
@@ -379,6 +398,7 @@ return {
         'js-debug-adapter', -- debugger
         -- YAML, JSON, Docker, configs, etc.
         'yamlls', -- linter
+        'jsonls',
         -- Docker
         'dockerls', -- lsp
         'docker_compose_language_service', -- lsp for compose
@@ -398,6 +418,9 @@ return {
         'marksman', -- lsp
         -- 'markdownlint-cli2', -- linter
         'markdown-toc', -- table of contents formatter
+        -- SQL
+        'sqlls', -- lsp
+        'sqlfluff', -- linter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

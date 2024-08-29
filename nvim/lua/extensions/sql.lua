@@ -45,7 +45,7 @@ return {
       'DBUIFindBuffer',
     },
     keys = {
-      { '<leader>csu', '<cmd>DBUIToggle<cr>', desc = 'SQL: Open [u]I' },
+      { '<leader>cca', '<cmd>DBUIToggle<cr>', desc = 'SQL: Open [u]I' },
     },
     init = function()
       -- Your DBUI configuration
@@ -66,17 +66,6 @@ return {
       -- default keymap: <leader>S
       vim.g.db_ui_execute_on_save = false
     end,
-  },
-
-  {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    opts = {
-      ensure_installed = {
-        -- SQL
-        'sqlls', -- lsp
-        'sqlfluff', -- linter
-      },
-    },
   },
 
   {
