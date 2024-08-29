@@ -22,39 +22,7 @@ return {
       'jay-babu/mason-nvim-dap.nvim',
 
       {
-        'theHamsta/nvim-dap-virtual-text',
-        -- event = 'VeryLazy',
-        opts = {
-          -- enable this plugin (the default)
-          enabled = true,
-          -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
-          enabled_commands = true,
-          -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
-          highlight_changed_variables = true,
-          -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
-          highlight_new_as_changed = false,
-          -- show stop reason when stopped for exceptions
-          show_stop_reason = true,
-          -- prefix virtual text with comment string
-          commented = false,
-          -- only show virtual text at first definition (if there are multiple)
-          only_first_definition = true,
-          -- show virtual text on all all references of the variable (not only definitions)
-          all_references = false,
-          -- filter references (not definitions) pattern when all_references is activated (Lua gmatch pattern, default filters out Python modules)
-          filter_references_pattern = '<module',
-
-          -- *** Experimental Features ****:
-
-          -- position of virtual text, see `:h nvim_buf_set_extmark()`
-          virt_text_pos = 'eol',
-          -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
-          all_frames = false,
-          -- show virtual lines instead of virtual text (will flicker!)
-          virt_lines = false,
-          -- position the virtual text at a fixed window column (starting from the first text column) ,
-          virt_text_win_col = nil,
-        },
+        'theHamsta/nvim-dap-virtual-text', -- event = 'VeryLazy',
       },
 
       -- Add your own debuggers here
@@ -62,31 +30,29 @@ return {
         'leoluz/nvim-dap-go',
       },
     },
-    keys = function(_, keys)
-      local dap = require 'dap'
-      local dapui = require 'dapui'
-      return {
-        -- Basic debugging keymaps, feel free to change to your liking!
-        { '<leader>dd', dap.continue, desc = 'Debug: Start/Continue' },
-        { '<leader>di', dap.step_into, desc = 'Debug: Step [i]nto' },
-        { '<leader>do', dap.step_over, desc = 'Debug: Step [o]ver' },
-        { '<leader>dO', dap.step_out, desc = 'Debug: Step [O]ut' },
-        { '<leader>db', dap.toggle_breakpoint, desc = 'Debug: Toggle [b]reakpoint' },
-        {
-          '<leader>dB',
-          function()
-            dap.set_breakpoint(vim.fn.input 'Debug: [B]reakpoint condition: ')
-          end,
-          desc = 'Debug: Set Breakpoint',
-        },
-        -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-        { '<leader>du', dapui.toggle, desc = 'Debug: Open [u]I' },
-        unpack(keys),
-      }
-    end,
+    keys = {},
     config = function()
       local dap = require 'dap'
       local dapui = require 'dapui'
+
+      -- Basic debugging keymaps, feel free to change to your liking!
+      vim.keymap.set('n', '<leader>dd', dap.continue, { desc = 'Debug: Start/Continue' })
+      vim.keymap.set('n', '<leader>dc', dap.run_to_cursor, { desc = 'Debug: Run to [c]ursor' })
+      vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'Debug: Step [i]nto' })
+      vim.keymap.set('n', '<leader>do', dap.step_over, { desc = 'Debug: Step [o]ver' })
+      vim.keymap.set('n', '<leader>dO', dap.step_out, { desc = 'Debug: Step [O]ut' })
+      vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = 'Debug: Toggle [b]reakpoint' })
+      vim.keymap.set('n', '<leader>dB', function()
+        dap.set_breakpoint(vim.fn.input 'Breakpoint Condition: ')
+      end, { desc = 'Debug: Set [B]reakpoint Condition' })
+
+      -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+      vim.keymap.set('n', '<leader>du', dapui.toggle, { desc = 'Debug: Open [u]I' })
+
+      -- Evaluate var under cursor
+      vim.keymap.set('n', '<leader>de', function()
+        dapui.eval(nil, { enter = true })
+      end, { desc = 'Debug: [e]valuate Var Under Cursor' })
 
       require('mason-nvim-dap').setup {
         -- Makes a best effort to setup the various debuggers with reasonable debug configurations
@@ -120,11 +86,12 @@ return {
         -- online, please don't ask me how to install them :)
         ensure_installed = {
           -- Update this to ensure that you have the debuggers for the langs you want
-          -- 'delve',
+          'delve',
           'js-debug-adapter',
           'debugpy',
-          -- 'java-debug-adapter',
-          -- 'netcoredbg',
+          'java-debug-adapter',
+          'java-test',
+          'netcoredbg',
         },
       }
 
@@ -155,6 +122,52 @@ return {
       dap.listeners.after.event_initialized['dapui_config'] = dapui.open
       dap.listeners.before.event_terminated['dapui_config'] = dapui.close
       dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+      require('nvim-dap-virtual-text').setup {
+        -- enable this plugin (the default)
+        enabled = true,
+        -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
+        enabled_commands = true,
+        -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
+        highlight_changed_variables = true,
+        -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
+        highlight_new_as_changed = false,
+        -- show stop reason when stopped for exceptions
+        show_stop_reason = true,
+        -- prefix virtual text with comment string
+        commented = false,
+        -- only show virtual text at first definition (if there are multiple)
+        only_first_definition = true,
+        -- show virtual text on all all references of the variable (not only definitions)
+        all_references = false,
+        -- filter references (not definitions) pattern when all_references is activated (Lua gmatch pattern, default filters out Python modules)
+        filter_references_pattern = '<module',
+
+        -- *** Experimental Features ****:
+
+        -- position of virtual text, see `:h nvim_buf_set_extmark()`
+        virt_text_pos = 'eol',
+        -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+        all_frames = false,
+        -- show virtual lines instead of virtual text (will flicker!)
+        virt_lines = false,
+        -- position the virtual text at a fixed window column (starting from the first text column) ,
+        virt_text_win_col = nil,
+        -- mitigate leaking tokens in virtual text (useful whne streaming, etc.)
+        display_callback = function(variable)
+          local name = string.lower(variable.name)
+          local value = string.lower(variable.value)
+          if name:match 'secret' or name:match 'api' or value:match 'secret' or value:match 'api' then
+            return '*****'
+          end
+
+          if #variable.value > 15 then
+            return ' ' .. string.sub(variable.value, 1, 15) .. '... '
+          end
+
+          return ' ' .. variable.value
+        end,
+      }
 
       -- -- Install golang specific config
       -- require('dap-go').setup {

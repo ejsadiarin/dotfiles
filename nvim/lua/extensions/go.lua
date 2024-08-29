@@ -4,22 +4,6 @@
 return {
 
   {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    opts = {
-      ensure_installed = {
-        -- Go
-        'gopls',
-        'goimports', -- for formatting imports
-        'gofumpt', -- gofmt
-        'gomodifytags', -- add tags to struct fields
-        'impl', -- generate interface methods
-        'delve', -- debugger
-        'golangci-lint',
-      },
-    },
-  },
-
-  {
     'nvim-treesitter/nvim-treesitter',
     opts = {
       ensure_installed = {
