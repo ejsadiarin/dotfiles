@@ -107,7 +107,7 @@ return {
         }
       end, { desc = 'Find [g]it Files' })
 
-      vim.keymap.set('n', '<leader>ff', function()
+      vim.keymap.set('n', '<leader>fd', function()
         local cwd = vim.fn.getcwd()
         builtin.find_files {
           find_command = {
@@ -125,7 +125,7 @@ return {
           },
           prompt_prefix = '   ',
         }
-      end, { desc = 'Find [f]iles' })
+      end, { desc = 'Fin[d] files' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
