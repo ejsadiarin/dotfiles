@@ -36,9 +36,36 @@ gpg --symmetric master_password
 shred -uvz master_password
 ```
 
+- encrypting a string with encrypt_string
+
+```bash
+ansible-vault encrypt_string --vault-password-file ~/dotfiles/ansible/decrypted_mp "string to encrypt" --name "VERY_SECRET_VARIABLE_NAME"
+```
+
+- encrypting files (ssh keys, gpg keys, etc.) with encrypt_string
+
+```bash
+cat file.key | ansible-vault encrypt_string --vault-password-file ~/dotfiles/ansible/decrypted_mp --stdin-name "file.key"
+```
+
 # Post-Installation
 
+- **import and trust gpg keys**
 - **zsh, neovim, and tmux plugins are 'separately installed' so we just need to open them to install the necessary plugins**
+
+## gpg keys
+
+```bash
+gpg --import public.gpg
+gpg --import private.gpg # will prompt for password
+gpg --edit-key <email> # will prompt for password
+# then in the gpg-shell:
+trust
+5 # ultimate
+y # confirm
+save
+exit # if save did not exit you to the gpg-shell
+```
 
 ## zsh
 
