@@ -174,3 +174,6 @@ vim.keymap.set('n', '<leader>uC', ':set conceallevel=', { desc = 'Change [C]once
 
 -- unpolluted paste (paste from yank register)
 vim.keymap.set({ 'n', 'x' }, '<leader>p', '"0p', { desc = 'Unpolluted [p]aste' })
+
+-- save without formatting
+vim.keymap.set('n', '<leader>ccs', ':noautocmd w<CR>', { desc = 'Save without formatting' })

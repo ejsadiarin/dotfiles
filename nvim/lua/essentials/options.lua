@@ -31,7 +31,7 @@ vim.opt.hlsearch = true -- Highlight on search
 vim.opt.incsearch = true -- While typing a search command, show where the pattern matches
 
 vim.opt.mouse = 'a' -- Enable mouse mode, can be useful for resizing splits for example!
--- vim.opt.background = 'dark'
+vim.opt.background = 'dark'
 
 vim.opt.showmode = false -- Don't show the mode, since it's already in the status line
 
@@ -43,9 +43,9 @@ vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 
-vim.opt.tabstop = 2 -- Insert 2 spaces for a tab
-vim.opt.softtabstop = 2 -- Number of spaces tabs count for while editing
-vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
+vim.opt.tabstop = 4 -- Insert 2 spaces for a tab
+vim.opt.softtabstop = 4 -- Number of spaces tabs count for while editing
+vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
 vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.smartindent = true -- Makes indenting smart
 vim.opt.breakindent = true -- Enable break indent

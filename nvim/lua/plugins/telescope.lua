@@ -77,8 +77,8 @@ return {
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Search: [h]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = 'Search: [k]eymaps' })
       vim.keymap.set('n', '<leader>st', builtin.builtin, { desc = 'Search: [t]elescope Builtins' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = 'Search: Current [w]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Search: By [g]rep' })
+      vim.keymap.set({ 'n', 'x' }, '<leader>sw', builtin.grep_string, { desc = 'Search: Current [w]ord' })
       vim.keymap.set('n', '<leader>sG', function()
         builtin.live_grep {
           find_command = {

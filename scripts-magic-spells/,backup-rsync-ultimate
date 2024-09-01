@@ -19,6 +19,7 @@ pkse_desktop="$HOME/Pictures/pkse"
 screenshots_desktop="$HOME/Pictures/ScreenShots"
 password_store="$HOME/.password-store"
 camera="/mnt/hdd/camera"
+dlsu="/mnt/hdd/dlsu"
 
 dirs_to_sync_usb=(
   "$vault"
@@ -30,6 +31,7 @@ dirs_to_sync_usb=(
   "$pkse_desktop"
   "$screenshots_desktop"
   "$wizardry_sms"
+  "$dlsu"
 )
 
 set -e
@@ -65,15 +67,18 @@ usb_sync() {
 
   # HACK: since using: if [ ! -d "$usb_mountpoint" ]... is always true
   # --> instead find the README.md file in the mountpoint (indicates USB is properly mounted)
-  if [ -z "$find_readme_file" ]; then
+  if [[ -z "$find_readme_file" ]]; then
     echo "[ SKIP ] USB mountpoint not found. Skipping..."
     notify-send "SKIPPED" "USB mountpoint not found. Skipping..."
   else
     notify-send "DETECTED" "USB mountpoint detected."
     notify-send "Starting USB SYNC"
     for dir in "${dirs_to_sync_usb[@]}"; do
+
+      basename_dir=$(basename "$dir")
+
       # if on new usb, copy directly
-      if [ ! -d "$dir" ]; then
+      if [[ ! -d "$dir" ]]; then
         echo "[ DETECTED ] NEW USB: Just get some coffee and backseat. This may take a while..."
 
         if [[ "$dir" == "$sync_lock" ]]; then
@@ -89,7 +94,7 @@ usb_sync() {
           sudo rsync -auz --delete "$dir" "$usb_mountpoint"
 
         elif [[ "$dir" == "$dotfiles" ]]; then
-          echo "[ SYNCING USB ] Dotfiles..."
+          echo "[ SYNCING USB ] NEW: Dotfiles..."
           sudo rsync -auzv --delete "$dir" "$usb_mountpoint"
 
         elif [[ "$dir" == "$camera" ]]; then
@@ -112,16 +117,14 @@ usb_sync() {
           echo "[ SYNCING USB ] NEW: scripts magic spells..."
           sudo rsync -auzv --delete "$wizardry_sms" "$usb_mountpoint"/scripts-magic-spells
 
-        elif [[ "$dir" == "$dotfiles_sms" ]]; then
-          echo "[ SYNCING USB ] NEW: scripts magic spells..."
+        else
+          echo "[ SYNCING USB ] NEW: $basename_dir..."
+          sudo rsync -auzv "$dir" "$usb_mountpoint"
         fi
 
       else
         # if have README.md file, then usb_mountpoint is mounted properly
-        if [ -n "$find_readme_file" ]; then
-
-          basename_dir=$(basename "$dir")
-
+        if [[ -n "$find_readme_file" ]]; then
           # if on usb with existing dirs, then just sync (add "/")
           if [[ "$dir" == "$sync_lock" ]]; then
             echo "[ SUCCESS ] USB is mounted, now syncing..."
@@ -159,6 +162,10 @@ usb_sync() {
 
           elif [[ "$dir" == "$reddit" ]]; then
             echo "[ SYNCING USB ] personal reddit..."
+            sudo rsync -auzv "$dir/" "$usb_mountpoint/$basename_dir/"
+
+          else
+            echo "[ SYNCING USB ] $basename_dir..."
             sudo rsync -auzv "$dir/" "$usb_mountpoint/$basename_dir/"
           fi
         fi

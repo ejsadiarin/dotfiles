@@ -345,6 +345,7 @@ return {
             },
           },
         },
+        bashls = {},
         html = {},
         cssls = {},
         tailwindcss = {},

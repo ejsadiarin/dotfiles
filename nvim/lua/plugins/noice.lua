@@ -24,6 +24,13 @@ return {
           },
           opts = { skip = true },
         },
+        {
+          filter = {
+            event = 'notify',
+            find = 'NotifyBackground',
+          },
+          opts = { skip = true },
+        },
       },
       cmdline = {
         enabled = false,

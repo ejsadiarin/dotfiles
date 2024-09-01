@@ -14,7 +14,7 @@ return {
     },
     opts = {
       options = {
-        theme = 'catppuccin', -- 'auto', 'catppuccin', 'tokyonight', 'gruvbox'
+        theme = 'auto', -- 'auto', 'catppuccin', 'tokyonight', 'gruvbox'
         globalstatus = true,
         icons_enabled = true,
         disabled_filetypes = { statusline = { 'dashboard', 'alpha', 'starter' } },
