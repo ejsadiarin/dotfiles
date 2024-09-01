@@ -19,7 +19,7 @@ return {
       dim_inactive = {
         enabled = false, -- dims the background color of inactive window
         shade = 'dark',
-        percentage = 1, -- percentage of the shade to apply to the inactive window
+        percentage = 0, -- percentage of the shade to apply to the inactive window
       },
       -- no_italic = false, -- Force no italic
       -- no_bold = false, -- Force no bold

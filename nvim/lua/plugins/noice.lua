@@ -13,6 +13,9 @@ return {
             row = -2,
             column = '100%',
           },
+          win_options = {
+            winblend = 0,
+          },
         },
         notify = {},
       },
