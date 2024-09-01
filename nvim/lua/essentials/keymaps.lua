@@ -177,3 +177,6 @@ vim.keymap.set({ 'n', 'x' }, '<leader>p', '"0p', { desc = 'Unpolluted [p]aste' }
 
 -- save without formatting
 vim.keymap.set('n', '<leader>ccs', ':noautocmd w<CR>', { desc = 'Save without formatting' })
+
+-- telescope select colorscheme
+vim.keymap.set('n', '<leader>us', ':Telescope colorscheme<CR>', { desc = 'UI: [s]elect colorscheme' })
