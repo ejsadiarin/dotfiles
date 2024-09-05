@@ -1,0 +1,73 @@
+/* MPL 2.0 https://github.com/soulhotel/FF-ULTIMA/blob/main/LICENSE */
+
+/*  
+Change tab size?
+Change autohide option?
+Want to use sidebery instead? + More.
+Come to the modification page: https://github.com/soulhotel/FF-ULTIMA/blob/main/doc/Modification.md
+*/
+
+/*:root {*/
+/*  --exquisite-urlbar-font-family: "JetBrainsMono Nerd Font", serif;*/
+/*  --exquisite-urlbar-font-size: 10pt;*/
+/*  --exquisite-urlbar-font-weight: 800;*/
+/*  --exquisite-urlbar-font-family: "JetBrainsMono Nerd Font", serif;*/
+/*  --exquisite-urlbar-font-size: 10pt;*/
+/*  --exquisite-urlbar-font-weight: 800;*/
+/*  --exquisite-urlbar-results-color: #e0fbfc;*/
+/*  --exquisite-urlbar-results-font-family: "JetBrainsMono Nerd Font", serif;*/
+/*  --exquisite-urlbar-results-font-size: 9pt;*/
+/*  --exquisite-urlbar-results-font-weight: 700;*/
+/*}*/
+
+@import url(theme/all-global-positioning.css);
+
+@import url(theme/all-color-schemes.css);
+
+@import url(theme/position-tabs.css);
+@import url(theme/position-findbar.css);
+@import url(theme/position-window-controls.css);
+
+@import url(theme/function-mini-button-bar.css);
+@import url(theme/function-sidebar-autohide.css);
+@import url(theme/function-sidebery-autohide.css);
+@import url(theme/function-containers-indicator.css);
+@import url(theme/function-menu-button.css);
+@import url(theme/function-privatemode-indicator.css); /* sourced from MOG */
+@import url(theme/function-urlbar.css);
+@import url(theme/function-extensions-menu.css);
+@import url(theme/function-safeguard.css);
+
+@import url(theme/theme-context-menu.css);
+@import url(theme/theme-menubar.css);
+@import url(theme/theme-statuspanel.css);
+@import url(theme/theme-PIP.css);
+@import url(theme/theme-tab-audio-indicator.css);
+
+@import url(theme/override-linux.css);
+@import url(theme/override-mac.css);
+@import url(theme/override-styles.css);
+
+/* tabs */
+/*.tab-text {*/
+/*  font-family: var(--exquisite-tab-font-family);*/
+/*  font-weight: var(--exquisite-tab-font-weight);*/
+/*  font-size: var(--exquisite-tab-font-size) !important;*/
+/*  /*color: var(--exquisite-tab-color);*/
+/*  padding: 10px !important;*/
+/*}*/
+/**/
+/*#urlbar-results {*/
+/*  font-family: var(--exquisite-urlbar-results-font-family);*/
+/*  font-weight: var(--exquisite-urlbar-results-font-weight);*/
+/*  font-size: var(--exquisite-urlbar-results-font-size) !important;*/
+/*  /*color: var(--exquisite-urlbar-results-color) !important;*/
+/*}*/
+/**/
+/*.urlbarView-url,*/
+/*.search-panel-one-offs-container {*/
+/*  /*color: var(--exquisite-urlbar-results-url-color) !important;*/
+/*  font-family: var(--exquisite-urlbar-font-family);*/
+/*  font-weight: var(--exquisite-urlbar-results-font-weight);*/
+/*  font-size: var(--exquisite-urlbar-font-size) !important;*/
+/*}*/
