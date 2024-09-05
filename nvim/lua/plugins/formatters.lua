@@ -34,6 +34,10 @@ return {
             return #diag > 0
           end,
         },
+        csharpier = {
+          command = 'dotnet-csharpier',
+          args = { '--write-stdout' },
+        },
       },
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
@@ -57,6 +61,7 @@ return {
         ['go'] = { 'goimports', 'gofumpt' },
         -- Conform can also run multiple formatters sequentially
         ['python'] = { 'isort', 'black' },
+        ['cs'] = { 'csharpier' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
         ['javascript'] = { 'prettierd', 'prettier' }, -- ['javascript'] = { 'prettierd', 'prettier', stop_after_first = true },
         ['typescript'] = { 'prettierd', 'prettier' },

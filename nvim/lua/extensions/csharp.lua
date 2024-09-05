@@ -30,121 +30,178 @@ end
 
 return {
   {
-    'GustavEikaas/easy-dotnet.nvim',
-    ft = { 'cs', 'fsharp', 'vb' },
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+    'iabdelkareem/csharp.nvim',
+    dependencies = {
+      'williamboman/mason.nvim', -- Required, automatically installs omnisharp
+      'mfussenegger/nvim-dap',
+      'Tastyep/structlog.nvim', -- Optional, but highly recommended for debugging
+    },
     config = function()
-      local function get_secret_path(secret_guid)
-        local path = ''
-        local home_dir = vim.fn.expand '~'
-        if require('easy-dotnet.extensions').isWindows() then
-          local secret_path = home_dir .. '\\AppData\\Roaming\\Microsoft\\UserSecrets\\' .. secret_guid .. '\\secrets.json'
-          path = secret_path
-        else
-          local secret_path = home_dir .. '/.microsoft/usersecrets/' .. secret_guid .. '/secrets.json'
-          path = secret_path
-        end
-        return path
-      end
-
-      local dotnet = require 'easy-dotnet'
-      -- Options are not required
-      dotnet.setup {
-        test_runner = {
-          noBuild = true,
-          noRestore = true,
+      require('mason').setup() -- Mason setup must run before csharp, only if you want to use omnisharp
+      require('csharp').setup {
+        lsp = {
+          -- Sets if you want to use omnisharp as your LSP
+          omnisharp = {
+            -- When set to false, csharp.nvim won't launch omnisharp automatically.
+            enable = true,
+            -- When set, csharp.nvim won't install omnisharp automatically. Instead, the omnisharp instance in the cmd_path will be used.
+            cmd_path = nil,
+            -- The default timeout when communicating with omnisharp
+            default_timeout = 1000,
+            -- Settings that'll be passed to the omnisharp server
+            enable_editor_config_support = true,
+            organize_imports = true,
+            load_projects_on_demand = false,
+            enable_analyzers_support = true,
+            enable_roslyn_analyzers = true,
+            -- organize_imports_on_format = true,
+            enable_import_completion = true,
+            include_prerelease_sdks = true,
+            analyze_open_documents_only = false,
+            enable_package_auto_restore = true,
+            -- Launches omnisharp in debug mode
+            debug = false,
+          },
+          -- Sets if you want to use roslyn as your LSP
+          roslyn = {
+            -- When set to true, csharp.nvim will launch roslyn automatically.
+            enable = false,
+            -- Path to the roslyn LSP see 'Roslyn LSP Specific Prerequisites' above.
+            cmd_path = nil,
+          },
+          -- The capabilities to pass to the omnisharp server
+          capabilities = nil,
+          -- on_attach function that'll be called when the LSP is attached to a buffer
+          on_attach = nil,
         },
-        ---@param action "test"|"restore"|"build"|"run"
-        terminal = function(path, action)
-          local commands = {
-            run = function()
-              return 'dotnet run --project ' .. path
-            end,
-            test = function()
-              return 'dotnet test ' .. path
-            end,
-            restore = function()
-              return 'dotnet restore ' .. path
-            end,
-            build = function()
-              return 'dotnet build ' .. path
-            end,
-          }
-          local command = commands[action]() .. '\r'
-          vim.cmd 'vsplit'
-          vim.cmd('term ' .. command)
-        end,
-        secrets = {
-          path = get_secret_path,
+        logging = {
+          -- The minimum log level.
+          level = 'INFO',
         },
-        csproj_mappings = true,
-        auto_bootstrap_namespace = true,
+        dap = {
+          -- When set, csharp.nvim won't launch install and debugger automatically. Instead, it'll use the debug adapter specified.
+          --- @type string?
+          adapter_name = nil,
+        },
       }
-
-      -- Example command
-      vim.api.nvim_create_user_command('Secrets', function()
-        dotnet.secrets()
-      end, {})
-
-      -- Example keybinding
-      vim.keymap.set('n', '<leader>cp', function()
-        dotnet.run_project()
-      end, { desc = 'Run Dotnet Project' })
     end,
   },
+  -- {
+  --   'GustavEikaas/easy-dotnet.nvim',
+  --   ft = { 'cs', 'fsharp', 'vb' },
+  --   dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+  --   config = function()
+  --     local function get_secret_path(secret_guid)
+  --       local path = ''
+  --       local home_dir = vim.fn.expand '~'
+  --       if require('easy-dotnet.extensions').isWindows() then
+  --         local secret_path = home_dir .. '\\AppData\\Roaming\\Microsoft\\UserSecrets\\' .. secret_guid .. '\\secrets.json'
+  --         path = secret_path
+  --       else
+  --         local secret_path = home_dir .. '/.microsoft/usersecrets/' .. secret_guid .. '/secrets.json'
+  --         path = secret_path
+  --       end
+  --       return path
+  --     end
+  --
+  --     local dotnet = require 'easy-dotnet'
+  --     -- Options are not required
+  --     dotnet.setup {
+  --       test_runner = {
+  --         noBuild = true,
+  --         noRestore = true,
+  --       },
+  --       ---@param action "test"|"restore"|"build"|"run"
+  --       terminal = function(path, action)
+  --         local commands = {
+  --           run = function()
+  --             return 'dotnet run --project ' .. path
+  --           end,
+  --           test = function()
+  --             return 'dotnet test ' .. path
+  --           end,
+  --           restore = function()
+  --             return 'dotnet restore ' .. path
+  --           end,
+  --           build = function()
+  --             return 'dotnet build ' .. path
+  --           end,
+  --         }
+  --         local command = commands[action]() .. '\r'
+  --         vim.cmd 'vsplit'
+  --         vim.cmd('term ' .. command)
+  --       end,
+  --       secrets = {
+  --         path = get_secret_path,
+  --       },
+  --       csproj_mappings = true,
+  --       auto_bootstrap_namespace = true,
+  --     }
+  --
+  --     -- Example command
+  --     vim.api.nvim_create_user_command('Secrets', function()
+  --       dotnet.secrets()
+  --     end, {})
+  --
+  --     -- Example keybinding
+  --     vim.keymap.set('n', '<leader>cp', function()
+  --       dotnet.run_project()
+  --     end, { desc = 'Run Dotnet Project' })
+  --   end,
+  -- },
 
-  { 'Hoffs/omnisharp-extended-lsp.nvim', lazy = true },
+  -- { 'Hoffs/omnisharp-extended-lsp.nvim', lazy = true },
 
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        omnisharp = {
-          filetypes = { 'cs', 'csharp' },
-          -- handlers = {
-          --   ['textDocument/definition'] = require('omnisharp_extended').definition_handler,
-          --   ['textDocument/typeDefinition'] = require('omnisharp_extended').type_definition_handler,
-          --   ['textDocument/references'] = require('omnisharp_extended').references_handler,
-          --   ['textDocument/implementation'] = require('omnisharp_extended').implementation_handler,
-          -- },
-          keys = {
-            {
-              'gd',
-              function()
-                require('omnisharp_extended').telescope_lsp_definitions()
-              end,
-              desc = '[G]oto [D]efinition',
-            },
-            {
-              'gr',
-              function()
-                require('omnisharp_extended').telescope_lsp_references()
-              end,
-              desc = '[G]oto [R]eferences',
-            },
-
-            {
-              '<leader>D',
-              function()
-                require('omnisharp_extended').telescope_lsp_type_definition()
-              end,
-              desc = 'Type [D]efinition',
-            },
-            {
-              'gI',
-              function()
-                require('omnisharp_extended').telescope_lsp_implementation()
-              end,
-              desc = '[G]oto [I]mplementation',
-            },
-          },
-          enable_roslyn_analyzers = true,
-          organize_imports_on_format = true,
-          enable_import_completion = true,
-        },
-      },
-    },
-  },
+  -- {
+  --   'neovim/nvim-lspconfig',
+  --   opts = {
+  --     servers = {
+  --       omnisharp = {
+  --         filetypes = { 'cs', 'csharp' },
+  --         -- handlers = {
+  --         --   ['textDocument/definition'] = require('omnisharp_extended').definition_handler,
+  --         --   ['textDocument/typeDefinition'] = require('omnisharp_extended').type_definition_handler,
+  --         --   ['textDocument/references'] = require('omnisharp_extended').references_handler,
+  --         --   ['textDocument/implementation'] = require('omnisharp_extended').implementation_handler,
+  --         -- },
+  --         keys = {
+  --           {
+  --             'gd',
+  --             function()
+  --               require('omnisharp_extended').telescope_lsp_definitions()
+  --             end,
+  --             desc = '[G]oto [D]efinition',
+  --           },
+  --           {
+  --             'gr',
+  --             function()
+  --               require('omnisharp_extended').telescope_lsp_references()
+  --             end,
+  --             desc = '[G]oto [R]eferences',
+  --           },
+  --
+  --           {
+  --             '<leader>D',
+  --             function()
+  --               require('omnisharp_extended').telescope_lsp_type_definition()
+  --             end,
+  --             desc = 'Type [D]efinition',
+  --           },
+  --           {
+  --             'gI',
+  --             function()
+  --               require('omnisharp_extended').telescope_lsp_implementation()
+  --             end,
+  --             desc = '[G]oto [I]mplementation',
+  --           },
+  --         },
+  --         enable_roslyn_analyzers = true,
+  --         organize_imports_on_format = true,
+  --         enable_import_completion = true,
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -163,21 +220,21 @@ return {
     opts = { ensure_installed = { 'c_sharp' } },
   },
 
-  {
-    'stevearc/conform.nvim',
-    optional = true,
-    opts = {
-      formatters_by_ft = {
-        cs = { 'csharpier' },
-      },
-      formatters = {
-        csharpier = {
-          command = 'dotnet-csharpier',
-          args = { '--write-stdout' },
-        },
-      },
-    },
-  },
+  -- {
+  --   'stevearc/conform.nvim',
+  --   optional = true,
+  --   opts = {
+  --     formatters_by_ft = {
+  --       cs = { 'csharpier' },
+  --     },
+  --     formatters = {
+  --       csharpier = {
+  --         command = 'dotnet-csharpier',
+  --         args = { '--write-stdout' },
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     'mfussenegger/nvim-dap',
