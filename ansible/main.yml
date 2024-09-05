@@ -53,9 +53,9 @@
     - name: Optional | Install Java
       ansible.builtin.include_role:
         name: java_role
-      when: wants_java # defaults to true
+      when: wants_java # defaults to false
 
     - name: Optional | Install C#/Dotnet
       ansible.builtin.include_role:
         name: csharp_dotnet_role
-      when: wants_csharp_dotnet # defaults to true
+      when: wants_csharp_dotnet # defaults to false

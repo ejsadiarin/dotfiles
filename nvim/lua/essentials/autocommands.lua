@@ -36,25 +36,25 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Remove padding around neovim instance (OSC 11 and OSC 111 keeps terminal background color in sync with Neovim's bg color)
--- see: https://www.reddit.com/r/neovim/comments/1ehidxy/you_can_remove_padding_around_neovim_instance/
--- also see: `mini.misc` module from 'mini.nvim' setup_termbg_sync() (ref: https://github.com/echasnovski/mini.nvim/blob/74e6b722c91113bc70d4bf67249ed8de0642b20e/doc/mini-misc.txt#L171)
--- NOTE: (1) Make sure to have this executed before you load color scheme. Otherwise there will be no event for it to sync. Alternatively, add an explicit call to the first callback function and it should work as is.
--- (2) It will not sync if you manually set Normal highlight group. It must be followed by the ColorScheme event.
-vim.api.nvim_create_autocmd({ 'UIEnter', 'ColorScheme' }, {
-  callback = function()
-    local normal = vim.api.nvim_get_hl(0, { name = 'Normal' })
-    if not normal.bg then
-      return
-    end
-    io.write(string.format('\027]11;#%06x\027\\', normal.bg))
-  end,
-})
-vim.api.nvim_create_autocmd('UILeave', {
-  callback = function()
-    io.write '\027]111\027\\'
-  end,
-})
+-- -- Remove padding around neovim instance (OSC 11 and OSC 111 keeps terminal background color in sync with Neovim's bg color)
+-- -- see: https://www.reddit.com/r/neovim/comments/1ehidxy/you_can_remove_padding_around_neovim_instance/
+-- -- also see: `mini.misc` module from 'mini.nvim' setup_termbg_sync() (ref: https://github.com/echasnovski/mini.nvim/blob/74e6b722c91113bc70d4bf67249ed8de0642b20e/doc/mini-misc.txt#L171)
+-- -- NOTE: (1) Make sure to have this executed before you load color scheme. Otherwise there will be no event for it to sync. Alternatively, add an explicit call to the first callback function and it should work as is.
+-- -- (2) It will not sync if you manually set Normal highlight group. It must be followed by the ColorScheme event.
+-- vim.api.nvim_create_autocmd({ 'UIEnter', 'ColorScheme' }, {
+--   callback = function()
+--     local normal = vim.api.nvim_get_hl(0, { name = 'Normal' })
+--     if not normal.bg then
+--       return
+--     end
+--     io.write(string.format('\027]11;#%06x\027\\', normal.bg))
+--   end,
+-- })
+-- vim.api.nvim_create_autocmd('UILeave', {
+--   callback = function()
+--     io.write '\027]111\027\\'
+--   end,
+-- })
 
 -- add 'q' keymap on command mode to close quickfix window and 'help' filetypes
 vim.api.nvim_create_autocmd('filetype', {

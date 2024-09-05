@@ -61,12 +61,12 @@ date_today=$(date +"%Y-%m-%d %H:%M:%S")
 # detect host OS (prioritizes os_family than specific 'distro')
 OS=$(grep "^ID_LIKE=" /etc/os-release | cut -d= -f2 | tr -d '"')
 if [[ -z "$OS" ]]; then
-  OS=$(grep "^ID=" /etc/os-release | cut -d= -f2 | tr -d '"')
+    OS=$(grep "^ID=" /etc/os-release | cut -d= -f2 | tr -d '"')
 fi
 
 if ! [[ -f "$VAULT_PASSWORD_FILE" ]]; then
-  echo "NO PASSWORD FILE DETECTED!"
-  exit 1
+    echo "NO PASSWORD FILE DETECTED!"
+    exit 1
 fi
 
 # install ansible (add distro-specific conditions)
@@ -76,284 +76,284 @@ fi
 # writes to log file for exquisite dotfiles
 # Parameters: LOG_LEVEL, TASK, MSG
 write_to_exquilog() {
-  local log_level="$1"
-  local task="$2"
-  local status_message="$3"
-  local datetime=""
-  local final_log=""
+    local log_level="$1"
+    local task="$2"
+    local status_message="$3"
+    local datetime=""
+    local final_log=""
 
-  if [[ ! -f "$EXQUILOG" ]]; then
-    touch "$EXQUILOG"
-  fi
+    if [[ ! -f "$EXQUILOG" ]]; then
+        touch "$EXQUILOG"
+    fi
 
-  datetime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
-  final_log="[${datetime} - ${log_level^^}] ${task,,}: ${status_message}"
+    datetime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
+    final_log="[${datetime} - ${log_level^^}] ${task,,}: ${status_message}"
 
-  echo "$final_log" >>"$EXQUILOG"
+    echo "$final_log" >>"$EXQUILOG"
 }
 
 stdout_msg() {
-  local task_status="${1^^}"
-  local task_name="${LYELLOW}${2,,}${NC}"
-  local status_message="$3"
+    local task_status="${1^^}"
+    local task_name="${LYELLOW}${2,,}${NC}"
+    local status_message="$3"
 
-  if [[ "${task_status}" == "ERROR" ]]; then
-    task_status="${X_MARK} ${LRED}ERROR${NC}"
-    task_name="${RED}$2${NC}"
-    status_message="${RED}$3${NC}"
-  elif [[ "${task_status}" == "WARNING" ]]; then
-    task_status="${WARNING} ${LYELLOW}WARNING${NC}"
-    status_message="${YELLOW}$3${NC}"
-  elif [[ "${task_status}" == "INFO" ]]; then
-    task_status="${PIN} ${LCYAN}INFO${NC}"
-    status_message="${LIGHTGRAY}$3${NC}"
-  elif [[ "${task_status}" == "INSTALLING" ]]; then
-    task_status="${CLOCK} ${LPURPLE}INSTALLING${NC}"
-    status_message="${PURPLE}$3${NC}"
-  elif [[ "${task_status}" == "INSTALLED" ]]; then
-    task_status="${CHECK_MARK} ${LSEA}INSTALLED${NC}"
-    status_message="${SEA}$3${NC}"
-  elif [[ "${task_status}" == "UPDATING" ]]; then
-    task_status="${CLOCK} ${LPURPLE}UPDATING${NC}"
-    status_message="${GREEN}$3${NC}"
-  elif [[ "${task_status}" == "UPDATED" ]]; then
-    task_status="${CHECK_MARK} ${LGREEN}UPDATED${NC}"
-    status_message="${GREEN}$3${NC}"
-  else
-    task_status="${HOT} ${LGREEN}${1^^}${NC}"
-    status_message="${SEA}$3${NC}"
-  fi
+    if [[ "${task_status}" == "ERROR" ]]; then
+        task_status="${X_MARK} ${LRED}ERROR${NC}"
+        task_name="${RED}$2${NC}"
+        status_message="${RED}$3${NC}"
+    elif [[ "${task_status}" == "WARNING" ]]; then
+        task_status="${WARNING} ${LYELLOW}WARNING${NC}"
+        status_message="${YELLOW}$3${NC}"
+    elif [[ "${task_status}" == "INFO" ]]; then
+        task_status="${PIN} ${LCYAN}INFO${NC}"
+        status_message="${LIGHTGRAY}$3${NC}"
+    elif [[ "${task_status}" == "INSTALLING" ]]; then
+        task_status="${CLOCK} ${LPURPLE}INSTALLING${NC}"
+        status_message="${PURPLE}$3${NC}"
+    elif [[ "${task_status}" == "INSTALLED" ]]; then
+        task_status="${CHECK_MARK} ${LSEA}INSTALLED${NC}"
+        status_message="${SEA}$3${NC}"
+    elif [[ "${task_status}" == "UPDATING" ]]; then
+        task_status="${CLOCK} ${LPURPLE}UPDATING${NC}"
+        status_message="${GREEN}$3${NC}"
+    elif [[ "${task_status}" == "UPDATED" ]]; then
+        task_status="${CHECK_MARK} ${LGREEN}UPDATED${NC}"
+        status_message="${GREEN}$3${NC}"
+    else
+        task_status="${HOT} ${LGREEN}${1^^}${NC}"
+        status_message="${SEA}$3${NC}"
+    fi
 
-  echo -e "${PURPLE}[${NC} ${task_status} - ${task_name} ${PURPLE}]:${NC} ${status_message}"
+    echo -e "${PURPLE}[${NC} ${task_status} - ${task_name} ${PURPLE}]:${NC} ${status_message}"
 }
 
 # Install system-based dependencies
 
 arch_setup() {
-  stdout_msg "START" "arch-setup" "Running arch setup"
-  write_to_exquilog "INFO" "arch-setup" "Initiate arch setup"
-  # install paru
-  if command -v paru >/dev/null 2>&1; then
-    stdout_msg "INFO" "paru" "Paru is already installed."
-    write_to_exquilog "INFO" "paru" "Paru is already installed."
-  else
-    stdout_msg "INSTALLING" "paru" "Installing paru..."
-    write_to_exquilog "INFO" "paru" "Installing paru..."
-    {
-      cd "$HOME" || exit
-      git clone https://aur.archlinux.org/paru-bin.git
-      cd paru-bin || exit
-      makepkg -si --noconfirm
-      stdout_msg "INSTALLED" "paru" "Paru is now installed!"
-      write_to_exquilog "INFO" "paru" "Paru is now installed!"
-    } || {
-      stdout_msg "ERROR" "paru" "Failed to install paru. Skipping..."
-      write_to_exquilog "ERROR" "paru" "Failed to install paru. Need to install manually."
-    }
-  fi
+    stdout_msg "START" "arch-setup" "Running arch setup"
+    write_to_exquilog "INFO" "arch-setup" "Initiate arch setup"
+    # install paru
+    if command -v paru >/dev/null 2>&1; then
+        stdout_msg "INFO" "paru" "Paru is already installed."
+        write_to_exquilog "INFO" "paru" "Paru is already installed."
+    else
+        stdout_msg "INSTALLING" "paru" "Installing paru..."
+        write_to_exquilog "INFO" "paru" "Installing paru..."
+        {
+            cd "$HOME" || exit
+            git clone https://aur.archlinux.org/paru-bin.git
+            cd paru-bin || exit
+            makepkg -si --noconfirm
+            stdout_msg "INSTALLED" "paru" "Paru is now installed!"
+            write_to_exquilog "INFO" "paru" "Paru is now installed!"
+        } || {
+            stdout_msg "ERROR" "paru" "Failed to install paru. Skipping..."
+            write_to_exquilog "ERROR" "paru" "Failed to install paru. Need to install manually."
+        }
+    fi
 
-  # install ansible
-  if command -v ansible >/dev/null 2>&1; then
-    stdout_msg "INFO" "ansible" "Ansible is already installed."
-    write_to_exquilog "INFO" "ansible" "Ansible is already installed."
-  else
-    stdout_msg "INSTALLING" "ansible" "Installing ansible..."
-    write_to_exquilog "INFO" "ansible" "Installing ansible..."
-    {
-      sudo pacman -S ansible
-      stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
-      write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
-    } || {
-      stdout_msg "ERROR" "ansible" "Failed to install ansible. Skipping..."
-      write_to_exquilog "ERROR" "ansible" "Failed to install ansible. Need to install manually."
-    }
-  fi
+    # install ansible
+    if command -v ansible >/dev/null 2>&1; then
+        stdout_msg "INFO" "ansible" "Ansible is already installed."
+        write_to_exquilog "INFO" "ansible" "Ansible is already installed."
+    else
+        stdout_msg "INSTALLING" "ansible" "Installing ansible..."
+        write_to_exquilog "INFO" "ansible" "Installing ansible..."
+        {
+            sudo pacman -S ansible
+            stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
+            write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
+        } || {
+            stdout_msg "ERROR" "ansible" "Failed to install ansible. Skipping..."
+            write_to_exquilog "ERROR" "ansible" "Failed to install ansible. Need to install manually."
+        }
+    fi
 
-  # install python, pip deps
-  if pacman -Q python >/dev/null 2>&1; then
-    local version=""
-    version=$(python3 --version) || {
-      version=$(python --version) || version=$(python2 --version) # fallback
-    }
-    stdout_msg "INFO" "python" "Python (ver: ${version}) is already installed."
-    write_to_exquilog "INFO" "python" "Python (ver: ${version}) is already installed."
-  else
-    stdout_msg "INSTALLING" "python" "Installing python..."
-    write_to_exquilog "INFO" "python" "Installing python..."
-    {
-      sudo pacman -S python
-      stdout_msg "INSTALLED" "python" "Python is now installed!"
-      write_to_exquilog "INFO" "python" "Python is now installed!"
-    } || {
-      stdout_msg "ERROR" "python" "Failed to install python. Skipping..."
-      write_to_exquilog "ERROR" "python" "Failed to install python."
-    }
-    stdout_msg "INSTALLING" "python" "Installing python-pip..."
-    write_to_exquilog "INFO" "python-pip" "Installing python-pip..."
-    {
-      sudo pacman -S python-pip
-      stdout_msg "INSTALLED" "python-pip" "Python-pip is now installed!"
-      write_to_exquilog "INFO" "python-pip" "Python-pip is now installed!"
-    } || {
-      stdout_msg "ERROR" "python-pip" "Failed to install python-pip. Skipping..."
-      write_to_exquilog "ERROR" "python-pip" "Failed to install python-pip."
-    }
-  fi
+    # install python, pip deps
+    if pacman -Q python >/dev/null 2>&1; then
+        local version=""
+        version=$(python3 --version) || {
+            version=$(python --version) || version=$(python2 --version) # fallback
+        }
+        stdout_msg "INFO" "python" "Python (ver: ${version}) is already installed."
+        write_to_exquilog "INFO" "python" "Python (ver: ${version}) is already installed."
+    else
+        stdout_msg "INSTALLING" "python" "Installing python..."
+        write_to_exquilog "INFO" "python" "Installing python..."
+        {
+            sudo pacman -S python
+            stdout_msg "INSTALLED" "python" "Python is now installed!"
+            write_to_exquilog "INFO" "python" "Python is now installed!"
+        } || {
+            stdout_msg "ERROR" "python" "Failed to install python. Skipping..."
+            write_to_exquilog "ERROR" "python" "Failed to install python."
+        }
+        stdout_msg "INSTALLING" "python" "Installing python-pip..."
+        write_to_exquilog "INFO" "python-pip" "Installing python-pip..."
+        {
+            sudo pacman -S python-pip
+            stdout_msg "INSTALLED" "python-pip" "Python-pip is now installed!"
+            write_to_exquilog "INFO" "python-pip" "Python-pip is now installed!"
+        } || {
+            stdout_msg "ERROR" "python-pip" "Failed to install python-pip. Skipping..."
+            write_to_exquilog "ERROR" "python-pip" "Failed to install python-pip."
+        }
+    fi
 
-  # install openssh (most likely installed already but why not ensure it)
-  if pacman -Q openssh >/dev/null 2>&1; then
-    stdout_msg "INFO" "openssh" "OpenSSH is already installed."
-    write_to_exquilog "INFO" "openssh" "OpenSSH is already installed."
-  else
-    stdout_msg "INSTALLING" "openssh" "Installing openssh..."
-    write_to_exquilog "INFO" "openssh" "Installing openssh..."
-    {
-      sudo pacman -S openssh
-      stdout_msg "INSTALLED" "openssh" "OpenSSH is now installed!"
-      write_to_exquilog "INFO" "openssh" "OpenSSH is now installed!"
-    } || {
-      stdout_msg "ERROR" "openssh" "Failed to install openssh. Skipping..."
-      write_to_exquilog "ERROR" "openssh" "Failed to install openssh."
-    }
-  fi
+    # install openssh (most likely installed already but why not ensure it)
+    if pacman -Q openssh >/dev/null 2>&1; then
+        stdout_msg "INFO" "openssh" "OpenSSH is already installed."
+        write_to_exquilog "INFO" "openssh" "OpenSSH is already installed."
+    else
+        stdout_msg "INSTALLING" "openssh" "Installing openssh..."
+        write_to_exquilog "INFO" "openssh" "Installing openssh..."
+        {
+            sudo pacman -S openssh
+            stdout_msg "INSTALLED" "openssh" "OpenSSH is now installed!"
+            write_to_exquilog "INFO" "openssh" "OpenSSH is now installed!"
+        } || {
+            stdout_msg "ERROR" "openssh" "Failed to install openssh. Skipping..."
+            write_to_exquilog "ERROR" "openssh" "Failed to install openssh."
+        }
+    fi
 
-  # do not automate enabling sshd to avoid unwanted opened services since it is optional
-  stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
+    # do not automate enabling sshd to avoid unwanted opened services since it is optional
+    stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
 
-  # install necessary ansible-galaxy collections
-  if [[ ! -f $CHECK_IF_FIRST_RUN ]]; then
-    stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
-    write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."
+    # install necessary ansible-galaxy collections
+    if [[ ! -f $CHECK_IF_FIRST_RUN ]]; then
+        stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
+        write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."
 
-    stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
-    write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
+        stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
+        write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
 
-    {
-      ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
-      ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml >/dev/null 2>&1
-      stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
-      write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
-    } || {
-      stdout_msg "ERROR" "ansible-galaxy" "Failed to install collections. Install manually."
-      write_to_exquilog "ERROR" "ansible-galaxy" "Failed to install openssh."
-    }
+        {
+            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml >/dev/null 2>&1
+            stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
+            write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
+        } || {
+            stdout_msg "ERROR" "ansible-galaxy" "Failed to install collections. Install manually."
+            write_to_exquilog "ERROR" "ansible-galaxy" "Failed to install openssh."
+        }
 
-  else
-    stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
-    write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
+    else
+        stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
+        write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
 
-    {
-      ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
-      ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml >/dev/null 2>&1
-      stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
-      write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
-    } || {
-      stdout_msg "ERROR" "ansible-galaxy" "Failed to update collections. Update manually."
-      write_to_exquilog "ERROR" "ansible-galaxy" "Failed to update openssh."
-    }
-  fi
+        {
+            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml >/dev/null 2>&1
+            stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
+            write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
+        } || {
+            stdout_msg "ERROR" "ansible-galaxy" "Failed to update collections. Update manually."
+            write_to_exquilog "ERROR" "ansible-galaxy" "Failed to update openssh."
+        }
+    fi
 
-  stdout_msg "DONE" "arch-setup" "Setup done! [$date_today]"
-  write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
+    stdout_msg "DONE" "arch-setup" "Setup done! [$date_today]"
+    write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
 }
 
 debian_setup() {
 
-  # install ansible
-  if command -v ansible >/dev/null 2>&1; then
-    stdout_msg "INFO" "ansible" "Ansible is already installed."
-    write_to_exquilog "INFO" "ansible" "Ansible is already installed."
-  else
-    stdout_msg "INSTALLING" "ansible" "Installing ansible..."
-    write_to_exquilog "INFO" "ansible" "Installing ansible..."
-    {
-      sudo apt install ansible
-      stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
-      write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
-    } || {
-      stdout_msg "ERROR" "ansible" "Failed to install ansible. Skipping..."
-      write_to_exquilog "ERROR" "ansible" "Failed to install ansible. Need to install manually."
-    }
-  fi
-
-  # install python, pip deps
-  if dpkg --get-selections | grep python >/dev/null 2>&1; then
-    local version=""
-    version=$(python3 --version) || {
-      version=$(python --version) || version=$(python2 --version) # fallback
-    }
-    stdout_msg "INFO" "python" "Python (ver: ${version}) is already installed."
-    write_to_exquilog "INFO" "python" "Python (ver: ${version}) is already installed."
-  else
-    stdout_msg "INSTALLING" "python" "Installing python..."
-    write_to_exquilog "INFO" "python" "Installing python..."
-    {
-      sudo apt install python
-      stdout_msg "INSTALLED" "python" "Python is now installed!"
-      write_to_exquilog "INFO" "python" "Python is now installed!"
-    } || {
-      stdout_msg "ERROR" "python" "Failed to install python. Skipping..."
-      write_to_exquilog "ERROR" "python" "Failed to install python."
-    }
-    stdout_msg "INSTALLING" "python" "Installing python-pip..."
-    write_to_exquilog "INFO" "python-pip" "Installing python-pip..."
-    {
-      sudo apt install python-pip
-      stdout_msg "INSTALLED" "python-pip" "Python-pip is now installed!"
-      write_to_exquilog "INFO" "python-pip" "Python-pip is now installed!"
-    } || {
-      stdout_msg "ERROR" "python-pip" "Failed to install python-pip. Skipping..."
-      write_to_exquilog "ERROR" "python-pip" "Failed to install python-pip."
-    }
-  fi
-
-  # install openssh (most likely installed already but why not ensure it)
-  local openssh_deps=("openssh-client" "openssh-server")
-  for package in "${openssh_deps[@]}"; do
-    if dpkg --get-selections | grep "$package" >/dev/null 2>&1; then
-      stdout_msg "INSTALLED" "$package" "$package is already installed"
-      write_to_exquilog "INFO" "$package" "$package is already installed"
+    # install ansible
+    if command -v ansible >/dev/null 2>&1; then
+        stdout_msg "INFO" "ansible" "Ansible is already installed."
+        write_to_exquilog "INFO" "ansible" "Ansible is already installed."
     else
-      stdout_msg "INSTALLING" "$package" "Installing $package..."
-      write_to_exquilog "INSTALLING" "$package" "Installing $package..."
-      {
-        sudo apt install "$package"
-        stdout_msg "INSTALLED" "$package" "$package is now installed!"
-        write_to_exquilog "INFO" "$package" "$package is now installed!"
-      } || {
-        stdout_msg "ERROR" "$package" "Failed to install $package. Skipping..."
-        write_to_exquilog "ERROR" "$package" "Failed to install $package. Need to install manually."
-      }
+        stdout_msg "INSTALLING" "ansible" "Installing ansible..."
+        write_to_exquilog "INFO" "ansible" "Installing ansible..."
+        {
+            sudo apt install ansible
+            stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
+            write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
+        } || {
+            stdout_msg "ERROR" "ansible" "Failed to install ansible. Skipping..."
+            write_to_exquilog "ERROR" "ansible" "Failed to install ansible. Need to install manually."
+        }
     fi
-  done
 
-  # do not automate enabling sshd to avoid unwanted opened services since it is optional
-  stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
+    # install python, pip deps
+    if dpkg --get-selections | grep python >/dev/null 2>&1; then
+        local version=""
+        version=$(python3 --version) || {
+            version=$(python --version) || version=$(python2 --version) # fallback
+        }
+        stdout_msg "INFO" "python" "Python (ver: ${version}) is already installed."
+        write_to_exquilog "INFO" "python" "Python (ver: ${version}) is already installed."
+    else
+        stdout_msg "INSTALLING" "python" "Installing python..."
+        write_to_exquilog "INFO" "python" "Installing python..."
+        {
+            sudo apt install python
+            stdout_msg "INSTALLED" "python" "Python is now installed!"
+            write_to_exquilog "INFO" "python" "Python is now installed!"
+        } || {
+            stdout_msg "ERROR" "python" "Failed to install python. Skipping..."
+            write_to_exquilog "ERROR" "python" "Failed to install python."
+        }
+        stdout_msg "INSTALLING" "python" "Installing python-pip..."
+        write_to_exquilog "INFO" "python-pip" "Installing python-pip..."
+        {
+            sudo apt install python-pip
+            stdout_msg "INSTALLED" "python-pip" "Python-pip is now installed!"
+            write_to_exquilog "INFO" "python-pip" "Python-pip is now installed!"
+        } || {
+            stdout_msg "ERROR" "python-pip" "Failed to install python-pip. Skipping..."
+            write_to_exquilog "ERROR" "python-pip" "Failed to install python-pip."
+        }
+    fi
 
-  # install necessary ansible-galaxy collections
-  if [[ ! -f $CHECK_IF_FIRST_RUN ]]; then
-    stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
-    write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."
+    # install openssh (most likely installed already but why not ensure it)
+    local openssh_deps=("openssh-client" "openssh-server")
+    for package in "${openssh_deps[@]}"; do
+        if dpkg --get-selections | grep "$package" >/dev/null 2>&1; then
+            stdout_msg "INSTALLED" "$package" "$package is already installed"
+            write_to_exquilog "INFO" "$package" "$package is already installed"
+        else
+            stdout_msg "INSTALLING" "$package" "Installing $package..."
+            write_to_exquilog "INSTALLING" "$package" "Installing $package..."
+            {
+                sudo apt install "$package"
+                stdout_msg "INSTALLED" "$package" "$package is now installed!"
+                write_to_exquilog "INFO" "$package" "$package is now installed!"
+            } || {
+                stdout_msg "ERROR" "$package" "Failed to install $package. Skipping..."
+                write_to_exquilog "ERROR" "$package" "Failed to install $package. Need to install manually."
+            }
+        fi
+    done
 
-    stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
-    write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
+    # do not automate enabling sshd to avoid unwanted opened services since it is optional
+    stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
 
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
+    # install necessary ansible-galaxy collections
+    if [[ ! -f $CHECK_IF_FIRST_RUN ]]; then
+        stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
+        write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."
 
-    stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
-    write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
-  else
-    stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
-    write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
+        stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
+        write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
 
-    ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
+        ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
 
-    stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
-    write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
-  fi
+        stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
+        write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
+    else
+        stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
+        write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
 
-  stdout_msg "DONE" "debian-setup" "Setup done! [$date_today]"
-  write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
+        ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
+
+        stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
+        write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
+    fi
+
+    stdout_msg "DONE" "debian-setup" "Setup done! [$date_today]"
+    write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
 }
 
 # fedora_setup() {
@@ -362,21 +362,21 @@ debian_setup() {
 
 # Detect OS/Distro and execute setups
 if [[ "$OS" == "arch" ]]; then # check_if_arch='cat /etc/os-release | grep -i "arch"'
-  arch_setup
-  if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
-    touch "$CHECK_IF_FIRST_RUN"
-  fi
+    arch_setup
+    if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
+        touch "$CHECK_IF_FIRST_RUN"
+    fi
 elif [[ "$OS" == "debian" ]]; then
-  debian_setup
-  if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
-    touch "$CHECK_IF_FIRST_RUN"
-  fi
-# elif [[ "$OS" == "fedora" ]]; then
-#   arch_setup
-#   if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
-#     touch "$CHECK_IF_FIRST_RUN"
-#   fi
+    debian_setup
+    if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
+        touch "$CHECK_IF_FIRST_RUN"
+    fi
+    # elif [[ "$OS" == "fedora" ]]; then
+    #   arch_setup
+    #   if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
+    #     touch "$CHECK_IF_FIRST_RUN"
+    #   fi
 else
-  # echo 'Skipping: Not an Arch-based system... btw'
-  echo "Unsupported OS. Exiting..."
+    # echo 'Skipping: Not an Arch-based system... btw'
+    echo "Unsupported OS. Exiting..."
 fi

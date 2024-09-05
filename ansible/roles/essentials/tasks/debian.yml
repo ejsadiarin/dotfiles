@@ -24,6 +24,7 @@
       - libmagickwand-dev
       # - aria2c
       - qemu-guest-agent
+      - bat
     state: present
     update_cache: true
   become: true

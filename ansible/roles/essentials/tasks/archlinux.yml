@@ -23,6 +23,7 @@
       - tar
       - wget
       - imagemagick
+      - bat
       # - aria2c (in aur)
       # - qemu-guest-agent
     state: present
