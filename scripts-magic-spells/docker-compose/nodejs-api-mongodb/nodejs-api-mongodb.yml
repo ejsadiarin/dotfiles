@@ -1,0 +1,21 @@
+services:
+  mongo:
+    image: mongo
+    container_name: questions_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  app:
+    build: .
+    container_name: questions_api
+    ports:
+      - "6969:6969" # <host>:<container> - <container> port exposed in Dockerfile (container context/scope)
+    environment:
+      MONGO_URI: mongodb://mongo:27017/questionsdb
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:
