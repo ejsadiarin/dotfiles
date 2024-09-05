@@ -24,6 +24,8 @@
       - wget
       - imagemagick
       - bat
+      - redshift
+      - copyq
       # - aria2c (in aur)
       # - qemu-guest-agent
     state: present

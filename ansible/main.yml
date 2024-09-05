@@ -48,8 +48,20 @@
     - java_role
     - csharp_dotnet_role
 
-  # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
   tasks:
+    - name: Link .ideavimrc
+      ansible.builtin.file:
+        src: "{{ ansible_user_dir }}/dotfiles/.ideavimrc"
+        dest: "{{ ansible_user_dir }}/.ideavimrc"
+        state: link
+
+    - name: Link .vimrc
+      ansible.builtin.file:
+        src: "{{ ansible_user_dir }}/dotfiles/.vimrc"
+        dest: "{{ ansible_user_dir }}/.vimrc"
+        state: link
+
+    # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
     - name: Optional | Install Java
       ansible.builtin.include_role:
         name: java_role
