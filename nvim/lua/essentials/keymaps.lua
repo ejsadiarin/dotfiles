@@ -29,19 +29,19 @@ vim.keymap.set('n', '<leader><tab>', '<cmd>e #<CR>', { desc = 'Switch to latest 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [q]uickfix list' })
 vim.keymap.set('n', '<leader>cd', function()
   vim.diagnostic.open_float { border = 'single' } -- enable border on diagnostic float window
-end, { desc = 'Line [D]iagnostics' })
+end, { desc = 'Line [d]iagnostics' })
 
 -- Open Lazy (:Lazy)
-vim.keymap.set('n', '<leader>l', '<cmd>Lazy<CR>', { desc = 'Open [L]azy' })
+vim.keymap.set('n', '<leader>l', '<cmd>Lazy<CR>', { desc = 'Open [l]azy' })
 
 -- Open Mason (:Mason)
-vim.keymap.set('n', '<leader>m', '<cmd>Mason<CR>', { desc = 'Open [M]ason' })
+vim.keymap.set('n', '<leader>m', '<cmd>Mason<CR>', { desc = 'Open [m]ason' })
 
 -- Open LspInfo (:LspInfo)
-vim.keymap.set('n', '<leader>cl', '<cmd>LspInfo<CR>', { desc = 'Open [L]SP Info' })
+vim.keymap.set('n', '<leader>cl', '<cmd>LspInfo<CR>', { desc = 'Open [l]SP Info' })
 
 -- Highlights Under Cursor
 vim.keymap.set('n', '<leader>ui', vim.show_pos, { desc = 'UI: [i]nspect Pos' })

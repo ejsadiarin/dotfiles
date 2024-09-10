@@ -18,7 +18,7 @@ return {
       -- load the session for the current directory
       vim.keymap.set('n', '<leader>r', function()
         require('persistence').load()
-      end, { desc = '[R]estore session' })
+      end, { desc = '[r]estore session' })
 
       -- -- select a session to load
       -- vim.keymap.set('n', '<leader>qS', function()
