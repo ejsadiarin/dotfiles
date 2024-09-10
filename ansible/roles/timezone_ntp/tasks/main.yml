@@ -1,7 +1,8 @@
 # Configure NTP Timezone Sync
 - name: Timezone/NTP | Set local timezone # use 'UTC' maybe? eehhhhhhh
   community.general.timezone:
-    name: Asia/Manila
+    name: "{{ timezone }}"
+  become: true
   # or ansible.builtin.shell: "timedatectl set-timezone Asia/Manila" # use 'UTC' if preferred
 
 - name: Timezone/NTP | Copy timesyncd.conf
