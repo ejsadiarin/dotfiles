@@ -40,8 +40,10 @@
     - zsh
     - neovim
     - tmux
+    - kitty
     - jetbrains_mono_nerd_font
     - ssh
+    - gpg
     - go_role
     - js_ts_role
     - python_role

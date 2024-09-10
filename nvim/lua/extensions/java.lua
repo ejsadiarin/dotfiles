@@ -60,6 +60,11 @@ return {
         jdtls_workspace_dir = function(project_name)
           return vim.fn.stdpath 'cache' .. '/jdtls/' .. project_name .. '/workspace'
         end,
+        handlers = {
+          ['$/progress'] = function(_, result, ctx)
+            -- disable progress updates.
+          end,
+        },
 
         -- How to run jdtls. This can be overridden to a full java command-line
         -- if the Python wrapper script doesn't suffice.
