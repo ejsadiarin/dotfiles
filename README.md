@@ -38,29 +38,28 @@
 
 ## Download Specific Configs
 
-- `nvim config`
-
-```bash
-git clone https://github.com/ejsadiarin/dotfiles.git nvim
-```
-
 - `.ideavimrc`
 
 ```bash
 curl -o .ideavimrc https://raw.githubusercontent.com/ejsadiarin/dotfiles/3ae2a5d160f60e6fe4b3db79ec8610aae7dff5af/.ideavimrc
 ```
 
-# !!! EVERYTHING BELOW IS HEAVILY W.I.P (WORK IN PROGRESS)
+# Installation
 
 - the install script is not yet fully functional, if you can try just backup your system :)
 
-## Pick your Wine
+## Pick your Route
 
-<!-- TODO: dropdown menu instructions -->
-<!-- NOTE: put install.md here -->
+1.  [Whole BSPWM Rice Configuration (X11)]()
 
-> Full Window Manager setup (this configs on top of [gh0stzk dotfiles](https://github.com/gh0stzk/dotfiles))
-> Standalone setup (this configs only)
+2.  [Terminal/Development Environment Configuration only](#install-terminal-configuration-personal-development-environment)
+    - this is my personal terminal configuration configured via `ansible`
+    - configures nvim, tmux, kitty, zsh, and all terminal-related configs
+    - also setups ssh, gpg, docker, git configs
+      > [!WARNING]
+      > if you pick this route, you are required to edit the `/ansible/group_vars/all.yml`
+      > and substitute your **OWN** ssh keys, gpg keys, timezone, etc. as variables
+      > otherwise, the script is not gonna run at all
 
 ### Details
 
@@ -69,11 +68,29 @@ curl -o .ideavimrc https://raw.githubusercontent.com/ejsadiarin/dotfiles/3ae2a5d
 - Polybar
 - Dunst
 - Rofi
-- Alacritty / Kitty
-- Brave
+- Kitty
 - Firefox
 
-## Initialize / Installation
+## Install Terminal Configuration (Personal Development Environment)
+
+- configures all terminal configs based on my own workflow:
+  - nvim
+  - tmux
+  - kitty
+  - zsh
+
+### Ansible (Personal Guide)
+
+- decrypt file > decrypted_mp ([see ansible README](./ansible/README.md))
+- run `devinit`
+
+#### !! WARNING: If you want to go this route, carefully see the steps below:
+
+1. Before installing, check the `group_vars/all.yml`
+   - go to `group_vars/all.yml` -> substitute your own `ssh`, `gpg` fields
+     - create password file and encrypt for ssh and gpg as encrypted string ([see ansible README](./ansible/README.md))
+
+## Install Whole BSPWM Rice Configuration (X11)
 
 - Clone repository and install script
 
@@ -99,39 +116,80 @@ chmod +x ExquisiteInstaller
 ./ExquisiteInstaller
 ```
 
-- Git and SSH-agent
-  `Git`
+**Git and SSH-agent**
 
-* `git config --global user.name "NAME_HERE"` & `git config --global user.email "EMAIL_HERE"`
-* check it with: `git config user.name` & `git config user.email`
+- `Git`
 
-`SSH keys and SSH-agent`
+  - `git config --global user.name "NAME_HERE"` & `git config --global user.email "EMAIL_HERE"`
+  - check it with: `git config user.name` & `git config user.email`
 
-- Read docs starting here (up to testing ssh connection): https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+- `SSH keys and SSH-agent`
+
+  - Read docs starting here (up to testing ssh connection): https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ## Post Installation (IMPORTANT!)
 
-- Eww (partially DEPRECATED):
-  - script doesn't install `eww-x11` because signing keys need to be imported first before building/installing
-  ```bash
-  curl -sS https://github.com/elkowar.gpg | gpg --import -i -
-  curl -sS https://github.com/web-flow.gpg | gpg --import -i -
-  ```
-  - then install `eww-x11` via paru
-  ```
-  paru -S eww-x11
-  ```
-- Eww (this):
+- **import and trust gpg keys**
+- **zsh, neovim, and tmux plugins are 'separately installed' so we just need to open them to install the necessary plugins**
 
-  - follow instructions on installing the binaries (not aur)
+### gpg keys
 
-- bswpwmrc `~/.config/bspwm/bspwmrc`:
+```bash
+gpg --import public.gpg
+gpg --import private.gpg # will prompt for password
+gpg --edit-key <email> # will prompt for password
+# then in the gpg-shell:
+trust
+5 # ultimate
+y # confirm
+save
+exit # if save did not exit you to the gpg-shell
+```
 
-  - edit your xinput for laptop natural scrolling (google how to get your device id)
+### zsh
 
-- Neovim (`nvim/`):
-  - install LazyVim
-  - copy contents (config and plugins directories)
+- opening zsh will automatically install the plugins
+
+```bash
+zsh
+```
+
+### neovim
+
+- opening nvim will also automatically install the plugins
+  - do a `:checkhealth` after to see 'missing' deps, etc.
+
+```bash
+nvim
+```
+
+### tmux
+
+- open tmux
+
+```bash
+tmux
+```
+
+- source the .tmux.conf file inside tmux
+
+```bash
+cd
+tmux source .tmux.conf
+```
+
+- then install plugins with `<prefix>+I`
+
+  - this config uses `M-Space` (or `Alt-Space`) as prefix
+  - so do: `M-Space + I` (`Alt-Space + I`)
+
+### eww (if installing rice)
+
+- follow instructions on installing the binaries (not aur)
+
+### bswpwmrc `~/.config/bspwm/bspwmrc` (if installing rice)
+
+- edit your xinput for laptop natural scrolling (google how to get your device id)
 
 ### Packages
 
