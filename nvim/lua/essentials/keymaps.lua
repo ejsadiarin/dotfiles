@@ -183,3 +183,12 @@ vim.keymap.set('n', '<leader>us', ':Telescope colorscheme<CR>', { desc = 'UI: [s
 
 -- transform selected to markdown link format
 -- vim.keymap.set('x', '<leader>ml', , {desc = 'Transform to markdown link'})
+
+-- copy path to clipboard
+vim.keymap.set('n', '<leader>cp', function()
+  local path = vim.fn.expand '%:p:h'
+  if path ~= '' then
+    vim.fn.setreg('+', path)
+    print('Copied: ' .. path)
+  end
+end, { desc = 'Copy [p]ath to clipboard' })
