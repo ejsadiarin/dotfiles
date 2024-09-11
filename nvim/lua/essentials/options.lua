@@ -92,7 +92,7 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 
 vim.opt.scrolloff = 10 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.wrap = false -- Display long lines as just one line
+vim.opt.wrap = true -- Display long lines as just one line
 vim.opt.sidescrolloff = 5 -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
 -- vim.opt.linebreak = true -- Wrap long lines at a character in 'breakat'
 -- vim.opt.textwidth = 120 -- Maximum width of text that is being inserted vim.cmd("set fo-=1") -- Don't break lines after a one-letter word
