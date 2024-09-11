@@ -96,7 +96,7 @@ return {
     },
   },
 
-  -- add tsserver and setup with typescript.nvim instead of lspconfig
+  -- add ts_ls and setup with typescript.nvim instead of lspconfig
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -113,15 +113,15 @@ return {
     opts = {
       ---@type lspconfig.options
       servers = {
-        -- tsserver will be automatically installed with mason and loaded with lspconfig
-        tsserver = {},
+        -- ts_ls will be automatically installed with mason and loaded with lspconfig
+        ts_ls = {},
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
         -- example to setup with typescript.nvim
-        tsserver = function(_, opts)
+        ts_ls = function(_, opts)
           require("typescript").setup({ server = opts })
           return true
         end,

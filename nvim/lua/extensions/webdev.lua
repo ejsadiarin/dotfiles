@@ -23,7 +23,7 @@ return {
   --   'neovim/nvim-lspconfig',
   --   opts = {
   --     servers = {
-  --       tsserver = {
+  --       ts_ls = {
   --         enabled = false,
   --       },
   --       vtsls = {
@@ -67,8 +67,8 @@ return {
   --       tailwindcss = {},
   --     },
   --     setup = {
-  --       tsserver = function()
-  --         -- disable tsserver
+  --       ts_ls = function()
+  --         -- disable ts_ls
   --         return true
   --       end,
   --       vtsls = function(_, opts)
@@ -85,7 +85,7 @@ return {
   --   opts = {
   --     ensure_installed = {
   --       -- HTML, CSS, JS, misc.
-  --       'tsserver', -- javascript & typescript lsp
+  --       'ts_ls', -- javascript & typescript lsp
   --       'html-lsp', -- html lsp
   --       'html', -- html lsp
   --       'css-lsp', -- css lsp
@@ -105,7 +105,7 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       table.insert(opts.ensure_installed, {
         -- HTML, CSS, JS, misc.
-        'tsserver', -- javascript & typescript lsp
+        'ts_ls', -- javascript & typescript lsp
         'vtsls', -- javascript & typescript lsp
         'emmet-language-server',
         'html-lsp', -- html lsp
@@ -123,7 +123,7 @@ return {
   --   opts = {
   --     ensure_installed = {
   --       -- HTML, CSS, JS, misc.
-  --       'tsserver', -- javascript & typescript lsp
+  --       'ts_ls', -- javascript & typescript lsp
   --       'html-lsp', -- html lsp
   --       'css-lsp', -- css lsp
   --       'tailwindcss-language-server', -- tailwind lsp

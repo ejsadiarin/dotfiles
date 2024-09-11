@@ -162,8 +162,8 @@ return {
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+        -- But for many setups, the LSP (`ts_ls`) will work just fine
+        -- ts_ls = {},
         --
 
         -- install lua_ls by default
@@ -237,10 +237,10 @@ return {
             end
           end,
         },
-        tsserver = {
+        ts_ls = {
           enabled = false,
           on_init = function()
-            -- disable tsserver
+            -- disable ts_ls
             return true
           end,
         },
@@ -388,7 +388,7 @@ return {
         'pylint', -- linter
         'debugpy', -- debugger
         -- HTML, CSS, JS, misc.
-        'tsserver', -- javascript & typescript lsp
+        'ts_ls', -- javascript & typescript lsp
         'vtsls', -- javascript & typescript lsp
         'emmet-language-server',
         'html-lsp', -- html lsp
@@ -431,7 +431,7 @@ return {
           function(server_name)
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed by the server configuration above.
-            -- Useful when disabling certain features of an LSP (for example, turning off formatting for tsserver)
+            -- Useful when disabling certain features of an LSP (for example, turning off formatting for ts_ls)
             -- configure capabilities of ALL servers to this 'extended capabilities' (with 'cmp_nvim_lsp')
             -- server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {}) -- like: capabilities = require('cmp_nvim_lsp').default_capabilities(),
             -- NOTE: instead of just capabilities, just insert capabilities property of each server to its opts table

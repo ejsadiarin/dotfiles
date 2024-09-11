@@ -62,7 +62,7 @@ return {
           },
         },
         helm_ls = {},
-        -- tsserver = {
+        -- ts_ls = {
         --   handlers = {
         --     ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
         --       -- your format-ts-errors.nvim handler code here.. (Pretty TS Errors)
@@ -70,7 +70,7 @@ return {
         --         return
         --       end
         --
-        --       -- ignore some tsserver diagnostics
+        --       -- ignore some ts_ls diagnostics
         --       local idx = 1
         --       while idx <= #result.diagnostics do
         --         local entry = result.diagnostics[idx]
@@ -128,7 +128,7 @@ return {
   },
 
   -- {
-  -- if tsserver is slow:
+  -- if ts_ls is slow:
   -- https://www.reddit.com/r/neovim/comments/14fdyjk/typescripttoolsnvim_the_typescript_integration/
   -- "pmizio/typescript-tools.nvim",
   -- dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
