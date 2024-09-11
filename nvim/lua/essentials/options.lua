@@ -98,3 +98,5 @@ vim.opt.sidescrolloff = 5 -- minimal number of screen columns to keep to the lef
 -- vim.opt.textwidth = 120 -- Maximum width of text that is being inserted vim.cmd("set fo-=1") -- Don't break lines after a one-letter word
 -- vim.opt.list = false -- Hide characters on tabs and spaces
 -- vim.opt.fillchars.eob = ' ' -- Empty lines at the end of a buffer as ` `
+vim.opt.autoread = true -- Sync buffers automatically
+vim.opt.swapfile = false -- Disable neovim generating swapfiles and showing the error
