@@ -28,8 +28,8 @@ Custom UI - Background
         --uc-accent-v: rgb(255, 234, 117); /*yellow*/
         --uc-accent-vi: rgb(33, 70, 193); /*red*/
         --uc-accent-vii: rgb(44, 55, 80); /*darker blue*/
-        /*--uc-background-main: rgb(5, 5, 5);*/
-        --uc-background-main: rgb(5, 5, 23);
+        --uc-background-main: rgb(5, 5, 5);
+        /*--uc-background-main: rgb(5, 5, 23);*/
         --uc-background-panel: rgba(7, 7, 7, 0.95);
         --uc-background-solid: rgba(10, 10, 10, 1);
         --uc-background-secondary: var(--uc-background-main);
@@ -59,8 +59,8 @@ Custom UI - Background
 
     #main-window:not([lwtheme]),
     :root:not([lwtheme]) {
-        --toolbar-bgcolor: var(--uc-ultima-window) !important;
-        /*--toolbar-bgcolor: var(--uc-background-main) !important;*/
+        /*--toolbar-bgcolor: var(--uc-ultima-window) !important;*/
+        --toolbar-bgcolor: var(--uc-background-main) !important;
 
         --tab-selected-bgcolor: var(--uc-active) !important;
         --tab-selected-textcolor: var(--uc-text) !important;
