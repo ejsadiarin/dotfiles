@@ -13,7 +13,7 @@ return {
     },
     configs = function(_, opts)
       require('lspconfig.configs').vtsls = require('vtsls').lspconfig -- set default server config, optional but recommended
-      opts.settings.javascript = vim.tbl_deep_extend('force', {}, opts.settings.typescript, opts.settings.javascript or {})
+      -- opts.settings.javascript = vim.tbl_deep_extend('force', {}, opts.settings.typescript, opts.settings.javascript or {})
       -- require('lspconfig').vtsls.setup { --[[ your custom server config here ]]
       -- }
     end,

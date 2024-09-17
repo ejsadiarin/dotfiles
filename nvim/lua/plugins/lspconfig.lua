@@ -278,6 +278,20 @@ return {
                 variableTypes = { enabled = false },
               },
             },
+            javascript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
+            },
           },
           on_init = function()
             require('lspconfig.configs').vtsls = require('vtsls').lspconfig -- set default server config, optional but recommended
@@ -344,6 +358,9 @@ return {
               schemas = require('schemastore').yaml.schemas(),
             },
           },
+        },
+        phpactor = {
+          enabled = true,
         },
         bashls = {},
         html = {},
@@ -422,6 +439,11 @@ return {
         -- SQL
         'sqlls', -- lsp
         'sqlfluff', -- linter
+        -- PHP
+        'phpactor', -- lsp
+        'php-debug-adapter', -- debugger
+        'phpcs', -- linter
+        'php-cs-fixer', -- formatter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
