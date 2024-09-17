@@ -48,6 +48,7 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
+export HDD="/mnt/hdd"
 
 ##############################
 #          Plugins           #
