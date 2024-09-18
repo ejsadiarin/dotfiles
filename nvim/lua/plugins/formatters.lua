@@ -15,7 +15,8 @@ return {
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
+      notify_no_formatters = true,
       formatters = {
         ['markdown-toc'] = {
           condition = function(_, ctx)
@@ -63,9 +64,9 @@ return {
         ['python'] = { 'isort', 'black' },
         ['cs'] = { 'csharpier' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        ['javascript'] = { 'prettierd', 'prettier' }, -- ['javascript'] = { 'prettierd', 'prettier', stop_after_first = true },
-        ['typescript'] = { 'prettierd', 'prettier' },
-        ['javascriptreact'] = { 'prettierd', 'prettier' },
+        ['javascript'] = { 'prettierd', 'prettier', stop_after_first = true }, -- ['javascript'] = { 'prettierd', 'prettier', stop_after_first = true },
+        ['typescript'] = { 'prettierd', 'prettier', stop_after_first = true },
+        ['javascriptreact'] = { 'prettierd', 'prettier', stop_after_first = true },
         ['typescriptreact'] = { 'prettierd', 'prettier', stop_after_first = true },
         ['css'] = { 'prettierd', 'prettier' },
         ['html'] = { 'prettierd', 'prettier' },
@@ -73,7 +74,7 @@ return {
         ['yaml'] = { 'prettierd', 'prettier' },
         ['markdown'] = { 'markdown-toc' },
         ['markdown.mdx'] = { 'markdown-toc' },
-        -- ['php'] = { 'php_cs_fixer' },
+        ['php'] = { 'php_cs_fixer' },
       },
     },
   },
