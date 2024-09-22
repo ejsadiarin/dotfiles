@@ -44,6 +44,12 @@ return {
       -- Telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
 
+      local actions = require 'telescope.actions'
+      local open_with_trouble = require('trouble.sources.telescope').open
+
+      -- Use this to add more results without clearing the trouble list
+      local add_to_trouble = require('trouble.sources.telescope').add
+
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
@@ -51,33 +57,35 @@ return {
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
-          -- mappings = {
-          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          -- },
-          -- preview = {
-          --   mime_hook = function(filepath, bufnr, opts)
-          --     local is_image = function(fp) -- fp is filepath
-          --       local image_extensions = { 'png', 'jpg' } -- Supported image formats
-          --       local split_path = vim.split(fp:lower(), '.', { plain = true })
-          --       local extension = split_path[#split_path]
-          --       return vim.tbl_contains(image_extensions, extension)
-          --     end
-          --     if is_image(filepath) then
-          --       local term = vim.api.nvim_open_term(bufnr, {})
-          --       local function send_output(_, data, _)
-          --         for _, d in ipairs(data) do
-          --           vim.api.nvim_chan_send(term, d .. '\r\n')
-          --         end
-          --       end
-          --       vim.fn.jobstart({
-          --         'feh',
-          --         filepath, -- Terminal image viewer command
-          --       }, { on_stdout = send_output, stdout_buffered = true, pty = true })
-          --     else
-          --       require('telescope.previewers.utils').set_preview_message(bufnr, opts.winid, 'Binary cannot be previewed')
-          --     end
-          --   end,
-          -- },
+          mappings = {
+            i = { ['<c-t>'] = open_with_trouble },
+            n = { ['<c-t>'] = open_with_trouble },
+          },
+          preview = {
+            mime_hook = function(filepath, bufnr, opts)
+              local is_image = function(fp) -- fp is filepath
+                local image_extensions = { 'png', 'jpg' } -- Supported image formats
+                local split_path = vim.split(fp:lower(), '.', { plain = true })
+                local extension = split_path[#split_path]
+                return vim.tbl_contains(image_extensions, extension)
+              end
+              if is_image(filepath) then
+                local term = vim.api.nvim_open_term(bufnr, {})
+                local function send_output(_, data, _)
+                  for _, d in ipairs(data) do
+                    vim.api.nvim_chan_send(term, d .. '\r\n')
+                  end
+                end
+                -- TODO: make this work lmao
+                vim.fn.jobstart({
+                  'feh',
+                  filepath, -- Terminal image viewer command
+                }, { on_stdout = send_output, stdout_buffered = true, pty = true })
+              else
+                require('telescope.previewers.utils').set_preview_message(bufnr, opts.winid, 'Binary cannot be previewed')
+              end
+            end,
+          },
         },
         pickers = {
           find_files = {
@@ -129,6 +137,12 @@ return {
           prompt_prefix = '   ',
         }
       end, { desc = 'Find [Local] R[e]cent Files' })
+
+      vim.keymap.set('n', '<leader>fb', function()
+        builtin.buffers {
+          prompt_prefix = '   ',
+        }
+      end, { desc = 'Find [b]uffers' })
 
       vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Find [Global] [r]ecent Files' })
 

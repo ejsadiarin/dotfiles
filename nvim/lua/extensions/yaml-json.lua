@@ -1,6 +1,7 @@
 -- Configuration for YAML, JSON, Docker, and Ansible support
 
 return {
+
   {
     'b0o/SchemaStore.nvim',
     lazy = true,
@@ -8,93 +9,146 @@ return {
   },
 
   {
-    'neovim/nvim-lspconfig',
+    'someone-stole-my-name/yaml-companion.nvim',
+    ft = { 'yaml', 'yml' },
     opts = {
-      servers = {
-        ansiblels = {},
-        dockerls = {},
-        docker_compose_language_service = {},
-        yamlls = {
-          capabilities = {
-            textDocument = {
-              foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true,
-              },
-            },
+      -- Additional schemas available in Telescope picker
+      builtin_matchers = {
+        kubernetes = { enabled = true },
+        cloud_init = { enabled = true },
+      },
+      -- Additional schemas available in Telescope picker
+      schemas = {
+        --{
+        --name = "Kubernetes 1.22.4",
+        --uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json",
+        --},
+        {
+          {
+            name = 'Argo CD Application',
+            uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json',
           },
-          -- from lazyvim to lazy-load schemastore when needed
-          on_new_config = function(new_config)
-            new_config.settings.yaml.schemas = vim.tbl_deep_extend('force', new_config.settings.yaml.schemas or {}, require('schemastore').yaml.schemas())
-          end,
+          {
+            name = 'SealedSecret',
+            uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json',
+          },
+          -- schemas below are automatically loaded, but added
+          -- them here so that they show up in the statusline
+          {
+            name = 'Kustomization',
+            uri = 'https://json.schemastore.org/kustomization.json',
+          },
+          {
+            name = 'GitHub Workflow',
+            uri = 'https://json.schemastore.org/github-workflow.json',
+          },
+        },
+      },
+
+      -- Pass any additional options that will be merged in the final LSP config
+      lspconfig = {
+        flags = {
+          debounce_text_changes = 150,
+        },
+        settings = {
+          redhat = { telemetry = { enabled = false } },
+          yaml = {
+            validate = true,
+            format = { enable = true },
+            hover = true,
+            schemaStore = {
+              enable = true,
+              url = 'https://www.schemastore.org/api/json/catalog.json',
+            },
+            schemaDownload = { enable = true },
+            schemas = {},
+            trace = { server = 'debug' },
+          },
+        },
+      },
+    },
+    dependencies = {
+      { 'neovim/nvim-lspconfig' },
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope.nvim' },
+    },
+    config = function(_, opts)
+      local cfg = require('yaml-companion').setup {
+        -- Additional schemas available in Telescope picker
+        builtin_matchers = {
+          kubernetes = { enabled = true },
+          cloud_init = { enabled = true },
+        },
+        -- Additional schemas available in Telescope picker
+        schemas = {
+          {
+            name = 'Kubernetes 1.22.4',
+            uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json',
+          },
+          {
+            name = 'Kubernetes 1.27.12',
+            uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.27.12-standalone-strict/all.json',
+          },
+          {
+            name = 'Kubernetes 1.26.14',
+            uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.14-standalone-strict/all.json',
+          },
+          {
+            name = 'Argo CD Application',
+            uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json',
+          },
+          {
+            name = 'SealedSecret',
+            uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json',
+          },
+          -- schemas below are automatically loaded, but added
+          -- them here so that they show up in the statusline
+          {
+            name = 'Kustomization',
+            uri = 'https://json.schemastore.org/kustomization.json',
+          },
+          {
+            name = 'GitHub Workflow',
+            uri = 'https://json.schemastore.org/github-workflow.json',
+          },
+        },
+
+        -- Pass any additional options that will be merged in the final LSP config
+        lspconfig = {
+          flags = {
+            debounce_text_changes = 150,
+          },
           settings = {
             redhat = { telemetry = { enabled = false } },
             yaml = {
-              keyOrdering = false,
-              format = {
-                enable = true,
-              },
               validate = true,
+              format = { enable = true },
+              hover = true,
               schemaStore = {
-                -- You must disable built-in schemaStore support if you want to use
-                -- this plugin and its advanced options like `ignore`.
+                -- enable = true,
+                -- url = 'https://www.schemastore.org/api/json/catalog.json',
                 enable = false,
-                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
                 url = '',
               },
+              schemaDownload = { enable = true },
+              -- schemas from store, matched by filename
+              -- loaded automatically
+              schemas = {},
               -- schemas = require('schemastore').yaml.schemas(),
+              -- schemas = require('schemastore').yaml.schemas {
+              --   select = {
+              --     'kustomization.yaml',
+              --     'GitHub Workflow',
+              --   },
+              -- },
+              trace = { server = 'debug' },
             },
           },
         },
-        jsonls = {
-          -- from lazyvim to lazy-load schemastore when needed
-          on_new_config = function(new_config)
-            new_config.settings.json.schemas = vim.tbl_deep_extend('force', new_config.settings.json.schemas or {}, require('schemastore').json.schemas())
-          end,
-          settings = {
-            json = {
-              format = {
-                enable = true,
-              },
-              validate = {
-                enable = true,
-              },
-              -- schemas = require('schemastore').json.schemas(),
-            },
-          },
-        },
-      },
-      setup = {},
-    },
-  },
-
-  {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    opts = {
-      ensure_installed = {
-        -- Docker
-        'dockerls', -- lsp
-        'docker_compose_language_service', -- lsp for compose
-        'hadolint', -- linter
-
-        -- Ansible
-        'ansiblels', -- lsp
-        'ansible-lint', -- linter
-      },
-    },
-  },
-
-  {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = {
-        'yaml',
-        'json5',
-        'dockerfile',
-        'json',
-        'jsonc',
-      },
-    },
+      }
+      require('lspconfig')['yamlls'].setup(cfg)
+      require('telescope').load_extension 'yaml_schema'
+    end,
   },
 
   { -- Linting

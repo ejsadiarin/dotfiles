@@ -2,7 +2,14 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
---
+
+local function get_schema()
+  local schema = require('yaml-companion').get_buf_schema(0)
+  if schema.result[1].name == 'none' then
+    return ''
+  end
+  return schema.result[1].name
+end
 
 return {
   {
@@ -75,7 +82,7 @@ return {
           -- stylua: ignore
           -- {
           --   function() return require("noice").api.status.command.get() end,
-          --   cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+          --   cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() e-- Additional schemas available in Telescope picker
           --   color = LazyVim.ui.fg("Statement"),
           -- },
           -- -- stylua: ignore
@@ -95,6 +102,11 @@ return {
           --   cond = require('lazy.status').has_updates,
           --   color = LazyVim.ui.fg 'Special',
           -- },
+          {
+            function() return get_schema() end,
+            padding = { left = 1, right = 1 },
+            cond = function() return require('yaml-companion') ~= nil end, -- optional condition to ensure yaml-companion is loaded
+          },
 
           {
             'diff',

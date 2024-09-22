@@ -144,3 +144,12 @@ vim.api.nvim_create_autocmd({ 'TermOpen', 'BufEnter' }, {
 --     vim.opt_local.conceallevel = 0 -- so that everything is visible in markdown files
 --   end,
 -- })
+
+-- :Telescope yaml_schema from 'yaml-companion'
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('telescope-yaml-schema', { clear = true }),
+  pattern = { 'yaml', 'yml' },
+  callback = function()
+    vim.keymap.set('n', '<leader>cs', '<cmd>Telescope yaml_schema<cr>', { desc = 'Change yaml [s]chema' })
+  end,
+})

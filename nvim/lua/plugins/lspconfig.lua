@@ -341,32 +341,86 @@ return {
           enable_import_completion = true,
         },
         jsonls = {
+          -- from lazyvim to lazy-load schemastore when needed
+          on_new_config = function(new_config)
+            new_config.settings.json.schemas = vim.tbl_deep_extend('force', new_config.settings.json.schemas or {}, require('schemastore').json.schemas())
+          end,
           settings = {
             json = {
-              schemas = require('schemastore').json.schemas(),
-              validate = { enable = true },
-            },
-          },
-        },
-        yamlls = {
-          settings = {
-            yaml = {
-              schemaStore = {
-                enable = false,
-                url = '',
+              format = {
+                enable = true,
               },
-              schemas = require('schemastore').yaml.schemas(),
+              validate = {
+                enable = true,
+              },
+              -- schemas = require('schemastore').json.schemas(),
             },
           },
         },
+        -- yamlls = { --NOTE: this is already configured by the yaml-companion plugin
+        --   capabilities = {
+        --     textDocument = {
+        --       foldingRange = {
+        --         dynamicRegistration = false,
+        --         lineFoldingOnly = true,
+        --       },
+        --     },
+        --   },
+        --   -- on_new_config = function(new_config)
+        --   --   new_config.settings.yaml.schemas = vim.tbl_deep_extend('force', new_config.settings.yaml.schemas or {}, require('schemastore').yaml.schemas())
+        --   -- end,
+        --   settings = {
+        --     redhat = { telemetry = { enabled = false } },
+        --     yaml = {
+        --       keyOrdering = false,
+        --       format = {
+        --         enable = true,
+        --       },
+        --       validate = true,
+        --       schemaStore = {
+        --         -- You must disable built-in schemaStore support if you want to use
+        --         -- this plugin and its advanced options like `ignore`.
+        --         enable = false,
+        --         -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+        --         url = '',
+        --       },
+        --       -- schemas = require('schemastore').yaml.schemas(),
+        --       -- schemas = {
+        --       --   kubernetes = '*.yaml',
+        --       --   ['http://json.schemastore.org/github-workflow'] = '.github/workflows/*',
+        --       --   ['http://json.schemastore.org/github-action'] = '.github/action.{yml,yaml}',
+        --       --   ['http://json.schemastore.org/ansible-stable-2.9'] = 'roles/tasks/*.{yml,yaml}',
+        --       --   ['http://json.schemastore.org/prettierrc'] = '.prettierrc.{yml,yaml}',
+        --       --   ['http://json.schemastore.org/kustomization'] = 'kustomization.{yml,yaml}',
+        --       --   ['http://json.schemastore.org/ansible-playbook'] = '*play*.{yml,yaml}',
+        --       --   ['http://json.schemastore.org/chart'] = 'Chart.{yml,yaml}',
+        --       --   ['https://json.schemastore.org/dependabot-v2'] = '.github/dependabot.{yml,yaml}',
+        --       --   ['https://json.schemastore.org/gitlab-ci'] = '*gitlab-ci*.{yml,yaml}',
+        --       --   ['https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json'] = '*api*.{yml,yaml}',
+        --       --   ['https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json'] = '*docker-compose*.{yml,yaml}',
+        --       --   ['https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json'] = '*flow*.{yml,yaml}',
+        --       -- },
+        --     },
+        --   },
+        -- },
         phpactor = {
           enabled = true,
         },
         bashls = {},
         html = {},
         cssls = {},
-        tailwindcss = {},
+        tailwindcss = {
+          -- exclude a filetype from the default_config
+          filetypes_exclude = { 'markdown' },
+          -- add additional filetypes to the default_config
+          filetypes_include = {},
+          -- to fully override the default_config, change the below
+          -- filetypes = {}
+        },
         marksman = {},
+        ansiblels = {},
+        dockerls = {},
+        docker_compose_language_service = {},
       }
 
       require('mason').setup {

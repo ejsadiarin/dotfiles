@@ -43,7 +43,7 @@ vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 
-vim.opt.tabstop = 4 -- Insert 2 spaces for a tab
+vim.opt.tabstop = 4 -- Insert 4 spaces for a tab
 vim.opt.softtabstop = 4 -- Number of spaces tabs count for while editing
 vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
 vim.opt.expandtab = true -- convert tabs to spaces
