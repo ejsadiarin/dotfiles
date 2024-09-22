@@ -20,29 +20,27 @@ return {
       -- Additional schemas available in Telescope picker
       schemas = {
         --{
-        --name = "Kubernetes 1.22.4",
-        --uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json",
+        --  name = "Kubernetes 1.22.4",
+        --  uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json",
         --},
-        {
-          {
-            name = 'Argo CD Application',
-            uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json',
-          },
-          {
-            name = 'SealedSecret',
-            uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json',
-          },
-          -- schemas below are automatically loaded, but added
-          -- them here so that they show up in the statusline
-          {
-            name = 'Kustomization',
-            uri = 'https://json.schemastore.org/kustomization.json',
-          },
-          {
-            name = 'GitHub Workflow',
-            uri = 'https://json.schemastore.org/github-workflow.json',
-          },
-        },
+        -- {
+        --   name = 'Argo CD Application',
+        --   uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json',
+        -- },
+        -- {
+        --   name = 'SealedSecret',
+        --   uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json',
+        -- },
+        -- -- schemas below are automatically loaded, but added
+        -- -- them here so that they show up in the statusline
+        -- {
+        --   name = 'Kustomization',
+        --   uri = 'https://json.schemastore.org/kustomization.json',
+        -- },
+        -- {
+        --   name = 'GitHub Workflow',
+        --   uri = 'https://json.schemastore.org/github-workflow.json',
+        -- },
       },
 
       -- Pass any additional options that will be merged in the final LSP config
@@ -61,7 +59,9 @@ return {
               url = 'https://www.schemastore.org/api/json/catalog.json',
             },
             schemaDownload = { enable = true },
-            schemas = {},
+            schemas = {
+              -- kubernetes = '/*',
+            },
             trace = { server = 'debug' },
           },
         },
@@ -73,79 +73,85 @@ return {
       { 'nvim-telescope/telescope.nvim' },
     },
     config = function(_, opts)
-      local cfg = require('yaml-companion').setup {
-        -- Additional schemas available in Telescope picker
-        builtin_matchers = {
-          kubernetes = { enabled = true },
-          cloud_init = { enabled = true },
-        },
-        -- Additional schemas available in Telescope picker
-        schemas = {
-          {
-            name = 'Kubernetes 1.22.4',
-            uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json',
-          },
-          {
-            name = 'Kubernetes 1.27.12',
-            uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.27.12-standalone-strict/all.json',
-          },
-          {
-            name = 'Kubernetes 1.26.14',
-            uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.14-standalone-strict/all.json',
-          },
-          {
-            name = 'Argo CD Application',
-            uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json',
-          },
-          {
-            name = 'SealedSecret',
-            uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json',
-          },
-          -- schemas below are automatically loaded, but added
-          -- them here so that they show up in the statusline
-          {
-            name = 'Kustomization',
-            uri = 'https://json.schemastore.org/kustomization.json',
-          },
-          {
-            name = 'GitHub Workflow',
-            uri = 'https://json.schemastore.org/github-workflow.json',
-          },
-        },
-
-        -- Pass any additional options that will be merged in the final LSP config
-        lspconfig = {
-          flags = {
-            debounce_text_changes = 150,
-          },
-          settings = {
-            redhat = { telemetry = { enabled = false } },
-            yaml = {
-              validate = true,
-              format = { enable = true },
-              hover = true,
-              schemaStore = {
-                -- enable = true,
-                -- url = 'https://www.schemastore.org/api/json/catalog.json',
-                enable = false,
-                url = '',
-              },
-              schemaDownload = { enable = true },
-              -- schemas from store, matched by filename
-              -- loaded automatically
-              schemas = {},
-              -- schemas = require('schemastore').yaml.schemas(),
-              -- schemas = require('schemastore').yaml.schemas {
-              --   select = {
-              --     'kustomization.yaml',
-              --     'GitHub Workflow',
-              --   },
-              -- },
-              trace = { server = 'debug' },
-            },
-          },
-        },
-      }
+      local cfg = require('yaml-companion').setup(opts)
+      -- local cfg = require('yaml-companion').setup {
+      --   -- Additional schemas available in Telescope picker
+      --   builtin_matchers = {
+      --     kubernetes = { enabled = true },
+      --     cloud_init = { enabled = true },
+      --   },
+      --   -- Additional schemas available in Telescope picker
+      --   schemas = {
+      --     {
+      --       name = 'Kubernetes 1.22.4',
+      --       uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json',
+      --     },
+      --     {
+      --       name = 'Kubernetes 1.27.12',
+      --       uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.27.12-standalone-strict/all.json',
+      --     },
+      --     {
+      --       name = 'Kubernetes 1.26.14',
+      --       uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.14-standalone-strict/all.json',
+      --     },
+      --     {
+      --       name = 'Argo CD Application',
+      --       uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json',
+      --     },
+      --     {
+      --       name = 'SealedSecret',
+      --       uri = 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json',
+      --     },
+      --     -- schemas below are automatically loaded, but added
+      --     -- them here so that they show up in the statusline
+      --     {
+      --       name = 'Kustomization',
+      --       uri = 'https://json.schemastore.org/kustomization.json',
+      --     },
+      --     {
+      --       name = 'GitHub Workflow',
+      --       uri = 'https://json.schemastore.org/github-workflow.json',
+      --     },
+      --   },
+      --
+      --   -- Pass any additional options that will be merged in the final LSP config
+      --   lspconfig = {
+      --     flags = {
+      --       debounce_text_changes = 150,
+      --     },
+      --     settings = {
+      --       redhat = { telemetry = { enabled = false } },
+      --       yaml = {
+      --         validate = true,
+      --         format = { enable = true },
+      --         hover = true,
+      --         schemaStore = {
+      --           -- enable = true,
+      --           -- url = 'https://www.schemastore.org/api/json/catalog.json',
+      --           enable = false,
+      --           url = '',
+      --         },
+      --         schemaDownload = { enable = true },
+      --         -- schemas from store, matched by filename
+      --         -- loaded automatically
+      --         schemas = {
+      --           {
+      --             name = 'Kubernetes',
+      --             uri = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json',
+      --           },
+      --         },
+      --         -- schemas = require('schemastore').yaml.schemas(),
+      --         -- schemas = require('schemastore').yaml.schemas {
+      --         --   select = {
+      --         --     'kustomization.yaml',
+      --         --     'GitHub Workflow',
+      --         --   },
+      --         -- },
+      --         trace = { server = 'debug' },
+      --       },
+      --     },
+      --   },
+      -- }
       require('lspconfig')['yamlls'].setup(cfg)
       require('telescope').load_extension 'yaml_schema'
     end,
