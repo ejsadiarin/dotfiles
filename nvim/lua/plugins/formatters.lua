@@ -39,6 +39,14 @@ return {
           command = 'dotnet-csharpier',
           args = { '--write-stdout' },
         },
+        -- prettier = {
+        --   -- enabled = true,
+        --   formatCommand = vim.fn.expand '~/.local/share/nvim/mason/bin/prettierd' .. ' ' .. '${INPUT}',
+        --   formatStdin = true,
+        --   env = {
+        --     string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.stdpath 'config' .. '/utils/fmt/.prettierrc.json'),
+        --   },
+        -- },
       },
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't

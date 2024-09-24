@@ -406,9 +406,12 @@ return {
         phpactor = {
           enabled = true,
         },
-        bashls = {},
-        html = {},
-        cssls = {},
+        eslint = {
+          settings = {
+            -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+            workingDirectories = { mode = 'auto' },
+          },
+        },
         tailwindcss = {
           -- exclude a filetype from the default_config
           filetypes_exclude = { 'markdown' },
@@ -417,6 +420,9 @@ return {
           -- to fully override the default_config, change the below
           -- filetypes = {}
         },
+        bashls = {},
+        html = {},
+        cssls = {},
         marksman = {},
         ansiblels = {},
         dockerls = {},
