@@ -426,6 +426,11 @@ return {
         marksman = {},
         ansiblels = {},
         dockerls = {},
+        sqlls = {
+          filetypes = { 'sql', 'mysql' },
+          root_dir = require('lspconfig.util').root_pattern '.sqllsrc.json',
+          settings = {},
+        },
         docker_compose_language_service = {},
       }
 

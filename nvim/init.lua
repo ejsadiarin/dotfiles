@@ -64,6 +64,7 @@ require('lazy').setup({
   { import = 'extensions.flash' },
   -- { import = 'extensions.overseer' },
   -- { import = 'extensions.obsidian' },
+  { import = 'extensions.oil' },
 
   -- This is the easiest way to modularize your config.
   --
@@ -78,7 +79,7 @@ require('lazy').setup({
   { import = 'extensions.csharp' },
   { import = 'extensions.webdev' },
   -- { import = 'extensions.python' },
-  -- { import = 'extensions.sql' },
+  { import = 'extensions.sql' },
 }, {
   defaults = {
     lazy = false,

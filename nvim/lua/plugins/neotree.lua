@@ -79,7 +79,7 @@ return {
         -- hide_hidden = false, -- for Windows (use Linux bro)
       },
       bind_to_cwd = false,
-      hijack_netrw_behavior = 'open_default', -- 'open_default', 'open_current', 'disabled'
+      hijack_netrw_behavior = 'disabled', -- 'open_default', 'open_current', 'disabled'
       use_libuv_file_watcher = true,
       follow_current_file = {
         enabled = true,
