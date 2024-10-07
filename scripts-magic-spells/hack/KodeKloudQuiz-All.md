@@ -54583,7 +54583,6 @@ AWS DynamoDB is a fully managed NoSQL database service that provides fast and pr
 
 **7. Your web application requires a relational database to store user profiles and preferences. The application expects high read and write traffic. Which AWS RDS feature can help optimize read performance for this use case?**
 
-
 * [ ] Multi-AZ (Availability Zones) deployment
 * [ ] Read Replicas
 * [ ] Provisioned IOPS storage

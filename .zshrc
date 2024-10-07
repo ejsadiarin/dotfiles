@@ -199,10 +199,10 @@ alias f='fzf -m --preview="bat --color=always {}" --bind="enter:become(nvim {})"
 alias k='kubectl'
 
 # alias mirrors="sudo reflector --verbose --latest 5 --country 'United States' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
-alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias maintenance="yay -Sc && sudo pacman -Scc"
-alias purge="sudo pacman -Rns $(pacman -Qtdq) ; sudo fstrim -av"
-alias update="paru -Syu --nocombinedupgrade"
+alias ,pac_grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias ,pac_maintenance="yay -Sc && sudo pacman -Scc"
+alias ,pac_purge="sudo pacman -Rns $(pacman -Qtdq) ; sudo fstrim -av"
+alias ,pac_update="paru -Syu --nocombinedupgrade"
 
 alias vm-on="sudo systemctl start libvirtd.service"
 alias vm-off="sudo systemctl stop libvirtd.service"
