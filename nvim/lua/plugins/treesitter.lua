@@ -23,7 +23,7 @@ return {
         event = 'VeryLazy',
         opts = {
           enable = true,
-          max_lines = 2,
+          max_lines = 1,
         },
         config = true,
         keys = {
@@ -65,6 +65,24 @@ return {
       },
       highlight = {
         enable = true,
+        disable = function()
+          return vim.b.large_buf
+        end,
+        -- disable = function(lang, buf)
+        --   local max_filesize = 100 * 1024 -- 100kb
+        --   local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        --   if ok and stats and stats.size > max_filesize then
+        --     return true
+        --   end
+        -- end,
+        -- language_tree = true,
+        -- is_supported = function()
+        --   if vim.fn.strwidth(vim.fn.getline '.') > 300 or vim.fn.getfsize(vim.fn.expand '%') > 1024 * 1024 then
+        --     return false
+        --   else
+        --     return true
+        --   end
+        -- end,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.

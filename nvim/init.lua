@@ -65,6 +65,7 @@ require('lazy').setup({
   -- { import = 'extensions.overseer' },
   -- { import = 'extensions.obsidian' },
   { import = 'extensions.oil' },
+  -- { import = 'extensions.bufferline' },
 
   -- This is the easiest way to modularize your config.
   --
@@ -126,3 +127,5 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.cmd.colorscheme 'monokai-pro-machine'

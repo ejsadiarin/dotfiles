@@ -9,9 +9,9 @@ return {
     'catppuccin/nvim',
     name = 'catppuccin',
     priority = 1000,
-    init = function()
-      vim.cmd.colorscheme 'catppuccin'
-    end,
+    -- init = function()
+    --   vim.cmd.colorscheme 'catppuccin'
+    -- end,
     opts = {
       transparent_background = false,
       -- show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
@@ -224,7 +224,7 @@ return {
         annotation = { italic = true },
         tag_attribute = { italic = true }, -- attribute of tag in reactjs
       },
-      filter = 'classic', -- classic | octagon | pro | machine | ristretto | spectrum
+      filter = 'machine', -- classic | octagon | pro | machine | ristretto | spectrum
       -- Enable this will disable filter option
       day_night = {
         enable = false, -- turn off by default
@@ -253,8 +253,78 @@ return {
           context_start_underline = false,
         },
       },
-      ---@param c Colorscheme
-      -- override = function(c) end,
+      -- @param c Colorscheme
+      override = function()
+        return {
+          CursorLine = { bg = '#1d1e24' },
+          NormalFloat = { bg = 'NONE' },
+          FloatBorder = { fg = '#425157' },
+          TelescopeNormal = { fg = '#f2fffc' },
+          Directory = { fg = '#ffed72' },
+          LazyH1 = { bg = '#000000' },
+
+          ['@markup.raw.block.markdown'] = { bg = 'NONE' },
+          ['@markup.raw.markdown_inline'] = { bg = 'NONE' },
+
+          BufferLineBackground = { bg = 'NONE' },
+          BufferLineSeparator = { bg = 'NONE' },
+          BufferLineTab = { bg = 'NONE' },
+          BufferLineWarning = { bg = 'NONE' },
+          BufferLineError = { bg = 'NONE' },
+          BufferLinePick = { bg = 'NONE' },
+          BufferLineInfo = { bg = 'NONE' },
+          BufferLineHint = { bg = 'NONE' },
+          BufferLineModified = { bg = 'NONE' },
+          BufferLineCloseButton = { bg = 'NONE' },
+          BufferLineIndicator = { bg = 'NONE' },
+          BufferLineDuplicate = { bg = 'NONE' },
+
+          BufferLineDevIconGoModInactive = { bg = 'NONE' },
+          BufferLineDevIconEnvInactive = { bg = 'NONE' },
+          BufferLineDevIconGoInactive = { bg = 'NONE' },
+          BufferLineDevIconGoMod = { bg = 'NONE' },
+          BufferLineDevIconGo = { bg = 'NONE' },
+          BufferLineDevIconEnv = { bg = 'NONE' },
+
+          BufferLineBufferSelected = { bg = 'NONE' },
+          BufferLineModifiedIcon = { bg = 'NONE' },
+          BufferLineIndicatorSelected = { bg = 'NONE' },
+          BufferLineModifiedSelected = { bg = 'NONE' },
+          BufferLineBuffer = { bg = 'NONE' },
+
+          BufferLineDevIconLuaSelected = { bg = 'NONE' },
+          BufferLineDevIconDefaultSelected = { bg = 'NONE' },
+
+          BufferLineGroupLabel = { bg = 'NONE' },
+          BufferLineDevIconLua = { bg = 'NONE' },
+          BufferLineErrorDiagnostic = { bg = 'NONE' },
+          BufferLineInfoDiagnostic = { bg = 'NONE' },
+          BufferLineHintDiagnostic = { bg = 'NONE' },
+          BufferLineDevIconDefault = { bg = 'NONE' },
+          BufferLineTabSeparator = { bg = 'NONE' },
+          BufferLineWarningDiagnostic = { bg = 'NONE' },
+          BufferLineDevIconLuaInactive = { bg = 'NONE' },
+          BufferLineDevIconDefaultInactive = { bg = 'NONE' },
+
+          BufferLineHintVisible = { bg = 'NONE' },
+          BufferLineInfoVisible = { bg = 'NONE' },
+          BufferLinePickVisible = { bg = 'NONE' },
+          BufferLineErrorVisible = { bg = 'NONE' },
+          BufferLineBufferVisible = { bg = 'NONE' },
+          BufferLineNumbersVisible = { bg = 'NONE' },
+          BufferLineWarningVisible = { bg = 'NONE' },
+          BufferLineModifiedVisible = { bg = 'NONE' },
+          BufferLineDuplicateVisible = { bg = 'NONE' },
+          BufferLineIndicatorVisible = { bg = 'NONE' },
+          BufferLineSeparatorVisible = { bg = 'NONE' },
+          BufferLineDiagnosticVisible = { bg = 'NONE' },
+          BufferLineCloseButtonVisible = { bg = 'NONE' },
+          BufferLineHintDiagnosticVisible = { bg = 'NONE' },
+          BufferLineInfoDiagnosticVisible = { bg = 'NONE' },
+          BufferLineErrorDiagnosticVisible = { bg = 'NONE' },
+          BufferLineWarningDiagnosticVisible = { bg = 'NONE' },
+        }
+      end,
       ---@param cs Colorscheme
       ---@param p ColorschemeOptions
       ---@param Config MonokaiProOptions
