@@ -196,3 +196,6 @@ end, { desc = 'Copy [p]ath to clipboard' })
 -- center cursor when scrolling up and down via keymaps
 vim.keymap.set('n', '<C-U>', '<C-U>zz')
 vim.keymap.set('n', '<C-D>', '<C-D>zz')
+
+-- Buffer keymaps
+vim.keymap.set('n', '<leader>bd', '<CMD>bd<CR>', { desc = 'Buffer: [d]elete' })

@@ -66,6 +66,8 @@ require('lazy').setup({
   -- { import = 'extensions.obsidian' },
   { import = 'extensions.oil' },
   -- { import = 'extensions.bufferline' },
+  { import = 'extensions.colorizer' },
+  { import = 'extensions.markview' },
 
   -- This is the easiest way to modularize your config.
   --
@@ -105,6 +107,11 @@ require('lazy').setup({
     },
   },
   ui = {
+    border = 'rounded',
+    size = {
+      height = 0.8,
+      width = 0.8,
+    },
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
     icons = vim.g.have_nerd_font and {} or {

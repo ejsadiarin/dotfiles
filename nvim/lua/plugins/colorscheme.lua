@@ -259,9 +259,15 @@ return {
           CursorLine = { bg = '#1d1e24' },
           NormalFloat = { bg = 'NONE' },
           FloatBorder = { fg = '#425157' },
-          TelescopeNormal = { fg = '#f2fffc' },
           Directory = { fg = '#ffed72' },
-          LazyH1 = { bg = '#000000' },
+
+          -- LazyNormal = { fg = '#909c9d', bg = '#222a2d' },
+          LazyNormal = { fg = '#f2fffc', bg = 'NONE' },
+          LazyButton = { bg = '#1d1e24' },
+
+          TelescopeNormal = { fg = '#f2fffc' },
+          TelescopeResultsNormal = { fg = '#f2fffc' },
+          TelescopeResultsFunction = { fg = '#ffed72', bg = '#1d1e24' },
 
           ['@markup.raw.block.markdown'] = { bg = 'NONE' },
           ['@markup.raw.markdown_inline'] = { bg = 'NONE' },
