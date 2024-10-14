@@ -45,7 +45,7 @@ return {
       'DBUIFindBuffer',
     },
     keys = {
-      { '<leader>cca', '<cmd>DBUIToggle<cr>', desc = 'SQL: Open [u]I' },
+      { '<leader>ccu', '<cmd>DBUIToggle<cr>', desc = 'SQL: Open [u]I' },
     },
     init = function()
       -- Your DBUI configuration

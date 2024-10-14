@@ -41,7 +41,7 @@ vim.keymap.set('n', '<leader>l', '<cmd>Lazy<CR>', { desc = 'Open [l]azy' })
 vim.keymap.set('n', '<leader>m', '<cmd>Mason<CR>', { desc = 'Open [m]ason' })
 
 -- Open LspInfo (:LspInfo)
-vim.keymap.set('n', '<leader>cl', '<cmd>LspInfo<CR>', { desc = 'Open [l]SP Info' })
+vim.keymap.set('n', '<leader>cl', '<cmd>check lspconfig<cr>', { desc = 'Open [l]SP Info' })
 
 -- Highlights Under Cursor
 vim.keymap.set('n', '<leader>ui', vim.show_pos, { desc = 'UI: [i]nspect Pos' })
