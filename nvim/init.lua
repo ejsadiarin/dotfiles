@@ -57,9 +57,9 @@ require('lazy').setup({
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   --  Here are extension plugin configurations for optional things (ex. Copilot)
-  { import = 'extensions.copilot' },
+  -- { import = 'extensions.copilot' },
   -- { import = 'extensions.avante' },
-  { import = 'extensions.copilot-chat' },
+  -- { import = 'extensions.copilot-chat' },
   { import = 'extensions.cloak' },
   { import = 'extensions.flash' },
   -- { import = 'extensions.overseer' },

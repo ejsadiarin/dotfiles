@@ -199,3 +199,6 @@ vim.keymap.set('n', '<C-D>', '<C-D>zz')
 
 -- Buffer keymaps
 vim.keymap.set('n', '<leader>bd', '<CMD>bd<CR>', { desc = 'Buffer: [d]elete' })
+
+-- Commmon typo :W remap to :w
+-- vim.keymap.set('n', ':W', ':w', { noremap = true, silent = true })

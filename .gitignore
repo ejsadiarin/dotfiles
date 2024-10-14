@@ -9,3 +9,4 @@ ansible/decrypted_mp
 master_password
 ansible/master_password
 out
+*.log

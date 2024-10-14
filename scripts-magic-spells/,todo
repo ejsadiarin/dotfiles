@@ -12,8 +12,8 @@ todo_file="$VAULT/Personal/todos/"$date_today.md
 
 # check if $VAULT path exists
 cd "$VAULT" || {
-  echo "No VAULT env path created. Set a VAULT path in your .zshrc or .bashrc first."
-  exit 1
+    echo "No VAULT env path created. Set a VAULT path in your .zshrc or .bashrc first."
+    exit 1
 }
 
 # if [ -z "$vault_check" ]; then
@@ -22,14 +22,14 @@ cd "$VAULT" || {
 # fi
 
 new_todo() {
-  touch "$todo_file"
-  cat >"$todo_file" <<EOF
-# DAILY QUEST for $date_today:
+    touch "$todo_file"
+    cat >"$todo_file" <<EOF
+# DAILY QUEST for 2024-10-13:
 
 - [ ] 100 Pushups
 - [ ] 100 Sit-ups
 - [ ] 100 Squats
-- [x] Workout/Rest Day
+- [ ] Workout/Rest Day
 
 - [ ] 30 day devops challenge
 - [ ] r/linuxupskillchallenge daily
@@ -38,9 +38,10 @@ new_todo() {
 
 # Side Quests:
 
+- [ ] buy monitor to configure the mini pc for homelabbing
+- [ ] [watch API performance design BEST PRACTICES](https://youtu.be/CI0ZxSQ8sWQ?si=ZCrenujPxmeuZ5LX)
 - [ ] VLANS: https://www.youtube.com/watch?v=JszGeQPTo4w&ab_channel=CrosstalkSolutions
 - [ ] offsite and onsite Git server
-
   - [ ] offsite: cloud server, codeberg
   - [ ] onsite: self-hosted gitlab or gitea
 
@@ -48,20 +49,41 @@ new_todo() {
 
 - [ ] continue sort lock
 
-- [ ] finish the ansible playbook for machine setup - all roles
-
-  - make one for debian and arch (specific, not using ansible.builtin.packages)
-
 - [ ] git intricasies https://www.reddit.com/r/linux/s/NSmM0zzAxu
 - [ ] setup cron jobs automation
 - [ ] look into webhooks
-
-- [ ] add networking k8s: https://www.reddit.com/r/kubernetes/s/TOZlIZ3Ggg and [THIS](https://www.reddit.com/r/kubernetes/comments/1cj88by/the_torture_starts_here/)
 
 - [ ] 455250 482004 491968 mibry
 - [ ] https://github.com/caronc/apprise?ref=selfh.st -> notification
 - [ ] https://github.com/prometheus/blackbox_exporter -> probe/ping external services/endpoints (ex. alerts when token expired on some REST API)
 - [ ] make a script to check if system got updated correctly: \$(uname -r) then \$(ls /usr/lib/modules)
+
+## Kubernetes
+- [ ] add networking k8s: https://www.reddit.com/r/kubernetes/s/TOZlIZ3Ggg and [THIS](https://www.reddit.com/r/kubernetes/comments/1cj88by/the_torture_starts_here/)
+- [ ] practice k8s (killercoda, play-labs-with-k8s, kodekloud)
+    - [ ] setup kind or k3s or minikube for practice
+- [ ] [Kubernetes Networking Series](https://youtube.com/playlist?list=PLSAko72nKb8QWsfPpBlsw-kOdMBD7sra-&si=IVWpBw9YBy7UYUc_)
+- [ ] [go n kubernetes things practical](https://youtube.com/@dhij)
+
+## DevOps things
+
+- [ ] [compose files scripts volumes structure](https://www.reddit.com/r/selfhosted/s/wENppd13RC)
+- [ ] [cron jobs](https://youtu.be/sKH5cpCrpes?si=w-8BuZa6MkV5Y2cj)
+- [ ] [k3s homelab](http//github.com/loganmarchione/k8s_homelab)
+- [ ] [ansible role to update all with reboot](http//www.reddit.com/r/selfhosted/s/cy940X7SL2)
+- [ ] Scripts to automate things wrt
+    - APIs
+    - Database shut down start 
+    - Monitoring
+    - Alert
+    - Log analysis
+    - Log anamoly detection 
+    - Backups
+    - Interface with 3rd party apis
+    - Callbacks 
+    - Ssl renewals
+    - Cron jobs
+    - Cloud Iac.
 
 # KNOW HOW TO:
 
@@ -83,9 +105,9 @@ EOF
 }
 
 if [ ! -f "$todo_file" ]; then
-  echo "[ NEW ] Creating $date_today.md..."
-  new_todo
+    echo "[ NEW ] Creating $date_today.md..."
+    new_todo
 fi
 
-nvim "$todo_file" -c ":NoNeckPain" '+ normal gg'
+nvim "$todo_file" -c ":NoNeckPain" '+ normal gg' # needs NoNeckPain nvim plugin (will still work if don't have it)
 # nvim '+ normal Gzzo' "$todo_file" -c :NoNeckPain
