@@ -83,17 +83,34 @@ super + w
 Print
 	flameshot full -c -p ~/Pictures/ScreenShots/
 
+# Screenshot Now
+F9
+	flameshot full -c -p ~/Pictures/ScreenShots/
+
 # Screenshot Select
 alt + Print
   flameshot gui -c -p ~/Pictures/ScreenShots/
 
 # Screenshot Select
+alt + F9
+  flameshot gui -c -p ~/Pictures/ScreenShots/
+
+# Screenshot Select Copy Only
 shift + Print
+  flameshot gui -c 
+
+# Screenshot Select Copy Only
+shift + F9
   flameshot gui -c 
 
 # Screenshot Now for Vault (just copy paste, obsidian handles the rest)
 ctrl + Print
   flameshot full -c
+
+# Screenshot Now for Vault (just copy paste, obsidian handles the rest)
+ctrl + F9
+  flameshot full -c
+
 
 # Manage brightness
 XF86MonBrightness{Up,Down}
