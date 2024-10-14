@@ -42,6 +42,7 @@
     - tmux
     - kitty
     - jetbrains_mono_nerd_font
+    - docker
     - ssh
     - gpg
     - go_role

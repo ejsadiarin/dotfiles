@@ -1,0 +1,8 @@
+# create docker group (if not exists): sudo groupadd docker
+# add $USER to docker group: sudo usermod -aG docker $USER
+# activate changes on groups: newgrp docker
+# enable systemd docker.service
+# enable systemd containerd.service
+# copy daemon.json
+
+- name: Docker | Install docker
