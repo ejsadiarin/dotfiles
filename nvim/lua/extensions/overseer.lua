@@ -1,7 +1,7 @@
 return {
-  {
-    'stevearc/overseer.nvim',
-    opts = {},
-    keys = {},
-  },
+    {
+        'stevearc/overseer.nvim',
+        opts = {},
+        keys = {},
+    },
 }
