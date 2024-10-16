@@ -26,12 +26,24 @@ return {
         icons_enabled = true,
         disabled_filetypes = { statusline = { 'dashboard', 'alpha', 'starter' } },
         section_separators = { left = '', right = '' },
-        -- section_separators = { left = "", right = "" },
+        -- section_separators = { left = '', right = '' },
         -- component_separators = { left = "", right = " 󰇙 " },
         component_separators = { left = '', right = '' },
       },
       sections = {
         lualine_a = {
+          {
+            function()
+              if package.loaded['grapple'] and require('grapple').exists() then
+                return '󰛢 ' .. require('grapple').name_or_index()
+              end
+              return '󰛢 N'
+            end,
+            -- cond = function()
+            --   return package.loaded['grapple'] and require('grapple').exists()
+            -- end,
+          },
+
           -- {
           --   'mode',
           --   -- {'branch', icon = ''} / {'branch', icon = {'', color={fg='green'}}}
@@ -64,7 +76,7 @@ return {
               unnamed = '[No Name]', -- Text to show for unnamed buffers.
               newfile = '[New]', -- Text to show for newly created file before first write
             },
-            -- color = { fg = '#ffed72' },
+            -- color = { fg = '#f9cc6c' },
             color = { fg = '#f38ba8' },
           },
           -- { LazyVim.lualine.pretty_path() },

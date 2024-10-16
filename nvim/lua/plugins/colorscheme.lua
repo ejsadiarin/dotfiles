@@ -213,7 +213,7 @@ return {
     opts = {
       transparent_background = true,
       terminal_colors = true,
-      devicons = true, -- highlight the icons of `nvim-web-devicons`
+      devicons = false, -- highlight the icons of `nvim-web-devicons`
       styles = {
         comment = { italic = true },
         keyword = { italic = true }, -- any other keyword
@@ -253,21 +253,37 @@ return {
           context_start_underline = false,
         },
       },
-      -- @param c Colorscheme
+      ---@param cs Colorscheme
+      ---@param p ColorschemeOptions
+      ---@param Config MonokaiProOptions
+      ---@param hp Helper
+      -- override = function(cs: Colorscheme, p: ColorschemeOptions, Config: MonokaiProOptions, hp: Helper) end,
       override = function()
         return {
           CursorLine = { bg = '#1d1e24' },
           NormalFloat = { bg = 'NONE' },
+          FloatTitle = { bg = '#f9cc6c' },
+          FloatFooter = { bg = '#f9cc6c' },
           FloatBorder = { fg = '#425157' },
-          Directory = { fg = '#ffed72' },
+          Directory = { fg = '#f9cc6c' },
 
           -- LazyNormal = { fg = '#909c9d', bg = '#222a2d' },
           LazyNormal = { fg = '#f2fffc', bg = 'NONE' },
           LazyButton = { bg = '#1d1e24' },
 
+          StatusLine = { bg = '#1d1e24' },
+
           TelescopeNormal = { fg = '#f2fffc' },
           TelescopeResultsNormal = { fg = '#f2fffc' },
-          TelescopeResultsFunction = { fg = '#ffed72', bg = '#1d1e24' },
+          TelescopeResultsFunction = { fg = '#f9cc6c', bg = '#1d1e24' },
+          TelescopeResultsTitle = { bg = '#f9cc6c' },
+          TelescopePromptTitle = { bg = '#f9cc6c' },
+          TelescopePreviewTitle = { bg = '#f9cc6c' },
+
+          GrappleTitle = { fg = '#f2fffc', bg = '#1d1e24' },
+          GrappleFooter = { fg = '#f2fffc', bg = '#1d1e24' },
+
+          lualine_a_normal = { bg = '#f9cc6c' },
 
           ['@markup.raw.block.markdown'] = { bg = 'NONE' },
           ['@markup.raw.markdown_inline'] = { bg = 'NONE' },
@@ -331,11 +347,27 @@ return {
           BufferLineWarningDiagnosticVisible = { bg = 'NONE' },
         }
       end,
-      ---@param cs Colorscheme
-      ---@param p ColorschemeOptions
-      ---@param Config MonokaiProOptions
-      ---@param hp Helper
-      -- override = function(cs: Colorscheme, p: ColorschemeOptions, Config: MonokaiProOptions, hp: Helper) end,
+      ---@param filter "classic" | "machine" | "octagon" | "pro" | "ristretto" | "spectrum"
+      overridePalette = function(filter)
+        return {
+          dark2 = '#161b1e',
+          dark1 = '#1d2528',
+          background = '#273136',
+          text = '#f2fffc',
+          accent1 = '#ff6d7e',
+          accent2 = '#ffb270',
+          -- accent3 = '#ffed72',
+          accent3 = '#f9cc6c',
+          accent4 = '#a2e57b',
+          accent5 = '#7cd5f1',
+          accent6 = '#baa0f8',
+          dimmed1 = '#b8c4c3',
+          dimmed2 = '#8b9798',
+          dimmed3 = '#6b7678',
+          dimmed4 = '#545f62',
+          dimmed5 = '#3a4449',
+        }
+      end,
     },
   },
 

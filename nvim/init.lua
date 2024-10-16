@@ -68,7 +68,9 @@ require('lazy').setup({
   -- { import = 'extensions.bufferline' },
   { import = 'extensions.colorizer' },
   { import = 'extensions.markview' },
-  { import = 'extensions.harpoon' },
+  -- "mark-style" file navigation (only choose one)
+  -- { import = 'extensions.harpoon' },
+  { import = 'extensions.grapple' },
 
   -- This is the easiest way to modularize your config.
   --
