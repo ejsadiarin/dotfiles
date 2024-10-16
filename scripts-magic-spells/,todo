@@ -24,7 +24,7 @@ cd "$VAULT" || {
 new_todo() {
     touch "$todo_file"
     cat >"$todo_file" <<EOF
-# DAILY QUEST for 2024-10-13:
+# DAILY QUEST for $date_today:
 
 - [ ] 100 Pushups
 - [ ] 100 Sit-ups
@@ -38,7 +38,9 @@ new_todo() {
 
 # Side Quests:
 
+- [ ] add Instagram directory to syncthing
 - [ ] buy monitor to configure the mini pc for homelabbing
+    - [ ] get hdmi cable
 - [ ] [watch API performance design BEST PRACTICES](https://youtu.be/CI0ZxSQ8sWQ?si=ZCrenujPxmeuZ5LX)
 - [ ] VLANS: https://www.youtube.com/watch?v=JszGeQPTo4w&ab_channel=CrosstalkSolutions
 - [ ] offsite and onsite Git server
@@ -58,12 +60,17 @@ new_todo() {
 - [ ] https://github.com/prometheus/blackbox_exporter -> probe/ping external services/endpoints (ex. alerts when token expired on some REST API)
 - [ ] make a script to check if system got updated correctly: \$(uname -r) then \$(ls /usr/lib/modules)
 
+## Go
+
+- [ ] see oapi-codegen OpenAPI spec Code Generator for Go
+
 ## Kubernetes
+
+- [ ] [go n kubernetes things practical](https://youtube.com/@dhij)
 - [ ] add networking k8s: https://www.reddit.com/r/kubernetes/s/TOZlIZ3Ggg and [THIS](https://www.reddit.com/r/kubernetes/comments/1cj88by/the_torture_starts_here/)
 - [ ] practice k8s (killercoda, play-labs-with-k8s, kodekloud)
     - [ ] setup kind or k3s or minikube for practice
 - [ ] [Kubernetes Networking Series](https://youtube.com/playlist?list=PLSAko72nKb8QWsfPpBlsw-kOdMBD7sra-&si=IVWpBw9YBy7UYUc_)
-- [ ] [go n kubernetes things practical](https://youtube.com/@dhij)
 
 ## DevOps things
 
