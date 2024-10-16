@@ -33,7 +33,7 @@ vim.opt.incsearch = true -- While typing a search command, show where the patter
 vim.opt.mouse = 'a' -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.background = 'dark'
 
-vim.opt.showmode = false -- Show mode for exquisite simplicity
+vim.opt.showmode = true -- Show mode for exquisite simplicity
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
