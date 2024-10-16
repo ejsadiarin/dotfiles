@@ -32,16 +32,22 @@ return {
       },
       sections = {
         lualine_a = {
+          -- {
+          --   'mode',
+          --   -- {'branch', icon = ''} / {'branch', icon = {'', color={fg='green'}}}
+          --
+          --   -- icon position can also be set to the right side from table. Example:
+          --   -- {'branch', icon = {'', align='right', color={fg='green'}}}
+          --   icon = nil,
+          -- },
+        },
+        lualine_b = {
           {
-            'mode',
-            -- {'branch', icon = ''} / {'branch', icon = {'', color={fg='green'}}}
-
-            -- icon position can also be set to the right side from table. Example:
-            -- {'branch', icon = {'', align='right', color={fg='green'}}}
-            icon = nil,
+            'branch',
+            icon = { '', align = 'left', color = { fg = '#a6e3a1' } },
+            padding = { left = 1, right = 1 },
           },
         },
-        lualine_b = {},
 
         lualine_c = {
           -- LazyVim.lualine.root_dir(),
@@ -58,14 +64,10 @@ return {
               unnamed = '[No Name]', -- Text to show for unnamed buffers.
               newfile = '[New]', -- Text to show for newly created file before first write
             },
+            -- color = { fg = '#ffed72' },
             color = { fg = '#f38ba8' },
           },
           -- { LazyVim.lualine.pretty_path() },
-          {
-            'branch',
-            icon = { '', align = 'left', color = { fg = '#a6e3a1' } },
-            padding = { left = 1, right = 1 },
-          },
           {
             'diagnostics',
             symbols = {
