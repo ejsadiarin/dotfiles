@@ -172,3 +172,6 @@ vim.api.nvim_create_autocmd({ 'BufReadPre' }, {
   group = aug,
   pattern = '*',
 })
+
+-- do :w on :W (remaps)
+vim.api.nvim_create_user_command('W', 'w', {})
