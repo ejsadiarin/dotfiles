@@ -14,7 +14,7 @@
 --  config = function() ... end
 
 return {
-    {                   -- Useful plugin to show you pending keybinds.
+    {                       -- Useful plugin to show you pending keybinds.
         'folke/which-key.nvim',
         event = 'VeryLazy', -- Sets the loading event to 'VimEnter'
         -- keys = { { '<leader>' } }, -- lazy load: activate only when <leader> key is pressed (twice press to see which-key menu)
@@ -33,7 +33,6 @@ return {
                 { '<leader>u', group = '[U]I', icon = '' },
                 { '<leader>g', group = '[G]it', icon = ' ' },
                 { '<leader>x', group = '[X]iagnostics (Trouble)', icon = '' },
-                { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
             }
         end,
     },
