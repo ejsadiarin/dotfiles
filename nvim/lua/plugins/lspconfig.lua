@@ -407,6 +407,12 @@ return {
                 -- },
                 phpactor = {
                     enabled = true,
+                    cwd = { 'phpactor', 'language-server' },
+                    filetypes = { 'php' },
+                    root_dir = function()
+                        return vim.loop.cwd()
+                    end
+                    -- settings = {}
                 },
                 eslint = {
                     settings = {
