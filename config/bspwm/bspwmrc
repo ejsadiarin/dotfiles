@@ -22,8 +22,8 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Default 1 monitor with 6 workspaces
 for monitor in "$(xrandr -q | grep -w 'connected' | cut -d' ' -f1)"; do
-	bspc monitor "$monitor" -d '1' '2' '3' '4' '5' '6'
-	#bspc monitor "$monitor" -d '' '' '' '' '' ''
+    bspc monitor "$monitor" -d '1' '2' '3' '4' '5' '6'
+    #bspc monitor "$monitor" -d '' '' '' '' '' ''
 done
 
 ## For two or three monitors configuration see https://github.com/gh0stzk/dotfiles/wiki/Two-or-more-monitors-setup
@@ -61,10 +61,10 @@ bspc rule -a scratch sticky=on state=floating focus=on
 processes=("sxhkd" "polybar" "stalonetray" "dunst" "eww.*bar")
 
 for process in "${processes[@]}"; do
-	if pgrep -f "$process"; then
-		pkill -9 -f "$process" >/dev/null
-		sleep 0.1
-	fi
+    if pgrep -f "$process"; then
+        pkill -9 -f "$process" >/dev/null
+        sleep 0.1
+    fi
 done
 
 # Load bspwm conf, colors, dunst, bars and/or eww widgets
@@ -100,8 +100,8 @@ xsetroot -cursor_name left_ptr
 pidof -q picom || { picom -b --config "$HOME"/.config/bspwm/picom.conf & }
 #pidof -q picom || { picom --legacy-backends --config "$HOME"/.config/bspwm/picom.conf & }
 
-# Swap caps lock to escape
-setxkbmap -option caps:swapescape
+# Swap caps lock to escape (UPDATE 20241021-08:50PM: kanata for keyboard layouts)
+# setxkbmap -option caps:swapescape
 
 # Network Applet
 nm-applet --indicator &
