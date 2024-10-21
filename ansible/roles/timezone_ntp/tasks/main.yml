@@ -5,22 +5,35 @@
   become: true
   # or ansible.builtin.shell: "timedatectl set-timezone Asia/Manila" # use 'UTC' if preferred
 
-- name: Timezone/NTP | Copy timesyncd.conf
+- name: Timezone/NTP (Archlinux) | Copy timesyncd.conf
   ansible.builtin.copy:
-    src: templates/timesyncd.conf
+    src: templates/timesyncd-arch.conf
     dest: /etc/systemd/timesyncd.conf
     owner: root
     group: root
     mode: -rw-r--r-- # "0644"
   become: true
+  when: machine_os == 'archlinux'
   notify: Timezone/NTP | Restart timesyncd.service
 
-- name: Timezone/NTP | Copy ntp.conf
+- name: Timezone/NTP (Archlinux) | Copy ntp.conf
   ansible.builtin.copy:
-    src: templates/ntp.conf
+    src: templates/ntp-arch.conf
     dest: /etc/ntp.conf
     owner: root
     group: root
     mode: -rw-r--r-- # "0644"
   become: true
+  when: machine_os == 'archlinux'
+  notify: Timezone/NTP | Restart timesyncd.service
+
+- name: Timezone/NTP (Debian) | Copy timesyncd.conf
+  ansible.builtin.copy:
+    src: templates/timesyncd-debian.conf
+    dest: /etc/systemd/timesyncd.conf
+    owner: root
+    group: root
+    mode: -rw-r--r-- # "0644"
+  become: true
+  when: machine_os == 'debian'
   notify: Timezone/NTP | Restart timesyncd.service
