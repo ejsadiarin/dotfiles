@@ -123,7 +123,6 @@ return {
             end, { desc = 'Search: unfiltered [G]rep' })
             vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = 'Search: [d]iagnostics' })
             vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = 'Search: [r]esume' })
-            vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
             vim.keymap.set('n', '<leader>fe', function()
                 builtin.find_files {
