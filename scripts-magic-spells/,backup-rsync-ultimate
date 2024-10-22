@@ -130,7 +130,7 @@ usb_sync() {
                         echo "[ SUCCESS ] USB is mounted, now syncing..."
                         echo "[ SYNCING USB ] Lock-encrypt directory..."
                         # finds and syncs files added "newer than 3 days" (or files in the last 3 days) with -mtime -3
-                        rsync -auz --progress --files-from=<(find "$sync_lock/" -mtime -7 -type f -exec basename {} \;) "$sync_lock/" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}'),back
+                        rsync -auz --progress --files-from=<(find "$sync_lock/" -mtime -3 -type f -exec basename {} \;) "$sync_lock/" "$usb_mountpoint"/Lock-encrypt/ # | pv -ptrb --size "$(du -sb "$sync_lock" | awk '{print $1}'),back
 
                     elif [[ "$dir" == "$vault" ]]; then
                         echo "[ SYNCING USB ] VAULT..."

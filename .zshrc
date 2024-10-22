@@ -189,6 +189,7 @@ if [[ "$TERM" == (kitty*|alacritty*|termite*|gnome*|konsole*|kterm*|putty*|rxvt*
     add-zsh-hook -Uz preexec xterm_title_preexec
 fi
 
+
 ##############################
 #          Aliases           #
 ##############################

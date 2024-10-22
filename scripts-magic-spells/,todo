@@ -39,8 +39,6 @@ new_todo() {
 # Side Quests:
 
 - [ ] add Instagram directory to syncthing
-- [ ] buy monitor to configure the mini pc for homelabbing
-    - [ ] get hdmi cable
 - [ ] [watch API performance design BEST PRACTICES](https://youtu.be/CI0ZxSQ8sWQ?si=ZCrenujPxmeuZ5LX)
 - [ ] VLANS: https://www.youtube.com/watch?v=JszGeQPTo4w&ab_channel=CrosstalkSolutions
 - [ ] offsite and onsite Git server
