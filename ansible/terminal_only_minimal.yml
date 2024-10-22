@@ -1,10 +1,10 @@
-# Main Playbook
+# Terminal ONLY Installation Playbook
 # run on local: ansible-playbook main.yml --ask-become-pass
 # run on remotes: ansible-playbook main.yml --ask-pass --ask-become-pass -i inventory/hosts.ini
 # for dry-run (check mode): ansible-playbook --check main.yml --ask-become-pass
 # NOTE: playbooks dir are just optional/separate things and are NOT RUN/INCLUDED when running this main playbook
 
-- name: Exquisite Dotfiles Configuration
+- name: Exquisite Terminal-Only Minimal Configuration
   hosts: localhost # if have multiple hosts on hosts.ini file then: 'all', 'linux', 'webservers', etc.
   connection: local
   gather_facts: true
@@ -40,16 +40,11 @@
     - zsh
     - neovim
     - tmux
-    - kitty
-    - jetbrains_mono_nerd_font
-    # - docker
+    - docker
     - ssh
-    # - gpg
+    - gpg
     - go_role
-    - js_ts_role
     - python_role
-    - java_role
-    - csharp_dotnet_role
 
   tasks:
     - name: Link .ideavimrc

@@ -1,3 +1,8 @@
+# Ansible Playbook
+
+`terminal_only_minimal.yml` - for servers, and machines with no GUI
+
+
 # master_password
 
 - encrypted with gpg --symmetric (first layer)
@@ -9,10 +14,8 @@ why did i do this double encryption? i also don't foking know, but why not?
 - decrypt:
 
 ```bash
-# decrypt first layer with gpg
+# decrypt with gpg symmetric key
 gpg -d master_password.gpg > master_password
-# decrypt second layer with ansible-vault vault password
-ansible-vault view master_password > decrypted_mp
 ```
 
 - encrypt:
