@@ -1,0 +1,136 @@
+# Monokai Pro Reference
+# dark2 = '#161b1e',
+# dark1 = '#1d2528',
+# background = '#273136',
+# text = '#f2fffc',
+# accent1 = '#ff6d7e',
+# accent2 = '#ffb270',
+# -- accent3 = '#ffed72',
+# accent3 = '#f9cc6c',
+# accent4 = '#a2e57b',
+# accent5 = '#7cd5f1',
+# accent6 = '#baa0f8',
+# dimmed1 = '#b8c4c3',
+# dimmed2 = '#8b9798',
+# dimmed3 = '#6b7678',
+# dimmed4 = '#545f62',
+# dimmed5 = '#3a4449',
+
+# Gruvbox
+  # bg = "#1d2021",      -- Background
+  # fg = "#fbf1c7",      -- Foreground
+  # red = "#fb4934",     -- Red
+  # green = "#b8bb26",   -- Green
+  # yellow = "#fabd2f",  -- Yellow
+  # blue = "#83a598",    -- Blue
+  # purple = "#d3869b",  -- Purple
+  # aqua = "#8ec07c",    -- Aqua / Cyan
+  # orange = "#fe8019",  -- Orange
+  # gray = "#928374",    -- Gray
+  # dark_red = "#cc241d",
+  # dark_green = "#98971a",
+  # dark_yellow = "#d79921",
+  # dark_blue = "#458588",
+  # dark_purple = "#b16286",
+  # dark_aqua = "#689d6a",
+  # dark_orange = "#d65d0e",
+  # bright_red = "#fb4934",
+  # bright_green = "#b8bb26",
+  # bright_yellow = "#fabd2f",
+  # bright_blue = "#83a598",
+  # bright_purple = "#d3869b",
+  # bright_aqua = "#8ec07c",
+  # bright_orange = "#fe8019",
+
+# Dimmed Monokai
+background           #1e1e1e  # Background color
+foreground           #b8bcb9  # Foreground color
+cursor               #f83d19  # Cursor color
+selection_background #292c31  # Background color for selections
+# Standard colors
+color0               #3a3c43  # Black / Darkest shade for background
+color8               #888987  # Bright Black / Light gray for muted text
+# Reds
+color1               #be3e48  # Dark Red
+color9               #fb001e  # Bright Red / Error indicators
+# Greens
+color2               #869a3a  # Dark Green
+color10              #0e712e  # Bright Green / Success indicators
+# Yellows
+color3               #c4a535  # Dark Yellow
+color11              #c37033  # Bright Yellow / Warnings
+# Blues
+color4               #4e76a1  # Dark Blue
+color12              #176ce3  # Bright Blue / Links, info
+# Purples
+color5               #855b8d  # Dark Purple
+color13              #fb0067  # Bright Purple / Emphasis
+# Cyans
+color6               #568ea3  # Dark Cyan
+color14              #2d6f6c  # Bright Cyan / Additional accents
+# Grays and white
+color7               #b8bcb9  # Light Gray / Default text
+color15              #fcffb8  # White / Brighter accents
+selection_foreground #1e1e1e  # Foreground color for selections
+
+# Exquisite (Monokai + Gruvbox Warm Colorscheme)
+background #000000
+foreground #fcffb8
+
+# standard colors
+cursor #f83d19
+selection_background #fcffb8
+
+# standard colors
+color0 #000000
+color8 #3a4449
+
+# reds
+color1 #cc241d
+color9 #fb001e
+
+# greens
+color2 #97e522
+# color2 #a2e57b
+color10 #0e712e
+
+# yellows
+color3 #fabd2f
+color11 #c37033
+
+# blues
+color4 #83a598
+color12 #176ce3
+
+# purples
+color5 #855b8d
+color13 #fb0067
+
+# cyans
+color6 #568ea3
+color14 #2d6f6c
+
+# grays and white
+color7 #b8bcb9
+color15 #fcffb8
+selection_foreground #1e1e1e
+
+
+
+
+-- Background and text colors
+dark2 = '#161b1e'    -- Deep background color (darkest)
+background = '#273136'    -- Main background color
+dark1 = '#1d2528'    -- Slightly lighter background
+text = '#f2fffc'    -- Primary text color
+accent1 = '#ff6d7e'    -- Red accent
+accent2 = '#ffb270'    -- Orange accent
+accent3 = '#f9cc6c'    -- Yellow accent
+accent4 = '#a2e57b'    -- Green accent
+accent5 = '#7cd5f1'    -- Blue accent
+accent6 = '#baa0f8'    -- Purple accent (for booleans,  etc.)
+dimmed1 = '#b8c4c3'    -- Light gray
+dimmed2 = '#8b9798'    -- Medium-light gray
+dimmed3 = '#6b7678'    -- Medium gray
+dimmed4 = '#545f62'    -- Medium-dark gray
+dimmed5 = '#3a4449'    -- Dark gray

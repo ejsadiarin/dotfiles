@@ -19,7 +19,7 @@ return {
             dim_inactive = {
                 enabled = false, -- dims the background color of inactive window
                 shade = 'dark',
-                percentage = 1, -- percentage of the shade to apply to the inactive window
+                percentage = 1,  -- percentage of the shade to apply to the inactive window
             },
             -- no_italic = false, -- Force no italic
             -- no_bold = false, -- Force no bold
@@ -98,10 +98,12 @@ return {
             vim.g.gruvbox_material_enable_bold = 1
             vim.g.gruvbox_material_transparent_background = 1
             -- Themes
-            vim.g.gruvbox_material_foreground = 'original' -- "original", "mix", "material" (use "mix" if too bright)
-            vim.g.gruvbox_material_background = 'hard'     -- "hard", "medium", "soft" (use "hard" if too bright)
-            vim.g.gruvbox_material_ui_contrast = 'high'    -- "low", "high" The contrast of line numbers, indent lines, etc.
-            vim.g.gruvbox_material_float_style = 'dim'     -- "bright", "dim" Background of floating windows
+            vim.g.gruvbox_material_foreground =
+            'original'                                           -- "original", "mix", "material" (use "mix" if too bright)
+            vim.g.gruvbox_material_background = 'hard'           -- "hard", "medium", "soft" (use "hard" if too bright)
+            vim.g.gruvbox_material_ui_contrast =
+            'high'                                               -- "low", "high" The contrast of line numbers, indent lines, etc.
+            vim.g.gruvbox_material_float_style = 'dim'           -- "bright", "dim" Background of floating windows
             vim.g.gruvbox_material_statusline_style = 'original' -- "default", "mix", "original"
             -- vim.g.gruvbox_material_disable_terminal_colors = 1
             -- Custom highlights
@@ -135,7 +137,7 @@ return {
             invert_signs = false,
             invert_tabline = false,
             invert_intend_guides = false,
-            inverse = true, -- invert background for search, diffs, statuslines and errors
+            inverse = true,    -- invert background for search, diffs, statuslines and errors
             contrast = 'hard', -- can be "hard", "soft" or empty string
             palette_overrides = {},
             overrides = {},
@@ -216,22 +218,22 @@ return {
             devicons = false, -- highlight the icons of `nvim-web-devicons`
             styles = {
                 comment = { italic = true },
-                keyword = { italic = true }, -- any other keyword
-                type = { italic = true },  -- (preferred) int, long, char, etc
-                storageclass = { italic = true }, -- static, register, volatile, etc
-                structure = { italic = true }, -- struct, union, enum, etc
-                parameter = { italic = true }, -- parameter pass in function
+                keyword = { italic = true },       -- any other keyword
+                type = { italic = true },          -- (preferred) int, long, char, etc
+                storageclass = { italic = true },  -- static, register, volatile, etc
+                structure = { italic = true },     -- struct, union, enum, etc
+                parameter = { italic = true },     -- parameter pass in function
                 annotation = { italic = true },
                 tag_attribute = { italic = true }, -- attribute of tag in reactjs
             },
-            filter = 'machine',            -- classic | octagon | pro | machine | ristretto | spectrum
+            filter = 'machine',                    -- classic | octagon | pro | machine | ristretto | spectrum
             -- Enable this will disable filter option
             day_night = {
-                enable = false,    -- turn off by default
-                day_filter = 'pro', -- classic | octagon | pro | machine | ristretto | spectrum
+                enable = false,            -- turn off by default
+                day_filter = 'pro',        -- classic | octagon | pro | machine | ristretto | spectrum
                 night_filter = 'spectrum', -- classic | octagon | pro | machine | ristretto | spectrum
             },
-            inc_search = 'background', -- underline | background
+            inc_search = 'background',     -- underline | background
             background_clear = {
                 -- "float_win",
                 'toggleterm',
@@ -242,7 +244,7 @@ return {
                 -- "nvim-tree",
                 'neo-tree',
                 'bufferline', -- better used if background of `neo-tree` or `nvim-tree` is cleared
-            },        -- "float_win", "toggleterm", "telescope", "which-key", "renamer", "neo-tree", "nvim-tree", "bufferline"
+            },                -- "float_win", "toggleterm", "telescope", "which-key", "renamer", "neo-tree", "nvim-tree", "bufferline"
             plugins = {
                 bufferline = {
                     underline_selected = false,
@@ -258,6 +260,32 @@ return {
             ---@param Config MonokaiProOptions
             ---@param hp Helper
             -- override = function(cs: Colorscheme, p: ColorschemeOptions, Config: MonokaiProOptions, hp: Helper) end,
+            ---@param filter "classic" | "machine" | "octagon" | "pro" | "ristretto" | "spectrum"
+            overridePalette = function(filter)
+                return {
+                    -- Background and text colors
+                    dark2 = '#161b1e',      -- Deep background color (darkest)
+                    dark1 = '#1d2528',      -- Slightly lighter background
+                    background = '#273136', -- Main background color
+                    text = '#f2fffc',       -- Primary text color
+                    accent1 = '#c24c5a',    -- Red accent (functions)
+                    -- accent1 = '#ff6d7e',    -- Red accent (functions)
+                    accent2 = '#ffb270',    -- Orange accent (parameter)
+                    accent3 = '#f9cc6c',    -- Yellow accent (strings)
+                    -- accent3 = '#fabd2f',    -- Yellow accent
+                    -- accent4 = '#97e522',    -- Green accent
+                    accent4 = '#a2e57b', -- Green accent
+                    -- accent5 = '#83a598', -- Blue accent
+                    -- accent5 = '#4aa4bf', -- Blue accent
+                    accent5 = '#7cd5f1',
+                    accent6 = '#baa0f8', -- Purple accent (for booleans,  etc.)
+                    dimmed1 = '#b8bcb9', -- Light gray
+                    dimmed2 = '#8b9798', -- Medium-light gray
+                    dimmed3 = '#6b7678', -- Medium gray
+                    dimmed4 = '#545f62', -- Medium-dark gray
+                    dimmed5 = '#1e1e1e', -- Dark gray
+                }
+            end,
             override = function()
                 return {
                     CursorLine = { bg = '#1d1e24' },
@@ -266,6 +294,10 @@ return {
                     FloatFooter = { bg = '#f9cc6c' },
                     FloatBorder = { fg = '#425157' },
                     Directory = { fg = '#f9cc6c' },
+
+                    ['@lsp.type.namespace.go'] = { fg = '#fcffb8' },
+                    Todo = { fg = '#4aa4bf' },
+                    Function = { fg = '#ff6d7e' },
 
                     -- LazyNormal = { fg = '#909c9d', bg = '#222a2d' },
                     LazyNormal = { fg = '#f2fffc', bg = 'NONE' },
@@ -347,27 +379,6 @@ return {
                     BufferLineWarningDiagnosticVisible = { bg = 'NONE' },
                 }
             end,
-            ---@param filter "classic" | "machine" | "octagon" | "pro" | "ristretto" | "spectrum"
-            overridePalette = function(filter)
-                return {
-                    dark2 = '#161b1e',
-                    dark1 = '#1d2528',
-                    background = '#273136',
-                    text = '#f2fffc',
-                    accent1 = '#ff6d7e',
-                    accent2 = '#ffb270',
-                    -- accent3 = '#ffed72',
-                    accent3 = '#f9cc6c',
-                    accent4 = '#a2e57b',
-                    accent5 = '#7cd5f1',
-                    accent6 = '#baa0f8',
-                    dimmed1 = '#b8c4c3',
-                    dimmed2 = '#8b9798',
-                    dimmed3 = '#6b7678',
-                    dimmed4 = '#545f62',
-                    dimmed5 = '#3a4449',
-                }
-            end,
         },
     },
 
@@ -377,7 +388,7 @@ return {
         lazy = false,
         name = 'rose-pine',
         opts = {
-            variant = 'auto', -- auto, main, moon, or dawn
+            variant = 'auto',      -- auto, main, moon, or dawn
             dark_variant = 'main', -- main, moon, or dawn
             dim_inactive_windows = false,
             extend_background_behind_borders = true,
