@@ -299,6 +299,9 @@ return {
                     Todo = { fg = '#4aa4bf' },
                     Function = { fg = '#ff6d7e' },
 
+                    MarkViewCode = { bg = '#141421' },
+                    MarkViewInlineCode = { bg = '#141421' },
+
                     -- LazyNormal = { fg = '#909c9d', bg = '#222a2d' },
                     LazyNormal = { fg = '#f2fffc', bg = 'NONE' },
                     LazyButton = { bg = '#1d1e24' },
