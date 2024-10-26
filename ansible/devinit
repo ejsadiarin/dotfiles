@@ -58,17 +58,6 @@ EXQUILOG="$HOME/dotfiles/.exquisite_log"
 VAULT_PASSWORD_FILE="$HOME/dotfiles/decrypted_mp"
 date_today=$(date +"%Y-%m-%d %H:%M:%S")
 
-# detect host OS (prioritizes os_family than specific 'distro')
-OS=$(grep "^ID_LIKE=" /etc/os-release | cut -d= -f2 | tr -d '"')
-if [[ -z "$OS" ]]; then
-    OS=$(grep "^ID=" /etc/os-release | cut -d= -f2 | tr -d '"')
-fi
-
-if ! [[ -f "$VAULT_PASSWORD_FILE" ]]; then
-    echo "NO PASSWORD FILE DETECTED!"
-    exit 1
-fi
-
 # install ansible (add distro-specific conditions)
 # run ansible-playbook main.yml --ask-become-pass
 # switch case for dry-run, run local, run on remote (pass hosts.ini from inventory)
@@ -356,27 +345,43 @@ debian_setup() {
     write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
 }
 
-# fedora_setup() {
-#
-# }
+# see the thingy thingy repo
+fedora_setup() {
+    # detect host OS (prioritizes os_family than specific 'distro')
+}
 
-# Detect OS/Distro and execute setups
-if [[ "$OS" == "arch" ]]; then # check_if_arch='cat /etc/os-release | grep -i "arch"'
-    arch_setup
-    if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
-        touch "$CHECK_IF_FIRST_RUN"
+main() {
+    # detect host OS (prioritizes os_family than specific 'distro')
+    OS=$(grep "^ID_LIKE=" /etc/os-release | cut -d= -f2 | tr -d '"')
+    if [[ -z "$OS" ]]; then
+        OS=$(grep "^ID=" /etc/os-release | cut -d= -f2 | tr -d '"')
     fi
-elif [[ "$OS" == "debian" ]]; then
-    debian_setup
-    if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
-        touch "$CHECK_IF_FIRST_RUN"
+
+    if ! [[ -f "$VAULT_PASSWORD_FILE" ]]; then
+        echo "NO PASSWORD FILE DETECTED!"
+        exit 1
     fi
-    # elif [[ "$OS" == "fedora" ]]; then
-    #   arch_setup
-    #   if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
-    #     touch "$CHECK_IF_FIRST_RUN"
-    #   fi
-else
-    # echo 'Skipping: Not an Arch-based system... btw'
-    echo "Unsupported OS. Exiting..."
-fi
+
+    # Detect OS/Distro and execute setups
+    if [[ "$OS" == "arch" ]]; then # check_if_arch='cat /etc/os-release | grep -i "arch"'
+        arch_setup
+        if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
+            touch "$CHECK_IF_FIRST_RUN"
+        fi
+    elif [[ "$OS" == "debian" ]]; then
+        debian_setup
+        if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
+            touch "$CHECK_IF_FIRST_RUN"
+        fi
+        # elif [[ "$OS" == "fedora" ]]; then
+        #   arch_setup
+        #   if [[ ! -f "$CHECK_IF_FIRST_RUN" ]]; then
+        #     touch "$CHECK_IF_FIRST_RUN"
+        #   fi
+    else
+        # echo 'Skipping: Not an Arch-based system... btw'
+        echo "Unsupported OS. Exiting..."
+    fi
+}
+
+main
