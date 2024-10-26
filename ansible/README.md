@@ -1,15 +1,26 @@
 # Ansible Playbook
 
+`main.yml` - for full dotfiles configuration
 `terminal_only_minimal.yml` - for servers, and machines with no GUI
 
+
+# Run
+
+- `main.yml` - full dotfiles configuration
+```bash
+ansible-playbook --check --vault-password-file ./master_password --ask-become-pass main.yml
+```
+
+- `terminal_only_minimal.yml` - for servers/terminal configuration only
+```bash
+ansible-playbook --check --vault-password-file ./master_password --ask-become-pass terminal_only_minimal.yml
+```
 
 # master_password
 
 - encrypted with gpg --symmetric (first layer)
   - `--symmetric` so no need for asymmetric gpg keys
 - then encrypted with ansible-vault (second layer)
-
-why did i do this double encryption? i also don't foking know, but why not?
 
 - decrypt:
 
@@ -22,7 +33,6 @@ gpg -d master_password.gpg > master_password
 
 ```bash
 # simplest way
-rm decrypted_mp
 gpg --symmetric master_password
 rm master_password
 
@@ -34,7 +44,6 @@ rm master_password
 # - file systems that cache in temporary locations, such as NFS version 3 clients
 # - compressed file systems
 # see 'man shred' for more details
-shred -uvz decrypted_mp
 gpg --symmetric master_password
 shred -uvz master_password
 ```
