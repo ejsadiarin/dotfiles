@@ -1,0 +1,66 @@
+# create docker group (if not exists): sudo groupadd docker
+# add $USER to docker group: sudo usermod -aG docker $USER
+# activate changes on groups: newgrp docker
+# copy daemon.json
+
+- name: Docker | Install docker
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - virtualenv
+    state: present
+    update_cache: true
+
+- name: Docker | Add Docker GPG apt Key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Docker | Add Docker Repository
+  ansible.builtin.apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    state: present
+
+- name: Docker | Update apt and install Docker packages
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+
+- name: Docker | Add user to the Docker group # sudo usermod -aG docker $USER
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: true
+
+# - name: Docker | logout term or this for changes to take effect
+#   ansible.builtin.command: "newgrp docker"
+
+- name: Docker | Copy daemon.json # copy daemon.json
+  ansible.builtin.copy:
+    src: templates/daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: -rw-r--r-- # "0644"
+  become: true
+
+- name: Docker | Start Docker daemon # start/enable systemd docker.service
+  ansible.builtin.systemd:
+    name: docker.service
+    state: started
+    enabled: true
+
+- name: Docker | Start containerd # start/enable systemd containerd.service
+  ansible.builtin.systemd:
+    name: containerd.service
+    state: started
+    enabled: true

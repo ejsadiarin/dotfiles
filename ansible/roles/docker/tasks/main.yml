@@ -1,8 +1,7 @@
-# create docker group (if not exists): sudo groupadd docker
-# add $USER to docker group: sudo usermod -aG docker $USER
-# activate changes on groups: newgrp docker
-# enable systemd docker.service
-# enable systemd containerd.service
-# copy daemon.json
+- name: Neovim | Detect OS for Archlinux
+  ansible.builtin.import_tasks: archlinux.yml
+  when: machine_os == 'archlinux'
 
-- name: Docker | Install docker
+- name: Neovim | Detect OS for Debian
+  ansible.builtin.import_tasks: debian.yml
+  when: machine_os == 'debian'

@@ -1,6 +1,7 @@
 - name: Essentials Debian | Install essential packages
   ansible.builtin.apt:
     name:
+      - sudo
       - git
       - fd-find # NOTE: binary is 'fdfind' in debian, might need to mv it to 'fd' for convenience
       - ripgrep
@@ -25,6 +26,7 @@
       # - aria2c
       - qemu-guest-agent
       - bat
+      - sudo
     state: present
     update_cache: true
   become: true
@@ -48,7 +50,7 @@
     dest: "{{ ansible_user_dir }}/.fzf"
 
 - name: Essentials Debian | Install fzf
-  ansible.builtin.shell: "{{ ansible_user_dir }}/.fzf/install"
+  ansible.builtin.command: "{{ ansible_user_dir }}/.fzf/install"
 
 - name: Essentials Debian | Copy fzf binary to system-wide binaries
   ansible.builtin.copy:

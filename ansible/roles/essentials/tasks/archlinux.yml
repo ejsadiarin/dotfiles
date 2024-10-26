@@ -1,6 +1,7 @@
 - name: Essentials Arch | Install essential packages
   community.general.pacman:
     name:
+      - sudo
       - git
       - fd
       - ripgrep

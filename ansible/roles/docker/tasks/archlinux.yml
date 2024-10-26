@@ -1,0 +1,31 @@
+- name: Docker | Install docker
+  community.general.pacman:
+    name: docker
+    state: latest
+
+- name: Docker | Add user to the Docker group # sudo usermod -aG docker $USER
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: true
+
+- name: Docker | Copy daemon.json # copy daemon.json
+  ansible.builtin.copy:
+    src: templates/daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: -rw-r--r-- # "0644"
+  become: true
+
+- name: Docker | Start Docker daemon # start/enable systemd docker.service
+  ansible.builtin.systemd:
+    name: docker.service
+    state: started
+    enabled: true
+
+- name: Docker | Start containerd # start/enable systemd containerd.service
+  ansible.builtin.systemd:
+    name: containerd.service
+    state: started
+    enabled: true
