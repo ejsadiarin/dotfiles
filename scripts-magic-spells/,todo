@@ -34,9 +34,13 @@ new_todo() {
 - [ ] 30 day devops challenge
 - [ ] r/linuxupskillchallenge daily
 - [ ] finish one file in the default-responses files in \$(Personal/Brain-Configuration/)
+- [ ] install docker, then immich on homelab server
+    - [ ] syncthing volumes: whole camera dir with its subdirectories, V, vault 
 
 
 # Side Quests:
+
+- [ ] PRIO: setup DNS records and homelab Home dashboard (?)
 
 - [ ] add Instagram directory to syncthing
 - [ ] [watch API performance design BEST PRACTICES](https://youtu.be/CI0ZxSQ8sWQ?si=ZCrenujPxmeuZ5LX)

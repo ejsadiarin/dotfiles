@@ -267,7 +267,8 @@ return {
                     dark2 = '#161b1e',      -- Deep background color (darkest)
                     dark1 = '#1d2528',      -- Slightly lighter background
                     background = '#273136', -- Main background color
-                    text = '#f2fffc',       -- Primary text color
+                    text = '#fcffb8',       -- Primary text color
+                    -- text = '#f2fffc',       -- Primary text color
                     accent1 = '#c24c5a',    -- Red accent (functions)
                     -- accent1 = '#ff6d7e',    -- Red accent (functions)
                     accent2 = '#ffb270',    -- Orange accent (parameter)
@@ -296,8 +297,9 @@ return {
                     Directory = { fg = '#f9cc6c' },
 
                     ['@lsp.type.namespace.go'] = { fg = '#fcffb8' },
-                    Todo = { fg = '#4aa4bf' },
                     Function = { fg = '#ff6d7e' },
+                    Todo = { fg = '#4aa4bf' },
+                    yamlBlockMappingKey = { fg = '#c24c5a' },
 
                     MarkViewCode = { bg = '#141421' },
                     MarkViewInlineCode = { bg = '#141421' },
