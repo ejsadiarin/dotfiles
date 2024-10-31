@@ -1,0 +1,5 @@
+- name: Go | Install Go for RedHat (Golang)
+  ansible.builtin.dnf:
+    name: go
+    state: present
+  become: true

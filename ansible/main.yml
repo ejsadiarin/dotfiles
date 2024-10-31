@@ -37,19 +37,17 @@
   roles:
     - essentials
     - git
+    - ssh
+    - go_role
     - zsh
-    - neovim
     - tmux
+    - neovim
     - kitty
     - jetbrains_mono_nerd_font
     # - docker
-    - ssh
     # - gpg
-    - go_role
     - js_ts_role
     - python_role
-    - java_role
-    - csharp_dotnet_role
 
   tasks:
     - name: Link .ideavimrc

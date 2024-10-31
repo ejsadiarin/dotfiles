@@ -3,7 +3,6 @@
     name:
       - python
       - python-pip
-      - python-pipx
     state: present
   become: true
   when: machine_os == 'archlinux'
@@ -13,7 +12,6 @@
     name:
       - python
       - python-pip
-      - python-pipx
     state: present
   become: true
   when: machine_os == 'debian'

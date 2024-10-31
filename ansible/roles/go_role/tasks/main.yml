@@ -1,13 +1,11 @@
-- name: Go | Install Go for Arch (Golang)
-  community.general.pacman:
-    name: go
-    state: present
-  become: true
+- name: Go | Configure install packages for Archlinux
+  ansible.builtin.import_tasks: archlinux.yml
   when: machine_os == 'archlinux'
 
-- name: Go | Install Go for Debian (Golang)
-  ansible.builtin.apt:
-    name: go
-    state: present
-  become: true
+- name: Go | Configure install packages for Debian
+  ansible.builtin.import_tasks: debian.yml
   when: machine_os == 'debian'
+
+- name: Go | Configure install packages for RedHat
+  ansible.builtin.import_tasks: debian.yml
+  when: machine_os == 'redhat'

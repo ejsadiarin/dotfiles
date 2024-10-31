@@ -1,0 +1,12 @@
+# TODO: go is not available in apt (see installation: https://go.dev/doc/install)
+# cd ~/downloads
+# wget https://go.dev/dl/go1.23.2.linux-amd64.tar.gz
+# sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
+# add to /etc/profile or ~/.profile or ~/.zshrc ~/.bashrc: export PATH=$PATH:/usr/local/go/bin
+# source .profile or source .zshrc or source .bashrc
+# verify: go version
+- name: Go | Install Go for Debian (Golang)
+  ansible.builtin.apt:
+    name: go
+    state: present
+  become: true
