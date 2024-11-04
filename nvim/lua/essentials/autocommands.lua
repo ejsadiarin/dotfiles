@@ -159,12 +159,21 @@ local aug = vim.api.nvim_create_augroup('buf_large', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufReadPre' }, {
     callback = function()
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
-        if ok and stats and (stats.size > 1000000) then
+        local max_filesize = 100 * 1024                      -- 100kb
+        if ok and stats and (stats.size > max_filesize) then -- 1000000
             vim.cmd 'syntax off'
+            vim.cmd 'filetype off'                           -- this triggers AST build and lags the buffer
+            vim.b.undofile = false
             vim.b.large_buf = true
             vim.opt_local.foldmethod = 'manual'
             vim.opt_local.spell = false
+            vim.cmd 'LspStop'
+            -- vim.cmd 'Markview disable'
         else
+            vim.cmd 'syntax on'
+            vim.cmd 'filetype on'
+            vim.opt.undofile = true
+            vim.opt_local.spell = true
             vim.b.large_buf = false
         end
     end,

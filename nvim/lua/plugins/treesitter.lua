@@ -66,7 +66,7 @@ return {
             highlight = {
                 enable = true,
                 disable = function()
-                    return vim.b.large_buf
+                    return vim.b.large_buf -- see essentials/autocommands.lua
                 end,
                 -- disable = function(lang, buf)
                 --   local max_filesize = 100 * 1024 -- 100kb
