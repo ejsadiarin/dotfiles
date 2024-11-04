@@ -174,3 +174,10 @@ vim.api.nvim_create_autocmd({ 'BufReadPre' }, {
 
 -- do :w on :W (remaps)
 vim.api.nvim_create_user_command('W', 'w', {})
+
+-- copy to clipboard on yank only (not on delete, etc.)
+vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
+    callback = function()
+        vim.fn.setreg('+', vim.fn.getreg('0'))
+    end
+})
