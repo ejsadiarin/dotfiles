@@ -5,6 +5,7 @@
 
 """ Map leader to space ------------------------
 let mapleader=" "
+let maplocalleader="\\"
 
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
@@ -21,6 +22,25 @@ set clipboard+=unnamed
 set clipboard+=ideaput
 set hlsearch
 
+""" Additional options ---------------------------
+"" ref: https://gist.github.com/mikeslattery/d2f2562e5bbaa7ef036cf9f5a13deff5
+set autowrite
+set completeopt=menu,menuone,noselect
+set conceallevel=1
+set confirm " confirm to save changes before exiting modified buffer
+set cursorline " enable highlighting of current line
+
+set expandtab " use spaces instead of tabs
+set foldlevel=99
+set formatoptions=jcroqlnt " tcqj
+set grepformat=%f:%l:%c:%m
+set grepprg=rg\ --vimgrep
+
+set termguicolors
+set smartcase
+set smartindent
+set signcolumn=yes
+
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins --------------
 " Old Syntax:
 set surround
@@ -34,7 +54,8 @@ set exchange
 set ideajoin
 set which-key
 set notimeout
-set timeoutlen=5000
+set timeoutlen=300
+set virtualedit=block
 " New Syntax:
 Plug 'machakann/vim-highlightedyank'
 " Plug 'tpope/vim-commentary'
@@ -42,11 +63,16 @@ Plug 'preservim/nerdtree'
 " Plug 'tpope/vim-surround'
 " map ysiw or add surround inner word to gsa
 " Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-commentary' " gcc and gc<action> mappings.
+" s action, such as cs"' (replace \" with '), ds" (unquote)
+Plug 'tpope/vim-surround'
+" similar to flash.nvim
+Plug 'justinmk/vim-sneak'
 
 " surround maps a - add, d - delete
-map sa ys
-map sd ds
-map sc cs
+map gsa ys
+map gsd ds
+map gsc cs
 
 
 """ Plugin settings -------------------------
@@ -60,25 +86,43 @@ nnoremap <Esc> :nohl<CR>
 nmap K <Action>(ShowHoverInfo)
 
 " window navigation
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <tab> <c-w>w
-nnoremap <a-h> <c-w>h
-nnoremap <a-l> <c-w>l
-nnoremap <a-j> <c-w>j
-nnoremap <a-k> <c-w>k
+nmap <C-h> <c-w>h
+nmap <C-l> <c-w>l
+nmap <C-j> <c-w>j
+nmap <C-k> <c-w>k
+nmap <tab> <c-w>w
+
+nmap <A-h> <c-w>h
+nmap <A-l> <c-w>l
+nmap <A-j> <c-w>j
+nmap <A-k> <c-w>k
+
+" Increase Window Height
+nmap <C-Up> <Action>(IncrementWindowHeight)
+" Decrease Window Height
+nmap <C-Down> <Action>(DecrementWindowHeight)
+" Decrease Window Width
+nmap <C-Left> <Action>(DecrementWindowWidth)
+" Increase Window Width
+nmap <C-Right> <Action>(IncrementWindowWidth)
+
+" Move Down
+nmap <C-n> <Action>(MoveLineDown)
+imap <C-n> <Esc><Action>(MoveLineDown)i
+
+" Move Up
+nmap <C-p> <Action>(MoveLineUp)
+
 " window controls
 map <leader>wv <Action>(SplitVertically)
 map <leader>wh <Action>(SplitHorizontally)
 map <leader>wd <Action>(CloseContent)
 
 " center cursor when scroll ctrl u & d
-nnoremap <c-u> <c-u>zz
-nnoremap <c-d> <c-d>zz
-nnoremap <s-l> :action NextTab<CR>
-nnoremap <s-h> :action PreviousTab<CR>
+nnoremap <C-u> <c-u>zz
+nnoremap <C-d> <c-d>zz
+nnoremap <S-l> :action NextTab<CR>
+nnoremap <S-h> :action PreviousTab<CR>
 nnoremap \e :e ~/.ideavimrc<CR>
 nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
 vnoremap < <gv
@@ -117,15 +161,46 @@ map gI <Action>(GotoImplementation)
 map gr <Action>(ShowUsages)
 map gR <Action>(FindUsages)
 
-" -- Debugging Maps -- "
-map <a-r> <Action>(Run)
-map <a-d> <Action>(Debug)
-map <a-c> <Action>(Stop)
-map <leader>db <Action>(ToggleLineBreakpoint)
-map <leader>di <Action>(StepInto)
-map <leader>do <Action>(StepOut)
-map <leader>dO <Action>(StepOver)
-" -- TODO map all debug like step into, step over, pause, terminate, etc. -- "
+" -- DAP (Debugging) Maps -- "
+" Run with Args
+nmap <leader>dd <Action>(ChooseRunConfiguration)
+" Toggle Breakpoint
+nmap <leader>db <Action>(ToggleBreakpointAction)
+" Breakpoint Condition
+nmap <leader>dB <Action>(ToggleBreakpointAction)
+" Continue
+nmap <leader>dc <Action>(Resume)
+" Run to Cursor
+nmap <leader>dC <Action>(ForceRunToCursor)
+" Go to Line (No Execute)
+nmap <leader>dg <Action>(GotoLine)
+" Step Into
+nmap <leader>di <Action>(StepInto)
+" Down
+nmap <leader>dj <Action>(GotoNextError)
+" Up
+nmap <leader>dk <Action>(GotoPreviousError)
+" Run Last
+nmap <leader>dl <Action>(Debug)
+" Step Out
+nmap <leader>do <Action>(StepOut)
+" Step Over
+nmap <leader>dO <Action>(StepOver)
+" Pause
+nmap <leader>dp <Action>(Pause)
+" Toggle REPL
+nmap <leader>dr <Action>(JShell.Console)
+" Session
+nmap <leader>ds :echo 'Not yet implmented.'<cr>
+" Terminate
+nmap <leader>dt <Action>(Stop)
+" Widgets
+nmap <leader>dw :echo 'There is no equivalent mapping for Widgets.'<cr>
+" Eval
+nmap <leader>de <Action>(EvaluateExpression)
+vmap <leader>de <Action>(EvaluateExpression)
+" Dap UI
+nmap <leader>du :echo 'Not yet implemented.'<cr>
 
 " -- Leader Maps -- "
 map <leader>fr <Action>(RecentFiles)
@@ -141,7 +216,7 @@ map <leader>cs <Action>(FileStructurePopup)
 
 map <leader>bd <Action>(CloseContent)
 map <leader>xx <Action>(ActivateProblemsViewToolWindow)
-map <leader>sa <Action>(GotoAction)
+" map <leader>sa <Action>(GotoAction)
 
 " -- Plugin Leader Maps -- "
 map <leader>fe <Action>(com.mituuz.fuzzier.Fuzzier)
@@ -162,3 +237,86 @@ map <leader>q <Action>(HideActiveWindow)
 " this doesn't work :(
 " map <a-n> <Action>(Tree-selectNext)
 " map <a-p> <Action>(Tree-selectPrevious)
+
+" Telescope Keymaps
+
+" Find Files (Root Dir)
+nmap <leader><space> <Action>(GotoFile)
+" Switch Buffer
+nmap <leader>, <Action>(Switcher)
+" Grep (Root Dir)
+nmap <leader>/ <Action>(FindInPath)
+" Command History
+nmap <leader>: <Action>(ShowCommands)
+
+" Find Files (Root Dir) (alternative)
+nmap <leader>fe <Action>(GotoFile)
+" Find Files (cwd)
+nmap <leader>fd <Action>(GotoFile)
+
+" Buffers
+nmap <leader>fb <Action>(Switcher)
+" Find Config File
+nmap <leader>fc <Action>(GotoFile)
+" Find Files (git-files)
+nmap <leader>fg <Action>(GotoFile)
+" Recent
+nmap <leader>fr <Action>(RecentFiles)
+" Recent (cwd)
+nmap <leader>fR <Action>(RecentFiles)
+" Commits
+nmap <leader>gc <Action>(Vcs.Show.Log)
+" Status
+nmap <leader>gs <Action>(Vcs.Show.Log)
+" Registers
+nmap <leader>s" :registers<cr>
+" Auto Commands
+nmap <leader>sa :echo 'There is no equivalent mapping.'<cr>
+" Buffer
+nmap <leader>sb <Action>(Switcher)
+" Command History (alternative)
+nmap <leader>sc <Action>(ShowCommands)
+" Commands
+nmap <leader>sC <Action>(ShowCommands)
+" Document Diagnostics
+nmap <leader>sd <Action>(ShowErrorsInProject)
+" Workspace Diagnostics
+nmap <leader>sD <Action>(ShowErrorsInProject)
+" Grep (Root Dir) (alternative)
+nmap <leader>sg <Action>(FindInPath)
+" Grep (cwd)
+nmap <leader>sG <Action>(FindInPath)
+" Help Pages
+nmap <leader>sh <Action>(HelpTopics)
+" Search Highlight Groups
+nmap <leader>sH <Action>(HighlightUsagesInFile)
+" Jumplist
+nmap <leader>sj :echo "Not yet implemented."<cr>
+" Key Maps
+nmap <leader>sk :map<cr>
+" Location List
+nmap <leader>sl <Action>(ActivateProblemsViewToolWindow)
+" Jump to Mark
+nmap <leader>sm :marks<cr>
+" Man Pages
+nmap <leader>sM <Action>(ShowDocumentation)
+" Options
+nmap <leader>so <Action>(ShowSettings)
+" Quickfix List
+nmap <leader>sq <Action>(ActivateProblemsViewToolWindow)
+" Resume
+nmap <leader>sR :echo 'Not yet implmented.'<cr>
+" Goto Symbol
+nmap <leader>ss <Action>(GotoSymbol)
+" Goto Symbol (Workspace)
+nmap <leader>sS <Action>(GotoSymbol)
+" Word (Root Dir)
+nmap <leader>sw <Action>(FindWordAtCaret)
+" Word (cwd)
+nmap <leader>sW <Action>(FindWordAtCaret)
+" Selection (Root Dir)
+vmap <leader>sw <Action>(FindWordAtCaret)
+" Selection (cwd)
+vmap <leader>sW <Action>(FindWordAtCaret)
+" Colorscheme with Preview
+nmap <leader>uC <Action>(QuickChangeScheme)
