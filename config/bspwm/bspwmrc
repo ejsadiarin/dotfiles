@@ -95,6 +95,9 @@ pidof -q polkit-gnome-authentication-agent-1 || { /usr/lib/polkit-gnome/polkit-g
 # Fix cursor
 xsetroot -cursor_name left_ptr
 
+# Faster keyboard repeat rate - default for linux systems is 500 (delay), 30 (repeat rate)
+xset r rate 300 50 &
+
 # Launch picom // If you have old hardware or encounter problems
 # uncomment the picom "--legacy-backends" line and comment the current one.
 pidof -q picom || { picom -b --config "$HOME"/.config/bspwm/picom.conf & }
@@ -117,4 +120,4 @@ copyq
 redshift -P -O 5500
 
 # Enable syncthing
-syncthing
+syncthing &
