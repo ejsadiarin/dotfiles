@@ -31,6 +31,7 @@ end
 return {
     {
         'iabdelkareem/csharp.nvim',
+        ft = { 'cs', 'fsharp', 'vb' },
         dependencies = {
             'williamboman/mason.nvim', -- Required, automatically installs omnisharp
             'mfussenegger/nvim-dap',
