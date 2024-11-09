@@ -32,17 +32,17 @@ return {
             },
             sections = {
                 lualine_a = {
-                    {
-                        function()
-                            if package.loaded['grapple'] and require('grapple').exists() then
-                                return '󰛢 ' .. require('grapple').name_or_index()
-                            end
-                            return '󰛢 N'
-                        end,
-                        -- cond = function()
-                        --   return package.loaded['grapple'] and require('grapple').exists()
-                        -- end,
-                    },
+                    -- {
+                    --     function()
+                    --         if package.loaded['grapple'] and require('grapple').exists() then
+                    --             return '󰛢 ' .. require('grapple').name_or_index()
+                    --         end
+                    --         return '󰛢 N'
+                    --     end,
+                    --     -- cond = function()
+                    --     --   return package.loaded['grapple'] and require('grapple').exists()
+                    --     -- end,
+                    -- },
 
                     -- {
                     --   'mode',
@@ -54,6 +54,17 @@ return {
                     -- },
                 },
                 lualine_b = {
+                    {
+                        function()
+                            if package.loaded['grapple'] and require('grapple').exists() then
+                                return '󰛢 ' .. require('grapple').name_or_index()
+                            end
+                            return '󰛢 N'
+                        end,
+                        -- cond = function()
+                        --   return package.loaded['grapple'] and require('grapple').exists()
+                        -- end,
+                    },
                     {
                         'branch',
                         icon = { '', align = 'left', color = { fg = '#a6e3a1' } },
@@ -71,10 +82,10 @@ return {
                         shorting_target = 20, -- Shortens path to leave 40 spaces in the window
                         -- for other components. (terrible name, any suggestions?)
                         symbols = {
-                            modified = '[+]', -- Text to show when the file is modified.
-                            readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
+                            modified = '[+]',      -- Text to show when the file is modified.
+                            readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
                             unnamed = '[No Name]', -- Text to show for unnamed buffers.
-                            newfile = '[New]', -- Text to show for newly created file before first write
+                            newfile = '[New]',     -- Text to show for newly created file before first write
                         },
                         -- color = { fg = '#f9cc6c' },
                         color = { fg = '#f38ba8' },
@@ -146,9 +157,10 @@ return {
                 },
                 lualine_y = {
                     { 'location', padding = { left = 0, right = 1 } },
+                    { 'progress', padding = { left = 0, right = 1 } },
                 },
                 lualine_z = {
-                    { 'progress', padding = { left = 0, right = 1 } },
+                    -- { 'progress', padding = { left = 0, right = 1 } },
                 },
             },
         },

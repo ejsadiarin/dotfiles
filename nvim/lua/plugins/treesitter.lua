@@ -27,7 +27,6 @@ return {
                 },
                 config = true,
                 keys = {
-                    { '<leader>uc', '<cmd>TSContextToggle<CR>', desc = 'Toggle TSContext' },
                     {
                         '[e',
                         ":lua require('treesitter-context').go_to_context()<cr>",
@@ -65,9 +64,9 @@ return {
             },
             highlight = {
                 enable = true,
-                disable = function()
-                    return vim.b.large_buf -- see essentials/autocommands.lua
-                end,
+                -- disable = function() -- NOTE: (UPDATE (2024-10-24): better solved by folke's snacks.nvim bigfile module)
+                --     return vim.b.large_buf -- see essentials/autocommands.lua
+                -- end,
                 -- disable = function(lang, buf)
                 --   local max_filesize = 100 * 1024 -- 100kb
                 --   local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))

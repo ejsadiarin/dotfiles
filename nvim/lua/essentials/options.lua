@@ -101,3 +101,4 @@ vim.opt.sidescrolloff = 5 -- minimal number of screen columns to keep to the lef
 -- vim.opt.fillchars.eob = ' ' -- Empty lines at the end of a buffer as ` `
 vim.opt.autoread = true  -- Sync buffers automatically
 vim.opt.swapfile = false -- Disable neovim generating swapfiles and showing the error
+vim.opt.spell = false    -- no spelling checks

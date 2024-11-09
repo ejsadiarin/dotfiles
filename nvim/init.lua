@@ -71,6 +71,8 @@ require('lazy').setup({
   -- "mark-style" file navigation (only choose one)
   -- { import = 'extensions.harpoon' },
   { import = 'extensions.grapple' },
+  -- { import = 'extensions.noice' },
+  -- { import = 'extensions.lazygit' },
 
   -- This is the easiest way to modularize your config.
   --

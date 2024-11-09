@@ -27,7 +27,7 @@ return {
                 { '<leader>d', group = '[D]ebug', icon = '' },
                 { '<leader>c', group = '[C]ode', icon = ' ' },
                 { '<leader>f', group = '[F]ind Files', icon = '' },
-                { '<leader>n', group = '[N]otifications (Noice)' },
+                { '<leader>n', group = '[N]otifications' },
                 { '<leader>s', group = '[S]earch', icon = '' },
                 { '<leader>w', group = '[W]indow', icon = '' },
                 { '<leader>u', group = '[U]I', icon = '' },

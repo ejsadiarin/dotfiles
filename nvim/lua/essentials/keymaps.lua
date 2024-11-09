@@ -50,7 +50,7 @@ vim.keymap.set('n', '<leader>uI', '<cmd>InspectTree<cr>', { desc = 'UI: [I]nspec
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
-vim.keymap.set('t', '<C-M-c>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<C-[>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -172,7 +172,7 @@ end, { desc = 'Toggle C[h]eckbox' })
 -- vim.keymap.set('n', '<leader>zd', 'zE', { silent = true, desc = 'Delete all folds (in file)' })
 
 -- conceallevel change
-vim.keymap.set('n', '<leader>uC', ':set conceallevel=', { desc = 'Change [C]onceallevel' })
+vim.keymap.set('n', '<leader>uC', ':set conceallevel=', { desc = 'Manual Change [C]onceallevel' })
 
 -- unpolluted paste (paste from yank register) - old: vim.keymap.set({ 'n', 'x' }, '<leader>p', '"0p', { desc = 'Unpolluted [p]aste' })
 vim.keymap.set({ 'n', 'x' }, '<leader>p', '"+p', { desc = 'Clipboard [p]aste' })
@@ -182,7 +182,7 @@ vim.keymap.set({ 'n', 'x' }, 'P', '"0p', { desc = 'Unpolluted [p]aste from 0 reg
 vim.keymap.set('n', '<leader>ccs', ':noautocmd w<CR>', { desc = 'Save without formatting' })
 
 -- telescope select colorscheme
-vim.keymap.set('n', '<leader>us', ':Telescope colorscheme<CR>', { desc = 'UI: [s]elect colorscheme' })
+vim.keymap.set('n', '<leader>uU', ':Telescope colorscheme<CR>', { desc = 'UI: [s]elect colorscheme' })
 
 -- transform selected to markdown link format
 -- vim.keymap.set('x', '<leader>ml', , {desc = 'Transform to markdown link'})
