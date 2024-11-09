@@ -200,5 +200,5 @@ end, { desc = 'Copy [p]ath to clipboard' })
 vim.keymap.set('n', '<C-U>', '<C-U>zz')
 vim.keymap.set('n', '<C-D>', '<C-D>zz')
 
--- Buffer keymaps
-vim.keymap.set('n', '<leader>bd', '<CMD>bd<CR>', { desc = 'Buffer: [d]elete' })
+-- lsp signature help popup when insert mode
+vim.keymap.set('i', '<C-s>', function() vim.lsp.buf.signature_help() end, { desc = 'Signature Help' })
