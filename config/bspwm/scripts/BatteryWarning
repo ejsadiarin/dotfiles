@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
 function check_battery_status {
-	battery=$(acpi -b | awk '{print $4}' | tr -d '%')
-	echo "$battery"
+    battery=$(acpi -b | awk '{print $4}' | tr -d '%')
+    echo "$battery"
 
-	if [ "$battery" -lt 20 ]; then
-		notify-send "Battery Low" "Battery is at $battery%"
-	fi
+    if [[ "$battery" -lt 20 ]]; then
+        notify-send "Battery Low" "Battery is at $battery%"
+    fi
 }
 
+# better if run as a cronjob
 while true; do
-	check_battery_status
-	sleep 60
+    check_battery_status
+    sleep 60
 done
