@@ -45,7 +45,7 @@ return {
             return {
                 -- How to find the root dir for a given filename. The default comes from
                 -- lspconfig which provides a function specifically for java projects.
-                root_dir = require('lspconfig.server_configurations.jdtls').default_config.root_dir,
+                root_dir = require('lspconfig.configs.jdtls').default_config.root_dir,
                 -- root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
 
                 -- How to find the project name for a given root dir.

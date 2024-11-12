@@ -341,6 +341,11 @@ return {
                     organize_imports_on_format = true,
                     enable_import_completion = true,
                 },
+                -- jdtls = {
+                --     on_init = function()
+                --         return true
+                --     end,
+                -- },
                 jsonls = {
                     -- from lazyvim to lazy-load schemastore when needed
                     on_new_config = function(new_config)
