@@ -3,7 +3,9 @@ return {
         'folke/trouble.nvim',
         cmd = 'Trouble',
         opts = {
-            focus = true,
+            auto_close = true,       -- close when no items
+            focus = true,            -- auto-focus to trouble buffer/window after open
+            warn_no_results = false, -- don't show warnings when no results
             modes = {
                 -- sources define their own modes, which you can use directly,
                 -- or override like in the example below
