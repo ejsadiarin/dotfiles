@@ -23,16 +23,16 @@ return {
 
             -- Document existing key chains
             require('which-key').add {
-                { '<leader>b', group = '[B]uffer', icon = '' },
-                { '<leader>d', group = '[D]ebug', icon = '' },
-                { '<leader>c', group = '[C]ode', icon = ' ' },
-                { '<leader>f', group = '[F]ind Files', icon = '' },
-                { '<leader>n', group = '[N]otifications' },
-                { '<leader>s', group = '[S]earch', icon = '' },
-                { '<leader>w', group = '[W]indow', icon = '' },
-                { '<leader>u', group = '[U]I', icon = '' },
-                { '<leader>g', group = '[G]it', icon = ' ' },
-                { '<leader>x', group = '[X]iagnostics (Trouble)', icon = '' },
+                { '<leader>b', group = '[b]uffer', icon = '' },
+                { '<leader>d', group = '[d]ebug', icon = '' },
+                { '<leader>c', group = '[c]ode', icon = ' ' },
+                { '<leader>f', group = '[f]ind Files', icon = '' },
+                { '<leader>n', group = '[n]otifications' },
+                { '<leader>s', group = '[s]earch', icon = '' },
+                { '<leader>w', group = '[w]indow', icon = '' },
+                { '<leader>u', group = '[u]I', icon = '' },
+                { '<leader>g', group = '[g]it', icon = ' ' },
+                { '<leader>e', group = 'sp[e]cial', icon = '' },
             }
         end,
     },

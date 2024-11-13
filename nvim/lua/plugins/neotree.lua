@@ -47,7 +47,7 @@ return {
         })
     end,
     keys = {
-        { '<leader>e', '<cmd>Neotree toggle<cr>', silent = true, desc = 'Explorer NeoTree' },
+        { '<leader>T', '<cmd>Neotree toggle<cr>', silent = true, desc = 'Explorer NeoTree' },
     },
     -- config = function()
     --   vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })

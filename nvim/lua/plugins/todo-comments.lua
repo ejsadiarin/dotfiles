@@ -9,7 +9,7 @@ return {
         },
         keys = {
             { '<leader><leader>', '<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
-            { '<leader>xk',       '<cmd>Trouble todo toggle<cr>',                                   desc = 'Todo (Trouble)' },
+            { '<leader>ek',       '<cmd>Trouble todo toggle<cr>',                                   desc = 'Todo (Trouble)' },
         },
     },
 }
