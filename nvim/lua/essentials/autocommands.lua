@@ -189,3 +189,10 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
         vim.fn.setreg('+', vim.fn.getreg('0'))
     end
 })
+
+-- automatically opne Trouble qflist (test with :silent grep vim %)
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+    callback = function()
+        vim.cmd([[Trouble qflist open focus=true]])
+    end,
+})

@@ -60,19 +60,24 @@ return {
                     -- Jump to the definition of the word under your cursor.
                     --  This is where a variable was first declared, or where a function is defined, etc.
                     --  To jump back, press <C-t>.
-                    map('gd', require('telescope.builtin').lsp_definitions, 'Goto [d]efinition')
+                    map('gd', '<cmd>Trouble lsp_definitions toggle win.position=bottom<cr>', 'Goto [d]efinition')
+                    -- map('gd', require('telescope.builtin').lsp_definitions, 'Goto [d]efinition')
 
                     -- Find references for the word under your cursor.
-                    map('gr', require('telescope.builtin').lsp_references, 'Goto [r]eferences')
+                    map('gr', '<cmd>Trouble lsp_references toggle win.position=bottom<cr>', 'Goto [r]eferences')
+                    -- map('gr', require('telescope.builtin').lsp_references, 'Goto [r]eferences')
 
                     -- Jump to the implementation of the word under your cursor.
                     --  Useful when your language has ways of declaring types without an actual implementation.
-                    map('gI', require('telescope.builtin').lsp_implementations, 'Goto [I]mplementation')
+                    map('gI', '<cmd>Trouble lsp_implementations toggle win.position=bottom<cr>', 'Goto [I]mplementation')
+                    -- map('gI', require('telescope.builtin').lsp_implementations, 'Goto [I]mplementation')
 
                     -- Jump to the type of the word under your cursor.
                     --  Useful when you're not sure what type a variable is and you want to see
                     --  the definition of its *type*, not where it was *defined*.
-                    map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+                    map('<leader>D', '<cmd>Trouble lsp_type_definitions toggle win.position=bottom<cr>',
+                        'Type [D]efinition')
+                    -- map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 
                     -- Fuzzy find all the symbols in your current document.
                     --  Symbols are things like variables, functions, types, etc.
@@ -341,11 +346,11 @@ return {
                     organize_imports_on_format = true,
                     enable_import_completion = true,
                 },
-                -- jdtls = {
-                --     on_init = function()
-                --         return true
-                --     end,
-                -- },
+                jdtls = {
+                    on_init = function()
+                        return true
+                    end,
+                },
                 jsonls = {
                     -- from lazyvim to lazy-load schemastore when needed
                     on_new_config = function(new_config)
