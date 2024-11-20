@@ -145,6 +145,8 @@ return {
             transparent_mode = true,
         },
     },
+
+    -- WARN: THIS IS A VERY HEAVILY CUSTOMIZED MONOKAI
     {
         'loctvl842/monokai-pro.nvim',
         lazy = false,
