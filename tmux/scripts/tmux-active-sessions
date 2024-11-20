@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
 
+set -e
+
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
     # selected=$(tmux list-sessions | cut -d: -f1 | fzf)
-    selected=$(tmux list-sessions | fzf --tmux)
+    # selected=$(tmux list-sessions -F '#{session_name}#{?session_attached,* (attached),1}' | fzf --tmux --prompt="current - $(tmux list-sessions | grep attached | cut -d\' \' -f1)")
+
+    session_list=$(tmux list-sessions -F '#{?session_attached,0,1} #{session_name}' | sort -k1,1n | cut -d' ' -f2)
+
+    current_session=$(tmux display-message -p '#S')
+    selected=$(echo "$session_list" | fzf --tmux --prompt="current: $current_session > ")
 fi
 
 # if session is not selected (empty, did not select anything in fzf), then exit
@@ -12,6 +19,6 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
-selected_name=$(echo "$selected" | cut -d: -f1)
+selected_name=$(echo "$selected" | cut -d":" -f1)
 
 tmux switch-client -t "$selected_name"
