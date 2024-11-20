@@ -22,7 +22,7 @@ return {
                 'nvim-treesitter/nvim-treesitter-context',
                 event = 'VeryLazy',
                 opts = {
-                    enable = true,
+                    enable = false,
                     max_lines = 1,
                 },
                 config = true,

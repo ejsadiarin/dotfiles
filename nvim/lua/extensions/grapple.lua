@@ -6,14 +6,14 @@ return {
         },
         opts = {
             scope = 'git',
-            -- default_scopes = {
-            --     cwd = { shown = true },
-            --     git = { shown = true },
-            --     git_branch = { shown = true },
-            --     global = { shown = true },
-            --     lsp = { shown = true },
-            --     static = { shown = true },
-            -- },
+            default_scopes = {
+                git = { shown = true },
+                global = { shown = true },
+                git_branch = { shown = true },
+                cwd = { shown = true },
+                lsp = { shown = true },
+                static = { shown = true },
+            },
             statusline = { -- for statusline lualine module only
                 icon = '󰛢',
                 active = '|%s|',

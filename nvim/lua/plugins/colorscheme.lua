@@ -233,7 +233,8 @@ return {
                     FloatBorder = { fg = '#425157' },
                     Directory = { fg = '#f9cc6c' },
 
-                    ['@lsp.type.namespace.go'] = { fg = '#fcffb8' },
+                    -- ['@lsp.type.namespace.go'] = { fg = '#743c93' },
+                    -- ['@lsp.type.namespace.go'] = { fg = '#fcffb8' },
                     Function = { fg = '#ff6d7e' },
                     Todo = { fg = '#4aa4bf' },
                     yamlBlockMappingKey = { fg = '#c24c5a' },
