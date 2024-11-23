@@ -1,0 +1,17 @@
+[user]
+    name = ejsadiarin
+    email = kyube.ejs@proton.me
+    signingkey = "~/.ssh/id_ed25519.pub"
+[merge]
+    tool = nvimdiff2
+[core]
+    editor = nvim
+    autocrlf = input
+[color]
+    ui = auto
+[rebase]
+    autoStash = true
+[pull]
+    rebase = true
+[alias]
+    undo = "reset HEAD~1 --mixed"
