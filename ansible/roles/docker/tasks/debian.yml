@@ -19,10 +19,15 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
-- name: Docker | Add Docker Repository
+- name: Docker | Update apt repositories
   ansible.builtin.apt_repository:
     repo: deb https://download.docker.com/linux/ubuntu focal stable
     state: present
+
+- name: Docker | Add Docker Repository
+  ansible.builtin.apt:
+    update_cache: true
+  become: true
 
 - name: Docker | Update apt and install Docker packages
   ansible.builtin.apt:

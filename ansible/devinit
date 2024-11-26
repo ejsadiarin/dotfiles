@@ -256,7 +256,7 @@ debian_setup() {
         stdout_msg "INSTALLING" "ansible" "Installing ansible..."
         write_to_exquilog "INFO" "ansible" "Installing ansible..."
         {
-            sudo apt install ansible
+            sudo apt install ansible-core
             stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
             write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
         } || {

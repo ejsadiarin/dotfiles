@@ -52,6 +52,12 @@
 - name: Essentials Debian | Install fzf
   ansible.builtin.command: "{{ ansible_user_dir }}/.fzf/install"
 
+- name: Essentials Debian | Create fzf bin directory
+  ansible.builtin.file:
+    path: "~/.fzf/bin"
+    state: directory
+
+
 - name: Essentials Debian | Copy fzf binary to system-wide binaries
   ansible.builtin.copy:
     src: "{{ ansible_user_dir }}/.fzf/bin/fzf"

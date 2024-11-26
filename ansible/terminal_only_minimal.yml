@@ -40,9 +40,9 @@
     - zsh
     - neovim
     - tmux
-    - docker
     - ssh
     - gpg
+    - docker
     - go_role
     - python_role
 

@@ -7,3 +7,9 @@
   loop_control:
     loop_var: ssh_key_item
   with_items: "{{ ssh_key | default({}) | dict2items }}"
+  # register: ssh_k
+
+# - name: DEBUG/SSH vals
+#   ansible.builtin.debug:
+#     var: ssh_k
+

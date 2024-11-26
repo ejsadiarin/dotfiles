@@ -1,4 +1,4 @@
-- name: GPG | Configure/Copy GPG keys
+# - name: GPG | Configure/Copy GPG keys
   # ansible.builtin.copy:
   #   dest: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"
   #   content: "{{ ssh_key_item.value }}"
