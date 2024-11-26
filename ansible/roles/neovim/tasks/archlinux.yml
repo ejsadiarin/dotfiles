@@ -1,3 +1,8 @@
+- name: Neovim | Ensure old neovim from repository is uninstalled
+  community.general.pacman:
+    name: neovim
+    state: absent
+
 - name: Neovim | Make sure 'dependencies' are installed
   community.general.pacman:
     name:
@@ -8,6 +13,7 @@
       - ripgrep
       - fd
       - unzip
+      - lua5.4
     state: present
     extra_args: --noconfirm
   become: true
@@ -15,7 +21,7 @@
 - name: Neovim | Install latest stable Neovim version via pacman
   community.general.pacman:
     name: neovim
-    state: latest
+    state: present
     extra_args: --noconfirm
   become: true
 

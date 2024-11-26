@@ -17,7 +17,10 @@ return {
                         winblend = 0,
                     },
                 },
-                notify = {},
+                notify = {
+                    timeout = 3000,
+                    style = "compact"
+                },
             },
             routes = {
 

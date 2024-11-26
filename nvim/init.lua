@@ -29,7 +29,6 @@ require 'essentials.autocommands'
 require 'essentials.options'
 require 'essentials.globals'
 require 'essentials.keymaps'
-require 'essentials.signs'
 
 -- require('lazy').setup(spec, opts)
 require('lazy').setup({

@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- })
 
 -- add 'q' keymap on command mode to close quickfix window and 'help' filetypes
-vim.api.nvim_create_autocmd('filetype', {
+vim.api.nvim_create_autocmd({ 'FileType' }, {
     pattern = {
         'qf',
         'help',

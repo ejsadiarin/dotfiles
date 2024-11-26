@@ -15,33 +15,25 @@
       - curl
       - xclip
       - libfuse2
+      - lua5.4
     state: present
   become: true
 
-- name: Neovim | Create /opt/nvim directory as download directory
-  ansible.builtin.file:
-    path: "/opt/nvim"
-    owner: root
-    group: root
-    mode: "0755" # drwxr-x-r-x
-    state: directory
+- name: Neovim | Add unstable ppa
+  ansible.builtin.apt_repository:
+    repo: ppa:neovim-ppa/unstable
+    state: present
   become: true
 
-- name: Neovim | Get/Install nvim.appimage
-  ansible.builtin.get_url:
-    url: "{{ neovim_appimage_url }}"
-    dest: "/opt/nvim/nvim.appimage"
-    mode: "0555" # -r-x-r-x-r-x
+- name: Neovim | Update sources list
+  ansible.builtin.apt:
+    update_cache: true
   become: true
 
-- name: Neovim | Copy nvim.appimage bin to /usr/local/bin/nvim for global PATH
-  ansible.builtin.copy:
-    src: "/opt/nvim/nvim.appimage"
-    dest: "/usr/local/bin/nvim" # or "/usr/bin/nvim" directly?
-    owner: root
-    group: root
-    mode: "0755" # -rwx-r-x-r-x
-    remote_src: true
+- name: Neovim | Install neovim now
+  ansible.builtin.apt:
+    name: neovim
+    state: present
   become: true
 
 - name: Neovim | Copy own nvim configs
