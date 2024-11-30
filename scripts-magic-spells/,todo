@@ -34,15 +34,10 @@ new_todo() {
 - [ ] 30 day devops challenge
 - [ ] r/linuxupskillchallenge daily
 - [ ] finish one file in the default-responses files in \$(Personal/Brain-Configuration/)
-- [ ] install docker, then immich on homelab server
-    - [ ] syncthing volumes: whole camera dir with its subdirectories, V, vault 
 
 
 # Side Quests:
 
-- [ ] PRIO: setup DNS records and homelab Home dashboard (?)
-
-- [ ] add Instagram directory to syncthing
 - [ ] [watch API performance design BEST PRACTICES](https://youtu.be/CI0ZxSQ8sWQ?si=ZCrenujPxmeuZ5LX)
 - [ ] VLANS: https://www.youtube.com/watch?v=JszGeQPTo4w&ab_channel=CrosstalkSolutions
 - [ ] offsite and onsite Git server
@@ -64,7 +59,7 @@ new_todo() {
 
 ## Go
 
-- [ ] see oapi-codegen OpenAPI spec Code Generator for Go
+- [ ] see \`swag-go\ or \`oapi-codegen\` OpenAPI spec Code Generator for Go
 
 ## Kubernetes
 
@@ -103,7 +98,7 @@ new_todo() {
 
 ## What would make a candidate really stand out:
 
-- [ ] knowing how to join a Linux machine to a domain and managing ssh/sudo access to it using domain credentials instead of keys (familiarity with sssd is helpful here).
+- [ ] knowing how to join a Linux machine to a domain and managing ssh/sudo access to it using domain credentials instead of keys (familiarity with sshd is helpful here).
 - [ ] familiarity with ansible and satellite server.
 - [ ] knowing how to mount basic data disks and network shares.
 - [ ] how to grow root and swap partitions without downtime (I guess also worth saying familiarity with LVM for this one).
