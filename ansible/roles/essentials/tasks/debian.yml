@@ -17,6 +17,7 @@
       - lsd
       - gnupg
       - pass
+      - pass-extension-otp
       - yq
       - jq
       - open-iscsi
@@ -27,6 +28,8 @@
       - qemu-guest-agent
       - bat
       - sudo
+      - rsync
+      - cryptsetup
     state: present
     update_cache: true
   become: true

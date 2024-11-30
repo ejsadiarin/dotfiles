@@ -7,3 +7,8 @@
   # loop_control:
   #   loop_var: ssh_key_item
   # with_items: "{{ ssh_key | default({}) | dict2items }}"
+
+  # TODO: install pass and gpg (gnupg)
+# import .password-store via git clone
+# enable otp feature by editing .bashrc or .zshrc
+# NOTE: this needs to manually import the public and private gpg keys of my email

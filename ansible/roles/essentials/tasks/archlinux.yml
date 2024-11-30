@@ -18,6 +18,7 @@
       - lsd
       - gnupg # gpg
       - pass
+      - pass-otp
       - yq
       - jq
       - open-iscsi
@@ -27,6 +28,8 @@
       - bat
       - redshift
       - copyq
+      - rsync
+      - cryptsetup
       # - aria2c (in aur)
       # - qemu-guest-agent
     state: present
