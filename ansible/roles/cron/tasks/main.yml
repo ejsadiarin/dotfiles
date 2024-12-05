@@ -1,0 +1,26 @@
+- name: Cron | Install cronie
+  ansible.builtin.apt:
+    name: cronie
+    state: present
+  become: true
+  when: machine_os == 'debian'
+
+- name: Cron | Install cronie
+  community.general.pacman:
+    name: cronie
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+
+# - name: Cron | Activate cronjobs (crontab)
+#   ansible.builtin.cron:
+#     name: cronie
+#     state: present
+#   become: true
+
+- name: Cron | Start and Enable cronie service
+  ansible.builtin.systemd:
+    name: cronie
+    enabled: true
+    state: started
+  become: true

@@ -10,5 +10,5 @@
 
   # TODO: install pass and gpg (gnupg)
 # import .password-store via git clone
-# enable otp feature by editing .bashrc or .zshrc
+# enable otp feature by editing .bashrc or .zshrc (export PASSWORD_STORE_ENABLE_EXTENSIONS=true)
 # NOTE: this needs to manually import the public and private gpg keys of my email
