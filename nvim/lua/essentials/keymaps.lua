@@ -201,11 +201,7 @@ vim.keymap.set('n', '<C-U>', '<C-U>zz')
 vim.keymap.set('n', '<C-D>', '<C-D>zz')
 
 -- lsp signature help popup when insert mode
-vim.keymap.set('i', '<C-s>', function()
-    vim.lsp.buf.signature_help({
-        border = "rounded"
-    })
-end, { desc = 'Signature Help' })
+vim.keymap.set({ 'i', 'x' }, '<C-s>', function() vim.lsp.buf.signature_help() end, { desc = 'Signature Help' })
 
 -- Buffer manipulation
 vim.keymap.set('n', '<leader>bd', "<CMD>bd<CR>", { desc = 'Buffer: [d]elete' })

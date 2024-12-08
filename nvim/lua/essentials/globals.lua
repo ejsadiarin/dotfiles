@@ -57,6 +57,17 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     }
 )
 
+-- Rounded borders for LSP signatureHelp floating window
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+    vim.lsp.handlers.signature_help, {
+        -- Use a sharp border with `FloatBorder` highlights
+        border = "rounded",
+        -- add the title in hover float window
+        -- title = "hover"
+    }
+)
+
+
 -- vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
 --     config = config or {}
 --     config.border = _border
