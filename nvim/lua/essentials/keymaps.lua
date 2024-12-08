@@ -206,3 +206,7 @@ vim.keymap.set('i', '<C-s>', function()
         border = "rounded"
     })
 end, { desc = 'Signature Help' })
+
+-- Buffer manipulation
+vim.keymap.set('n', '<leader>bd', "<CMD>bd<CR>", { desc = 'Buffer: [d]elete' })
+vim.keymap.set('n', '<leader>bo', "<CMD>%bd|e#<CR>", { desc = 'Buffer: [d]elete' })
