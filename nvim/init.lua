@@ -72,6 +72,7 @@ require('lazy').setup({
   { import = 'extensions.grapple' },
   -- { import = 'extensions.noice' },
   -- { import = 'extensions.lazygit' },
+  -- { import = 'extensions.vim-fugitive' },
 
   -- This is the easiest way to modularize your config.
   --
