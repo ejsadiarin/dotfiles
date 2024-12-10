@@ -306,3 +306,5 @@ eval "$(fzf --zsh)"
 # Firewalld
 # - see fedora docs: https://docs.fedoraproject.org/en-US/quick-docs/firewalld/
 # - useful to install the GUI version also
+
+eval $(thefuck --alias)
