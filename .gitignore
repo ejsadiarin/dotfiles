@@ -14,3 +14,4 @@ master_password
 ansible/decrypted_mp
 ansible/master_password
 ansible/tmp/
+tmp
