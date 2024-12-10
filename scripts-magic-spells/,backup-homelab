@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+
+# Backup process:
+# 1. automate the individual backup process of all services
+# 2. rsync to a central dir
+# 3. encrypt that
+# 4. backup to hardware (usb, etc.)
+# 5. backup to offsite (backblaze b2 bucket)
+
+set -e
+
+# services
+services="$HOME/services"
+# traefik
+traefik="$HOME/services/traefik"
+# authentik
+authentik="$HOME/services/authentik"
+# immich
+immich="$HOME/services/immich"
+# portainer
+portainer="$HOME/services/portainer"
+# gitea
+gitea="$HOME/services/gitea"
+# ntfy
+ntfy="$HOME/services/ntfy"
+# uptime kuma
+uptime_kuma="$HOME/services/uptime_kuma"
+
+dirs=(
+    "$traefik"
+    "$authentik"
+    "$immich"
+    "$portainer"
+    "$gitea"
+    "$ntfy"
+    "$uptime_kuma"
+)
+
+mkdir -p "$HOME/backups"
+backups="$HOME/backups"
+
+if [[ "$*" == "--dry-run" ]]; then
+    for dir in "${dirs[@]}"; do
+        echo "Backing up $dir"
+        bn=$(basename "$dir")
+        echo "Current bn: $bn"
+        bk_dir="$backups/$bn" # example: ~/backups/traefik
+        echo "Creating if not exists: $bk_dir"
+        if [[ $dir == "$traefik" ]]; then
+            # traefik - backup everything
+            # src: ~/services/traefik/
+            # dest: ~/backups/traefik/
+            echo "current dir: $dir/ with bk_dir: $bk_dir/"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/ "$bk_dir"/
+        fi
+        if [[ $dir == "$portainer" ]]; then
+            # portainer - backup everything
+            echo "current dir: $dir/ with bk_dir: $bk_dir/"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/ "$bk_dir"/
+        fi
+        if [[ $dir == "$uptime_kuma" ]]; then
+            # uptime_kuma - backup everything
+            echo "current dir: $dir/ with bk_dir: $bk_dir/"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/ "$bk_dir"/
+        fi
+        if [[ $dir == "$authentik" ]]; then
+            # authentik - backup everything
+            # dest: ~/backups/authentik
+            echo "current dir: $dir/ with bk_dir: $bk_dir/"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/ "$bk_dir"/
+            # dest: ~/backups/authentik/postgres-backup.sql
+            # docker exec -i authentik-postgres /usr/local/bin/pg_dump --username authentik-pg-admin authentik-pg-db >"$bk_dir"/postgres-backup.sql
+        fi
+        if [[ $dir == "$ntfy" ]]; then
+            # ntfy - backup everything
+            echo "current dir: $dir with bk_dir: $bk_dir"
+            ntfy_etc="$dir"/etc
+            ntfy_cache="$dir"/cache
+            echo "backing up: $ntfy_etc with bk_dir: $bk_dir"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/etc "$bk_dir" # dest: ~/backups/ntfy
+            echo "backing up: $ntfy_cache with bk_dir: $bk_dir"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/cache "$bk_dir" # dest: ~/backups/ntfy
+        fi
+        # if [[ $dir == "$gitea" ]]; then
+        #     # gitea - backup everything via gitea dump inside container (outputs tar.gz file)
+        #     docker exec --user git -it gitea gitea dump -c /data/gitea/conf/app.ini
+        #     latest_zip=$(docker exec --user git -it gitea find /data/git -type f -name "*.zip" -printf '%T+ %p\n' | sort -r | head -n 1 | awk '{print $2}')
+        #     docker cp gitea:"$latest_zip" "$bk_dir/gitea_backup_$TIMESTAMP.zip"
+        # fi
+        if [[ $dir == "$immich" ]]; then
+            # immich - backup specific dirs only
+            echo "current dir: $dir with bk_dir: $bk_dir"
+            immich_library="$dir"/library/library
+            immich_profile="$dir"/library/profile
+            immich_backups="$dir"/library/backups
+            immich_upload="$dir"/library/upload
+            echo "backing up: $immich_library with bk_dir: $bk_dir"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/library/library "$bk_dir" # libs
+            echo "backing up: $immich_profile with bk_dir: $bk_dir"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/library/profile "$bk_dir" # profile
+            echo "backing up: $immich_backups with bk_dir: $bk_dir"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/library/backups "$bk_dir" # database
+            echo "backing up: $immich_upload with bk_dir: $bk_dir"
+            sudo rsync -azvh --delete --progress --dry-run "$dir"/library/upload "$bk_dir" # imgs/vids
+        fi
+    done
+fi
+
+# onsite backups (hardware)
+if [[ ! "$*" == "--dry-run" ]] && [[ "$*" == "--rsync" ]]; then
+    for dir in "${dirs[@]}"; do
+        bn=$(basename "$dir")
+        bk_dir="$backups/$bn" # example: ~/backups/traefik
+        mkdir -p "$bk_dir"
+        if [[ $dir == "$traefik" ]]; then
+            # traefik - backup everything
+            # src: ~/services/traefik/
+            # dest: ~/backups/traefik/
+            sudo rsync -azvh --delete --progress "$dir"/ "$bk_dir"/
+        fi
+        if [[ $dir == "$portainer" ]]; then
+            # portainer - backup everything
+            sudo rsync -azvh --delete --progress "$dir"/ "$bk_dir"/ # dest: ~/backups/portainer
+        fi
+        if [[ $dir == "$uptime_kuma" ]]; then
+            # uptime_kuma - backup everything
+            sudo rsync -azvh --delete --progress "$dir"/ "$bk_dir"/ # dest: ~/backups/uptime_kuma
+        fi
+        if [[ $dir == "$authentik" ]]; then
+            # authentik - backup everything
+            # dest: ~/backups/authentik
+            sudo rsync -azvh --delete --progress "$dir"/ "$bk_dir"/
+            # dest: ~/backups/authentik/postgres-backup.sql
+            docker exec -i authentik-postgres /usr/local/bin/pg_dump --username authentik-pg-admin authentik-pg-db >"$bk_dir"/postgres-backup.sql
+        fi
+        if [[ $dir == "$ntfy" ]]; then
+            # ntfy - backup everything
+            sudo rsync -azvh --delete --progress "$dir"/etc "$bk_dir"   # dest: ~/backups/ntfy
+            sudo rsync -azvh --delete --progress "$dir"/cache "$bk_dir" # dest: ~/backups/ntfy
+        fi
+        # if [[ $dir == "$gitea" ]]; then
+        #     # gitea - backup everything via gitea dump inside container (outputs tar.gz file)
+        #     docker exec --user git -it gitea gitea dump -c /data/gitea/conf/app.ini
+        #     latest_zip=$(docker exec --user git -it gitea find /data/git -type f -name "*.zip" -printf '%T+ %p\n' | sort -r | head -n 1 | awk '{print $2}')
+        #     docker cp gitea:"$latest_zip" "$bk_dir/gitea_backup_$TIMESTAMP.zip"
+        # fi
+        if [[ $dir == "$immich" ]]; then
+            # immich - backup specific dirs only
+            sudo docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres | gzip | sudo tee "$dir"/library/backups/immich-db-backup-'$(date +%s%3N)'.sql.gz >/dev/null
+            sudo rsync -azvh --delete --progress "$dir"/library/library "$bk_dir" # libs
+            sudo rsync -azvh --delete --progress "$dir"/library/profile "$bk_dir" # profile
+            sudo rsync -azvh --delete --progress "$dir"/library/backups "$bk_dir" # database
+            sudo rsync -azvh --delete --progress "$dir"/library/upload "$bk_dir"  # imgs/vids
+        fi
+    done
+fi
+
+# offsite backup via restic
