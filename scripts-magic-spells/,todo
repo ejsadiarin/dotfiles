@@ -113,5 +113,7 @@ if [ ! -f "$todo_file" ]; then
     new_todo
 fi
 
-nvim "$todo_file" -c ":NoNeckPain" '+ normal gg' # needs NoNeckPain nvim plugin (will still work if don't have it)
-# nvim '+ normal Gzzo' "$todo_file" -c :NoNeckPain
+if [[ "$*" == --nvim ]]; then
+    nvim "$todo_file" -c ":NoNeckPain" '+ normal gg' # needs NoNeckPain nvim plugin (will still work if don't have it)
+    # nvim '+ normal Gzzo' "$todo_file" -c :NoNeckPain
+fi

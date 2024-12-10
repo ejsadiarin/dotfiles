@@ -9,13 +9,13 @@ backlog_file="$VAULT/backlog.md"
 
 # check if $VAULT path exists
 cd "$VAULT" || {
-	echo "No VAULT env path created. Set a VAULT path in your .zshrc or .bashrc first."
-	exit 1
+    echo "No VAULT env path created. Set a VAULT path in your .zshrc or .bashrc first."
+    exit 1
 }
 
 new_backlog_file() {
-	touch "$backlog_file"
-	cat >"$backlog_file" <<EOF
+    touch "$backlog_file"
+    cat >"$backlog_file" <<EOF
 # Created on: $date_today
 - input ideas below
 
@@ -23,8 +23,10 @@ EOF
 }
 
 if [ ! -f "$backlog_file" ]; then
-	echo "[ NEW ] Creating $date_today.md... in $VAULT"
-	new_backlog_file
+    echo "[ NEW ] Creating $date_today.md... in $VAULT"
+    new_backlog_file
 fi
 
-nvim '+ normal ggzz' "$backlog_file" -c ":NoNeckPain"
+if [[ "$*" == --nvim ]]; then
+    nvim '+ normal ggzz' "$backlog_file" -c ":NoNeckPain"
+fi
