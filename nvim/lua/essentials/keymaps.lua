@@ -206,3 +206,102 @@ vim.keymap.set({ 'i', 'x' }, '<C-s>', function() vim.lsp.buf.signature_help() en
 -- Buffer manipulation
 vim.keymap.set('n', '<leader>bd', "<CMD>bd<CR>", { desc = 'Buffer: [d]elete' })
 vim.keymap.set('n', '<leader>bo', "<CMD>%bd|e#<CR>", { desc = 'Buffer: [d]elete' })
+
+local function open_todo_in_floating_window()
+    -- NOTE: requires env variable $VAULT (`export VAULT=...` in your .bashrc or .zshrc)
+    local script_path = vim.fn.expand("$VAULT/wizardry/scripts-magic-spells/,todo")
+
+    vim.fn.system(script_path)
+
+    local date_today = os.date("%Y-%m-%d")
+    local todo_file = vim.fn.expand("$VAULT/Personal/todos/" .. date_today .. ".md")
+    if not vim.loop.fs_stat(todo_file) then
+        vim.notify("Failed to find the todo file: " .. todo_file, vim.log.levels.ERROR)
+        return
+    end
+
+    if pcall(require, 'snacks') then
+        Snacks.win({
+            file = todo_file,
+            width = 0.8,
+            height = 0.8,
+            style = "float",
+            border = "rounded",
+            bo = {
+                modifiable = true,
+            }
+        })
+    else
+        local width = math.floor(vim.o.columns * 0.8)
+        local height = math.floor(vim.o.lines * 0.8)
+        local row = math.floor((vim.o.lines - height) / 2)
+        local col = math.floor((vim.o.columns - width) / 2)
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_open_win(buf, true, {
+            relative = "editor",
+            width = width,
+            height = height,
+            row = row,
+            col = col,
+            style = "minimal",
+            border = "rounded",
+        })
+        vim.cmd("edit " .. todo_file)
+    end
+end
+
+vim.api.nvim_create_user_command("OpenTodo", open_todo_in_floating_window, {})
+vim.keymap.set("n", "<leader>K", "<CMD>OpenTodo<CR>", { desc = 'Open Todo' })
+
+local function open_backlog_in_floating_window()
+    -- NOTE: requires env variable $VAULT (`export VAULT=...` in your .bashrc or .zshrc)
+    local script_path = vim.fn.expand("$VAULT/wizardry/scripts-magic-spells/,backlog")
+
+    vim.fn.system(script_path)
+
+    local backlog_file = vim.fn.expand("$VAULT/backlog.md")
+    if not vim.loop.fs_stat(backlog_file) then
+        vim.notify("Failed to find the backlog file: " .. backlog_file, vim.log.levels.ERROR)
+        return
+    end
+
+    -- if has snacks.nvim plugin then use that to create the floating window instead
+    if pcall(require, "snacks") then
+        Snacks.win({
+            file = backlog_file,
+            width = 0.8,
+            height = 0.8,
+            border = "rounded",
+            style = "float",
+            wo = {
+                spell = false,
+                wrap = false,
+                signcolumn = "yes",
+                statuscolumn = " ",
+                conceallevel = 3,
+            },
+            bo = {
+                modifiable = true
+            }
+        })
+    else
+        local width = math.floor(vim.o.columns * 0.8)
+        local height = math.floor(vim.o.lines * 0.8)
+        local row = math.floor((vim.o.lines - height) / 2)
+        local col = math.floor((vim.o.columns - width) / 2)
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_open_win(buf, true, {
+            relative = "editor",
+            width = width,
+            height = height,
+            row = row,
+            col = col,
+            style = "minimal",
+            border = "rounded",
+        })
+        vim.cmd("edit " .. backlog_file)
+    end
+end
+
+vim.api.nvim_create_user_command("OpenBacklog", open_backlog_in_floating_window, {})
+vim.keymap.set("n", "<leader>J", "<CMD>OpenBacklog<CR>", { desc = 'Open Backlog' })
