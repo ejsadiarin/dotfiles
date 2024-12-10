@@ -97,7 +97,7 @@ xsetroot -cursor_name left_ptr
 
 # Faster keyboard repeat rate - default for linux systems is 500 (delay), 30 (repeat rate)
 # xset r rate 300 50 &
-xset r rate 500 30 &
+xset r rate 500 40 &
 
 # Launch picom // If you have old hardware or encounter problems
 # uncomment the picom "--legacy-backends" line and comment the current one.
