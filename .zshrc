@@ -15,6 +15,7 @@ export PATH="$PATH:$HOME/vault/wizardry/scripts-magic-spells"
 export SCRIPTS="$HOME/vault/wizardry/scripts-magic-spells"
 export VAULT="$HOME/vault"
 export XDG_CONFIG_HOME="$HOME/.config"
+export GPG_TTY=$(tty)
 
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:$HOME/go/bin"

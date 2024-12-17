@@ -31,6 +31,7 @@
       - rsync
       - cryptsetup
       - cronie
+      - openssh
       # - aria2c (in aur)
       # - qemu-guest-agent
     state: present
