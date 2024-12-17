@@ -2,32 +2,43 @@ return {
     {
         -- NOTE: Yes, you can install new plugins here!
         'mfussenegger/nvim-dap',
-        -- lazy = true,
-        event = 'VeryLazy', -- 'VeryLazy'
+        lazy = true,
+        -- event = 'VeryLazy', -- 'VeryLazy'
         -- cmd = { 'DapContinue', 'DapNew', 'DapToggleBreakpoint' },
         -- NOTE: And you can specify dependencies as well
         dependencies = {
             -- Creates a beautiful debugger UI
             {
                 'rcarriga/nvim-dap-ui',
+                lazy = true,
             },
 
             -- Required dependency for nvim-dap-ui
             {
                 'nvim-neotest/nvim-nio',
+                lazy = true,
             },
 
             -- Installs the debug adapters for you
-            'williamboman/mason.nvim',
-            'jay-babu/mason-nvim-dap.nvim',
+            {
+                'williamboman/mason.nvim',
+
+                lazy = true,
+            },
+            {
+                'jay-babu/mason-nvim-dap.nvim',
+                lazy = true,
+            },
 
             {
                 'theHamsta/nvim-dap-virtual-text', -- event = 'VeryLazy',
+                lazy = true,
             },
 
             -- Add your own debuggers here
             {
                 'leoluz/nvim-dap-go',
+                lazy = true,
             },
         },
         keys = {},

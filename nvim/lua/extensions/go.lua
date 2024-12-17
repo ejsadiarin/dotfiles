@@ -62,6 +62,7 @@ return {
 
     {
         'jay-babu/mason-nvim-dap.nvim',
+        lazy = true,
         opts = {
             -- automatic_installation = true,
             ensure_installed = {
@@ -72,6 +73,7 @@ return {
 
     {
         'leoluz/nvim-dap-go',
+        lazy = true,
         ft = 'go',
         opts = {
             -- Install golang specific config
