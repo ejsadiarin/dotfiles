@@ -7,6 +7,7 @@ return {
             -- Snippet Engine & its associated nvim-cmp source
             {
                 'L3MON4D3/LuaSnip',
+                version = 'v2.*',
                 build = (function()
                     -- Build Step is needed for regex support in snippets.
                     -- This step is not supported in many windows environments.
@@ -179,8 +180,8 @@ return {
                         compare.offset,
                         compare.recently_used, -- higher
                         compare.score,
-                        compare.exact, -- lower
-                        compare.kind, -- higher (prioritize snippets)
+                        compare.exact,         -- lower
+                        compare.kind,          -- higher (prioritize snippets)
                         compare.locality,
                         compare.length,
                         compare.order,

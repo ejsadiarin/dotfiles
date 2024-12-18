@@ -32,6 +32,8 @@
       - cryptsetup
       - cronie
       - openssh
+      - delta
+      - bat
       # - aria2c (in aur)
       # - qemu-guest-agent
     state: present

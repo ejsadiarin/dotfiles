@@ -235,6 +235,7 @@ alias copy="xclip -sel clip"
 alias snvim="sudo -E nvim $1"
 
 alias nvim-old='NVIM_APPNAME="nvim-old" nvim'
+alias lvim='NVIM_APPNAME="nvim-lazy" nvim'
 
 ##############################
 #            Eval            #

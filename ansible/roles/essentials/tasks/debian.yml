@@ -32,6 +32,8 @@
       - cryptsetup
       - cronie
       - openssh-server
+      - delta
+      - bat
     state: present
     update_cache: true
   become: true

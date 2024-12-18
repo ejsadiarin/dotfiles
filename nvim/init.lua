@@ -67,12 +67,19 @@ require('lazy').setup({
   -- { import = 'extensions.bufferline' },
   { import = 'extensions.colorizer' },
   { import = 'extensions.markview' },
+
   -- "mark-style" file navigation (only choose one)
   -- { import = 'extensions.harpoon' },
   { import = 'extensions.grapple' },
+
+  -- is replaced by snacks.nvim:
   -- { import = 'extensions.noice' },
   -- { import = 'extensions.lazygit' },
   -- { import = 'extensions.vim-fugitive' },
+
+  -- Newer alternatives
+  -- { import = 'fzf-lua' }, -- alternative to telescope
+  -- { import = 'blink-cmp' }, -- alternative to nvim-cmp
 
   -- This is the easiest way to modularize your config.
   --

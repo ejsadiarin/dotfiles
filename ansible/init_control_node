@@ -1,9 +1,9 @@
-#!/usr/bin/bash
+#!/usr/env/bin bash
 
 # Initialization Script for dotfiles
 # Author: Ej Sadiarin github.com/ejsadiarin
 #
-# NOTE: ONLY RUN ON CONTROL NODE (if configuring on multiple servers/machines/computers)
+# NOTE: THIS IS ONLY TO BE RUN ON THE CONTROL NODE (if configuring on multiple servers/machines/computers)
 
 set -e
 
