@@ -27,6 +27,8 @@ gitea="$HOME/services/gitea"
 ntfy="$HOME/services/ntfy"
 # uptime kuma
 uptime_kuma="$HOME/services/uptime_kuma"
+# glance
+glance="$HOME/services/glance"
 
 # essentials
 restic="$HOME/services/restic"
@@ -39,6 +41,7 @@ dirs=(
     "$portainer"
     "$gitea"
     "$ntfy"
+    "$glance"
     "$uptime_kuma"
     "$immich"
     "$restic"
@@ -68,17 +71,12 @@ dry_run() {
         echo "Creating if not exists: $bk_dir"
 
         case "$dir" in
-        "$traefik")
+        "$traefik" | "$uptime_kuma" | "$glance")
             echo "current dir: $dir/ with bk_dir: $bk_dir/"
             sudo rsync -azvh --delete --progress --dry-run "$dir"/ "$bk_dir"/
             ;;
 
         "$portainer")
-            echo "current dir: $dir/ with bk_dir: $bk_dir/"
-            sudo rsync -azvh --delete --progress --dry-run "$dir"/ "$bk_dir"/
-            ;;
-
-        "$uptime_kuma")
             echo "current dir: $dir/ with bk_dir: $bk_dir/"
             sudo rsync -azvh --delete --progress --dry-run "$dir"/ "$bk_dir"/
             ;;
@@ -132,12 +130,13 @@ dry_run() {
 
 local_backup() {
     # onsite backups (hardware)
+    # TODO: refactor to use basename and not dir, so all inside services are backed up automatically just by adding new service
     for dir in "${dirs[@]}"; do
         bn=$(basename "$dir")
         bk_dir="$backups/$bn" # example: ~/backups/traefik
         mkdir -p "$bk_dir"
         case "$dir" in
-        "$traefik" | "$uptime_kuma" | "$authentik")
+        "$traefik" | "$uptime_kuma" | "$glance")
             # traefik - backup everything
             # src: ~/services/traefik/
             # dest: ~/backups/traefik/
@@ -159,6 +158,10 @@ local_backup() {
             ;;
         "$authentik")
             # dest: ~/backups/authentik/postgres-backup.sql
+            sudo rsync -azvh --delete --progress "$dir"/ "$bk_dir"/ || {
+                echo "[x] Error on rsync [$dir]"
+                return 1
+            }
             {
                 timestamp=$(date +%s%3N)
                 docker exec -i authentik-postgres /usr/local/bin/pg_dump --username authentik-pg-admin authentik-pg-db >"$bk_dir"/postgres-backup-"$timestamp".sql
@@ -294,19 +297,7 @@ if [[ "$#" -eq 0 ]]; then
 else
     for arg in "$@"; do
         case $arg in
-        backup)
-            echo "initializing full backup..."
-            {
-                local_backup
-                remote_backup
-                echo "Successfully finished backing up!"
-                curl -X POST -H "Title: 🟢 Successful Homelab Backup" -d "Finished updating local and offsite backups (snapshots)" "$NTFY_ENDPOINT"
-            } || {
-                echo "Failed to backup..."
-                curl -X POST -H "Title: 🔴 Failed Homelab Backup" -d "An error occured when backing up..." "$NTFY_ENDPOINT"
-            }
-            ;;
-        --all)
+        --all | backup)
             echo "initializing full backup..."
             {
                 local_backup
@@ -329,23 +320,23 @@ else
                 curl -X POST -H "Title: 🔴 Failed Homelab Backup" -d "An error occured when backing up..." "$NTFY_ENDPOINT"
             }
             ;;
-        --local)
+        --local | local)
             echo "initializing local (via rsync)..."
             {
                 local_backup
                 echo "Successfully finished backing up!"
-                curl -X POST -H "Title: 🟢 Successful Homelab Backup" -d "Finished updating local and offsite backups (snapshots)" "$NTFY_ENDPOINT"
+                curl -X POST -H "Title: 🟢 Successful Homelab Backup" -d "Finished updating local backups" "$NTFY_ENDPOINT"
             } || {
                 echo "Failed to backup..."
                 curl -X POST -H "Title: 🔴 Failed Homelab Backup" -d "An error occured when backing up..." "$NTFY_ENDPOINT"
             }
             ;;
-        --remote)
+        --remote | remote)
             echo "initializing remote backup (via restic)..."
             {
                 remote_backup
                 echo "Successfully finished backing up!"
-                curl -X POST -H "Title: 🟢 Successful Homelab Backup" -d "Finished updating local and offsite backups (snapshots)" "$NTFY_ENDPOINT"
+                curl -X POST -H "Title: 🟢 Successful Homelab Backup" -d "Finished updating offsite backups (snapshots)" "$NTFY_ENDPOINT"
             } || {
                 echo "Failed to backup..."
                 curl -X POST -H "Title: 🔴 Failed Homelab Backup" -d "An error occured when backing up..." "$NTFY_ENDPOINT"
