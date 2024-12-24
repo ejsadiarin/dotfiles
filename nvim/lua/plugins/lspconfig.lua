@@ -493,11 +493,11 @@ return {
                 'delve',        -- debugger
                 'golangci-lint',
                 -- Python
-                'basedpyright',                -- lsp
-                'isort',                       -- sorter
-                'black',                       -- python formatter
-                'pylint',                      -- linter
-                'debugpy',                     -- debugger
+                -- 'basedpyright',                -- lsp
+                -- 'isort',                       -- sorter
+                -- 'black',                       -- python formatter
+                -- 'pylint',                      -- linter
+                -- 'debugpy',                     -- debugger
                 -- HTML, CSS, JS, misc.
                 'ts_ls',                       -- javascript & typescript lsp
                 'vtsls',                       -- javascript & typescript lsp
@@ -519,25 +519,25 @@ return {
                 'ansiblels',                       -- lsp
                 'ansible-lint',                    -- linter
                 -- Java
-                'jdtls',
-                'java-debug-adapter',
-                'java-test',
+                -- 'jdtls',
+                -- 'java-debug-adapter',
+                -- 'java-test',
                 -- C#
-                'omnisharp',         -- lsp
-                'csharpier',         -- lsp
-                'netcoredbg',        -- debugger
+                -- 'omnisharp',         -- lsp
+                -- 'csharpier',         -- lsp
+                -- 'netcoredbg',        -- debugger
                 -- Markdown
                 'marksman',          -- lsp
                 -- 'markdownlint-cli2', -- linter
                 'markdown-toc',      -- table of contents formatter
                 -- SQL
-                'sqlls',             -- lsp
-                'sqlfluff',          -- linter
+                -- 'sqlls',             -- lsp
+                -- 'sqlfluff',          -- linter
                 -- PHP
-                'phpactor',          -- lsp
-                'php-debug-adapter', -- debugger
-                'phpcs',             -- linter
-                'php-cs-fixer',      -- formatter
+                -- 'phpactor',          -- lsp
+                -- 'php-debug-adapter', -- debugger
+                -- 'phpcs',             -- linter
+                -- 'php-cs-fixer',      -- formatter
             })
             require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

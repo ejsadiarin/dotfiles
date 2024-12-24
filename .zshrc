@@ -18,6 +18,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export GPG_TTY=$(tty)
 
 export PATH="$PATH:$HOME/.dotnet/tools"
+export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/go/bin"
 
 export NVM_DIR="$HOME/.nvm"

@@ -90,16 +90,19 @@ require('lazy').setup({
   { import = 'extensions.go' },
   { import = 'extensions.yaml-json' },
   { import = 'extensions.markdown' },
-  { import = 'extensions.java' },
-  { import = 'extensions.csharp' },
+  -- { import = 'extensions.java' },
+  -- { import = 'extensions.csharp' },
   { import = 'extensions.webdev' },
   -- { import = 'extensions.python' },
-  { import = 'extensions.sql' },
+  -- { import = 'extensions.sql' },
 }, {
   defaults = {
     lazy = false,
   },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  checker = {
+    enabled = true, -- check for plugin updates periodically
+    notify = false, -- notify on update
+  },
   performance = {
     cache = {
       enabled = true,

@@ -77,6 +77,15 @@ return {
         },
     },
 
+    {
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
+        opts = {
+            ensure_installed = {
+                'sqlls',             -- lsp
+                'sqlfluff',          -- linter
+            }
+        }
+    }
     -- {
     --   'stevearc/conform.nvim',
     --   optional = true,

@@ -81,25 +81,6 @@ return {
     --   },
     -- },
 
-    -- {
-    --   'williamboman/mason.nvim',
-    --   opts = {
-    --     ensure_installed = {
-    --       -- HTML, CSS, JS, misc.
-    --       'ts_ls', -- javascript & typescript lsp
-    --       'html-lsp', -- html lsp
-    --       'html', -- html lsp
-    --       'css-lsp', -- css lsp
-    --       'cssls', -- css lsp
-    --       'tailwindcss-language-server', -- tailwind lsp
-    --       'tailwindcss', -- tailwind lsp
-    --       'eslint_d', -- linter daemon
-    --       'prettierd', -- formatter daemon
-    --       'js-debug-adapter', -- debugger
-    --     },
-    --   },
-    -- },
-
     {
         'williamboman/mason.nvim',
         opts = function(_, opts)
@@ -119,21 +100,23 @@ return {
         end,
     },
 
-    -- {
-    --   'WhoIsSethDaniel/mason-tool-installer.nvim',
-    --   opts = {
-    --     ensure_installed = {
-    --       -- HTML, CSS, JS, misc.
-    --       'ts_ls', -- javascript & typescript lsp
-    --       'html-lsp', -- html lsp
-    --       'css-lsp', -- css lsp
-    --       'tailwindcss-language-server', -- tailwind lsp
-    --       'eslint_d', -- linter daemon
-    --       'prettierd', -- formatter daemon
-    --       'js-debug-adapter', -- debugger
-    --     },
-    --   },
-    -- },
+    {
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      opts = {
+        ensure_installed = {
+            -- HTML, CSS, JS, misc.
+            'ts_ls',               -- javascript & typescript lsp
+            'vtsls',               -- javascript & typescript lsp
+            'emmet-language-server',
+            'html-lsp',            -- html lsp
+            'css-lsp',             -- css lsp
+            'tailwindcss-language-server', -- tailwind lsp
+            'eslint_d',            -- linter daemon
+            'prettierd',           -- formatter daemon
+            'js-debug-adapter',    -- debugger
+        },
+      },
+    },
 
     {
         'nvim-treesitter/nvim-treesitter',

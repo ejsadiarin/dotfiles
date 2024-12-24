@@ -15,11 +15,11 @@ return {
         opts = {
             ensure_installed = {
                 -- Python
-                'basedpyright', -- lsp
-                'isort', -- sorter
-                'black', -- python formatter
-                'pylint', -- linter
-                'debugpy', -- debugger
+                'basedpyright',                -- lsp
+                'isort',                       -- sorter
+                'black',                       -- python formatter
+                'pylint',                      -- linter
+                'debugpy',                     -- debugger
             },
         },
     },
