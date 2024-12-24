@@ -36,5 +36,9 @@
       - bat
       # - aria2c (in aur)
       # - qemu-guest-agent
+      - tcdump
+      - psutils
+      - moreutils
+      - less
     state: present
   become: true

@@ -5,3 +5,23 @@
 - name: Essentials | Configure install packages for Debian
   ansible.builtin.import_tasks: debian.yml
   when: machine_os == 'debian'
+
+- name: Create proper directory structure
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/downloads"
+    state: directory
+
+- name: Create proper directory structure
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/personal"
+    state: directory
+
+- name: Create proper directory structure
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/work"
+    state: directory
+
+- name: Create proper directory structure
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config"
+    state: directory

@@ -1,12 +1,29 @@
-# TODO: go is not available in apt (see installation: https://go.dev/doc/install)
-# cd ~/downloads
-# wget https://go.dev/dl/go1.23.2.linux-amd64.tar.gz
-# sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
-# add to /etc/profile or ~/.profile or ~/.zshrc ~/.bashrc: export PATH=$PATH:/usr/local/go/bin
-# source .profile or source .zshrc or source .bashrc
-# verify: go version
 - name: Go | Install Go for Debian (Golang)
   ansible.builtin.apt:
     name: go
     state: present
   become: true
+
+- name: Go | Get go tarball
+  ansible.builtin.get_url:
+    url: https://go.dev/dl/go1.23.4.linux-amd64.tar.gz
+    # url: https://go.dev/dl/go@latest.linux-amd64.tar.gz
+    dest: "{{ ansible_user_dir }}/downloads/go1.23.4.linux-amd64.tar.gz"
+    checksum: sha256:6924efde5de86fe277676e929dc9917d466efa02fb934197bc2eba35d5680971
+
+- name: Go | Ensure no previous installation
+  ansible.builtin.file:
+    path: /usr/local/go
+    state: absent
+
+- name: Go | Install go
+  ansible.builtin.unarchive:
+    src: "{{ ansible_user_dir }}/downloads/go1.23.4.linux-amd64.tar.gz"
+    dest: /usr/local
+  become: true
+
+# no need to add /usr/local/go to PATH since it is already in our .zshrc/.bashrc
+
+- name: Go | Confirm go installation
+  ansible.builtin.shell: "source {{ ansible_user_dir }}/.zshrc && go version"
+  # ansible.builtin.shell: "source {{ ansible_env.HOME }}/.zshrc"

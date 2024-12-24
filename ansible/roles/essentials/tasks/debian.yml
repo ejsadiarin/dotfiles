@@ -27,50 +27,17 @@
       # - aria2c
       - qemu-guest-agent
       - bat
-      - sudo
+      - fzf
       - rsync
       - cryptsetup
       - cronie
       - openssh-server
       - delta
       - bat
+      - tcdump
+      - psutils
+      - moreutils
+      - less
     state: present
     update_cache: true
-  become: true
-
-- name: Essentials Debian | Remove apt fzf
-  ansible.builtin.apt:
-    name: fzf
-    state: absent
-  become: true
-
-- name: Essentials Debian | Ensure old fzf is removed
-  ansible.builtin.file:
-    path: /usr/bin/fzf
-    state: absent
-  become: true
-
-- name: Essentials Debian | Clone latest fzf
-  ansible.builtin.git:
-    repo: https://github.com/junegunn/fzf.git
-    depth: 1
-    dest: "{{ ansible_user_dir }}/.fzf"
-
-- name: Essentials Debian | Install fzf
-  ansible.builtin.command: "{{ ansible_user_dir }}/.fzf/install"
-
-- name: Essentials Debian | Create fzf bin directory
-  ansible.builtin.file:
-    path: "~/.fzf/bin"
-    state: directory
-
-
-- name: Essentials Debian | Copy fzf binary to system-wide binaries
-  ansible.builtin.copy:
-    src: "{{ ansible_user_dir }}/.fzf/bin/fzf"
-    dest: "/usr/local/bin/fzf" # or "/usr/bin/nvim" directly?
-    owner: root
-    group: root
-    mode: "0755" # -rwx-r-x-r-x
-    remote_src: true
   become: true

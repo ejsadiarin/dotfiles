@@ -10,7 +10,7 @@
 - name: Python | Install Python for Debian
   ansible.builtin.apt:
     name:
-      - python
+      - python3
       - python-pip
     state: present
   become: true
