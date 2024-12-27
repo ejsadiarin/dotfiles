@@ -34,6 +34,7 @@
       - openssh
       - delta
       - bat
+      - oha
       # - aria2c (in aur)
       # - qemu-guest-agent
       - tcdump

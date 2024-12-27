@@ -38,6 +38,7 @@
       - psutils
       - moreutils
       - less
+      - oha
     state: present
     update_cache: true
   become: true
