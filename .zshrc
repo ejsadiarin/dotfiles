@@ -261,9 +261,17 @@ alias lvim='NVIM_APPNAME="lvim" nvim'
 # eval "$(thefuck --alias)"
 
 # ctrl+r for fzf reverse search
-eval "$(fzf --zsh)" 
+if [ -f "/usr/bin/fzf" ]; then
+    eval $(fzf --zsh)
+fi
 
-# eval "$(zoxide init --cmd cd zsh)" 
+if [ -f "/usr/bin/fuck" ]; then
+    eval $(thefuck --alias)
+fi
+
+if [ -f "/usr/bin/zoxide" ]; then
+    eval $(zoxide init --cmd cd zsh)
+fi
 
 # if on MacOS uncomment: for homebrew installed apps available on PATH 
 # eval "$(/opt/homebrew/bin/brew shellenv)" 
@@ -325,4 +333,3 @@ eval "$(fzf --zsh)"
 # - see fedora docs: https://docs.fedoraproject.org/en-US/quick-docs/firewalld/
 # - useful to install the GUI version also
 
-eval $(thefuck --alias)
