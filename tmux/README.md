@@ -1,30 +1,32 @@
-# Exquisite Tmux Configuration (created: 2024-01-01)
+# Exquisite Tmux Configuration (created: 2024-01-01, update: and here i am its 2025-01-01)
 
 ## [Installation](#installation)
 
+1. Clone `tpm` for tmux plugins
 ```bash
-# git clone the repo into the directory of your choice:
-git clone
 # git clone tpm
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-- Install tmux plugins with `<prefix> + I`
+2. Install tmux plugins with `<prefix> + I`
 
-- Source the tmux config file:
-
+3. Source the tmux config file:
 ```bash
 tmux source ~/<path to .tmux.conf>
+
 # example (for me i like to put everything in one tmux-related repo):
 # tmux source ~/.tmux/.tmux.conf
 ```
 
-## [Workflow](#workflow)
+## [Workflow and Mappings](#workflow-and-mappings)
+- `<prefix>` is `<alt><space>` (thumb-centric prefix)
+- most keybinds revolve around `<alt>`
 
-## [Mappings](#mappings)
-
-- test [link](https://google.com/)
-  date today is
+* `<alt> + a` - creating new session, picking new directory, uses fzf
+* `<alt> + s` - switch to an existing session, uses fzf
+* `<alt> + t` - spawn new terminal pane
+* `<alt> + x` - kill pane
+* `<alt> + <space> + s` - see all sessions, `+ x` to close existing session
 
 ## tmux-sensible options
 
