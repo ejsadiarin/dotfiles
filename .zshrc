@@ -5,40 +5,55 @@ export VISUAL="nvim"
 export EDITOR='nvim'
 export TERMINAL='kitty'
 export BROWSER='firefox'
+
+export LANG=en_US.UTF-8
+export GPG_TTY=$(tty)
+export TERM=xterm-256color
+export EDITOR=vim
+export PASSWORD_STORE_ENABLE_EXTENSIONS=true
+export VAULT="$HOME/vault"
+export XDG_CONFIG_HOME="$HOME/.config"
 # export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH="$PATH:$HOME/vault/wizardry/scripts-magic-spells"
-export SCRIPTS="$HOME/vault/wizardry/scripts-magic-spells"
-export VAULT="$HOME/vault"
-export XDG_CONFIG_HOME="$HOME/.config"
-export GPG_TTY=$(tty)
-
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/go/bin"
 
-export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # fix perf issue
+# restic
+if [ -f "$HOME/services/restic/restic-env" ]; then
+    source "$HOME/services/restic/restic-env"
+fi
+
+# nvm
+if [ -d "$HOME/.nvm" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"               # This loads nvm bash_completion
+    alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # fix perf issue
+fi
 
 # pnpm
-export PNPM_HOME="/home/exquisite/.local/share/pnpm"
-case ":$PATH:" in
+if [ -d "$HOME/.local/share/pnpm" ]; then
+    export PNPM_HOME="$HOME/.local/share/pnpm"
+    case ":$PATH:" in
     *":$PNPM_HOME:"*) ;;
     *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+    esac
+fi
 
 # flyctl
-export FLYCTL_INSTALL="$HOME/.fly"
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
+if [ -d "$HOME/.fly" ]; then
+    export FLYCTL_INSTALL="$HOME/.fly"
+    export PATH="$FLYCTL_INSTALL/bin:$PATH"
+fi
 
-# pass
-export PASSWORD_STORE_ENABLE_EXTENSIONS=true
+##############################
+#          Plugins           #
+##############################
 
 # initialize zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -50,19 +65,10 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-export HDD="/mnt/hdd"
-
-##############################
-#          Plugins           #
-##############################
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
-
-# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 ##############################
 #        Keybindings         #
@@ -129,14 +135,6 @@ zstyle ':completion:*:warnings' format "%B%F{red}No matches for:%f %F{magenta}%d
 zstyle ':completion:*:descriptions' format '%F{yellow}[-- %d --]%f'
 zstyle ':vcs_info:*' formats ' %B[%F{blue}%f %F{yellow}%b%f]'
 
-# expand-or-complete-with-dots() {
-# echo -n "\e[31m…\e[0m"
-# zle expand-or-complete
-# zle redisplay
-# }
-# zle -N expand-or-complete-with-dots
-# bindkey "^I" expand-or-complete-with-dots
-
 ##############################
 #          History           #
 ##############################
@@ -169,6 +167,7 @@ function dir_icon {
     fi
 }
 
+# PS1='%B%F{#fcffb8} %f%b $(dir_icon) %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}⮞⮞.%F{red}⮞⮞)  %f%b'
 # PS1='%B%F{blue} %f%b %B%F{white} %f%b %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
 PS1='%B%F{#fcffb8} %f%b $(dir_icon) %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}⮞⮞.%F{red}⮞⮞)  %f%b'
 # PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
@@ -196,25 +195,39 @@ fi
 #          Aliases           #
 ##############################
 
-alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+if [ -f "/usr/bin/bat" ]; then
+    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+fi
 
 alias f='fzf -m --preview="bat --color=always {}" --bind="enter:become(nvim {})"'
 alias k='kubectl'
 
-alias ,pac_mirrors="sudo reflector --verbose --latest 5 --country 'Singapore' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
-alias ,pac_grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias ,pac_maintenance="yay -Sc && sudo pacman -Scc"
-alias ,pac_purge="sudo pacman -Rns $(pacman -Qtdq) ; sudo fstrim -av"
-alias ,pac_update="paru"
-# alias ,pac_update="paru -Syu --nocombinedupgrade"
+if [ -f /etc/arch-release ]; then
+    alias ,pac_mirrors="sudo reflector --verbose --latest 5 --country 'Singapore' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
+    alias ,pac_grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+    alias ,pac_maintenance="yay -Sc && sudo pacman -Scc"
+    alias ,pac_purge="sudo pacman -Rns $(pacman -Qtdq) ; sudo fstrim -av"
+    alias ,pac_update="paru"
+    # alias ,pac_update="paru -Syu --nocombinedupgrade"
+fi
 
 alias vm-on="sudo systemctl start libvirtd.service"
 alias vm-off="sudo systemctl stop libvirtd.service"
 
 alias music="ncmpcpp"
 
-alias ls='lsd -a --group-directories-first'
-alias ll='lsd -la --group-directories-first'
+if [ -f "/usr/bin/lsd" ]; then
+    alias ls='lsd -a --group-directories-first'
+    alias ll='lsd -la --group-directories-first'
+else
+    alias ls='ls -a --color=auto'
+    alias lsd='lsd -a --color=auto'
+fi
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ..='cd ..'
 
 alias neofetch="clear && neofetch"
 alias ne="clear && neofetch"
@@ -223,10 +236,12 @@ alias re="OpenApps --rxfetch"
 alias history="history 1"
 
 # scripts-magic-spells aliases
-alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr | head -10"
-alias ,t=",todo"
-alias ,b=",backlog"
-alias ,datezet="date +%Y%m%d"
+if [ -d "$HOME/vault/wizardry/scripts-magic-spells/" ]; then
+    alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr | head -10"
+    alias ,t=",todo"
+    alias ,b=",backlog"
+    alias ,datezet="date +%Y%m%d"
+fi
 
 alias lg="lazygit"
 alias lzd="lazydocker"
