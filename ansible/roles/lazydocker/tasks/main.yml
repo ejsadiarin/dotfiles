@@ -1,0 +1,21 @@
+- name: LazyDocker | Install LazyDocker via go install (Debian)
+  ansible.builtin.shell: "go install github.com/jesseduffield/lazydocker@latest"
+  when: machine_os == 'debian'
+  
+- name: LazyDocker | Install LazyDocker (Archlinux)
+  kewlfft.aur.aur:
+    use: paru
+    name: lazydocker
+  become: true
+  when: machine_os == 'archlinux'
+  
+  # TODO: make it "ansible-y": sudo dnf copr enable atim/lazydocker -y
+- name: LazyDocker | Add LazyDocker repo via copr (RedHat)
+  ansible.builtin.shell: "sudo dnf copr enable atim/lazydocker -y"
+
+- name: LazyDocker | Install LazyDocker (RedHat)
+  ansible.builtin.dnf: 
+    name: lazydocker
+    state: present
+  become: true
+  when: machine_os == 'redhat'
