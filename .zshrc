@@ -169,7 +169,7 @@ function dir_icon {
 
 # PS1='%B%F{#fcffb8} %f%b $(dir_icon) %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}⮞⮞.%F{red}⮞⮞)  %f%b'
 # PS1='%B%F{blue} %f%b %B%F{white} %f%b %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
-PS1='%B%F{#fcffb8} %f%b $(dir_icon) %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}⮞⮞.%F{red}⮞⮞)  %f%b'
+PS1='%B%F{#fcffb8}: %f%b%B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}.%F{red})\$ %f%b'
 # PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
 
 ##############################
