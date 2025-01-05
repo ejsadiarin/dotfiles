@@ -1,20 +1,27 @@
 ##############################
 #         Variables          #
 ##############################
-export VISUAL="nvim"
-export EDITOR='nvim'
-export TERMINAL='kitty'
-export BROWSER='firefox'
 
+if [ ! -f /usr/bin/kitty ]; then
+    export TERM=xterm-256color
+    export TERMINAL=xterm-256color
+else
+    export TERM=kitty
+    export TERMINAL=kitty
+fi
+
+export VISUAL="nvim"
+export BROWSER='firefox'
 export LANG=en_US.UTF-8
 export GPG_TTY=$(tty)
-export TERM=xterm-256color
-export EDITOR=vim
+export EDITOR='nvim'
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export VAULT="$HOME/vault"
 export XDG_CONFIG_HOME="$HOME/.config"
 # export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
+# scripts-magic-spells
+mkdir -p "$HOME/.local/bin"
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
@@ -69,6 +76,9 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+# zsh-fzf-history-search
+zinit ice lucid wait'0'
+zinit light joshskidmore/zsh-fzf-history-search
 
 ##############################
 #        Keybindings         #
@@ -86,7 +96,7 @@ bindkey '^f' forward-word
 bindkey '^l' forward-char
 bindkey '^h' backward-char
 # bindkey '^f' forward-word
-bindkey '^r' reverse-search-history
+# bindkey '^r' reverse-search-history # overidden by zsh-fzf-history-search
 bindkey '^w' backward-kill-word
 
 bindkey '^[[A' history-search-backward
@@ -221,7 +231,7 @@ if [ -f "/usr/bin/lsd" ]; then
     alias ll='lsd -la --group-directories-first'
 else
     alias ls='ls -a --color=auto'
-    alias lsd='lsd -a --color=auto'
+    alias ll='ls -la --color=auto'
 fi
 
 alias grep='grep --color=auto'
@@ -232,26 +242,35 @@ alias ..='cd ..'
 alias neofetch="clear && neofetch"
 alias ne="clear && neofetch"
 alias re="OpenApps --rxfetch"
+alias timezsh="time zsh -i -c exit"
 
 alias history="history 1"
 
 # scripts-magic-spells aliases
 if [ -d "$HOME/vault/wizardry/scripts-magic-spells/" ]; then
-    alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr | head -10"
     alias ,t=",todo"
     alias ,b=",backlog"
-    alias ,datezet="date +%Y%m%d"
 fi
 
-alias lg="lazygit"
-alias lzd="lazydocker"
+alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr | head -10"
+alias ,datezet="date +%Y%m%d"
+
+if [ -f "/usr/bin/lazygit" ] || [ -f "/bin/lazygit" ]; then
+    alias lg="lazygit"
+fi
+
+if [ -f "/usr/bin/lazydocker" ] || [ -f "/bin/lazydocker" ]; then
+    alias lzd="lazydocker"
+fi
+
 alias clpwd="pwd | xclip -selection clipboard"
 alias copy="xclip -sel clip"
 
-alias snvim="sudo -E nvim $1"
-
-alias nvim-old='NVIM_APPNAME="nvim-old" nvim'
-alias lvim='NVIM_APPNAME="lvim" nvim'
+if [ -f "/usr/bin/nvim" ] || [ -f "/bin/nvim" ]; then
+    alias snvim="sudo -E nvim $1"
+    alias nvim-old='NVIM_APPNAME="nvim-old" nvim'
+    alias lvim='NVIM_APPNAME="lvim" nvim'
+fi
 
 ##############################
 #            Eval            #
@@ -262,7 +281,11 @@ alias lvim='NVIM_APPNAME="lvim" nvim'
 
 # ctrl+r for fzf reverse search
 if [ -f "/usr/bin/fzf" ]; then
-    eval $(fzf --zsh)
+    if [ "$SHELL" = "/usr/bin/zsh" ] || [ "$SHELL" = "/bin/zsh" ]; then
+        eval $(fzf --zsh)
+    elif [ "$SHELL" = "/usr/bin/bash" ] || [ "$SHELL" = "/bin/bash" ]; then
+        eval $(fzf --bash)
+    fi
 fi
 
 if [ -f "/usr/bin/fuck" ]; then
