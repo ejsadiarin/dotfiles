@@ -15,10 +15,13 @@ export BROWSER='firefox'
 export LANG=en_US.UTF-8
 export GPG_TTY=$(tty)
 export EDITOR='nvim'
+export SHELL="/usr/bin/zsh"
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export VAULT="$HOME/vault"
-export XDG_CONFIG_HOME="$HOME/.config"
 # export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
+
+export XDG_CONFIG_HOME="$HOME/.config"
+mkdir -p "$XDG_CONFIG_HOME"
 
 # scripts-magic-spells
 mkdir -p "$HOME/.local/bin"
@@ -148,6 +151,7 @@ zstyle ':vcs_info:*' formats ' %B[%F{blue}%f %F{yellow}%b%f]'
 ##############################
 #          History           #
 ##############################
+mkdir -p "$XDG_CONFIG_HOME/zsh"
 HISTFILE=~/.config/zsh/zhistory
 # HISTFILE=~/.zsh_history
 HISTSIZE=25000
@@ -177,10 +181,16 @@ function dir_icon {
     fi
 }
 
-# PS1='%B%F{#fcffb8} %f%b $(dir_icon) %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}⮞⮞.%F{red}⮞⮞)  %f%b'
-# PS1='%B%F{blue} %f%b %B%F{white} %f%b %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
-PS1='%B%F{#fcffb8}: %f%b%B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}.%F{red})\$ %f%b'
-# PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
+SSH_TTY=$(env | grep SSH_TTY)
+if [ -n "$SSH_TTY" ]; then
+    echo "[LOG: is on SSH_TTY...]"
+    PS1='%B%F{#fcffb8}:%f%b%B%F{green}$(whoami)@$(hostname) %f%b%B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}.%F{red})\$ %f%b'
+else
+    # PS1='%B%F{#fcffb8} %f%b $(dir_icon) %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}⮞⮞.%F{red}⮞⮞)  %f%b'
+    # PS1='%B%F{blue} %f%b %B%F{white} %f%b %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
+    PS1='%B%F{#fcffb8}: %f%b%B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#a2e57b}.%F{red})\$ %f%b'
+    # PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
+fi
 
 ##############################
 #           Title            #
@@ -285,6 +295,7 @@ if [ -f "/usr/bin/fzf" ]; then
         eval $(fzf --zsh)
     elif [ "$SHELL" = "/usr/bin/bash" ] || [ "$SHELL" = "/bin/bash" ]; then
         eval $(fzf --bash)
+        # command -v eval $(fzf --bash) >/dev/null 2>&1
     fi
 fi
 
@@ -352,7 +363,10 @@ fi
 # https://forum.endeavouros.com/t/firewalld-setting-to-connect-via-warpinator/26323
 # - remember to uncheck zones after using warpinator
 #
-# Firewalld
+# Firewalld [ UPDATE: just use ufw and save the hassle ] 
 # - see fedora docs: https://docs.fedoraproject.org/en-US/quick-docs/firewalld/
 # - useful to install the GUI version also
+#
+# ufw
+# - ufw allow 22/tcp 22/udp 80/tcp 80/udp 443/tcp 443/udp
 
