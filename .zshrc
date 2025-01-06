@@ -114,7 +114,7 @@ bindkey '^[[1;5C' forward-word
 ##############################
 #          Autoload          #
 ##############################
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -C
 # autoload -Uz compinit
 
 # for dump in ~/.config/zsh/zcompdump(N.mh+24); do
