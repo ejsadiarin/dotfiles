@@ -6,22 +6,26 @@
   ansible.builtin.import_tasks: debian.yml
   when: machine_os == 'debian'
 
-- name: Create proper directory structure
+- name: Downloads | Create proper directory structure
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/downloads"
     state: directory
+    mode: "0755"
 
-- name: Create proper directory structure
+- name: Personal | Create proper directory structure
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/personal"
     state: directory
+    mode: "0755"
 
-- name: Create proper directory structure
+- name: Work | Create proper directory structure
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/work"
     state: directory
+    mode: "0755"
 
-- name: Create proper directory structure
+- name: Config | Create proper directory structure
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config"
     state: directory
+    mode: "0755"

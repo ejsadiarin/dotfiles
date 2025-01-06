@@ -41,5 +41,6 @@
       - psutils
       - moreutils
       - less
+      - websocat
     state: present
   become: true
