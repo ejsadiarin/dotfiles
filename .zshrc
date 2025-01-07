@@ -265,11 +265,11 @@ fi
 alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr | head -10"
 alias ,datezet="date +%Y%m%d"
 
-if [ -f "/usr/bin/lazygit" ] || [ -f "/bin/lazygit" ]; then
+if [[ -f "/usr/bin/lazygit" || -f "/bin/lazygit" || -f "$HOME/go/bin/lazygit" ]]; then
     alias lg="lazygit"
 fi
 
-if [ -f "/usr/bin/lazydocker" ] || [ -f "/bin/lazydocker" ]; then
+if [[ -f "/usr/bin/lazydocker" || -f "/bin/lazydocker" || -f "$HOME/go/bin/lazydocker" ]]; then
     alias lzd="lazydocker"
 fi
 
