@@ -34,11 +34,12 @@
       - openssh-server
       - delta
       - bat
-      - tcdump
+      - tcpdump
       - psutils
       - moreutils
       - less
-      - oha
+      # - oha
+      # - websocat
     state: present
     update_cache: true
   become: true

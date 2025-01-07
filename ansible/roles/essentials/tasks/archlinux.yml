@@ -37,7 +37,7 @@
       - oha
       # - aria2c (in aur)
       # - qemu-guest-agent
-      - tcdump
+      - tcpdump
       - psutils
       - moreutils
       - less
