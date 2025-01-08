@@ -264,6 +264,7 @@ fi
 
 alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr | head -10"
 alias ,datezet="date +%Y%m%d"
+alias ,ipshow="ip link | awk '/state UP/ {print \$2}' | tr -d :"
 
 if [[ -f "/usr/bin/lazygit" || -f "/bin/lazygit" || -f "$HOME/go/bin/lazygit" ]]; then
     alias lg="lazygit"

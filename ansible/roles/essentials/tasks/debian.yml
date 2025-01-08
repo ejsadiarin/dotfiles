@@ -23,7 +23,6 @@
       - open-iscsi
       - tar
       - wget
-      - libmagickwand-dev
       # - aria2c
       - qemu-guest-agent
       - bat

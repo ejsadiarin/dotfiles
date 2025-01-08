@@ -1,0 +1,21 @@
+- name: NetworkManager | Install nmcli
+  ansible.builtin.apt:
+    name: 
+    - network-manager
+    # - wireless-tools 
+    # - wpasupplicant
+  become: true
+  when: machine_os == 'debian'
+
+- name: NetworkManager | Install nmcli
+  community.general.pacman:
+    name: networkmanager
+  become: true
+  when: machine_os == 'archlinux'
+
+- name: NetworkManager | Start service
+  ansible.builtin.systemd:
+    name: NetworkManager.service
+    state: started
+    enabled: true
+
