@@ -27,6 +27,7 @@ mkdir -p "$XDG_CONFIG_HOME"
 mkdir -p "$HOME/.local/bin"
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
+    PATH="$VAULT/wizardry/scripts-magic-spells:$PATH"
 fi
 
 export PATH="$PATH:$HOME/.dotnet/tools"

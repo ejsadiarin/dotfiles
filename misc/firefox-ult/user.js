@@ -40,12 +40,12 @@ user_pref("ultima.xstyle.containertabs.iii", true);
 user_pref("ultima.xstyle.squared", false);
 user_pref("ultima.xstyle.squished", false);
 user_pref(
-  "ultima.xstyle.lwtheme",
-  false,
+    "ultima.xstyle.lwtheme",
+    false,
 ); /* Experimental. To counter addon themes that use unusual color variables. */
 user_pref(
-  "ultima.xstyle.pinnedtabs.i",
-  false,
+    "ultima.xstyle.pinnedtabs.i",
+    false,
 ); /* Experimental. Havent decided on style yet. */
 
 /*specific OS overrides (like titlebar buttons)*/
@@ -60,7 +60,7 @@ user_pref("ultima.OS.notitlebar", false);
 
 /*other*/
 user_pref("browser.aboutConfig.showWarning", false);
-user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", false);
 user_pref("devtools.debugger.remote-enabled", true);
 user_pref("devtools.chrome.enabled", true);
 user_pref("devtools.debugger.prompt-connection", false);
@@ -168,8 +168,8 @@ user_pref("network.connectivity-service.enabled", false);
 
 /* use Mozilla geolocation service instead of Google.*/
 user_pref(
-  "geo.provider.network.url",
-  "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%",
+    "geo.provider.network.url",
+    "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%",
 );
 /* disable using the OS's geolocation service ***/
 user_pref("geo.provider.ms-windows-location", false); // [WINDOWS]

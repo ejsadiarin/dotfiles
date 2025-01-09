@@ -1,4 +1,4 @@
-user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", false);
 user_pref("browser.cache.disk.enable", false);
 user_pref("browser.cache.memory.enable", true);
 user_pref("browser.cache.memory.capacity", 524288);
@@ -94,8 +94,8 @@ user_pref("network.connectivity-service.enabled", false);
 
 /* use Mozilla geolocation service instead of Google.*/
 user_pref(
-  "geo.provider.network.url",
-  "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%",
+    "geo.provider.network.url",
+    "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%",
 );
 /* disable using the OS's geolocation service ***/
 user_pref("geo.provider.ms-windows-location", false); // [WINDOWS]
