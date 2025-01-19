@@ -280,8 +280,12 @@ alias copy="xclip -sel clip"
 
 if [ -f "/usr/bin/nvim" ] || [ -f "/bin/nvim" ]; then
     alias snvim="sudo -E nvim $1"
-    alias nvim-old='NVIM_APPNAME="nvim-old" nvim'
-    alias lvim='NVIM_APPNAME="lvim" nvim'
+    if [ -d "$XDG_CONFIG_HOME/nvim-old" ]; then
+        alias nvim-old='NVIM_APPNAME="nvim-old" nvim'
+    fi
+    if [ -d "$XDG_CONFIG_HOME/lvim" ]; then
+        alias lvim='NVIM_APPNAME="lvim" nvim'
+    fi
 fi
 
 ##############################
