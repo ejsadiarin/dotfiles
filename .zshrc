@@ -2,6 +2,7 @@
 #         Variables          #
 ##############################
 
+# TODO: migrate to wezterm
 if [ ! -f /usr/bin/kitty ]; then
     export TERM=xterm-256color
     export TERMINAL=xterm-256color
@@ -30,13 +31,20 @@ if [ -d "$HOME/.local/bin" ]; then
     PATH="$VAULT/wizardry/scripts-magic-spells:$PATH"
 fi
 
-export PATH="$PATH:$HOME/.dotnet/tools"
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$HOME/go/bin"
+# go
+if [ -f "/usr/bin/go" ]; then
+    export PATH="$PATH:/usr/local/go/bin"
+    export PATH="$PATH:$HOME/go/bin"
+fi
 
 # restic
 if [ -f "$HOME/services/restic/restic-env" ]; then
     source "$HOME/services/restic/restic-env"
+fi
+
+# dotnet
+if [ -f "/usr/bin/dotnet" ]; then
+    export PATH="$PATH:$HOME/.dotnet/tools"
 fi
 
 # nvm
@@ -375,4 +383,3 @@ fi
 #
 # ufw
 # - ufw allow 22/tcp 22/udp 80/tcp 80/udp 443/tcp 443/udp
-
