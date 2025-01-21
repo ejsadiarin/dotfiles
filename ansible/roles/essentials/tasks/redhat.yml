@@ -1,12 +1,11 @@
-- name: Essentials Arch | Install essential packages
-  community.general.pacman:
+- name: Essentials RedHat | Install essential packages
+  ansible.builtin.dnf:
     name:
       - sudo
       - git
-      - fd
+      - fd-find # NOTE: binary is 'fdfind' in debian, might need to mv it to 'fd' for convenience
       - ripgrep
       - curl
-      - fzf
       - cmake
       - gcc
       - vim
@@ -16,30 +15,29 @@
       - zip
       - gzip
       - lsd
-      - gnupg # gpg
+      - gnupg
       - pass
-      - pass-otp
+      - pass-extension-otp
       - yq
       - jq
       - open-iscsi
       - tar
       - wget
-      - imagemagick
-      - redshift
-      - copyq
+      # - aria2c
+      - qemu-guest-agent
+      - fzf
       - rsync
       - cryptsetup
       - cronie
-      - openssh
+      - openssh-server
       - delta
       - bat
-      - oha
-      # - aria2c (in aur)
-      # - qemu-guest-agent
       - tcpdump
       - psutils
       - moreutils
       - less
-      - websocat
+      # - oha
+      # - websocat
     state: present
+    update_cache: true
   become: true

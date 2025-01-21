@@ -13,6 +13,14 @@
   become: true
   when: machine_os == 'archlinux'
 
+- name: Zsh | Install zsh
+  ansible.builtin.dnf:
+    name: zsh
+    state: present
+  become: true
+  when: machine_os == 'redhat'
+
+
 - name: Zsh | Remove existing .zshrc if there is
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.zshrc"

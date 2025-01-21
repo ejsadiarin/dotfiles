@@ -25,7 +25,6 @@
       - wget
       # - aria2c
       - qemu-guest-agent
-      - bat
       - fzf
       - rsync
       - cryptsetup
