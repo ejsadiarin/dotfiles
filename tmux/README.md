@@ -5,7 +5,7 @@
 1. Clone `tpm` for tmux plugins
 ```bash
 # git clone tpm
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
 
 2. Install tmux plugins with `<prefix> + I`
@@ -14,19 +14,18 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```bash
 tmux source ~/<path to .tmux.conf>
 
-# example (for me i like to put everything in one tmux-related repo):
-# tmux source ~/.tmux/.tmux.conf
+# tmux source ~/.tmux.conf
 ```
 
 ## [Workflow and Mappings](#workflow-and-mappings)
-- `<prefix>` is `<alt><space>` (thumb-centric prefix)
+- `<prefix>` is `<ctrl>+a`
 - most keybinds revolve around `<alt>`
 
-* `<alt> + a` - creating new session, picking new directory, uses fzf
+* `<alt> + d` - creating new session, picking new directory, uses fzf
 * `<alt> + s` - switch to an existing session, uses fzf
 * `<alt> + t` - spawn new terminal pane
 * `<alt> + x` - kill pane
-* `<alt> + <space> + s` - see all sessions, `+ x` to close existing session
+* `<prefix> + s` - see all sessions, `+ x` to close existing session
 
 ## tmux-sensible options
 
