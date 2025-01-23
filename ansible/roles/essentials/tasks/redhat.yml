@@ -3,13 +3,12 @@
     name:
       - sudo
       - git
-      - fd-find # NOTE: binary is 'fdfind' in debian, might need to mv it to 'fd' for convenience
+      - fd-find
       - ripgrep
       - curl
       - cmake
       - gcc
       - vim
-      # - pkg-config
       - libtool
       - unzip
       - zip
