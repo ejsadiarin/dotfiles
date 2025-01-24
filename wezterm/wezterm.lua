@@ -1,12 +1,58 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
+local custom = require("custom")
 
 local host_os = require("utils").get_os()
 
 -- colorscheme
-config.color_scheme = "Batman"
+config.color_scheme = "Custom"
+-- config.color_scheme = "Batman"
 -- config.color_scheme = "Catppuccin Mocha"
 -- config.color_scheme = "Monokai Dark"
+config.color_schemes = {
+	["Custom"] = {
+		foreground = "#fcffb8",
+		background = "#1a1c1d",
+
+		cursor_bg = "#fcef0b",
+		cursor_fg = "#16181a",
+		cursor_border = "#fcef0b",
+
+		selection_fg = "#ffffff",
+		selection_bg = "#3c4048",
+
+		-- gray #6E6E6E
+		-- #a2e57a
+		scrollbar_thumb = "#1a1c1d",
+		split = "#1a1c1d",
+
+		ansi = {
+			"#16181a",
+			"#ff6e5e",
+			"#5eff6c",
+			"#f1ff5e",
+			"#5ea1ff",
+			"#bd5eff",
+			"#5ef1ff",
+			"#ffffff",
+		},
+		brights = {
+			"#3c4048",
+			"#ff6e5e",
+			"#5eff6c",
+			"#f1ff5e",
+			"#5ea1ff",
+			"#bd5eff",
+			"#5ef1ff",
+			"#ffffff",
+		},
+
+		indexed = {
+			[16] = "#ffbd5e",
+			[17] = "#ff6e5e",
+		},
+	},
+}
 
 -- fonts
 config.font = wezterm.font_with_fallback({
@@ -59,5 +105,6 @@ end
 config.enable_tab_bar = false
 
 -- gpu
+config.front_end = "WebGpu"
 
 return config
