@@ -1,0 +1,11 @@
+# qemu-kvm - virtualization platform
+# libvirt-daemon-system - bg
+# libvirt-clients - cli to manage vms 
+# bridge-utils - for network
+# virt-manager - gui
+#
+#
+# on Fedora:
+# - sudo dnf install @virtualization
+# - sudo systemctl start/enable libvirtd
+# then just start virt-manager GUI

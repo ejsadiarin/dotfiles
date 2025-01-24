@@ -35,6 +35,7 @@
       - psutils
       - moreutils
       - less
+      - cargo
       # - oha
       # - websocat
     state: present
