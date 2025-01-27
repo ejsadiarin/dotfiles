@@ -66,6 +66,10 @@ config.font = wezterm.font_with_fallback({
 		weight = "Regular", -- Bold, Regular
 		italic = false,
 	},
+	{ family = "Symbols Nerd Font Mono", scale = 0.80 },
+	{
+		family = "NotoSansMono-Regular",
+	},
 })
 config.font_size = 20
 
@@ -76,6 +80,15 @@ config.window_padding = {
 	top = 15,
 	bottom = 0,
 }
+config.window_background_opacity = 1
+if host_os == "macos" then
+	config.window_background_opacity = 0.3
+	config.macos_window_background_blur = 20
+end
+if host_os == "windows" then
+	config.window_background_opacity = 0
+	config.win32_system_backdrop = "Tabbed"
+end
 -- config.window_background_image = '/path/to/wallpaper.jpg'
 -- config.window_background_image_hsb = {
 --   brightness = 0.3,
@@ -106,5 +119,10 @@ config.enable_tab_bar = false
 
 -- gpu
 config.front_end = "WebGpu"
+
+-- config.enable_kitty_keyboard = true
+-- wezterm.on("window-config-reloaded", function(window, pane)
+-- 	window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
+-- end)
 
 return config
