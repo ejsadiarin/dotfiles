@@ -321,6 +321,16 @@ if [ -f "/usr/bin/zoxide" ]; then
     eval $(zoxide init --cmd cd zsh)
 fi
 
+##############################
+#         API KEYS           #
+##############################
+current_dir=$(basename "$(pwd)")
+if [[ $current_dir == "nvim" ]] then
+    export OPENAI_API_KEY=$(pass show keys/openai | head -n 1)
+    export DEEPSEEK_API_KEY=$(pass show keys/deepseek | head -n 1)
+    export ANTHROPIC_API_KEY=$(pass show keys/anthropic | head -n 1)
+fi
+
 # if on MacOS uncomment: for homebrew installed apps available on PATH 
 # eval "$(/opt/homebrew/bin/brew shellenv)" 
 
