@@ -21,8 +21,21 @@ export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export VAULT="$HOME/vault"
 # export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
+# XDG - set defaults as they may not be set
+# See https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+# and https://wiki.archlinux.org/title/XDG_Base_Directory#Support
 export XDG_CONFIG_HOME="$HOME/.config"
 mkdir -p "$XDG_CONFIG_HOME"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# NOTE this is handled by sdm/sddm/gdm (session managers, IF SYSTEM is using systemd)
+# if [ ! -w ${XDG_RUNTIME_DIR:="/run/user/$UID"} ]; then
+#   echo "\$XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) not writable. Unsetting." >&2
+#   unset XDG_RUNTIME_DIR
+# else
+#   export XDG_RUNTIME_DIR
+# fi
 
 # scripts-magic-spells
 mkdir -p "$HOME/.local/bin"
