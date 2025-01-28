@@ -3,13 +3,13 @@
 ##############################
 
 # TODO: migrate to wezterm
-if [ ! -f /usr/bin/kitty ]; then
-    export TERM=xterm-256color
-    export TERMINAL=xterm-256color
-else
-    export TERM=kitty
-    export TERMINAL=kitty
-fi
+# if [ ! -f /usr/bin/kitty ]; then
+#     export TERM=xterm-256color
+#     export TERMINAL=xterm-256color
+# else
+#     export TERM=kitty
+#     export TERMINAL=kitty
+# fi
 
 export VISUAL="nvim"
 export BROWSER='firefox'
@@ -51,8 +51,11 @@ if [ -f "/usr/bin/go" ]; then
 fi
 
 # restic
-if [ -f "$HOME/services/restic/restic-env" ]; then
+if [[ -f "$HOME/services/restic/restic-env" ]]; then
     source "$HOME/services/restic/restic-env"
+fi
+if [[ -f "$HOME/.local/bin/restic-env" ]]; then
+    source "$HOME/.local/bin/restic-env"
 fi
 
 # dotnet
@@ -61,7 +64,7 @@ if [ -f "/usr/bin/dotnet" ]; then
 fi
 
 # nvm
-if [ -d "$HOME/.nvm" ]; then
+if [[ -d "$HOME/.nvm" || -d "$XDG_CONFIG_HOME/.nvm" ]]; then
     export NVM_DIR="$HOME/.nvm"
     # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"               # This loads nvm bash_completion
@@ -78,7 +81,7 @@ if [ -d "$HOME/.local/share/pnpm" ]; then
 fi
 
 # flyctl
-if [ -d "$HOME/.fly" ]; then
+if [[ -d "$HOME/.fly" || -d "$XDG_CONFIG_HOME/.fly" ]]; then
     export FLYCTL_INSTALL="$HOME/.fly"
     export PATH="$FLYCTL_INSTALL/bin:$PATH"
 fi
