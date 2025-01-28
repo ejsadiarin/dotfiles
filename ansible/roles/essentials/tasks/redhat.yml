@@ -36,6 +36,7 @@
       - moreutils
       - less
       - cargo
+      - acpi
       # - oha
       # - websocat
     state: present

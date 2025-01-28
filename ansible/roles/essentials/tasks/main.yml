@@ -6,7 +6,7 @@
   ansible.builtin.import_tasks: debian.yml
   when: machine_os == 'debian'
 
-- name: Essentials | Configure install packages for redhat
+- name: Essentials | Configure install packages for Redhat (Fedora)
   ansible.builtin.import_tasks: redhat.yml
   when: machine_os == 'redhat'
 

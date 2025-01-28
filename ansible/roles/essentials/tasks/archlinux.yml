@@ -41,5 +41,7 @@
       - moreutils
       - less
       - websocat
+      - cargo
+      - acpi
     state: present
   become: true

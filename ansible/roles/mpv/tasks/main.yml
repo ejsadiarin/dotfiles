@@ -1,0 +1,6 @@
+- name: MPV | Install mpv
+  ansible.builtin.dnf:
+    name: mpv
+  become: true
+
+# TODO: install uosc (github) for mpv script plugin
