@@ -1,0 +1,3 @@
+# Installs:
+# - auto-cpufreq
+# - thermald (for intel CPUs)

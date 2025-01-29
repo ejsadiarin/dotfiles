@@ -1,0 +1,17 @@
+# using the git clone method:
+# - go to ~/.config
+# - git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+# - cd auto-cpufreq && sudo ./auto-cpufreq-installer
+
+
+- name: auto-cpufreq install
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: auto-cpufreq install
+      ansible.builtin.git:
+        repo: https://github.com/AdnanHodzic/auto-cpufreq.git
+        dest: "{{ ansible_user_dir }}/.config/auto-cpufreq"
+      become: true
