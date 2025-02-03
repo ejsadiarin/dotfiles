@@ -310,6 +310,9 @@ if [ -f "/usr/bin/nvim" ] || [ -f "/bin/nvim" ]; then
     if [ -d "$XDG_CONFIG_HOME/lvim" ]; then
         alias lvim='NVIM_APPNAME="lvim" nvim'
     fi
+    if [ -d "$XDG_CONFIG_HOME/testnvim" ]; then
+        alias testnvim='NVIM_APPNAME="testnvim" nvim'
+    fi
 fi
 
 ##############################

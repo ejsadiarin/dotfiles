@@ -103,9 +103,11 @@ config.cursor_blink_ease_out = "Constant"
 
 -- keybinds
 -- config.leader = { key = "Space", mods = "CTRL|SHIFT" }
--- config.keys = {
--- 	{ key = "n", mods = "SHIFT|CTRL", action = wezterm.action.ToggleFullScreen },
--- }
+config.keys = {
+	-- { key = "n", mods = "SHIFT|CTRL", action = wezterm.action.ToggleFullScreen },
+	{ key = "=", mods = "CTRL", action = wezterm.action.IncreaseFontSize },
+	{ key = "-", mods = "CTRL", action = wezterm.action.DecreaseFontSize },
+}
 
 -- shell
 if host_os == "linux" then
