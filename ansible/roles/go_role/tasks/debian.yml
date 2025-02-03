@@ -27,4 +27,3 @@
 - name: Go | Confirm go installation
   ansible.builtin.shell: "source {{ ansible_user_dir }}/.zshrc && go version"
   # ansible.builtin.shell: "source {{ ansible_env.HOME }}/.zshrc"
->>>>>>> f22a68d (chore: fix errors)
