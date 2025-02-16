@@ -1,6 +1,6 @@
 [user]
     name = ejsadiarin
-    email = kyube.ejs@proton.me
+    email = ejs@ejsadiarin.com
     signingkey = "~/.ssh/id_ed25519.pub"
 [merge]
     tool = nvimdiff2

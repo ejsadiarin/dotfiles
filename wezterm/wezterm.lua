@@ -107,6 +107,8 @@ config.keys = {
 	-- { key = "n", mods = "SHIFT|CTRL", action = wezterm.action.ToggleFullScreen },
 	{ key = "=", mods = "CTRL", action = wezterm.action.IncreaseFontSize },
 	{ key = "-", mods = "CTRL", action = wezterm.action.DecreaseFontSize },
+	{ key = "i", mods = "CTRL|SHIFT", action = wezterm.action.ShowDebugOverlay },
+	{ key = "l", mods = "CTRL|SHIFT", action = wezterm.action.ShowDebugOverlay },
 }
 
 -- shell
