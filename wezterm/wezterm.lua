@@ -71,7 +71,7 @@ config.font = wezterm.font_with_fallback({
 		family = "NotoSansMono-Regular",
 	},
 })
-config.font_size = 20
+config.font_size = 24
 
 -- window styles
 config.window_padding = {
