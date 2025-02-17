@@ -1,0 +1,3 @@
+[submodule "nvim"]
+    url = git@github.com:ejsadiarin/nvim.git
+    path = nvim
