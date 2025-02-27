@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# Set IFS to newline character to properly handle filenames with spaces
-IFS='
-'
-
-find "$1" -type l | while IFS= read -r link; do
-	rm -rf "$link"
-done

@@ -1,3 +1,7 @@
 [submodule "nvim"]
-    url = git@github.com:ejsadiarin/nvim.git
-    path = nvim
+	path = nvim
+	url = git@github.com:ejsadiarin/nvim.git
+
+[submodule "scripts-magic-spells"]
+	path = scripts-magic-spells
+	url = git@github.com:ejsadiarin/scripts-magic-spells.git
