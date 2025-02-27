@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+git clone git@github.com:ejsadiarin/nvim.git ~/.config/nvim
+ln -s ~/dotfiles/nvim ~/.config
+
+# symlink tmux
+echo "[WARN] Removing tmux configs: ~/.config/tmux"
+rm -rf ~/.config/tmux
+ln -s ~/dotfiles/tmux ~/.config
+ln -s ~/dotfiles/tmux/.tmux.conf ~
+tmux source ~/.tmux.conf
+
+# symlink home configs
+echo "[WARN] Removing home configs"
+rm -f ~/.zshrc
+rm -f ~/.bashrc
+rm -f ~/.ideavimrc
+rm -f ~/.vimrc
+rm -f ~/.gitconfig
+
+ln -s ~/dotfiles/.zshrc ~
+ln -s ~/dotfiles/.bashrc ~
+ln -s ~/dotfiles/.ideavimrc ~
+ln -s ~/dotfiles/.vimrc ~
+ln -s ~/dotfiles/.gitconfig ~
+
+# symlink kitty configs
+echo "[WARN] Removing kitty config: ~/.config/kitty"
+rm -rf ~/.config/kitty
+ln -s ~/dotfiles/config/kitty ~/.config/kitty
+
+# append zhistory
+echo "[INFO] Appending zhistory..."
+cat ~/dotfiles/config/zsh/zhistory >>~/.config/zsh/zhistory
+
+# ssh
+scp ~ homelab
+
+# gpg
