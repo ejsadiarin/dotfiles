@@ -18,7 +18,7 @@ tmux source ~/<path to .tmux.conf>
 ```
 
 ## [Workflow and Mappings](#workflow-and-mappings)
-- `<prefix>` is `<ctrl>+a`
+- `<prefix>` is `<ctrl>+b`
 - most keybinds revolve around `<alt>`
 
 * `<alt> + d` - creating new session, picking new directory, uses fzf

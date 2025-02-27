@@ -38,7 +38,7 @@
       - cargo
       - acpi
       - ImageMagick
-      # - ImageMagick-devel
+      - ImageMagick-devel
       # - oha
       # - websocat
     state: present
