@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
-git clone git@github.com:ejsadiarin/nvim.git ~/.config/nvim
-ln -s ~/dotfiles/nvim ~/.config
 
-# symlink tmux
-echo "[WARN] Removing tmux configs: ~/.config/tmux"
-rm -rf ~/.config/tmux
-ln -s ~/dotfiles/tmux ~/.config
-ln -s ~/dotfiles/tmux/.tmux.conf ~
-tmux source ~/.tmux.conf
+git pull origin main --recurse-submodules
 
 # symlink home configs
 echo "[WARN] Removing home configs"
@@ -23,6 +16,16 @@ ln -s ~/dotfiles/.ideavimrc ~
 ln -s ~/dotfiles/.vimrc ~
 ln -s ~/dotfiles/.gitconfig ~
 
+# symlink nvim config
+ln -s ~/dotfiles/nvim ~/.config
+
+# symlink tmux
+echo "[WARN] Removing tmux configs: ~/.config/tmux"
+rm -rf ~/.config/tmux
+ln -s ~/dotfiles/tmux ~/.config
+ln -s ~/dotfiles/tmux/.tmux.conf ~
+tmux source ~/.tmux.conf
+
 # symlink kitty configs
 echo "[WARN] Removing kitty config: ~/.config/kitty"
 rm -rf ~/.config/kitty
@@ -37,7 +40,6 @@ scp -r ejs@homelab:~/.ssh/id_ed25519.pub ~
 scp -r ejs@homelab:~/.ssh/id_ed25519 ~
 
 # gpg
-# scp ~ homelab
 scp -r ejs@homelab:~/public.gpg ~
 scp -r ejs@homelab:~/private.gpg ~
 echo "[INFO] do a gpg --import <key>.gpg then gpg --edit-key ejs@ejsadiarin.com then trust 5 save exit"
