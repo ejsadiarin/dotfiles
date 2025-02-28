@@ -1,0 +1,15 @@
+[Application settings for Spotify]
+Description=Application settings for Spotify
+clientmachine=localhost
+noborder=true
+noborderrule=3
+wmclass=spotify Spotify
+wmclasscomplete=true
+wmclassmatch=1
+
+[Application settings for kitty]
+Description=Application settings for kitty
+noborder=true
+noborderrule=3
+wmclass=kitty
+wmclassmatch=1
