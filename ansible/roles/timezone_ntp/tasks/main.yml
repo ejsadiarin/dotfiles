@@ -22,7 +22,7 @@
     dest: /etc/ntp.conf
     owner: root
     group: root
-    mode: -rw-r--r-- # "0644"
+    mode: "0644"
   become: true
   when: machine_os == 'archlinux'
   notify: Timezone/NTP | Restart timesyncd.service
@@ -33,7 +33,18 @@
     dest: /etc/systemd/timesyncd.conf
     owner: root
     group: root
-    mode: -rw-r--r-- # "0644"
+    mode: "0644"
   become: true
   when: machine_os == 'debian'
   notify: Timezone/NTP | Restart timesyncd.service
+
+- name: Timezone/NTP (Fedora) | Copy chrony.conf
+  ansible.builtin.copy:
+    src: templates/chrony.conf
+    dest: /etc/chrony.conf
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+  when: machine_os == 'redhat'
+  notify: Timezone/NTP | Restart chronyd

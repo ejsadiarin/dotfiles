@@ -35,7 +35,7 @@
       ansible.builtin.shell: "localectl set-locale LANG=en_US.UTF-8"
 
   roles:
-    - zsh # might try to convert to bash again
+    - zsh
     - essentials
     - git
     - ssh
@@ -44,7 +44,7 @@
     - neovim
     - cron
     - kitty
-    - jetbrains_mono_nerd_font
+    # - jetbrains_mono_nerd_font
     # - docker
     # - gpg
     - js_ts_role

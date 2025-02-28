@@ -4,3 +4,9 @@
     name: systemd-timesyncd.service
     state: restarted
   become: true
+
+- name: Timezone/NTP | Restart chronyd
+  ansible.builtin.systemd_service:
+    name: chronyd.service
+    state: restarted
+  become: true

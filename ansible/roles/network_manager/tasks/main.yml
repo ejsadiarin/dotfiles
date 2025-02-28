@@ -1,4 +1,11 @@
 - name: NetworkManager | Install nmcli
+  ansible.builtin.dnf:
+    name: 
+    - NetworkManager
+  become: true
+  when: machine_os == 'redhat'
+
+- name: NetworkManager | Install nmcli
   ansible.builtin.apt:
     name: 
     - network-manager

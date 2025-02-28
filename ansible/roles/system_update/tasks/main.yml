@@ -1,3 +1,11 @@
+- name: Fedora | Update Machine
+  ansible.builtin.dnf:
+    update_cache: yes
+    state: latest
+    update_only: no
+  become: true
+  when: machine_os == 'redhat'
+
 - name: Debian | Update Machine
   ansible.builtin.apt:
     update_cache: true
