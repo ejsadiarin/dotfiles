@@ -51,13 +51,13 @@ shred -uvz master_password
 - encrypting a string with encrypt_string
 
 ```bash
-ansible-vault encrypt_string --vault-password-file ~/dotfiles/ansible/decrypted_mp "string to encrypt" --name "VERY_SECRET_VARIABLE_NAME"
+ansible-vault encrypt_string --vault-password-file ~/dotfiles/ansible/master_password "string to encrypt" --name "VERY_SECRET_VARIABLE_NAME"
 ```
 
 - encrypting files (ssh keys, gpg keys, etc.) with encrypt_string
 
 ```bash
-cat file.key | ansible-vault encrypt_string --vault-password-file ~/dotfiles/ansible/decrypted_mp --stdin-name "file.key"
+cat file.key | ansible-vault encrypt_string --vault-password-file ~/dotfiles/ansible/master_password --stdin-name "file.key"
 ```
 
 # Post-Installation

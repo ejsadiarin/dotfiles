@@ -15,3 +15,6 @@ ansible/decrypted_mp
 ansible/master_password
 ansible/tmp/
 tmp
+***/master_password
+master_password_t
+{private,public}.gpg
