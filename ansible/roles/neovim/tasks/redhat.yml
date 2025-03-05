@@ -14,11 +14,13 @@
       - fd
       - unzip
       - lua5.4
+      - luarocks
+      - lua-5.1
     state: present
     extra_args: --noconfirm
   become: true
 
-- name: Neovim | Install latest stable Neovim version via pacman
+- name: Neovim | Install latest stable Neovim version via dnf
   ansible.builtin.dnf:
     name: neovim
     state: present

@@ -1,0 +1,3 @@
+- name: Syncthing (Fedora) | install syncthing via dnf
+  ansible.builtin.dnf:
+    name: syncthing
