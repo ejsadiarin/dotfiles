@@ -2,14 +2,13 @@
 #         Variables          #
 ##############################
 
-# TODO: migrate to wezterm
-# if [ ! -f /usr/bin/kitty ]; then
-#     export TERM=xterm-256color
-#     export TERMINAL=xterm-256color
-# else
-#     export TERM=kitty
-#     export TERMINAL=kitty
-# fi
+if [ ! -f /usr/bin/kitty ]; then
+    export TERM=xterm-256color
+    export TERMINAL=xterm-256color
+else
+    export TERM=xterm-kitty
+    export TERMINAL=xterm-kitty
+fi
 
 export VISUAL="nvim"
 export BROWSER='firefox'
