@@ -49,6 +49,9 @@
     # - jetbrains_mono_nerd_font
     # - js_ts_role
     # - python_role
+    # - java_role
+    # - csharp_dotnet_role
+    # - mpv
 
   tasks:
     - name: Link .ideavimrc
