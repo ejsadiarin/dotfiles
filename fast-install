@@ -35,6 +35,8 @@ ln -s ~/dotfiles/config/kitty ~/.config/kitty
 echo "[INFO] Appending zhistory..."
 cat ~/dotfiles/config/zsh/zhistory >>~/.config/zsh/zhistory
 
+# before proceeding, make sure to authenticate to tailscale first
+
 # ssh
 scp -r ejs@homelab:~/.ssh/id_ed25519.pub ~
 scp -r ejs@homelab:~/.ssh/id_ed25519 ~
@@ -43,3 +45,5 @@ scp -r ejs@homelab:~/.ssh/id_ed25519 ~
 scp -r ejs@homelab:~/public.gpg ~
 scp -r ejs@homelab:~/private.gpg ~
 echo "[INFO] do a gpg --import <key>.gpg then gpg --edit-key ejs@ejsadiarin.com then trust 5 save exit"
+gpg --import ~/public.gpg
+gpg --import ~/private.gpg

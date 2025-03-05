@@ -39,16 +39,16 @@
     - essentials
     - git
     - ssh
-    - go_role
+    - gpg
     - tmux
     - neovim
     - cron
     - kitty
-    # - jetbrains_mono_nerd_font
+    - go_role
     # - docker
-    # - gpg
-    - js_ts_role
-    - python_role
+    # - jetbrains_mono_nerd_font
+    # - js_ts_role
+    # - python_role
 
   tasks:
     - name: Link .ideavimrc
