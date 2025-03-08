@@ -18,6 +18,7 @@ export EDITOR='nvim'
 export SHELL="/usr/bin/zsh"
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export VAULT="$HOME/vault"
+export MANPAGER="nvim +Man!"
 # export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
 # XDG - set defaults as they may not be set
