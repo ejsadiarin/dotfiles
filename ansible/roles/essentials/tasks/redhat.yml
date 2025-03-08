@@ -16,7 +16,7 @@
       - lsd
       - gnupg
       - pass
-      - pass-extension-otp
+      - pass-otp
       - yq
       - jq
       - open-iscsi

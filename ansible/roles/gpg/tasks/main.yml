@@ -1,14 +1,25 @@
-# - name: GPG | Configure/Copy GPG keys
-  # ansible.builtin.copy:
-  #   dest: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"
-  #   content: "{{ ssh_key_item.value }}"
-  #   mode: "0600"
-  # no_log: true
-  # loop_control:
-  #   loop_var: ssh_key_item
-  # with_items: "{{ ssh_key | default({}) | dict2items }}"
+- name: GPG | Configure GPG keys
+  ansible.builtin.copy:
+    dest: "{{ ansible_user_dir }}/.gpg/{{ gpg_key_item.key }}"
+    content: "{{ gpg_key_item.value }}"
+    mode: "0600"
+  no_log: true
+  loop_control:
+    loop_var: gpg_key_item
+  loop: "{{ gpg_keys | dict2items }}"
 
-  # TODO: install pass and gpg (gnupg)
+- name: GPG | install gnupg, pass, andd pass-otp
+  ansible.builtin.dnf:
+    name:
+      - gnupg
+      - pass
+      - pass-otp
+    state: present
+  become: true
+
 # import .password-store via git clone
-# enable otp feature by editing .bashrc or .zshrc (export PASSWORD_STORE_ENABLE_EXTENSIONS=true)
+  # clone my pass repo from github, with dest: ~/.password-store
+
+# since `gpg --import ...` is idempotent, i can make it as a command (tho for private keys idk since need password)
+
 # NOTE: this needs to manually import the public and private gpg keys of my email
