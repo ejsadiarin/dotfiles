@@ -12,6 +12,14 @@
   become: true
   when: machine_os == 'archlinux'
 
+- name: Cron | Install cronie
+  ansible.builtin.dnf:
+    name: cronie
+    state: present
+  become: true
+  when: machine_os == 'redhat'
+
+
 # - name: Cron | Activate cronjobs (crontab)
 #   ansible.builtin.cron:
 #     name: cronie
