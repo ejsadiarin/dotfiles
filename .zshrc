@@ -45,7 +45,7 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 # go
-if [ -f "/usr/bin/go" ]; then
+if [[ -f "/usr/bin/go" ]]; then
     export PATH="$PATH:/usr/local/go/bin"
     export PATH="$PATH:$HOME/go/bin"
 fi
@@ -61,6 +61,11 @@ fi
 # dotnet
 if [ -f "/usr/bin/dotnet" ]; then
     export PATH="$PATH:$HOME/.dotnet/tools"
+fi
+
+# rust
+if [[ -d "$HOME/.cargo/bin" ]]; then
+    export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
 # nvm
