@@ -158,6 +158,8 @@ autoload -Uz vcs_info
 precmd () { vcs_info }
 _comp_options+=(globdots)
 
+echo 'source ~/dotfiles/config/zsh/kubectl-completion.zsh' >> ~/.zshrc
+
 #compdef k3s
 _cli_zsh_autocomplete() {
 
@@ -440,3 +442,7 @@ fi
 #
 # ufw
 # - ufw allow 22/tcp 22/udp 80/tcp 80/udp 443/tcp 443/udp
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
