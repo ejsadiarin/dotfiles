@@ -158,31 +158,6 @@ autoload -Uz vcs_info
 precmd () { vcs_info }
 _comp_options+=(globdots)
 
-echo 'source ~/dotfiles/config/zsh/kubectl-completion.zsh' >> ~/.zshrc
-
-#compdef k3s
-_cli_zsh_autocomplete() {
-
-        local -a opts
-        local cur
-        cur=${words[-1]}
-        if [[ "$cur" == "-"* ]]; then
-        opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} ${cur} --generate-bash-completion)}")
-        else
-        opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} --generate-bash-completion)}")
-        fi
-
-        if [[ "${opts[1]}" != "" ]]; then
-        _describe 'values' opts
-        else
-        _files
-        fi
-
-        return
-}
-
-compdef _cli_zsh_autocomplete k3s
-
 ##############################
 #           Styles           #
 ##############################
@@ -380,6 +355,61 @@ if [[ $current_dir == "nvim" ]] then
     export ANTHROPIC_API_KEY=$(pass show keys/anthropic | head -n 1)
 fi
 
+
+##############################
+#          DEVOPS            #
+##############################
+
+if [[ -f "/usr/local/bin/kubectl" && -f "/usr/local/bin/k3s" ]]; then
+    # kubectl completions
+    echo 'source ~/dotfiles/config/zsh/kubectl-completion.zsh' >> ~/.zshrc
+    # source <(kubectl completion zsh)
+    export KUBECONFIG="~/.kube/config"
+
+    # NOTE: for Accessing the Cluster from Outside with kubectl
+    # ref: https://docs.k3s.io/cluster-access#accessing-the-cluster-from-outside-with-kubectl
+    if [[ ! -d "$HOME/.kube" ]]; then
+        mkdir -p "$HOME/.kube"
+        if [[ ! -f "$HOME/.kube/config" ]]; then
+            echo -n "Configure ~/.kube/config with /etc/rancher/k3s/k3s.yaml manually\n\n"
+            echo -n "Edit the server var to access any cluster with kubectl from anywhere (if have remote cluster)\n\n"
+            # NOTE: edit the server var to access any cluster with kubectl from anywhere (if have remote cluster)
+            # cp "/etc/rancher/k3s/k3s.yaml" "$HOME/.kube/config"
+        fi
+    fi
+fi
+
+
+# docker completions
+source <(docker completion zsh)
+
+# k3s completions
+#compdef k3s
+_cli_zsh_autocomplete() {
+
+        local -a opts
+        local cur
+        cur=${words[-1]}
+        if [[ "$cur" == "-"* ]]; then
+        opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} ${cur} --generate-bash-completion)}")
+        else
+        opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} --generate-bash-completion)}")
+        fi
+
+        if [[ "${opts[1]}" != "" ]]; then
+        _describe 'values' opts
+        else
+        _files
+        fi
+
+        return
+}
+
+compdef _cli_zsh_autocomplete k3s
+
+
+
+
 # if on MacOS uncomment: for homebrew installed apps available on PATH 
 # eval "$(/opt/homebrew/bin/brew shellenv)" 
 
@@ -442,6 +472,135 @@ fi
 #
 # ufw
 # - ufw allow 22/tcp 22/udp 80/tcp 80/udp 443/tcp 443/udp
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
+source ~/dotfiles/config/zsh/kubectl-completion.zsh
 source ~/dotfiles/config/zsh/kubectl-completion.zsh
 source ~/dotfiles/config/zsh/kubectl-completion.zsh
 source ~/dotfiles/config/zsh/kubectl-completion.zsh
