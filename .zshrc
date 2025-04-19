@@ -363,17 +363,16 @@ fi
 if [[ -f "/usr/local/bin/kubectl" && -f "/usr/local/bin/k3s" ]]; then
     # kubectl completions
     source <(kubectl completion zsh)
-    export KUBECONFIG="~/.kube/config"
+    export KUBECONFIG="$HOME/.kube/config"
 
     # NOTE: for Accessing the Cluster from Outside with kubectl
     # ref: https://docs.k3s.io/cluster-access#accessing-the-cluster-from-outside-with-kubectl
     if [[ ! -d "$HOME/.kube" ]]; then
         mkdir -p "$HOME/.kube"
         if [[ ! -f "$HOME/.kube/config" ]]; then
-            echo -n "Configure ~/.kube/config with /etc/rancher/k3s/k3s.yaml manually\n\n"
-            echo -n "Edit the server var to access any cluster with kubectl from anywhere (if have remote cluster)\n\n"
-            # NOTE: edit the server var to access any cluster with kubectl from anywhere (if have remote cluster)
-            # cp "/etc/rancher/k3s/k3s.yaml" "$HOME/.kube/config"
+            echo -n "[IMPORTANT to run kubectl without sudo] Configure ~/.kube/config with /etc/rancher/k3s/k3s.yaml manually with: install -D /etc/rancher/k3s/k3s.yaml ~/.kube/config\n\n"
+            echo -n "[OPTIONAL] Edit the server var to access any cluster with kubectl from anywhere (if have remote cluster)\n\n"
+            # install -D "/etc/rancher/k3s/k3s.yaml" "$KUBECONFIG"
         fi
     fi
 fi
