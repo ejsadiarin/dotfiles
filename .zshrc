@@ -365,6 +365,14 @@ if [[ -f "/usr/local/bin/kubectl" && -f "/usr/local/bin/k3s" ]]; then
     source <(kubectl completion zsh)
     export KUBECONFIG="$HOME/.kube/config"
 
+    if [[ -f "/usr/bin/nvim" ]]; then
+        export KUBE_EDITOR="nvim"
+    elif [[ -f "/usr/bin/vim" ]]; then
+        export KUBE_EDITOR="vim"
+    else
+        export KUBE_EDITOR="vi"
+    fi
+
     # NOTE: for Accessing the Cluster from Outside with kubectl
     # ref: https://docs.k3s.io/cluster-access#accessing-the-cluster-from-outside-with-kubectl
     if [[ ! -d "$HOME/.kube" ]]; then
