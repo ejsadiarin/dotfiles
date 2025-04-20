@@ -250,7 +250,6 @@ if [ -f "/usr/bin/bat" ]; then
 fi
 
 alias f='fzf -m --preview="bat --color=always {}" --bind="enter:become(nvim {})"'
-alias k='kubectl'
 
 if [ -f /etc/arch-release ]; then
     alias ,pac_mirrors="sudo reflector --verbose --latest 5 --country 'Singapore' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
@@ -362,8 +361,10 @@ fi
 
 if [[ -f "/usr/local/bin/kubectl" && -f "/usr/local/bin/k3s" ]]; then
     # kubectl completions
-    source <(kubectl completion zsh)
+    source "$HOME/dotfiles/config/zsh/kubectl-completion.zsh"
+    # source <(kubectl completion zsh)
     export KUBECONFIG="$HOME/.kube/config"
+    alias k='kubectl'
 
     if [[ -f "/usr/bin/nvim" ]]; then
         export KUBE_EDITOR="nvim"
