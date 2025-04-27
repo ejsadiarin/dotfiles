@@ -9,6 +9,7 @@
 
 > [!IMPORTANT]
 > **The previous BSPWM configs has been moved into a separate branch `bspwm-dots`**
+> ![bspwm-dots-pic](./bspwm-best-rice.png)
 >
 > *I now use Fedora KDE with my minimal terminal configs and KDE configs*
 
