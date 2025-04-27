@@ -58,6 +58,12 @@ if [[ -f "$HOME/.local/bin/restic-env" ]]; then
     source "$HOME/.local/bin/restic-env"
 fi
 
+# brew
+if [[ -d "/home/linuxbrew" ]]; then
+    export HOMEBREW_NO_ANALYTICS=1
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 # dotnet
 if [ -f "/usr/bin/dotnet" ]; then
     export PATH="$PATH:$HOME/.dotnet/tools"
@@ -364,7 +370,11 @@ if [[ -f "/usr/local/bin/kubectl" && -f "/usr/local/bin/k3s" ]]; then
     source "$HOME/dotfiles/config/zsh/kubectl-completion.zsh"
     # source <(kubectl completion zsh)
     export KUBECONFIG="$HOME/.kube/config"
-    alias k='kubectl'
+    alias k="kubectl"
+    alias kx="kubectx"
+    alias kn="kubens"
+    alias kgp="kubectl get pods"
+    alias kgel="k get events --sort-by=.metadata.creationTimestamp"
 
     if [[ -f "/usr/bin/nvim" ]]; then
         export KUBE_EDITOR="nvim"
