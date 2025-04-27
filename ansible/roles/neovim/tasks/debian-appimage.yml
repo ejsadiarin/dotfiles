@@ -1,3 +1,4 @@
+---
 - name: Neovim | Ensure old neovim from repository is uninstalled
   ansible.builtin.apt:
     name: neovim
@@ -15,6 +16,9 @@
       - curl
       - xclip
       - libfuse2
+      - lua5.4
+      - luarocks
+      - lua5.1
     state: present
   become: true
 

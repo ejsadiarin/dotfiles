@@ -1,3 +1,4 @@
+---
 - name: Essentials RedHat | Install essential packages
   ansible.builtin.dnf:
     name:
@@ -41,6 +42,7 @@
       - ImageMagick-devel
       # - oha
       # - websocat
+      - lm_sensors
     state: present
     update_cache: true
   become: true

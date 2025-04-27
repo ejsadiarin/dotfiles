@@ -1,3 +1,4 @@
+---
 - name: Neovim | Ensure old neovim from repository is uninstalled
   ansible.builtin.apt:
     name: neovim
@@ -16,9 +17,12 @@
       - xclip
       - libfuse2
       - lua5.4
+      - luarocks
+      - lua5.1
     state: present
   become: true
 
+# TODO: test on "true debian" since add-apt-repository might not work
 - name: Neovim | Add unstable ppa
   ansible.builtin.apt_repository:
     repo: ppa:neovim-ppa/unstable
