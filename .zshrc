@@ -118,6 +118,7 @@ zinit light Aloxaf/fzf-tab
 # zsh-fzf-history-search
 zinit ice lucid wait'0'
 zinit light joshskidmore/zsh-fzf-history-search
+zinit light-mode for zdharma-continuum/zinit-annex-bin-gem-node
 
 ##############################
 #        Keybindings         #
