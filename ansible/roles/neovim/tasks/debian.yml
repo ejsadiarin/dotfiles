@@ -45,3 +45,14 @@
     src: "{{ ansible_user_dir }}/dotfiles/nvim"
     dest: "{{ ansible_user_dir }}/.config/nvim"
     state: link
+
+- name: Neovim | Check nvim binary
+  ansible.builtin.stat:
+    path: "/usr/bin/nvim"
+  register: nvim_binary
+  check_mode: false
+
+- name: Neovim | Suggest runner if copr install did not work
+  ansible.builtin.debug:
+    msg: "Neovim was not found. Use dotfiles/runner/neovim-nightly.sh to install neovim-nightly"
+  when: not nvim_binary.stat.exists
