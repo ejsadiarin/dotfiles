@@ -14,7 +14,7 @@
       - fd-find
       - unzip
       - curl
-      - xclip
+      # - xclip
       - libfuse2
       - lua5.4
       - luarocks

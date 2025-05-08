@@ -1,3 +1,4 @@
+---
 - name: Neovim | Ensure old neovim from repository is uninstalled
   community.general.pacman:
     name: neovim
@@ -14,6 +15,8 @@
       - fd
       - unzip
       - lua5.4
+      - luarocks
+      - lua5.1
     state: present
     extra_args: --noconfirm
   become: true

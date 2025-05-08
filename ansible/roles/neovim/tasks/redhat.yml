@@ -1,3 +1,4 @@
+---
 - name: Neovim | Ensure old neovim from repository is uninstalled
   ansible.builtin.dnf:
     name: neovim
@@ -16,14 +17,35 @@
       - lua5.4
       - luarocks
       - lua-5.1
+      - python3-pip
     state: present
     extra_args: --noconfirm
   become: true
 
-- name: Neovim | Install latest stable Neovim version via dnf
+- name: Neovim | Install COPR dependencies
   ansible.builtin.dnf:
-    name: neovim
+    name: dnf-plugins-core
     state: present
+  become: true
+
+- name: Neovim | Enable agriffis/neovim-nightly COPR repository
+  ansible.builtin.command: dnf copr enable -y agriffis/neovim-nightly
+  become: true
+  register: copr_result
+  changed_when: "'already enabled' not in copr_result.stdout"
+
+- name: Neovim | Clean and refresh DNF cache
+  ansible.builtin.dnf:
+    update_cache: yes
+  become: true
+
+- name: Neovim | Install latest Neovim and Python support from COPR
+  ansible.builtin.dnf:
+    name:
+      - neovim
+      - python3-neovim
+    state: present
+    update_cache: yes
   become: true
 
 - name: Neovim | Copy own nvim configs
