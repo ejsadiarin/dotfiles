@@ -1,3 +1,4 @@
+---
 # Main Playbook
 # run on local: ansible-playbook main.yml --ask-become-pass
 # run on remotes: ansible-playbook main.yml --ask-pass --ask-become-pass -i inventory/hosts.ini
@@ -14,9 +15,39 @@
       ansible.builtin.set_fact:
         machine_os: "{{ ansible_facts['os_family'] | lower }}" # can be 'archlinux', 'debian', 'redhat', etc.
 
+    - name: OS detection for Arch-based systems
+      ansible.builtin.set_fact:
+        machine_os: "archlinux"
+      when:
+        - ansible_facts['os_family'] | lower == 'archlinux'
+        - or ansible_facts['distribution'] | lower == 'arch'
+        - or ansible_facts['distribution'] | lower == 'manjaro'
+
+    - name: OS detection for Debian-based systems
+      ansible.builtin.set_fact:
+        machine_os: "debian"
+      when:
+        - ansible_facts['os_family'] | lower == 'debian'
+        - or ansible_facts['distribution'] | lower == 'ubuntu'
+        - or ansible_facts['distribution'] | lower == 'pop!_os'
+
+    - name: OS detection for Redhat-based systems
+      ansible.builtin.set_fact:
+        machine_os: "redhat"
+      when:
+        - ansible_facts['os_family'] | lower == 'redhat'
+        - or ansible_facts['distribution'] | lower == 'fedora'
+        - or ansible_facts['distribution'] | lower == 'centos'
+        - or ansible_facts['distribution'] | lower == 'rocky'
+
     - name: Debug machine_os
       ansible.builtin.debug:
-        msg: "The machine is {{ machine_os }}"
+        msg: "The machine is running {{ machine_os }} ({{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }})"
+
+    - name: Validate supported OS
+      ansible.builtin.fail:
+        msg: "Unsupported OS: {{ ansible_facts['distribution'] }}. This playbook supports: Arch, Debian, and RedHat-based systems."
+      when: machine_os not in ['archlinux', 'debian', 'redhat']
 
     - name: Register Host User
       ansible.builtin.set_fact:

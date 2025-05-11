@@ -1,14 +1,21 @@
+---
 - name: Git | Configure username
   community.general.git_config:
     name: user.name
     scope: global
-    value: git_user_name
+    value: " {{ git_user_name }} "
 
 - name: Git | Configure email
   community.general.git_config:
     name: user.email
     scope: global
-    value: git_user_email
+    value: " {{ git_user_email }} "
+
+- name: Git | Configure signing key
+  community.general.git_config:
+    name: user.signingkey
+    scope: global
+    value: "{{ ansible_user_dir }}/.ssh/id_ed25519.pub"
 
 - name: Git | Configure default editor
   community.general.git_config:
@@ -16,29 +23,17 @@
     scope: global
     value: nvim
 
-- name: Git | Configure auto color UI
-  community.general.git_config:
-    name: color.ui
-    scope: global
-    value: auto
-
-- name: Git | Configure merge tool
-  community.general.git_config:
-    name: merge.tool
-    scope: global
-    value: nvimdiff2
-
 - name: Git | Configure core.autocrlf to normalize git endings
   community.general.git_config:
     name: core.autocrlf
     scope: global
     value: input # normalize line endings (input - Linux, true - windows)
 
-- name: Git | Configure default branch
+- name: Git | Configure auto color UI
   community.general.git_config:
-    name: init.defaultBranch
+    name: color.ui
     scope: global
-    value: main
+    value: auto
 
 - name: Git | Configure rebase auto stash
   community.general.git_config:
@@ -52,17 +47,115 @@
     scope: global
     value: true
 
+# DIFF AND MERGE configs
+- name: Git | Configure diff algorithm
+  community.general.git_config:
+    name: diff.algorithm
+    scope: global
+    value: histogram
+
+- name: Git | Configure diff colorMoved
+  community.general.git_config:
+    name: diff.colorMoved
+    scope: global
+    value: true
+
+- name: Git | Configure diff colorMovedWS
+  community.general.git_config:
+    name: diff.colorMovedWS
+    scope: global
+    value: allow-indentation-change
+
+- name: Git | Configure diff mnemonicPrefix
+  community.general.git_config:
+    name: diff.mnemonicPrefix
+    scope: global
+    value: true
+
+- name: Git | Configure diff tool
+  community.general.git_config:
+    name: diff.tool
+    scope: global
+    value: nvim_difftool
+
+- name: Git | Configure diff submodule
+  community.general.git_config:
+    name: diff.submodule
+    scope: global
+    value: diff
+
+- name: Git | Configure diff bin textconv
+  community.general.git_config:
+    name: diff.bin.textconv
+    scope: global
+    value: "hexdump -v -C"
+
+- name: Git | Configure difftool prompt
+  community.general.git_config:
+    name: difftool.prompt
+    scope: global
+    value: true
+
+- name: Git | Configure difftool trustExitCode
+  community.general.git_config:
+    name: difftool.trustExitCode
+    scope: global
+    value: true
+
+- name: Git | Configure difftool nvim_difftool command
+  community.general.git_config:
+    name: difftool.nvim_difftool.cmd
+    scope: global
+    value: 'nvim -c "DiffTool $LOCAL $REMOTE"'
+
+- name: Git | Configure merge log
+  community.general.git_config:
+    name: merge.log
+    scope: global
+    value: true
+
+- name: Git | Configure merge tool
+  community.general.git_config:
+    name: merge.tool
+    scope: global
+    value: nvimdiff2
+
+- name: Git | Configure mergetool prompt
+  community.general.git_config:
+    name: mergetool.prompt
+    scope: global
+    value: true
+
+- name: Git | Configure mergetool trustExitCode
+  community.general.git_config:
+    name: mergetool.trustExitCode
+    scope: global
+    value: true
+
+- name: Git | Configure mergetool hideResolved
+  community.general.git_config:
+    name: mergetool.hideResolved
+    scope: global
+    value: true
+
+# ALIASES
 - name: Git | Configure undo alias
   community.general.git_config:
     name: alias.undo
     scope: global
     value: "reset HEAD~1 --mixed"
 
-- name: Git | Configure signing key
+- name: Git | Configure diffview alias
   community.general.git_config:
-    name: user.signingkey
+    name: alias.diffview
     scope: global
-    value: "{{ ansible_user_dir }}/.ssh/id_ed25519.pub"
+    value: '!f() { nvim -c \"DiffviewOpen\" \"$@\"; }; f'
+
+- name: Git | Configure default branch
+  community.general.git_config:
+    name: init.defaultBranch
+    scope: global
+    value: main
 
 - name: Git | Get config values
   community.general.git_config_info:
