@@ -1,3 +1,4 @@
+---
 - name: Essentials | Configure install packages for Archlinux
   ansible.builtin.import_tasks: archlinux.yml
   when: machine_os == 'archlinux'
@@ -9,6 +10,11 @@
 - name: Essentials | Configure install packages for Redhat (Fedora)
   ansible.builtin.import_tasks: redhat.yml
   when: machine_os == 'redhat'
+
+- name: Essentials | Handle unsupported OS
+  ansible.builtin.fail:
+    msg: "Unsupported operating system: {{ machine_os }}. This role supports: archlinux, debian, redhat"
+  when: machine_os not in ['archlinux', 'debian', 'redhat']
 
 - name: Downloads | Create proper directory structure
   ansible.builtin.file:

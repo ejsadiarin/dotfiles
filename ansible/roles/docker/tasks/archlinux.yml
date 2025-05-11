@@ -1,7 +1,9 @@
+---
 - name: Docker | Install docker
   community.general.pacman:
     name: docker
-    state: latest
+    state: present
+  become: true
 
 - name: Docker | Add user to the Docker group # sudo usermod -aG docker $USER
   ansible.builtin.user:

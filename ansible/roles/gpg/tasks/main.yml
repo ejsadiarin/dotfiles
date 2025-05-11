@@ -1,6 +1,13 @@
+---
+- name: GPG | Ensure .gnupg directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.gnupg"
+    state: directory
+    mode: "0700"
+
 - name: GPG | Configure GPG keys
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.gpg/{{ gpg_key_item.key }}"
+    dest: "{{ ansible_user_dir }}/.gnupg/{{ gpg_key_item.key }}"
     content: "{{ gpg_key_item.value }}"
     mode: "0600"
   no_log: true
@@ -8,7 +15,7 @@
     loop_var: gpg_key_item
   loop: "{{ gpg_keys | dict2items }}"
 
-- name: GPG | install gnupg, pass, andd pass-otp
+- name: GPG | install gnupg, pass, and pass-otp (Fedora/RedHat)
   ansible.builtin.dnf:
     name:
       - gnupg
@@ -16,9 +23,48 @@
       - pass-otp
     state: present
   become: true
+  when: machine_os == 'redhat'
 
+- name: GPG | install gnupg, pass, and pass-otp (Arch)
+  community.general.pacman:
+    name:
+      - gnupg
+      - pass
+      - pass-otp
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+
+- name: GPG | install gnupg, pass, and pass-otp (Arch)
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - pass
+      - pass-otp
+    state: present
+  become: true
+  when: machine_os == 'debian'
+
+- name: GPG | Check if public key is already imported
+  ansible.builtin.shell: "gpg --list-keys | grep -q -F '{{ git_user_email }}'"
+  register: gpg_public_exists
+  changed_when: false
+  failed_when: false
+  ignore_errors: true
+
+- name: GPG | Import public GPG key if not already present
+  ansible.builtin.shell: "gpg --import {{ ansible_user_dir }}/.gnupg/public.gpg"
+  when: gpg_public_exists.rc != 0
+  register: gpg_import_result
+  changed_when: gpg_import_result.rc == 0
+
+# NOTE: We don't auto-import private keys as they require a password
+- name: GPG | Instructions for private key import
+  ansible.builtin.debug:
+    msg: "To import your private GPG key, run: gpg --import {{ ansible_user_dir }}/.gnupg/private.gpg"
+#
 # import .password-store via git clone
-  # clone my pass repo from github, with dest: ~/.password-store
+# clone my pass repo from github, with dest: ~/.password-store
 
 # since `gpg --import ...` is idempotent, i can make it as a command (tho for private keys idk since need password)
 

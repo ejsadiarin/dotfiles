@@ -58,6 +58,11 @@ if [[ -f "$HOME/.local/bin/restic-env" ]]; then
     source "$HOME/.local/bin/restic-env"
 fi
 
+# gh-cli
+# if [[ -f "/usr/bin/gh" ]]; then
+#     # export GITHUB_TOKEN="gh auth login"
+# fi
+
 # brew
 if [[ -d "/home/linuxbrew" ]]; then
     export HOMEBREW_NO_ANALYTICS=1

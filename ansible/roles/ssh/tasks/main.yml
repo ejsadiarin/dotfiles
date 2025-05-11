@@ -1,6 +1,7 @@
+---
 - name: SSH | Ensure .ssh directory exists
   ansible.builtin.file:
-    path: "{{ ssh_keys_path }}"
+    path: "{{ ansible_user_dir }}/.ssh"
     state: directory
     mode: "0700"
 
@@ -13,3 +14,29 @@
   loop: "{{ ssh_keys | dict2items }}"
   loop_control:
     loop_var: ssh_key_item
+
+# - name: SSH | Check if ssh config exists
+#   ansible.builtin.stat:
+#     path: "{{ ansible_user_dir }}/.ssh/config"
+#   register: ssh_config_stat
+#
+# - name: SSH | Create ssh config if it doesn't exist
+#   ansible.builtin.copy:
+#     dest: "{{ ansible_user_dir }}/.ssh/config"
+#     content: |
+#       # SSH Config managed by Ansible
+#       Host *
+#         ServerAliveInterval 60
+#         ServerAliveCountMax 3
+#         ControlMaster auto
+#         ControlPersist 5m
+#         ControlPath ~/.ssh/sockets/%r@%h-%p
+#         AddKeysToAgent yes
+#     mode: "0600"
+#   when: not ssh_config_stat.stat.exists
+#
+# - name: SSH | Ensure ssh sockets directory exists
+#   ansible.builtin.file:
+#     path: "{{ ansible_user_dir }}/.ssh/sockets"
+#     state: directory
+#     mode: "0700"

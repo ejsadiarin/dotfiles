@@ -1,16 +1,17 @@
-- name: Development (Arch) | Install Java
+---
+- name: Development | Install Java (Arch)
   hosts: localhost
   connection: local
   gather_facts: true
 
   tasks:
-    - name: Development (Arch) | Install Java
+    - name: Development | Install Java (Arch)
       community.general.pacman:
         name:
           - jdk-openjdk
         state: present
       become: true
-      when: ansible_facts['os_family']|lower  == 'archlinux' # can be 'archlinux', 'debian', 'redhat', etc.
+      when: ansible_facts['os_family'] | lower  == 'archlinux' # can be 'archlinux', 'debian', 'redhat', etc.
 
     - name: Development (Debian) | Install Java
       ansible.builtin.apt:
@@ -19,4 +20,4 @@
           - openjdk-17-jre
         state: present
       become: true
-      when: ansible_facts['os_family']|lower  == 'debian' # can be 'archlinux', 'debian', 'redhat', etc.
+      when: ansible_facts['os_family'] | lower  == 'debian' # can be 'archlinux', 'debian', 'redhat', etc.

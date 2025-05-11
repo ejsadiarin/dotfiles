@@ -1,18 +1,19 @@
-- name: Tmux (Arch) | Install tmux
+---
+- name: Tmux | Install tmux (Arch)
   community.general.pacman:
     name: tmux
     state: present
   become: true
   when: machine_os == 'archlinux'
 
-- name: Tmux (Debian) | Install tmux
+- name: Tmux | Install tmux (Debian)
   ansible.builtin.apt:
     name: tmux
     state: present
   become: true
   when: machine_os == 'debian'
 
-- name: Tmux (redhat) | Install tmux
+- name: Tmux | Install tmux (RedHat)
   ansible.builtin.dnf:
     name: tmux
     state: present

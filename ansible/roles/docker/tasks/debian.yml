@@ -1,3 +1,4 @@
+---
 # create docker group (if not exists): sudo groupadd docker
 # add $USER to docker group: sudo usermod -aG docker $USER
 # activate changes on groups: newgrp docker
@@ -13,6 +14,7 @@
       - virtualenv
     state: present
     update_cache: true
+  become: true
 
 - name: Docker | Add Docker GPG apt Key
   ansible.builtin.apt_key:
@@ -23,6 +25,7 @@
   ansible.builtin.apt_repository:
     repo: deb https://download.docker.com/linux/ubuntu focal stable
     state: present
+  become: true
 
 - name: Docker | Add Docker Repository
   ansible.builtin.apt:
@@ -39,12 +42,14 @@
       - docker-compose-plugin
     state: present
     update_cache: true
+  become: true
 
 - name: Docker | Add user to the Docker group # sudo usermod -aG docker $USER
   ansible.builtin.user:
     name: "{{ ansible_user_id }}"
     groups: docker
     append: true
+  become: true
 
 # - name: Docker | logout term or this for changes to take effect
 #   ansible.builtin.command: "newgrp docker"
@@ -63,9 +68,15 @@
     name: docker.service
     state: started
     enabled: true
+  become: true
 
 - name: Docker | Start containerd # start/enable systemd containerd.service
   ansible.builtin.systemd:
     name: containerd.service
     state: started
     enabled: true
+  become: true
+
+- name: Docker | Manual disable of services on start up
+  ansible.builtin.debug:
+    msg: "[WARNING]: might want to not enable containerd and docker.service daemon on startup. Just do `sudo systemctl disable containerd|docker`"

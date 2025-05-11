@@ -1,4 +1,5 @@
-- name: Nerd Font (Arch) | Install Jetbrains Mono Nerd Font
+---
+- name: Nerd Font | Install Jetbrains Mono Nerd Font (Arch)
   community.general.pacman:
     name:
       - ttf-jetbrains-mono

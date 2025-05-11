@@ -40,7 +40,7 @@
   register: nvim_binary
   check_mode: false
 
-- name: Neovim | Suggest runner if copr install did not work
+- name: Neovim | Suggest runner if aur install did not work
   ansible.builtin.debug:
     msg: "Neovim was not found. Use dotfiles/runner/neovim-nightly.sh to install neovim-nightly"
   when: not nvim_binary.stat.exists
