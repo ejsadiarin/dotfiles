@@ -18,27 +18,17 @@
     - name: OS detection for Arch-based systems
       ansible.builtin.set_fact:
         machine_os: "archlinux"
-      when:
-        - ansible_facts['os_family'] | lower == 'archlinux'
-        - or ansible_facts['distribution'] | lower == 'arch'
-        - or ansible_facts['distribution'] | lower == 'manjaro'
+      when: "ansible_facts['os_family'] | lower == 'archlinux' or ansible_facts['distribution'] | lower == 'arch' or ansible_facts['distribution'] | lower == 'manjaro'"
 
     - name: OS detection for Debian-based systems
       ansible.builtin.set_fact:
         machine_os: "debian"
-      when:
-        - ansible_facts['os_family'] | lower == 'debian'
-        - or ansible_facts['distribution'] | lower == 'ubuntu'
-        - or ansible_facts['distribution'] | lower == 'pop!_os'
+      when: "ansible_facts['os_family'] | lower == 'debian' or ansible_facts['distribution'] | lower == 'ubuntu' or ansible_facts['distribution'] | lower == 'pop!_os'"
 
     - name: OS detection for Redhat-based systems
       ansible.builtin.set_fact:
         machine_os: "redhat"
-      when:
-        - ansible_facts['os_family'] | lower == 'redhat'
-        - or ansible_facts['distribution'] | lower == 'fedora'
-        - or ansible_facts['distribution'] | lower == 'centos'
-        - or ansible_facts['distribution'] | lower == 'rocky'
+      when: "ansible_facts['os_family'] | lower == 'redhat' or ansible_facts['distribution'] | lower == 'fedora' or ansible_facts['distribution'] | lower == 'centos' or ansible_facts['distribution'] | lower == 'rocky'"
 
     - name: Debug machine_os
       ansible.builtin.debug:
