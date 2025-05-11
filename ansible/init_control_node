@@ -55,7 +55,7 @@ RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}" # ∟
 DOTFILES="$HOME/dotfiles"
 RELEASE_FILE="$HOME/dotfiles/.exquisite_release"
 EXQUILOG="$HOME/dotfiles/.exquisite_log"
-VAULT_PASSWORD_FILE="$HOME/dotfiles/decrypted_mp"
+VAULT_PASSWORD_FILE="$HOME/dotfiles/ansible/master_password"
 date_today=$(date +"%Y-%m-%d %H:%M:%S")
 
 # install ansible (add distro-specific conditions)
@@ -364,7 +364,11 @@ main() {
 
     if ! [[ -f "$VAULT_PASSWORD_FILE" ]]; then
         echo "NO PASSWORD FILE DETECTED!"
-        exit 1
+        echo "[DECRYPT] Initializing password file..."
+        if ! gpg -d --output master_password master_password.gpg 2>/dev/null; then
+            echo "Error: Failed to decrypt vault password file" >&2
+            exit 1
+        fi
     fi
 
     # Detect OS/Distro and execute setups
@@ -387,6 +391,8 @@ main() {
         # echo 'Skipping: Not an Arch-based system... btw'
         echo "Unsupported OS. Exiting..."
     fi
+
+    echo "Run 
 }
 
 main

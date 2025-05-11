@@ -1,3 +1,4 @@
+---
 - name: Kitty | Install kitty in Arch
   community.general.pacman:
     name: kitty
@@ -6,13 +7,21 @@
   # when: ansible_facts['os_family']|lower  == 'archlinux' # can be 'archlinux', 'debian', 'redhat', etc.
   when: machine_os == 'archlinux'
 
-- name: Kiity | Install kitty in Debian
+- name: Kitty | Install kitty in Debian
   ansible.builtin.apt:
     name: kitty
     state: present
   become: true
   # when: ansible_facts['os_family']|lower  == 'debian' # can be 'archlinux', 'debian', 'redhat', etc.
   when: machine_os == 'debian'
+
+- name: Kitty | Install kitty in RedHat
+  ansible.builtin.dnf:
+    name: kitty
+    state: present
+  become: true
+  # when: ansible_facts['os_family']|lower  == 'debian' # can be 'archlinux', 'debian', 'redhat', etc.
+  when: machine_os == 'redhat'
 
 - name: Kitty | Link kitty.conf config
   ansible.builtin.file:

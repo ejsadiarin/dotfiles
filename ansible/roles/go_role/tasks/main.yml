@@ -1,3 +1,4 @@
+---
 - name: Go | Configure install packages for Archlinux
   ansible.builtin.import_tasks: archlinux.yml
   when: machine_os == 'archlinux'

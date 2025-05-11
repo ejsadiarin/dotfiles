@@ -1,3 +1,4 @@
+---
 # - name: Go | Install Go for Debian (Golang)
 #   ansible.builtin.apt:
 #     name: golang

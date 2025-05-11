@@ -1,3 +1,4 @@
+---
 - name: JavaScript/TypeScript | Install JS/TS for Arch
   community.general.pacman:
     name:

@@ -1,19 +1,68 @@
 # Ansible Playbook
 
-`main.yml` - for full dotfiles configuration
-`terminal_only_minimal.yml` - for servers, and machines with no GUI
+`full_config.yml` - for full dotfiles configuration
+`terminal_config.yml` - for servers, and machines with no GUI
 
 
 # Run
 
-- `main.yml` - full dotfiles configuration
+- `full_config.yml` - full dotfiles configuration
+- `terminal_config.yml` - for servers/terminal configuration only
+
+## Run on localhost
+
+- `full_config.yml`:
 ```bash
-ansible-playbook --check --vault-password-file ./master_password --ask-become-pass main.yml
+# run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
+chmod +x ./init_control_node
+./init_control_node
+
+# run full_config playbook
+ansible-playbook --vault-password-file ./master_password --ask-become-pass full_config.yml
+
+# dry-run (optional to test things first)
+ansible-playbook --check --vault-password-file ./master_password --ask-become-pass full_config.yml
 ```
 
-- `terminal_only_minimal.yml` - for servers/terminal configuration only
+- `terminal_config.yml`:
 ```bash
-ansible-playbook --check --vault-password-file ./master_password --ask-become-pass terminal_only_minimal.yml
+# run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
+chmod +x ./init_control_node
+./init_control_node
+
+# run terminal_config playbook
+ansible-playbook --vault-password-file ./master_password --ask-become-pass terminal_config.yml
+
+# dry-run (optional to test things first)
+ansible-playbook --check --vault-password-file ./master_password --ask-become-pass terminal_config.yml
+```
+
+## Run on remotes
+
+- `full_config.yml`:
+```bash
+# run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
+chmod +x ./init_control_node
+./init_control_node
+
+# run full_config playbook
+ansible-playbook --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini full_config.yml
+
+# dry-run (optional to test things first)
+ansible-playbook --check --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini full_config.yml
+```
+
+- `terminal_config.yml`:
+```bash
+# run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
+chmod +x ./init_control_node
+./init_control_node
+
+# run terminal_config playbook
+ansible-playbook --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini terminal_config.yml
+
+# dry-run (optional to test things first)
+ansible-playbook --check --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini terminal_config.yml
 ```
 
 # master_password

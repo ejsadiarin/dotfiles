@@ -1,0 +1,15 @@
+---
+- name: JavaScript/TypeScript | Install JS/TS for RedHat
+  ansible.builtin.dnf:
+    name:
+      - nodejs
+      - pnpm
+      - npm
+    state: present
+  become: true
+
+# - name: JavaScript/TypeScript | Install nvm
+#   ansible.builtin.dnf:
+#     name: nvm
+#     state: present
+#   become: true
