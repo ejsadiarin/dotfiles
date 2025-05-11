@@ -20,7 +20,7 @@
       - pass-otp
       - yq
       - jq
-      - open-iscsi
+      # - open-iscsi
       - tar
       - wget
       # - aria2c
