@@ -80,10 +80,9 @@ if [[ -d "$HOME/.cargo/bin" ]]; then
 fi
 
 # nvm
-if [[ -d "$HOME/.nvm" || -d "$XDG_CONFIG_HOME/.nvm" ]]; then
-    export NVM_DIR="$HOME/.nvm"
-    # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"               # This loads nvm bash_completion
+if [[ -d "$HOME/.nvm" || -d "$XDG_CONFIG_HOME/nvm" ]]; then
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
     alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # fix perf issue
 fi
 
