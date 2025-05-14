@@ -1,0 +1,50 @@
+---
+# NOTE: this playbook only works on fedora/redhat-based distros
+- name: Tailscale Install and Authenticate
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  pre_tasks:
+    - name: Detect OS and put in machine_os variable
+      ansible.builtin.set_fact:
+        machine_os: "{{ ansible_facts['os_family'] | lower }}" # can be 'archlinux', 'debian', 'redhat', etc.
+
+  tasks:
+    - name: Tailscale | Check if Tailscale repository already exists
+      ansible.builtin.stat:
+        path: /etc/yum.repos.d/tailscale.repo
+      register: tailscale_repo
+      become: true
+
+    - name: Tailscale | Enable Tailscale COPR Repository
+      ansible.builtin.get_url:
+        url: https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+        dest: /etc/yum.repos.d/tailscale.repo
+        mode: '0644'
+      become: true
+      when: not tailscale_repo.stat.exists
+
+    - name: Tailscale | Install Tailscale via dnf
+      ansible.builtin.dnf:
+        name: tailscale
+        state: present
+      become: true
+
+    - name: Tailscale | Enable and start Tailscale service
+      ansible.builtin.systemd:
+        name: tailscaled
+        state: started
+        enabled: true
+      become: true
+
+    - name: Tailscale | Check if already authenticated
+      ansible.builtin.command: tailscale status
+      register: tailscale_status
+      changed_when: false
+      failed_when: false
+      become: true
+
+    - name: Tailscale | Connect to Tailscale network
+      ansible.builtin.command: tailscale up
+      become: true
+      when: tailscale_status.rc != 0 or "Logged out." in tailscale_status.stdout

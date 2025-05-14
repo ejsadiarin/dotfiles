@@ -73,6 +73,8 @@
     - iosevka_term_nerd_font
     - lazygit
     - lazydocker
+    - tailscale
+    # - syncthing
     # - jetbrains_mono_nerd_font
     # - python_role
     # - java_role
@@ -101,9 +103,14 @@
       ansible.builtin.debug:
         msg: "To import your private GPG key, run: gpg --import {{ ansible_user_dir }}/.gnupg/private.gpg"
 
-    - name: Post Installation | delete temp private/public gpg keys in .gnupg
+    - name: Post Installation | delete temp private/public gpg keys in .gnupg after importing
       ansible.builtin.debug:
         msg: "Run rm or shred: rm -rf private.gpg public.gpg"
+
+    - name: Post Installation | cleanup master_password
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/dotfiles/ansible/master_password"
+        state: absent
 
     # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
     - name: Optional | Install Java
