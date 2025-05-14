@@ -1,0 +1,21 @@
+# sudo dnf install dnf5-plugins
+# sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
+# sudo dnf install gh --repo gh-cli
+---
+
+- name: gh | install dnf5-plugins
+  ansible.builtin.dnf:
+    name: dnf5-plugins
+    state: present
+  become: true
+
+- name: gh | install dnf5-plugins
+  ansible.builtin.shell: sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
+  become: true
+
+- name: gh | install github-cli
+  ansible.builtin.dnf:
+    name: gh
+    state: present
+    enablerepo: gh-cli
+  become: true

@@ -5,7 +5,8 @@
 #
 # NOTE: THIS IS ONLY TO BE RUN ON THE CONTROL NODE (if configuring on multiple servers/machines/computers)
 
-set -e
+set -euo pipefail
+IFS=$'\n\t'
 
 ##########################
 #   Color Codes (ANSI)   #
@@ -44,18 +45,17 @@ PIN="${RED}\xF0\x9F\x93\x8C${NC}"       # 📌
 CLOCK="${GREEN}\xE2\x8C\x9B${NC}"       # ⌛
 ARROW="${SEA}\xE2\x96\xB6${NC}"         # ▶
 BOOK="${RED}\xF0\x9F\x93\x8B${NC}"      # 📋
-HOT="${ORANGE}\xF0\x9F\x94\xA5${NC}"    # 🔥
+HOT="${YELLOW}\xF0\x9F\x94\xA5${NC}"    # 🔥
 WARNING="${RED}\xF0\x9F\x9A\xA8${NC}"   # 🚨
 RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}" # ∟
 
 #################
 #   VARIABLES   #
 #################
-
 DOTFILES="$HOME/dotfiles"
-RELEASE_FILE="$HOME/dotfiles/.exquisite_release"
-EXQUILOG="$HOME/dotfiles/.exquisite_log"
-VAULT_PASSWORD_FILE="$HOME/dotfiles/ansible/master_password"
+RELEASE_FILE="$DOTFILES/.exquisite_release"
+EXQUILOG="$DOTFILES/.exquisite_log"
+VAULT_PASSWORD_FILE="$DOTFILES/ansible/master_password"
 date_today=$(date +"%Y-%m-%d %H:%M:%S")
 
 # install ansible (add distro-specific conditions)
@@ -82,38 +82,22 @@ write_to_exquilog() {
 }
 
 stdout_msg() {
-    local task_status="${1^^}"
-    local task_name="${LYELLOW}${2,,}${NC}"
-    local status_message="$3"
-
-    if [[ "${task_status}" == "ERROR" ]]; then
-        task_status="${X_MARK} ${LRED}ERROR${NC}"
-        task_name="${RED}$2${NC}"
-        status_message="${RED}$3${NC}"
-    elif [[ "${task_status}" == "WARNING" ]]; then
-        task_status="${WARNING} ${LYELLOW}WARNING${NC}"
-        status_message="${YELLOW}$3${NC}"
-    elif [[ "${task_status}" == "INFO" ]]; then
-        task_status="${PIN} ${LCYAN}INFO${NC}"
-        status_message="${LIGHTGRAY}$3${NC}"
-    elif [[ "${task_status}" == "INSTALLING" ]]; then
-        task_status="${CLOCK} ${LPURPLE}INSTALLING${NC}"
-        status_message="${PURPLE}$3${NC}"
-    elif [[ "${task_status}" == "INSTALLED" ]]; then
-        task_status="${CHECK_MARK} ${LSEA}INSTALLED${NC}"
-        status_message="${SEA}$3${NC}"
-    elif [[ "${task_status}" == "UPDATING" ]]; then
-        task_status="${CLOCK} ${LPURPLE}UPDATING${NC}"
-        status_message="${GREEN}$3${NC}"
-    elif [[ "${task_status}" == "UPDATED" ]]; then
-        task_status="${CHECK_MARK} ${LGREEN}UPDATED${NC}"
-        status_message="${GREEN}$3${NC}"
-    else
-        task_status="${HOT} ${LGREEN}${1^^}${NC}"
-        status_message="${SEA}$3${NC}"
-    fi
-
-    echo -e "${PURPLE}[${NC} ${task_status} - ${task_name} ${PURPLE}]:${NC} ${status_message}"
+  local status="$1" task="$2" msg="$3"
+  case "${status^^}" in
+    ERROR) prefix="${X_MARK} ${RED}ERROR${NORMAL}";
+           ;;  
+    WARNING) prefix="${WARNING} WARNING";
+           ;;  
+    INFO) prefix="${PIN} INFO";
+           ;;  
+    INSTALLING) prefix="${CLOCK} INSTALLING";
+           ;;  
+    INSTALLED) prefix="${CHECK_MARK} INSTALLED";
+           ;;  
+    *) prefix="$status";
+           ;;  
+  esac
+  printf '%s [%s] %s: %s\n' "${BLUE}" "${prefix}" "${task}" "${msg}"; echo -e "${NORMAL}"
 }
 
 # Install system-based dependencies
@@ -460,44 +444,55 @@ fedora_setup() {
         write_to_exquilog "INFO" "fedora-setup" "Update done!"
     fi
 }
-}
 
 main() {
-    # detect host OS (prioritizes os_family than specific 'distro')
-    OS=$(grep "^ID_LIKE=" /etc/os-release | cut -d= -f2 | tr -d '"')
-    if [[ -z "$OS" ]]; then
-        OS=$(grep "^ID=" /etc/os-release | cut -d= -f2 | tr -d '"')
-    fi
+  # load OS info
+  if [[ -f /etc/os-release ]]; then
+    source /etc/os-release
+  else
+    echo "Unsupported OS: /etc/os-release not found." >&2
+    exit 1
+  fi
 
-    if ! [[ -f "$VAULT_PASSWORD_FILE" ]]; then
-        echo "NO PASSWORD FILE DETECTED!"
-        echo "[DECRYPT] Initializing password file..."
-        if ! gpg -d --output master_password master_password.gpg 2>/dev/null; then
-            echo "Error: Failed to decrypt vault password file" >&2
-            exit 1
-        fi
-    fi
+  is_first_run=false
+  if [[ ! -f "$RELEASE_FILE" ]]; then
+    is_first_run=true
+  fi
 
-    # Detect OS/Distro and execute setups
-    if [[ "$OS" == "arch" ]]; then # check_if_arch='cat /etc/os-release | grep -i "arch"'
+  # Dispatch based on ID and ID_LIKE
+  case "$ID" in
+    arch*|manjaro)
+      arch_setup
+      ;;
+    debian|ubuntu|raspbian)
+      debian_setup
+      ;;
+    fedora|rhel)
+      fedora_setup
+      ;;
+    *)
+      # Fallback to ID_LIKE
+      if [[ "$ID_LIKE" =~ arch ]]; then
         arch_setup
-        if [[ ! -f "$RELEASE_FILE" ]]; then
-            touch "$RELEASE_FILE"
-        fi
-    elif [[ "$OS" == "debian" ]]; then
+      elif [[ "$ID_LIKE" =~ debian ]]; then
         debian_setup
-        if [[ ! -f "$RELEASE_FILE" ]]; then
-            touch "$RELEASE_FILE"
-        fi
-    elif [[ "$OS" == "fedora" || "$OS" == "rhel fedora" ]]; then
-        arch_setup
-        if [[ ! -f "$RELEASE_FILE" ]]; then
-            touch "$RELEASE_FILE"
-        fi
-    else
-        # echo 'Skipping: Not an Arch-based system... btw'
-        echo "Unsupported OS. Exiting..."
-    fi
+      elif [[ "$ID_LIKE" =~ fedora|rhel ]]; then
+        fedora_setup
+      else
+        echo "Unsupported OS: $ID (ID_LIKE=$ID_LIKE)" >&2
+        exit 1
+      fi
+      ;;
+  esac
+
+  if $is_first_run; then
+    touch "$RELEASE_FILE"
+    stdout_msg "INFO" "main" "First-run setup complete"
+    write_to_exquilog INFO main "Marked first run complete"
+  else
+    stdout_msg "INFO" "main" "Update-run setup complete"
+    write_to_exquilog INFO main "Marked update run complete"
+  fi
 }
 
-main
+main "$@"

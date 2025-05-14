@@ -66,10 +66,14 @@
     - neovim
     - cron
     - kitty
+    - gh
     - go_role
+    - js_ts_role
     - docker
+    - iosevka_term_nerd_font
+    - lazygit
+    - lazydocker
     # - jetbrains_mono_nerd_font
-    # - js_ts_role
     # - python_role
     # - java_role
     # - csharp_dotnet_role
@@ -82,11 +86,24 @@
         dest: "{{ ansible_user_dir }}/.ideavimrc"
         state: link
 
+    - name: Remove existing .vimrc if have any
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.vimrc"
+        state: absent
+
     - name: Link .vimrc
       ansible.builtin.file:
         src: "{{ ansible_user_dir }}/dotfiles/.vimrc"
         dest: "{{ ansible_user_dir }}/.vimrc"
         state: link
+
+    - name: Post Installation | import gpg private key in .gnupg
+      ansible.builtin.debug:
+        msg: "To import your private GPG key, run: gpg --import {{ ansible_user_dir }}/.gnupg/private.gpg"
+
+    - name: Post Installation | delete temp private/public gpg keys in .gnupg
+      ansible.builtin.debug:
+        msg: "Run rm or shred: rm -rf private.gpg public.gpg"
 
     # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
     - name: Optional | Install Java

@@ -1,0 +1,41 @@
+---
+- name: Iosevka | Ensure curl and unzip are installed
+  ansible.builtin.package:
+    name:
+      - curl
+      - unzip
+    state: present
+  become: true
+
+- name: Iosevka | Create fonts directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: Iosevka | Download Iosevka Term Nerd Font archive
+  ansible.builtin.get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/IosevkaTerm.tar.xz
+    dest: "/tmp/IosevkaTerm.tar.xz"
+    mode: '0644'
+    force: false
+  become: true
+  register: download_result
+
+- name: Iosevka | Unpack Iosevka Term Nerd Font
+  ansible.builtin.unarchive:
+    src: "/tmp/IosevkaTerm.tar.xz"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+    extra_opts: ["-o"]
+    remote_src: true
+  become: true
+  when: download_result is changed
+  notify: Refresh font cache
+
+- name: Iosevka | Remove downloaded archive
+  ansible.builtin.file:
+    path: "/tmp/IosevkaTerm.tar.xz"
+    state: absent
+  become: true
+  when: download_result is changed

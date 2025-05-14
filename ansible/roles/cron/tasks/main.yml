@@ -19,7 +19,6 @@
   become: true
   when: machine_os == 'redhat'
 
-
 # - name: Cron | Activate cronjobs (crontab)
 #   ansible.builtin.cron:
 #     name: cronie
@@ -28,7 +27,7 @@
 
 - name: Cron | Start and Enable cronie service
   ansible.builtin.systemd:
-    name: cronie
+    name: crond
     enabled: true
     state: started
   become: true

@@ -3,6 +3,7 @@
   community.general.pacman:
     name: neovim
     state: absent
+  become: true
 
 - name: Neovim | Make sure 'dependencies' are installed
   community.general.pacman:

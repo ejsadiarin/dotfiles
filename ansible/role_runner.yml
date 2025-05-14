@@ -1,0 +1,32 @@
+---
+# for roles to run individually, etc.
+# Run with: ansible-playbook --ask-become-pass role_runner.yml
+- name: Role Runner
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  pre_tasks:
+    - name: Detect OS and put in machine_os variable
+      ansible.builtin.set_fact:
+        machine_os: "{{ ansible_facts['os_family'] | lower }}" # can be 'archlinux', 'debian', 'redhat', etc.
+
+  # you can add roles to run here
+  roles:
+    - iosevka_term_nerd_font
+    - lazygit
+    - lazydocker
+    - js_ts_role
+
+  # tasks:
+  #   - name: Link .ideavimrc
+  #     ansible.builtin.file:
+  #       src: "{{ ansible_user_dir }}/dotfiles/.ideavimrc"
+  #       dest: "{{ ansible_user_dir }}/.ideavimrc"
+  #       state: link
+  #
+  #   - name: Link .vimrc
+  #     ansible.builtin.file:
+  #       src: "{{ ansible_user_dir }}/dotfiles/.vimrc"
+  #       dest: "{{ ansible_user_dir }}/.vimrc"
+  #       state: link

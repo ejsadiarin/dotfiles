@@ -1,20 +1,25 @@
-- name: LazyGit | Install LazyGit via go install (Debian)
+---
+- name: LazyGit | Install LazyGit via go install for debian
   ansible.builtin.shell: "go install github.com/jesseduffield/lazygit@latest"
   when: machine_os == 'debian'
-  
-- name: LazyGit | Install LazyGit (Archlinux)
-  community.general.pacman: 
+
+- name: LazyGit | Install LazyGit for archlinux
+  community.general.pacman:
     name: lazygit
     state: present
   become: true
   when: machine_os == 'archlinux'
-  
-  # TODO: make it "ansible-y": sudo dnf copr enable atim/lazygit -y
-- name: LazyGit | Add LazyGit repo via copr (RedHat)
-  ansible.builtin.shell: "sudo dnf copr enable atim/lazygit -y"
 
-- name: LazyGit | Install LazyGit via go install (RedHat)
-  ansible.builtin.dnf: 
+- name: LazyGit | Add LazyGit repo via copr for redhat
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: atim/lazygit
+    state: enabled
+  become: true
+  when: machine_os == 'redhat'
+
+- name: LazyGit | Install LazyGit for redhat
+  ansible.builtin.dnf:
     name: lazygit
     state: present
   become: true

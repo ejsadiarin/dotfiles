@@ -8,8 +8,9 @@
     state: present
   become: true
 
-- name: JavaScript/TypeScript | Install nvm
-  kewlfft.aur.aur:
-    name: nvm
-    state: present
-  become: true
+# - name: JavaScript/TypeScript | Install nvm
+#   kewlfft.aur.aur:
+#     name: nvm
+#     state: present
+#   become: true
+#   when: machine_os == 'archlinux'

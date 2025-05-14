@@ -30,7 +30,7 @@
       - cryptsetup
       - cronie
       - openssh-server
-      - delta
+      # - delta
       - bat
       - tcpdump
       - psutils

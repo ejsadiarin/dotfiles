@@ -3,8 +3,9 @@
   ansible.builtin.dnf:
     name: neovim
     state: absent
+  become: true
 
-- name: Neovim | Make sure 'dependencies' are installed
+- name: Neovim | Make sure dependencies are installed
   ansible.builtin.dnf:
     name:
       # make sure 'dependencies' are installed
@@ -12,14 +13,13 @@
       - make
       - git
       - ripgrep
-      - fd
+      - fd-find
       - unzip
-      - lua5.4
+      - lua
       - luarocks
-      - lua-5.1
+      - lua5.1
       - python3-pip
     state: present
-    extra_args: --noconfirm
   become: true
 
 - name: Neovim | Install COPR dependencies
@@ -29,10 +29,12 @@
   become: true
 
 - name: Neovim | Enable agriffis/neovim-nightly COPR repository
-  ansible.builtin.command: dnf copr enable -y agriffis/neovim-nightly
+  community.general.copr:
+    name: agriffis/neovim-nightly
+    state: enabled
   become: true
   register: copr_result
-  changed_when: "'already enabled' not in copr_result.stdout"
+  changed_when: copr_result is changed
 
 - name: Neovim | Clean and refresh DNF cache
   ansible.builtin.dnf:

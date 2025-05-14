@@ -24,5 +24,6 @@
 - name: NetworkManager | Start service
   ansible.builtin.systemd:
     name: NetworkManager.service
-    state: started
     enabled: true
+    state: started
+  become: true

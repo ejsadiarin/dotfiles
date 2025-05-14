@@ -1,0 +1,57 @@
+---
+- name: Install dnf-plugins-core
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+    state: present
+  become: true
+
+- name: Add Docker CE repository
+  ansible.builtin.shell: sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+- name: Install Docker packages
+  ansible.builtin.dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+  become: true
+
+- name: Docker | Create docker group # sudo groupadd docker
+  ansible.builtin.group:
+    name: docker
+    state: present
+  become: true
+
+- name: Docker | Add user to the Docker group # sudo usermod -aG docker $USER
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: true
+  become: true
+
+- name: Docker | Copy daemon.json # copy daemon.json
+  ansible.builtin.copy:
+    src: templates/daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0644' # -rw-r--r-
+  become: true
+
+- name: Docker | Start Docker daemon # start/enable systemd docker.service
+  ansible.builtin.systemd:
+    name: docker.service
+    enabled: true
+    state: started
+  become: true
+
+- name: Docker | Start containerd # start/enable systemd containerd.service
+  ansible.builtin.systemd:
+    name: containerd.service
+    enabled: true
+    state: started
+  become: true
