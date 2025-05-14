@@ -15,33 +15,62 @@
 
 # Installation
 
+## Fast Install via symlinks
+
 * `fast-install` - git pulls (recursively) and symlinks necessary configs only
 ```bash
 chmod +x fast-install
 ./fast-install
 ```
 
+## Ansible-based Installation (Recommended for complete installation for all Linux Distros)
+
 * via `ansible` - a more complete installation that includes installing packages, etc. 
 
 > [!IMPORTANT]
-> You must have `ansible` installed on your machine first
+> You must have `ansible` installed on your machine first and the necessary collections (see below steps)
 
-- install full-config
+1. Install ansible using your package manager
+
+```bash
+# example for fedora/redhat (dnf)
+sudo dnf install ansible
+```
+
+2. Install the necessary collections
+
+```bash
+ansible-galaxy collection install -r ./ansible/collection/requirements.yml
+```
+
+3. Pick installation (`full-config` or `terminal-config` only)
+
+> [!NOTE]
+> add `--check` flag in the `ansible-playbook ...` command for dry run to see what will be installed
+
+- install `full-config.yml`
+
 ```bash
 gpg -d ./ansible/master_password.gpg > ./ansible/master_password
 ansible-playbook --vault-password-file ./ansible/master_password --ask-become-pass ./ansible/full-config.yml
 rm -f ./ansible/master_password
 ```
 
-> [!NOTE]
-> add `--check` flag in the `ansible-playbook ...` command for dry run to see what will be installed
+- install `terminal-config.yml` (for servers/terminal configs install only)
 
-- install terminal-config.yml (for servers/terminal configs install only)
 ```bash
 gpg -d ./ansible/master_password.gpg > ./ansible/master_password
 ansible-playbook --vault-password-file ./ansible/master_password --ask-become-pass ./ansible/terminal_config.yml
 rm -f ./ansible/master_password
 ```
+
+4. see [Post Installation section]() for other installation configs, etc.
+- importing gpg keys, trust keys, and cleanups
+- zsh, nvim, tmux plugin installations
+- `.password-store` import
+- nvim `Copilot auth`
+- syncthing 
+- tailscale
 
 ### Details
 
@@ -50,8 +79,8 @@ rm -f ./ansible/master_password
 
 ### Ansible (Personal Guide)
 
-- decrypt file > decrypted_mp ([see ansible README](./ansible/README.md))
-- run `devinit`
+- decrypt file > master_password ([see ansible README](./ansible/README.md))
+- run `init_control_node`
 
 #### !! WARNING: If you want to go this route, carefully see the steps below:
 
