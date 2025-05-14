@@ -1,0 +1,12 @@
+---
+- name: Install dotnet
+  hosts: localhost
+  become: false
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  tasks:
+    - name: Change default user shell to zsh
+      become: true
+      ansible.builtin.user:
+        name: "{{ the_user }}"
+        shell: /bin/zsh

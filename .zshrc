@@ -12,6 +12,7 @@ fi
 
 export VISUAL="nvim"
 export BROWSER='firefox'
+export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export GPG_TTY=$(tty)
 export EDITOR='nvim'

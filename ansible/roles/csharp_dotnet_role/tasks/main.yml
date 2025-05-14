@@ -1,4 +1,5 @@
-- name: Development (Arch) | Install CSharp/Dotnet
+---
+- name: Development | Install Dotnet (Arch)
   community.general.pacman:
     name:
       - dotnet-runtime
@@ -10,17 +11,24 @@
 
 - name: Development (Debian) | Get deb packages
   ansible.builtin.shell: >
-    wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-    sudo dpkg -i packages-microsoft-prod.deb
-    rm packages-microsoft-prod.deb
+    wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb sudo dpkg -i packages-microsoft-prod.deb rm packages-microsoft-prod.deb
   become: true
   when: machine_os == 'debian'
 
-- name: Development (Debian) | Install CSharp/Dotnet
+- name: Development | Install Dotnet (Debian)
   ansible.builtin.apt:
     name:
-      - dotnet-sdk-8.0
-      - aspnetcore-runtime-8.0
+      - dotnet-sdk-9.0
+      - aspnetcore-runtime-9.0
     state: present
   become: true
   when: machine_os == 'debian'
+
+- name: Development | Install Dotnet (RedHat)
+  ansible.builtin.dft:
+    name:
+      - dotnet-sdk-9.0
+      - aspnetcore-runtime-9.0
+    state: present
+  become: true
+  when: machine_os == 'redhat'

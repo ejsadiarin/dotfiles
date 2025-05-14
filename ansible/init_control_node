@@ -350,9 +350,116 @@ debian_setup() {
     write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
 }
 
-# see the thingy thingy repo
 fedora_setup() {
-    # detect host OS (prioritizes os_family than specific 'distro')
+    stdout_msg "START" "fedora-setup" "Running Fedora setup"
+    write_to_exquilog "INFO" "fedora-setup" "Initiate Fedora setup"
+
+    if [[ ! -f $RELEASE_FILE ]]; then
+        stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
+        write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."
+
+        # --- Install operations for first run ----
+
+        # install ansible
+        if command -v ansible >/dev/null 2>&1; then
+            stdout_msg "INFO" "ansible" "Ansible is already installed."
+            write_to_exquilog "INFO" "ansible" "Ansible is already installed."
+        else
+            stdout_msg "INSTALLING" "ansible" "Installing ansible..."
+            write_to_exquilog "INFO" "ansible" "Installing ansible..."
+            {
+                sudo dnf install -y ansible
+                stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
+                write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
+            } || {
+                stdout_msg "ERROR" "ansible" "Failed to install ansible. Skipping..."
+                write_to_exquilog "ERROR" "ansible" "Failed to install ansible. Need to install manually."
+            }
+        fi
+
+        # install python, pip deps
+        if rpm -q python3 >/dev/null 2>&1; then
+            local version=""
+            version=$(python3 --version) || {
+                version=$(python --version) || version=$(python2 --version) # fallback
+            }
+            stdout_msg "INFO" "python" "Python (ver: ${version}) is already installed."
+            write_to_exquilog "INFO" "python" "Python (ver: ${version}) is already installed."
+        else
+            stdout_msg "INSTALLING" "python" "Installing python..."
+            write_to_exquilog "INFO" "python" "Installing python..."
+            {
+                sudo dnf install -y python3
+                stdout_msg "INSTALLED" "python" "Python is now installed!"
+                write_to_exquilog "INFO" "python" "Python is now installed!"
+            } || {
+                stdout_msg "ERROR" "python" "Failed to install python. Skipping..."
+                write_to_exquilog "ERROR" "python" "Failed to install python."
+            }
+            stdout_msg "INSTALLING" "python" "Installing python-pip..."
+            write_to_exquilog "INFO" "python-pip" "Installing python-pip..."
+            {
+                sudo dnf install -y python3-pip
+                stdout_msg "INSTALLED" "python-pip" "Python-pip is now installed!"
+                write_to_exquilog "INFO" "python-pip" "Python-pip is now installed!"
+            } || {
+                stdout_msg "ERROR" "python-pip" "Failed to install python-pip. Skipping..."
+                write_to_exquilog "ERROR" "python-pip" "Failed to install python-pip."
+            }
+        fi
+
+        # install openssh (most likely installed already but why not ensure it)
+        if rpm -q openssh-server >/dev/null 2>&1; then
+            stdout_msg "INFO" "openssh" "OpenSSH server is already installed."
+            write_to_exquilog "INFO" "openssh" "OpenSSH server is already installed."
+        else
+            stdout_msg "INSTALLING" "openssh" "Installing openssh-server..."
+            write_to_exquilog "INFO" "openssh" "Installing openssh-server..."
+            {
+                sudo dnf install -y openssh-server
+                stdout_msg "INSTALLED" "openssh" "OpenSSH server is now installed!"
+                write_to_exquilog "INFO" "openssh" "OpenSSH server is now installed!"
+            } || {
+                stdout_msg "ERROR" "openssh" "Failed to install openssh-server. Skipping..."
+                write_to_exquilog "ERROR" "openssh" "Failed to install openssh-server."
+            }
+        fi
+
+        # install necessary ansible-galaxy collections
+        stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
+        write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
+        {
+            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
+            write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
+        } || {
+            stdout_msg "ERROR" "ansible-galaxy" "Failed to install collections. Install manually."
+            write_to_exquilog "ERROR" "ansible-galaxy" "Failed to install collections."
+        }
+
+        # do not automate enabling sshd to avoid unwanted opened services since it is optional
+        stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
+
+        stdout_msg "INFO" "fedora-setup" "Setup done! [$date_today]"
+        write_to_exquilog "INFO" "fedora-setup" "Setup done!"
+    else
+        # --- Update operations for subsequent runs ----
+
+        # update ansible-galaxy collections
+        stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
+        write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
+        {
+            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
+            write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
+        } || {
+            stdout_msg "ERROR" "ansible-galaxy" "Failed to update collections. Update manually."
+            write_to_exquilog "ERROR" "ansible-galaxy" "Failed to update collections."
+        }
+        stdout_msg "INFO" "fedora-setup" "Update done! [$date_today]"
+        write_to_exquilog "INFO" "fedora-setup" "Update done!"
+    fi
+}
 }
 
 main() {
@@ -382,11 +489,11 @@ main() {
         if [[ ! -f "$RELEASE_FILE" ]]; then
             touch "$RELEASE_FILE"
         fi
-        # elif [[ "$OS" == "fedora" ]]; then
-        #   arch_setup
-        #   if [[ ! -f "$RELEASE_FILE" ]]; then
-        #     touch "$RELEASE_FILE"
-        #   fi
+    elif [[ "$OS" == "fedora" || "$OS" == "rhel fedora" ]]; then
+        arch_setup
+        if [[ ! -f "$RELEASE_FILE" ]]; then
+            touch "$RELEASE_FILE"
+        fi
     else
         # echo 'Skipping: Not an Arch-based system... btw'
         echo "Unsupported OS. Exiting..."
