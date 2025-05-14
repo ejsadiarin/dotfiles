@@ -13,10 +13,7 @@
 
   # you can add roles to run here
   roles:
-    - iosevka_term_nerd_font
-    - lazygit
-    - lazydocker
-    - js_ts_role
+    - tailscale
 
   # tasks:
   #   - name: Link .ideavimrc
