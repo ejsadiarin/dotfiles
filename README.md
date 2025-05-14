@@ -22,8 +22,25 @@ chmod +x fast-install
 ```
 
 * via `ansible` - a more complete installation that includes installing packages, etc. 
+
+> [!IMPORTANT]
+> You must have `ansible` installed on your machine first
+
+- install full-config
 ```bash
-# TODO: this ansible installation docs
+gpg -d ./ansible/master_password.gpg > ./ansible/master_password
+ansible-playbook --vault-password-file ./ansible/master_password --ask-become-pass ./ansible/full-config.yml
+rm -f ./ansible/master_password
+```
+
+> [!NOTE]
+> add `--check` flag in the `ansible-playbook ...` command for dry run to see what will be installed
+
+- install terminal-config.yml (for servers/terminal configs install only)
+```bash
+gpg -d ./ansible/master_password.gpg > ./ansible/master_password
+ansible-playbook --vault-password-file ./ansible/master_password --ask-become-pass ./ansible/terminal_config.yml
+rm -f ./ansible/master_password
 ```
 
 ### Details
