@@ -1,7 +1,4 @@
 ---
-- name: Syncthing (Fedora) | install syncthing via dnf
-  ansible.builtin.dnf:
-    name: syncthing
-    state: present
-  become: true
+- name: Syncthing | install in redhat
+  ansible.builtin.import_tasks: redhat.yml
   when: machine_os == "redhat"

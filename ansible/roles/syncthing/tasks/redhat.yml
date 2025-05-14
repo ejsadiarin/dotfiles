@@ -1,0 +1,32 @@
+---
+- name: Syncthing | install syncthing via dnf
+  ansible.builtin.dnf:
+    name: syncthing
+    state: present
+  become: true
+
+- name: Syncthing | start and enable via systemd # sudo systemctl enable --now syncthing@$USER.service
+  ansible.builtin.systemd:
+    name: "syncthing@{{ ansible_user_id }}.service"
+    state: started
+    enabled: true
+  become: true
+
+- name: Syncthing | ensure syncthing config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/syncthing"
+    state: directory
+    mode: '0700'
+  when: machine_os == "redhat"
+
+- name: Syncthing | open firewall ports for syncthing
+  ansible.builtin.firewalld:
+    port: "{{ item }}"
+    permanent: true
+    state: enabled
+  become: true
+  with_items:
+    - "22000/tcp" # File transfer port
+    - "21027/udp" # Discovery port
+  when: machine_os == "redhat" and ansible_distribution_major_version|int >= 7
+  notify: restart firewalld

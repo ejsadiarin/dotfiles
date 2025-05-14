@@ -74,7 +74,8 @@
     - lazygit
     - lazydocker
     - tailscale
-    # - syncthing
+    - syncthing
+    # - zoom
     # - jetbrains_mono_nerd_font
     # - python_role
     # - java_role
@@ -111,6 +112,22 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/dotfiles/ansible/master_password"
         state: absent
+
+    - name: Post Installation | Tailscale
+      ansible.builtin.debug:
+        msg: "Run: `sudo tailscale up` --> to authenticate to tailscale"
+
+    - name: Post Installation | Syncthing
+      ansible.builtin.debug:
+        msg: "Access localhost:8384 for the syncthing dashboard and add/share devices/folders as needed and/or desired"
+
+    - name: Post Installation | zsh, tmux, nvim
+      ansible.builtin.debug:
+        msg: "see ansible/README.md for more details"
+
+    - name: Post Installation | extras installation via ansible
+      ansible.builtin.debug:
+        msg: "packet-tracer, discord, spotify (flatpak), zoom (wget https://zoom.us/client/latest/zoom_x86_64.rpm), sober (roblox), minecraft launcher, obsidian (flatpak), dbeaver (flatpak) etc."
 
     # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
     - name: Optional | Install Java
