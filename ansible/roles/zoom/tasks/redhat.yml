@@ -11,3 +11,8 @@
     state: present
     disable_gpg_check: true
   become: true
+
+- name: Zoom | install zoom via dnf
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/Downloads/zoom_x86_64.rpm"
+    state: absent
