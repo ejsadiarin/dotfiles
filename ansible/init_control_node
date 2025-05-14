@@ -1,4 +1,4 @@
-#!/usr/env/bin bash
+#!/usr/bin/env bash
 
 # Initialization Script for dotfiles
 # Author: Ej Sadiarin github.com/ejsadiarin
@@ -391,8 +391,6 @@ main() {
         # echo 'Skipping: Not an Arch-based system... btw'
         echo "Unsupported OS. Exiting..."
     fi
-
-    echo "Run 
 }
 
 main
