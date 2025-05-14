@@ -1,0 +1,13 @@
+---
+- name: Zoom | get latest zoom rpm package
+  ansible.builtin.get_url:
+    url: https://zoom.us/client/latest/zoom_x86_64.rpm
+    dest: "{{ ansible_env.HOME }}/Downloads/zoom_x86_64.rpm"
+    mode: '0644'
+
+- name: Zoom | install zoom via dnf
+  ansible.builtin.dnf:
+    name: "{{ ansible_env.HOME }}/Downloads/zoom_x86_64.rpm"
+    state: present
+    disable_gpg_check: true
+  become: true

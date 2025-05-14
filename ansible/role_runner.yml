@@ -13,7 +13,7 @@
 
   # you can add roles to run here
   roles:
-    - tailscale
+    - zoom
 
   # tasks:
   #   - name: Link .ideavimrc
