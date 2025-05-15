@@ -127,15 +127,4 @@
 
     - name: Post Installation | extras installation via ansible
       ansible.builtin.debug:
-        msg: "packet-tracer, discord, spotify (flatpak), zoom (wget https://zoom.us/client/latest/zoom_x86_64.rpm), sober (roblox), minecraft launcher, obsidian (flatpak), dbeaver (flatpak) etc."
-
-    # NOTE: Below are tasks/roles made optional, see group_vars/all.yml
-    - name: Optional | Install Java
-      ansible.builtin.include_role:
-        name: java_role
-      when: wants_java # defaults to false
-
-    - name: Optional | Install C#/Dotnet
-      ansible.builtin.include_role:
-        name: csharp_dotnet_role
-      when: wants_csharp_dotnet # defaults to false
+        msg: "packet-tracer (via packettracer-fedora script and editing /usr/share/applications/cisco-pt821.desktop), wireshark (dnf), discord, spotify (flatpak), zoom (wget https://zoom.us/client/latest/zoom_x86_64.rpm), sober (roblox), minecraft launcher, obsidian (flatpak), dbeaver (flatpak) etc."
