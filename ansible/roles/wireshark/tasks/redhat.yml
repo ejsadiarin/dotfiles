@@ -1,0 +1,31 @@
+---
+- name: Wireshark | install via dnf
+  ansible.builtin.dnf:
+    name: wireshark
+    state: present
+  become: true
+
+- name: Wireshark | create wireshark group if it doesn't exist # sudo groupadd wireshark
+  ansible.builtin.group:
+    name: wireshark
+    state: present
+  become: true
+
+- name: Wireshark | add current user to wireshark group # sudo usermod -aG wireshark $USER
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: wireshark
+    append: true
+  become: true
+
+- name: Wireshark | grant dumpcat capabilities # sudo setcap cap_net_raw,cap_net_admin+eip $(which dumpcap)
+  ansible.builtin.command: setcap cap_net_raw,cap_net_admin+eip /usr/bin/dumpcap
+  become: true
+  register: setcap_result
+  changed_when: setcap_result.rc == 0
+  failed_when: setcap_result.rc != 0
+
+- name: Wireshark | refresh session msg for group changes
+  ansible.builtin.debug:
+    msg: "Group changes will take effect on next user login. No session refresh needed for Ansible automation."
+  changed_when: false

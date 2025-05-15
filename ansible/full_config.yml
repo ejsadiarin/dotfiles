@@ -75,7 +75,11 @@
     - lazydocker
     - tailscale
     - syncthing
+    # - git_lfs
     # - zoom
+    # - discord
+    # - spotify_flatpak
+    # - obsidian_flatpak
     # - jetbrains_mono_nerd_font
     # - python_role
     # - java_role
@@ -127,4 +131,8 @@
 
     - name: Post Installation | extras installation via ansible
       ansible.builtin.debug:
-        msg: "packet-tracer (via packettracer-fedora script and editing /usr/share/applications/cisco-pt821.desktop), wireshark (dnf), discord, spotify (flatpak), zoom (wget https://zoom.us/client/latest/zoom_x86_64.rpm), sober (roblox), minecraft launcher, obsidian (flatpak), dbeaver (flatpak) etc."
+        msg: "packet-tracer (via packettracer-fedora script and editing /usr/share/applications/cisco-pt821.desktop), discord, spotify (flatpak), minecraft launcher, obsidian (flatpak), dbeaver (flatpak) etc."
+
+    - name: Post Installation | Wireshark
+      ansible.builtin.debug:
+        msg: "Group changes will take effect on next user login. No session refresh needed for Ansible automation."

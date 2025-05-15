@@ -1,0 +1,20 @@
+---
+- name: Git | Check if Git LFS is installed
+  ansible.builtin.command: git lfs version
+  register: git_lfs_check
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Git | Install Git LFS
+  ansible.builtin.package:
+    name: git-lfs
+    state: present
+  when: git_lfs_check.rc != 0
+  become: true
+
+- name: Git | Initialize Git LFS
+  ansible.builtin.command: git lfs install
+  register: git_lfs_init
+  changed_when: git_lfs_init.rc == 0
+  when: git_lfs_check.rc != 0

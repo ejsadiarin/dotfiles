@@ -1,0 +1,4 @@
+---
+- name: Wireshark | install on fedora/redhat
+  ansible.builtin.import_tasks: redhat.yml
+  when: machine_os == 'redhat'
