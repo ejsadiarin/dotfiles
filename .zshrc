@@ -371,11 +371,11 @@ fi
 #          DEVOPS            #
 ##############################
 
-if [[ -f "/usr/local/bin/kubectl" && -f "/usr/local/bin/k3s" ]]; then
+if [[ -f "/usr/local/bin/kubectl" || -f "/usr/bin/kubectl" || -f "/usr/local/bin/k3s" ]]; then
     # kubectl completions
     source "$HOME/dotfiles/config/zsh/kubectl-completion.zsh"
     # source <(kubectl completion zsh)
-    export KUBECONFIG="$HOME/.kube/config"
+    export KUBECONFIG="$HOME/.kube/configs/leap25-config"
     alias k="kubectl"
     alias kx="kubectx"
     alias kn="kubens"
