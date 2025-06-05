@@ -1,0 +1,5 @@
+# should install ff ((binary/client-only, not server, e.g. postgres-server):
+# - postgresql
+# - mysql
+# - redis/valkey (dnf) or redis-cli
+# - sqlite
