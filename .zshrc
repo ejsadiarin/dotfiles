@@ -359,12 +359,12 @@ fi
 ##############################
 #         API KEYS           #
 ##############################
-current_dir=$(basename "$(pwd)")
-if [[ $current_dir == "nvim" ]] then
-    export OPENAI_API_KEY=$(pass show keys/openai | head -n 1)
-    export DEEPSEEK_API_KEY=$(pass show keys/deepseek | head -n 1)
-    export ANTHROPIC_API_KEY=$(pass show keys/anthropic | head -n 1)
-fi
+# current_dir=$(basename "$(pwd)")
+# if [[ $current_dir == "nvim" ]] then
+#     export OPENAI_API_KEY=$(pass show keys/openai | head -n 1)
+#     export DEEPSEEK_API_KEY=$(pass show keys/deepseek | head -n 1)
+#     export ANTHROPIC_API_KEY=$(pass show keys/anthropic | head -n 1)
+# fi
 
 
 ##############################
