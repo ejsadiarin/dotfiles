@@ -1,5 +1,30 @@
+---
 # should install ff ((binary/client-only, not server, e.g. postgres-server):
 # - postgresql
 # - mysql
 # - redis/valkey (dnf) or redis-cli
 # - sqlite
+
+- name: Data Engineering | Install python, pip, uv,
+  ansible.builtin.dnf:
+    name:
+      - uv
+      - python
+      - pip
+  become: true
+
+- name: Data Engineering | Install database binaries for vim-dadbod
+  ansible.builtin.dnf:
+    name:
+      - pgcli # postgresql
+      - mysql
+      - sqlite
+  become: true
+
+# - name:
+#   ansible.builtin.dnf:
+#     name:
+#       - postgresql
+#       - mysql
+#       - sqlite
+#   become: true

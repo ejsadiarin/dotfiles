@@ -430,7 +430,12 @@ _cli_zsh_autocomplete() {
 
 compdef _cli_zsh_autocomplete k3s
 
-
+##############################
+#      DATA ENGINEERING      #
+##############################
+# uv
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
 
 
 # if on MacOS uncomment: for homebrew installed apps available on PATH 
