@@ -6,7 +6,15 @@
   become: true
 
 - name: Add Docker CE repository
-  ansible.builtin.shell: sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  # ansible.builtin.shell: sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  ansible.builtin.yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable - $basearch
+    baseurl: https://download.docker.com/linux/fedora/$releasever/$basearch/stable
+    enabled: true
+    gpgcheck: true
+    gpgkey: https://download.docker.com/linux/fedora/gpg
+  become: true
 
 - name: Install Docker packages
   ansible.builtin.dnf:

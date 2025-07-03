@@ -6,8 +6,8 @@
 # NOTE: playbooks dir are just optional/separate things and are NOT RUN/INCLUDED when running this main playbook
 
 - name: Exquisite Dotfiles Configuration
-  hosts: localhost # if have multiple hosts on hosts.ini file then: 'all', 'linux', 'webservers', etc.
-  connection: local
+  hosts: "{{ target_hosts | default('localhost') }}" # if have multiple hosts on hosts.ini file then: 'all', 'linux', 'webservers', etc.
+  connection: "{{ target_connection | default('local') }}"
   gather_facts: true
 
   pre_tasks:

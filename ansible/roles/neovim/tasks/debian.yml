@@ -23,12 +23,18 @@
     state: present
   become: true
 
-# TODO: test on "true debian" since add-apt-repository might not work
+- name: Neovim | Check for add-apt-repository
+  ansible.builtin.command: which add-apt-repository
+  register: add_apt_repo_check
+  ignore_errors: true
+  changed_when: false
+
 - name: Neovim | Add unstable ppa
   ansible.builtin.apt_repository:
     repo: ppa:neovim-ppa/unstable
     state: present
   become: true
+  when: add_apt_repo_check.rc == 0
 
 - name: Neovim | Update sources list
   ansible.builtin.apt:

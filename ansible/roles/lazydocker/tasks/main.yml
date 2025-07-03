@@ -8,7 +8,7 @@
   #   use: paru
   #   name: lazydocker
   community.general.pacman:
-    name: lazygit
+    name: lazydocker
     state: present
   become: true
   when: machine_os == 'archlinux'

@@ -5,12 +5,21 @@
 #     state: present
 #   become: true
 
+- name: Go | Get latest Go version
+  ansible.builtin.uri:
+    url: https://go.dev/VERSION?m=text
+    return_content: yes
+  register: go_latest_version
+
+- name: Go | Set Go version fact
+  ansible.builtin.set_fact:
+    go_version: "{{ go_latest_version.content.split('\n')[0] }}"
+
 - name: Go | Get go tarball
   ansible.builtin.get_url:
-    url: https://go.dev/dl/go1.23.4.linux-amd64.tar.gz
-    # url: https://go.dev/dl/go@latest.linux-amd64.tar.gz
-    dest: "{{ ansible_user_dir }}/Downloads/go1.23.4.linux-amd64.tar.gz"
-    checksum: sha256:6924efde5de86fe277676e929dc9917d466efa02fb934197bc2eba35d5680971
+    url: "https://go.dev/dl/{{ go_version }}.linux-amd64.tar.gz"
+    dest: "{{ ansible_user_dir }}/Downloads/{{ go_version }}.linux-amd64.tar.gz"
+    checksum: "sha256:{{ lookup('url', 'https://go.dev/dl/{{ go_version }}.linux-amd64.tar.gz.sha256') }}"
 
 - name: Go | Ensure no previous installation
   ansible.builtin.file:
@@ -19,7 +28,7 @@
 
 - name: Go | Install go
   ansible.builtin.unarchive:
-    src: "{{ ansible_user_dir }}/Downloads/go1.23.4.linux-amd64.tar.gz"
+    src: "{{ ansible_user_dir }}/Downloads/{{ go_version }}.linux-amd64.tar.gz"
     dest: /usr/local
   become: true
 

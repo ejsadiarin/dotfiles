@@ -32,6 +32,12 @@
     dest: "{{ ansible_user_dir }}/.zshrc"
     state: link
 
+- name: Zsh | Ensure .config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config"
+    state: directory
+    mode: "0755"
+
 - name: Zsh | Remove existing ~/.config/zsh if there is
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/zsh"

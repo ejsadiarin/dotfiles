@@ -14,9 +14,19 @@
     mode: '0755'
   become: true
 
+- name: Iosevka | Get latest Iosevka release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest
+    return_content: yes
+  register: iosevka_latest_release
+
+- name: Iosevka | Set Iosevka version fact
+  ansible.builtin.set_fact:
+    iosevka_version: "{{ iosevka_latest_release.json.tag_name }}"
+
 - name: Iosevka | Download Iosevka Term Nerd Font archive
   ansible.builtin.get_url:
-    url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/IosevkaTerm.tar.xz
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ iosevka_version }}/IosevkaTerm.tar.xz"
     dest: "/tmp/IosevkaTerm.tar.xz"
     mode: '0644'
     force: false

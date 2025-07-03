@@ -2,8 +2,8 @@
 # for roles to run individually, etc.
 # Run with: ansible-playbook --ask-become-pass role_runner.yml
 - name: Role Runner
-  hosts: localhost
-  connection: local
+  hosts: "{{ target_hosts | default('localhost') }}"
+  connection: "{{ target_connection | default('local') }}"
   gather_facts: true
 
   pre_tasks:

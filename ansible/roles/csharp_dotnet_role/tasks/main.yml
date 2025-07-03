@@ -18,17 +18,17 @@
 - name: Development | Install Dotnet (Debian)
   ansible.builtin.apt:
     name:
-      - dotnet-sdk-9.0
-      - aspnetcore-runtime-9.0
+      - dotnet-sdk
+      - aspnetcore-runtime
     state: present
   become: true
   when: machine_os == 'debian'
 
 - name: Development | Install Dotnet (RedHat)
-  ansible.builtin.dft:
+  ansible.builtin.dnf:
     name:
-      - dotnet-sdk-9.0
-      - aspnetcore-runtime-9.0
+      - dotnet-sdk-8.0
+      - aspnetcore-runtime-8.0
     state: present
   become: true
   when: machine_os == 'redhat'

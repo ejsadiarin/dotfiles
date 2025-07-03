@@ -19,7 +19,7 @@
   become: true
 
 - name: Wireshark | grant dumpcat capabilities # sudo setcap cap_net_raw,cap_net_admin+eip $(which dumpcap)
-  ansible.builtin.command: setcap cap_net_raw,cap_net_admin+eip /usr/bin/dumpcap
+  ansible.builtin.command: setcap cap_net_raw,cap_net_admin+eip $(which dumpcap)
   become: true
   register: setcap_result
   changed_when: setcap_result.rc == 0

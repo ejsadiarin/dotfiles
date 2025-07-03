@@ -5,8 +5,13 @@
 #
 # NOTE: THIS IS ONLY TO BE RUN ON THE CONTROL NODE (if configuring on multiple servers/machines/computers)
 
+if [ ! -f "./ansible.cfg" ]; then
+    echo "Please run this script from the root of the ansible directory."
+    exit 1
+fi
+
 set -euo pipefail
-IFS=$'\n\t'
+IFS=
 
 ##########################
 #   Color Codes (ANSI)   #
@@ -82,22 +87,29 @@ write_to_exquilog() {
 }
 
 stdout_msg() {
-  local status="$1" task="$2" msg="$3"
-  case "${status^^}" in
-    ERROR) prefix="${X_MARK} ${RED}ERROR${NORMAL}";
-           ;;  
-    WARNING) prefix="${WARNING} WARNING";
-           ;;  
-    INFO) prefix="${PIN} INFO";
-           ;;  
-    INSTALLING) prefix="${CLOCK} INSTALLING";
-           ;;  
-    INSTALLED) prefix="${CHECK_MARK} INSTALLED";
-           ;;  
-    *) prefix="$status";
-           ;;  
-  esac
-  printf '%s [%s] %s: %s\n' "${BLUE}" "${prefix}" "${task}" "${msg}"; echo -e "${NORMAL}"
+    local status="$1" task="$2" msg="$3"
+    case "${status^^}" in
+    ERROR)
+        prefix="${X_MARK} ${RED}ERROR${NORMAL}"
+        ;;
+    WARNING)
+        prefix="${WARNING} WARNING"
+        ;;
+    INFO)
+        prefix="${PIN} INFO"
+        ;;
+    INSTALLING)
+        prefix="${CLOCK} INSTALLING"
+        ;;
+    INSTALLED)
+        prefix="${CHECK_MARK} INSTALLED"
+        ;;
+    *)
+        prefix="$status"
+        ;;
+    esac
+    printf '%s [%s] %s: %s\n' "${BLUE}" "${prefix}" "${task}" "${msg}"
+    echo -e "${NORMAL}"
 }
 
 # Install system-based dependencies
@@ -315,19 +327,25 @@ debian_setup() {
 
         stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
         write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
-
-        ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
-
-        stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
-        write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
+        {
+            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
+            write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
+        } || {
+            stdout_msg "ERROR" "ansible-galaxy" "Failed to install collections. Install manually."
+            write_to_exquilog "ERROR" "ansible-galaxy" "Failed to install collections."
+        }
     else
         stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
         write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
-
-        ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml
-
-        stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
-        write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
+        {
+            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
+            write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
+        } || {
+            stdout_msg "ERROR" "ansible-galaxy" "Failed to update collections. Update manually."
+            write_to_exquilog "ERROR" "ansible-galaxy" "Failed to update collections."
+        }
     fi
 
     stdout_msg "INFO" "debian-setup" "Setup done! [$date_today]"
@@ -446,53 +464,53 @@ fedora_setup() {
 }
 
 main() {
-  # load OS info
-  if [[ -f /etc/os-release ]]; then
-    source /etc/os-release
-  else
-    echo "Unsupported OS: /etc/os-release not found." >&2
-    exit 1
-  fi
-
-  is_first_run=false
-  if [[ ! -f "$RELEASE_FILE" ]]; then
-    is_first_run=true
-  fi
-
-  # Dispatch based on ID and ID_LIKE
-  case "$ID" in
-    arch*|manjaro)
-      arch_setup
-      ;;
-    debian|ubuntu|raspbian)
-      debian_setup
-      ;;
-    fedora|rhel)
-      fedora_setup
-      ;;
-    *)
-      # Fallback to ID_LIKE
-      if [[ "$ID_LIKE" =~ arch ]]; then
-        arch_setup
-      elif [[ "$ID_LIKE" =~ debian ]]; then
-        debian_setup
-      elif [[ "$ID_LIKE" =~ fedora|rhel ]]; then
-        fedora_setup
-      else
-        echo "Unsupported OS: $ID (ID_LIKE=$ID_LIKE)" >&2
+    # load OS info
+    if [[ -f /etc/os-release ]]; then
+        source /etc/os-release
+    else
+        echo "Unsupported OS: /etc/os-release not found." >&2
         exit 1
-      fi
-      ;;
-  esac
+    fi
 
-  if $is_first_run; then
-    touch "$RELEASE_FILE"
-    stdout_msg "INFO" "main" "First-run setup complete"
-    write_to_exquilog INFO main "Marked first run complete"
-  else
-    stdout_msg "INFO" "main" "Update-run setup complete"
-    write_to_exquilog INFO main "Marked update run complete"
-  fi
+    is_first_run=false
+    if [[ ! -f "$RELEASE_FILE" ]]; then
+        is_first_run=true
+    fi
+
+    # Dispatch based on ID and ID_LIKE
+    case "$ID" in
+    arch* | manjaro)
+        arch_setup
+        ;;
+    debian | ubuntu | raspbian)
+        debian_setup
+        ;;
+    fedora | rhel)
+        fedora_setup
+        ;;
+    *)
+        # Fallback to ID_LIKE
+        if [[ "$ID_LIKE" =~ arch ]]; then
+            arch_setup
+        elif [[ "$ID_LIKE" =~ debian ]]; then
+            debian_setup
+        elif [[ "$ID_LIKE" =~ fedora|rhel ]]; then
+            fedora_setup
+        else
+            echo "Unsupported OS: $ID (ID_LIKE=$ID_LIKE)" >&2
+            exit 1
+        fi
+        ;;
+    esac
+
+    if $is_first_run; then
+        touch "$RELEASE_FILE"
+        stdout_msg "INFO" "main" "First-run setup complete"
+        write_to_exquilog INFO main "Marked first run complete"
+    else
+        stdout_msg "INFO" "main" "Update-run setup complete"
+        write_to_exquilog INFO main "Marked update run complete"
+    fi
 }
 
 main "$@"
