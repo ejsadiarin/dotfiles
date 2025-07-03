@@ -318,7 +318,7 @@ fi
 alias clpwd="pwd | xclip -selection clipboard"
 alias copy="xclip -sel clip"
 
-if [ -f "/usr/bin/nvim" ] || [ -f "/bin/nvim" ]; then
+if [ -f "/usr/bin/nvim" ] || [ -f "/bin/nvim" || [ -f "/usr/local/bin/nvim" ]; then
     alias snvim="sudo -E nvim $1"
     if [ -d "$XDG_CONFIG_HOME/nvim-old" ]; then
         alias nvim-old='NVIM_APPNAME="nvim-old" nvim'
@@ -361,10 +361,24 @@ fi
 ##############################
 # current_dir=$(basename "$(pwd)")
 # if [[ $current_dir == "nvim" ]] then
-#     export OPENAI_API_KEY=$(pass show keys/openai | head -n 1)
+    # export OPENAI_API_KEY=$(pass show keys/openai | head -n 1)
 #     export DEEPSEEK_API_KEY=$(pass show keys/deepseek | head -n 1)
 #     export ANTHROPIC_API_KEY=$(pass show keys/anthropic | head -n 1)
 # fi
+if command -v aider >/dev/null 2>&1; then
+    aider() {
+        export OPENAI_API_BASE=https://api.githubcopilot.com
+        export OPENAI_API_KEY=$(pass show keys/copilot | head -n 1)
+        command aider "$@"
+    }
+fi
+
+if command -v gemini >/dev/null 2>&1; then
+    gemini() {
+        export GEMINI_API_KEY=$(pass show keys/gemini | head -n 1)
+        command gemini "$@"
+    }
+fi
 
 
 ##############################

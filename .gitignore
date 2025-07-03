@@ -18,3 +18,4 @@ tmp
 ***/master_password
 master_password_t
 {private,public}.gpg
+.aider*
