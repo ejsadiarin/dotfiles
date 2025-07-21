@@ -515,3 +515,7 @@ eval "$(uvx --generate-shell-completion zsh)"
 # ufw
 # - ufw allow 22/tcp 22/udp 80/tcp 80/udp 443/tcp 443/udp
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
