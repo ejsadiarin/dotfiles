@@ -5,7 +5,7 @@ git pull origin main --recurse-submodules
 
 # install essentials
 echo "[INSTALL] Installing essential binaries"
-sudo dnf install -y zsh vim tmux gpg gcc make git ripgrep fd-find unzip lua luarocks lua5.1 fzf pass openssh-server curl
+sudo dnf install -y zsh vim tmux gpg gcc make git ripgrep fd-find unzip lua luarocks lua5.1 fzf pass pass-otp openssh-server curl
 
 echo "[INSTALL] Installing GUI essentials"
 sudo dnf install kitty # can add flag for GUI
