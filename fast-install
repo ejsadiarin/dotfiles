@@ -5,7 +5,7 @@ git pull origin main --recurse-submodules
 
 # install essentials
 echo "[INSTALL] Installing essential binaries"
-sudo dnf install -y zsh vim tmux gpg gcc make git ripgrep fd-find unzip lua luarocks lua5.1 fzf pass openssh-server
+sudo dnf install -y zsh vim tmux gpg gcc make git ripgrep fd-find unzip lua luarocks lua5.1 fzf pass openssh-server curl
 
 echo "[INSTALL] Installing GUI essentials"
 sudo dnf install kitty # can add flag for GUI
@@ -23,15 +23,15 @@ sudo dnf install golang
 echo "[INSTALL] Installing docker"
 # install docker in fedora
 sudo dnf remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-selinux \
-                  docker-engine-selinux \
-                  docker-engine
+  docker-client \
+  docker-client-latest \
+  docker-common \
+  docker-latest \
+  docker-latest-logrotate \
+  docker-logrotate \
+  docker-selinux \
+  docker-engine-selinux \
+  docker-engine
 sudo dnf -y install dnf-plugins-core
 sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -90,8 +90,8 @@ tailscale ip -4 # to verify tailscale
 
 # ssh
 if [[ ! -f "$HOME/.ssh/id_ed25519.pub" && ! -f "$HOME/.ssh/id_ed25519" ]]; then
-    scp -r ejs@homelab:~/.ssh/id_ed25519.pub ~
-    scp -r ejs@homelab:~/.ssh/id_ed25519 ~
+  scp -r ejs@homelab:~/.ssh/id_ed25519.pub ~
+  scp -r ejs@homelab:~/.ssh/id_ed25519 ~
 fi
 
 # gpg
@@ -101,3 +101,10 @@ scp -r ejs@homelab:~/private.gpg ~
 echo "[INFO] do a gpg --import <key>.gpg then gpg --edit-key ejs@ejsadiarin.com then trust 5 save exit"
 gpg --import ~/public.gpg
 gpg --import ~/private.gpg
+
+# fonts
+echo "[INSTALL] Downloading IosevkaTerm Nerd Font"
+mkdir -p ~/.local/share/fonts/IosevkaTerm
+curl -Lo /tmp/IosevkaTerm.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/latest/download/IosevkaTerm.tar.xz
+tar -xf /tmp/IosevkaTerm.tar.xz -C ~/.local/share/fonts/IosevkaTerm
+fc-cache -fv ~/.local/share/fonts/IosevkaTerm
