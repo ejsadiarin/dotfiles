@@ -1,6 +1,45 @@
 #!/usr/bin/env bash
 
+git submodule update --init --recursive
 git pull origin main --recurse-submodules
+
+# install essentials
+echo "[INSTALL] Installing essential binaries"
+sudo dnf install -y zsh vim tmux gpg gcc make git ripgrep fd-find unzip lua luarocks lua5.1 fzf pass openssh-server
+
+echo "[INSTALL] Installing GUI essentials"
+sudo dnf install kitty # can add flag for GUI
+
+echo "[INSTALL] Installing nodejs essentials"
+sudo dnf install nodejs pnpm
+sudo npm install -g bun
+
+echo "[INSTALL] Installing python essentials"
+sudo dnf install python3 python3-pip uv
+
+echo "[INSTALL] Installing golang essentials"
+sudo dnf install golang
+
+echo "[INSTALL] Installing docker"
+# install docker in fedora
+sudo dnf remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+sudo dnf -y install dnf-plugins-core
+sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo systemctl enable --now docker
+
+echo "[INSTALL] Installing devtools"
+go install github.com/jesseduffield/lazygit@latest
+go install github.com/jesseduffield/lazydocker@latest
 
 # symlink home configs
 echo "[WARN] Removing home configs"
@@ -16,15 +55,20 @@ ln -s ~/dotfiles/.ideavimrc ~
 ln -s ~/dotfiles/.vimrc ~
 ln -s ~/dotfiles/.gitconfig ~
 
+echo "[Install] neovim config"
 # symlink nvim config
+rm -rf ~/.config/nvim
 ln -s ~/dotfiles/nvim ~/.config
 
 # symlink tmux
 echo "[WARN] Removing tmux configs: ~/.config/tmux"
 rm -rf ~/.config/tmux
+rm -f ~/.tmux.conf
 ln -s ~/dotfiles/tmux ~/.config
 ln -s ~/dotfiles/tmux/.tmux.conf ~
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 tmux source ~/.tmux.conf
+echo "[INFO] open tmux then do <ctrl+b> + I"
 
 # symlink kitty configs
 echo "[WARN] Removing kitty config: ~/.config/kitty"
@@ -32,18 +76,28 @@ rm -rf ~/.config/kitty
 ln -s ~/dotfiles/config/kitty ~/.config/kitty
 
 # append zhistory
-echo "[INFO] Appending zhistory..."
+echo "[INFO] Appending zhistory... (use vault's zhistory for updated zshistory)"
 cat ~/dotfiles/config/zsh/zhistory >>~/.config/zsh/zhistory
 
 # before proceeding, make sure to authenticate to tailscale first
 
+echo "[INFO] Install Tailscale first and connect to homelab"
+sudo dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+sudo dnf install tailscale
+sudo systemctl enable --now tailscaled
+sudo tailscale up
+tailscale ip -4 # to verify tailscale
+
 # ssh
-scp -r ejs@homelab:~/.ssh/id_ed25519.pub ~
-scp -r ejs@homelab:~/.ssh/id_ed25519 ~
+if [[ ! -f "$HOME/.ssh/id_ed25519.pub" && ! -f "$HOME/.ssh/id_ed25519" ]]; then
+    scp -r ejs@homelab:~/.ssh/id_ed25519.pub ~
+    scp -r ejs@homelab:~/.ssh/id_ed25519 ~
+fi
 
 # gpg
 scp -r ejs@homelab:~/public.gpg ~
 scp -r ejs@homelab:~/private.gpg ~
+
 echo "[INFO] do a gpg --import <key>.gpg then gpg --edit-key ejs@ejsadiarin.com then trust 5 save exit"
 gpg --import ~/public.gpg
 gpg --import ~/private.gpg

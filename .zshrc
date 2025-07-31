@@ -318,7 +318,7 @@ fi
 alias clpwd="pwd | xclip -selection clipboard"
 alias copy="xclip -sel clip"
 
-if [ -f "/usr/bin/nvim" ] || [ -f "/bin/nvim" || [ -f "/usr/local/bin/nvim" ]; then
+if [[ -f "/usr/bin/nvim" || -f "/bin/nvim" || -f "/usr/local/bin/nvim" ]]; then
     alias snvim="sudo -E nvim $1"
     if [ -d "$XDG_CONFIG_HOME/nvim-old" ]; then
         alias nvim-old='NVIM_APPNAME="nvim-old" nvim'

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+sudo dnf install @virtualization
+sudo systemctl start libvirtd
+sudo systemctl enable libvirtd
+lsmod | grep kvm # verify
