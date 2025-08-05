@@ -1,11 +1,23 @@
 ---
+- name: Essentials RedHat | Import RPM Fusion free GPG key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora
+  become: true
+
+- name: Essentials RedHat | Import RPM Fusion non-free GPG key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora
+  become: true
+
 - name: Essentials RedHat | Install RPM Fusion repositories
   ansible.builtin.dnf:
     name:
       - "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
       - "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
     state: present
-    disable_gpg_check: false
+    disable_gpg_check: true
   become: true
 
 - name: Essentials RedHat | Install essential packages

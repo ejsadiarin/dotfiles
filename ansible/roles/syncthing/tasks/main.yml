@@ -1,4 +1,4 @@
 ---
 - name: Syncthing | install in redhat
-  ansible.builtin.import_tasks: redhat.yml
+  ansible.builtin.include_tasks: redhat.yml
   when: machine_os == "redhat"

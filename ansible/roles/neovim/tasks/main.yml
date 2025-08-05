@@ -1,12 +1,12 @@
 ---
 - name: Neovim | Detect OS for Archlinux
-  ansible.builtin.import_tasks: archlinux.yml
+  ansible.builtin.include_tasks: archlinux.yml
   when: machine_os == 'archlinux'
 
 - name: Neovim | Detect OS for Debian
-  ansible.builtin.import_tasks: debian.yml
+  ansible.builtin.include_tasks: debian.yml
   when: machine_os == 'debian'
 
 - name: Neovim | Detect OS for RedHat
-  ansible.builtin.import_tasks: redhat.yml
+  ansible.builtin.include_tasks: redhat.yml
   when: machine_os == 'redhat'

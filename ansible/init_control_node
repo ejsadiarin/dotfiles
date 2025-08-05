@@ -13,47 +13,6 @@ fi
 set -euo pipefail
 IFS=
 
-##########################
-#   Color Codes (ANSI)   #
-##########################
-# normal
-NORMAL='\033[0m'
-NC='\033[0m'
-BLACK='\033[00;30m'
-RED='\033[00;31m'
-GREEN='\033[00;32m'
-YELLOW='\033[00;33m'
-BLUE='\033[00;34m'
-PURPLE='\033[00;35m'
-CYAN='\033[00;36m'
-SEA="\\033[38;5;49m"
-LIGHTGRAY='\033[00;37m'
-
-# bold version
-LBLACK='\033[01;30m'
-LRED='\033[01;31m'
-LGREEN='\033[01;32m'
-LYELLOW='\033[01;33m'
-LBLUE='\033[01;34m'
-LPURPLE='\033[01;35m'
-LCYAN='\033[01;36m'
-LSEA="\\033[1m\\033[38;5;49m"
-WHITE='\033[01;37m'
-OVERWRITE='\e[1A\e[K'
-
-####################
-#   Emoji Codes    #
-####################
-CHECK_MARK="${GREEN}\xE2\x9C\x94${NC}"  # ✔
-X_MARK="${RED}\xE2\x9C\x96${NC}"        # ✖
-PIN="${RED}\xF0\x9F\x93\x8C${NC}"       # 📌
-CLOCK="${GREEN}\xE2\x8C\x9B${NC}"       # ⌛
-ARROW="${SEA}\xE2\x96\xB6${NC}"         # ▶
-BOOK="${RED}\xF0\x9F\x93\x8B${NC}"      # 📋
-HOT="${YELLOW}\xF0\x9F\x94\xA5${NC}"    # 🔥
-WARNING="${RED}\xF0\x9F\x9A\xA8${NC}"   # 🚨
-RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}" # ∟
-
 #################
 #   VARIABLES   #
 #################
@@ -90,26 +49,25 @@ stdout_msg() {
     local status="$1" task="$2" msg="$3"
     case "${status^^}" in
     ERROR)
-        prefix="${X_MARK} ${RED}ERROR${NORMAL}"
-        ;;
+        prefix="ERROR"
+        ;; 
     WARNING)
-        prefix="${WARNING} WARNING"
-        ;;
+        prefix="WARNING"
+        ;; 
     INFO)
-        prefix="${PIN} INFO"
-        ;;
+        prefix="INFO"
+        ;; 
     INSTALLING)
-        prefix="${CLOCK} INSTALLING"
-        ;;
+        prefix="INSTALLING"
+        ;; 
     INSTALLED)
-        prefix="${CHECK_MARK} INSTALLED"
-        ;;
+        prefix="INSTALLED"
+        ;; 
     *)
         prefix="$status"
-        ;;
+        ;; 
     esac
-    printf '%s [%s] %s: %s\n' "${BLUE}" "${prefix}" "${task}" "${msg}"
-    echo -e "${NORMAL}"
+    printf "[%s] %s: %s\n" "${prefix}" "${task}" "${msg}"
 }
 
 # Install system-based dependencies
@@ -213,8 +171,8 @@ arch_setup() {
         stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
         write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
         {
-            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
-            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml >/dev/null 2>&1
+            ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/requirements.yml
+            ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/arch.yml
             stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
             write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
         } || {
@@ -225,7 +183,7 @@ arch_setup() {
         # do not automate enabling sshd to avoid unwanted opened services since it is optional
         stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
 
-        stdout_msg "INFO" "arch-setup" "Setup done! [$date_today]"
+        stdout_msg "INFO" "arch-setup" "Setup done! [${date_today}]"
         write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
     else
         # --- Update operations for subsequent runs ----
@@ -234,15 +192,18 @@ arch_setup() {
         stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
         write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
         {
-            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
-            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/arch.yml >/dev/null 2>&1
+            for collection in kewlfft.aur community.general artis3n.tailscale; do
+                ansible-galaxy collection remove "$collection"
+            done
+            ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/requirements.yml
+            ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/arch.yml
             stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
             write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
         } || {
             stdout_msg "ERROR" "ansible-galaxy" "Failed to update collections. Update manually."
             write_to_exquilog "ERROR" "ansible-galaxy" "Failed to update openssh."
         }
-        stdout_msg "INFO" "arch-setup" "Update done! [$date_today]"
+        stdout_msg "INFO" "arch-setup" "Update done! [${date_today}]"
         write_to_exquilog "INFO" "ansible-galaxy" "Update done!"
     fi
 }
@@ -328,7 +289,10 @@ debian_setup() {
         stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
         write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
         {
-            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            for collection in kewlfft.aur community.general artis3n.tailscale; do
+                ansible-galaxy collection remove "$collection"
+            done
+            ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/requirements.yml
             stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
             write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
         } || {
@@ -339,7 +303,10 @@ debian_setup() {
         stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
         write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
         {
-            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            for collection in kewlfft.aur community.general artis3n.tailscale; do
+                ansible-galaxy collection remove "$collection"
+            done
+            ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/requirements.yml
             stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
             write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
         } || {
@@ -348,13 +315,32 @@ debian_setup() {
         }
     fi
 
-    stdout_msg "INFO" "debian-setup" "Setup done! [$date_today]"
+    stdout_msg "INFO" "debian-setup" "Setup done! [${date_today}]"
     write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
 }
 
 fedora_setup() {
     stdout_msg "START" "fedora-setup" "Running Fedora setup"
     write_to_exquilog "INFO" "fedora-setup" "Initiate Fedora setup"
+
+	# install tailscale
+	if command -v tailscale >/dev/null 2>&1; then
+		stdout_msg "INFO" "tailscale" "Tailscale is already installed."
+		write_to_exquilog "INFO" "tailscale" "Tailscale is already installed."
+	else
+		stdout_msg "INSTALLING" "tailscale" "Installing tailscale..."
+		write_to_exquilog "INFO" "tailscale" "Installing tailscale..."
+		{
+			sudo dnf config-manager --add-repo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+			sudo dnf install -y tailscale
+			sudo systemctl enable --now tailscaled
+			stdout_msg "INSTALLED" "tailscale" "Tailscale is now installed!"
+			write_to_exquilog "INFO" "tailscale" "Tailscale is now installed!"
+		} || {
+			stdout_msg "ERROR" "tailscale" "Failed to install tailscale. Skipping..."
+			write_to_exquilog "ERROR" "tailscale" "Failed to install tailscale. Need to install manually."
+		}
+	fi
 
     if [[ ! -f $RELEASE_FILE ]]; then
         stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
@@ -431,7 +417,7 @@ fedora_setup() {
         stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
         write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
         {
-            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/requirements.yml
             stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
             write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
         } || {
@@ -442,7 +428,7 @@ fedora_setup() {
         # do not automate enabling sshd to avoid unwanted opened services since it is optional
         stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
 
-        stdout_msg "INFO" "fedora-setup" "Setup done! [$date_today]"
+        stdout_msg "INFO" "fedora-setup" "Setup done! [${date_today}]"
         write_to_exquilog "INFO" "fedora-setup" "Setup done!"
     else
         # --- Update operations for subsequent runs ----
@@ -451,14 +437,14 @@ fedora_setup() {
         stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
         write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
         {
-            ansible-galaxy collection install -r "$DOTFILES"/ansible/collection/requirements.yml >/dev/null 2>&1
+            ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/requirements.yml
             stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
             write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
         } || {
             stdout_msg "ERROR" "ansible-galaxy" "Failed to update collections. Update manually."
             write_to_exquilog "ERROR" "ansible-galaxy" "Failed to update collections."
         }
-        stdout_msg "INFO" "fedora-setup" "Update done! [$date_today]"
+        stdout_msg "INFO" "fedora-setup" "Update done! [${date_today}]"
         write_to_exquilog "INFO" "fedora-setup" "Update done!"
     fi
 }
@@ -481,13 +467,13 @@ main() {
     case "$ID" in
     arch* | manjaro)
         arch_setup
-        ;;
+        ;; 
     debian | ubuntu | raspbian)
         debian_setup
-        ;;
+        ;; 
     fedora | rhel)
         fedora_setup
-        ;;
+        ;; 
     *)
         # Fallback to ID_LIKE
         if [[ "$ID_LIKE" =~ arch ]]; then
@@ -500,10 +486,11 @@ main() {
             echo "Unsupported OS: $ID (ID_LIKE=$ID_LIKE)" >&2
             exit 1
         fi
-        ;;
+        ;; 
     esac
 
-    if $is_first_run; then
+    if $is_first_run;
+    then
         touch "$RELEASE_FILE"
         stdout_msg "INFO" "main" "First-run setup complete"
         write_to_exquilog INFO main "Marked first run complete"

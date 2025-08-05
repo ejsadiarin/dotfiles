@@ -1,7 +1,7 @@
-- name: Neovim | Detect OS for Archlinux
-  ansible.builtin.import_tasks: archlinux.yml
+- name: JetBrains Mono Nerd Font | Detect OS for Archlinux
+  ansible.builtin.include_tasks: archlinux.yml
   when: machine_os == 'archlinux'
 
-- name: Neovim | Detect OS for Debian
-  ansible.builtin.import_tasks: debian.yml
+- name: JetBrains Mono Nerd Font | Detect OS for Debian
+  ansible.builtin.include_tasks: debian.yml
   when: machine_os == 'debian'

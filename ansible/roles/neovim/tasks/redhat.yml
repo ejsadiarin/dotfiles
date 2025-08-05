@@ -1,7 +1,9 @@
 ---
 - name: Neovim | Ensure old neovim from repository is uninstalled
   ansible.builtin.dnf:
-    name: neovim
+    name:
+      - neovim
+      - python3-neovim
     state: absent
   become: true
 
@@ -22,32 +24,11 @@
     state: present
   become: true
 
-- name: Neovim | Install COPR dependencies
-  ansible.builtin.dnf:
-    name: dnf-plugins-core
-    state: present
-  become: true
-
-- name: Neovim | Enable agriffis/neovim-nightly COPR repository
-  community.general.copr:
-    name: agriffis/neovim-nightly
-    state: enabled
-  become: true
-  register: copr_result
-  changed_when: copr_result is changed
-
-- name: Neovim | Clean and refresh DNF cache
-  ansible.builtin.dnf:
-    update_cache: true
-  become: true
-
-- name: Neovim | Install latest Neovim and Python support from COPR
+- name: Neovim | Install neovim
   ansible.builtin.dnf:
     name:
       - neovim
-      - python3-neovim
     state: present
-    update_cache: true
   become: true
 
 - name: Neovim | Copy own nvim configs
@@ -62,7 +43,7 @@
   register: nvim_binary
   check_mode: false
 
-- name: Neovim | Suggest runner if copr install did not work
+- name: Neovim | Suggest runner if neovim fails to install (and if want latest version)
   ansible.builtin.debug:
     msg: "Neovim was not found. Use dotfiles/runner/neovim-nightly.sh to install neovim-nightly"
   when: not nvim_binary.stat.exists
