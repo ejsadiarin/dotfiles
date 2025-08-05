@@ -1,7 +1,7 @@
 [user]
-    name = ejsadiarin
-    email = ejs@ejsadiarin.com
-    signingkey = "~/.ssh/id_ed25519.pub"
+	name = " ejsadiarin "
+	email = " ejs@ejsadiarin.com "
+	signingkey = /home/eisen/.ssh/id_ed25519.pub
 
 [core]
     editor = nvim
@@ -11,17 +11,17 @@
     ui = auto
 
 [rebase]
-    autoStash = true
+	autoStash = True
 
 [pull]
-    rebase = true
+	rebase = True
 
 # DIFF AND MERGE
 [diff]
     algorithm = histogram
-    colorMoved = true
+	colorMoved = True
     colorMovedWS = allow-indentation-change
-    mnemonicPrefix = true
+	mnemonicPrefix = True
 
     tool = nvim_difftool
     submodule = diff
@@ -30,23 +30,25 @@
     textconv = hexdump -v -C
 
 [difftool]
-    prompt = true
-    trustExitCode = true
+	prompt = True
+	trustExitCode = True
 
 [difftool "nvim_difftool"]
     cmd = nvim -c \"DiffTool $LOCAL $REMOTE\"
 
 [merge]
-    log = true
+	log = True
     tool = nvimdiff2
 
 [mergetool]
-    prompt = true
-    trustExitCode = true
-    hideResolved = true
+	prompt = True
+	trustExitCode = True
+	hideResolved = True
 
 # ALIASES
 [alias]
     undo = "reset HEAD~1 --mixed"
-    diffview = "!f() { nvim -c 'DiffviewOpen' \"$@\"; }; f"
+	diffview = "!f() { nvim -c \\\"DiffviewOpen\\\" \\\"$@\\\"; }; f"
 
+[init]
+	defaultBranch = main
