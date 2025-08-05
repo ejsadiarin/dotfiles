@@ -50,12 +50,12 @@
 #     owner: "{{ host_user }}"
 #     state: link
 
-# - name: Zsh | Copy zhistory and zcompdump
-#   ansible.builtin.copy:
-#     src: "{{ ansible_user_dir }}/dotfiles/config/zsh"
-#     dest: "{{ ansible_user_dir }}/.config/zsh"
-#     owner: "{{ host_user }}"
-#     mode: "0644"
+- name: Zsh | Copy zhistory
+  ansible.builtin.copy:
+    src: "{{ ansible_user_dir }}/dotfiles/config/zsh/zhistory"
+    dest: "{{ ansible_user_dir }}/.config/zsh/zhistory"
+    owner: "{{ host_user }}"
+    mode: "0644"
 
 - name: Zsh | Make zsh the default shell
   become: true

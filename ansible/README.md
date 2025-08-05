@@ -163,3 +163,13 @@ tmux source .tmux.conf
 - then install plugins with `<prefix>+I`
   - this config uses `M-Space` (or `Alt-Space`) as prefix
   - so do: `M-Space + I` (`Alt-Space + I`)
+
+
+---
+
+#### quickie
+gpg -d master_password.gpg > master_password
+ansible-playbook --vault-password-file ./master_password --ask-become-pass full_config.yml
+
+#### dry run
+ansible-playbook --check --vault-password-file ./master_password --ask-become-pass full_config.yml

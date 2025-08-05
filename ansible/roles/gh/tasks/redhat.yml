@@ -9,8 +9,14 @@
     state: present
   become: true
 
-- name: gh | install dnf5-plugins
+- name: gh | Check if gh-cli repo exists
+  ansible.builtin.stat:
+    path: /etc/yum.repos.d/gh-cli.repo
+  register: gh_cli_repo_stat
+
+- name: gh | Add gh-cli repo
   ansible.builtin.shell: sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
+  when: not gh_cli_repo_stat.stat.exists
   become: true
 
 - name: gh | install github-cli

@@ -41,10 +41,8 @@ echo "[INFO] do a gpg --import <key>.gpg then gpg --edit-key ejs@ejsadiarin.com 
 gpg --import ~/public.gpg
 gpg --import ~/private.gpg
 
-
 git submodule update --init --recursive
 git pull origin main --recurse-submodules
-
 
 echo "[INSTALL] Installing GUI essentials"
 sudo dnf install kitty # can add flag for GUI
@@ -79,7 +77,6 @@ sudo systemctl enable --now docker
 echo "[INSTALL] Installing devtools"
 go install github.com/jesseduffield/lazygit@latest
 go install github.com/jesseduffield/lazydocker@latest
-
 
 echo "[Install] neovim config"
 # symlink nvim config
