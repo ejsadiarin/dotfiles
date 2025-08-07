@@ -168,8 +168,14 @@ tmux source .tmux.conf
 ---
 
 #### quickie
+
+```bash
 gpg -d master_password.gpg > master_password
 ansible-playbook --vault-password-file ./master_password --ask-become-pass full_config.yml
+```
 
 #### dry run
+
+```bash
 ansible-playbook --check --vault-password-file ./master_password --ask-become-pass full_config.yml
+```

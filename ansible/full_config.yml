@@ -104,6 +104,10 @@
         dest: "{{ ansible_user_dir }}/.vimrc"
         state: link
 
+    - name: Post Installation | ssh-agent
+      ansible.builtin.debug:
+        msg: 'do eval "$(ssh-agent -s)" and ssh-add ~/.ssh/id_ed25519 here to activate ssh keys'
+
     - name: Post Installation | import gpg private key in .gnupg
       ansible.builtin.debug:
         msg: "To import your private GPG key, run: gpg --import {{ ansible_user_dir }}/.gnupg/private.gpg"

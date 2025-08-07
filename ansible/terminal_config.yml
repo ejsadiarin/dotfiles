@@ -55,11 +55,8 @@
     - name: Configure Locale to UTF-8
       ansible.builtin.shell: "localectl set-locale LANG=en_US.UTF-8"
 
-    - name: Install NetworkManager
-      ansible.builtin.include_role:
-        name: network_manager
-
   roles:
+    - network_manager
     - zsh
     - essentials
     - git
@@ -69,8 +66,12 @@
     - neovim
     - cron
     - go_role
-    # - docker
-    # - js_ts_role
+    - js_ts_role
+    - lazygit
+    - lazydocker
+    - docker
+    # - tailscale
+    # - syncthing
     # - python_role
 
   tasks:
@@ -80,8 +81,31 @@
         dest: "{{ ansible_user_dir }}/.ideavimrc"
         state: link
 
+    - name: Remove existing .vimrc if have any
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.vimrc"
+        state: absent
+
     - name: Link .vimrc
       ansible.builtin.file:
         src: "{{ ansible_user_dir }}/dotfiles/.vimrc"
         dest: "{{ ansible_user_dir }}/.vimrc"
         state: link
+
+    - name: Post Installation | ssh-agent
+      ansible.builtin.debug:
+        msg: 'do eval "$(ssh-agent -s)" and ssh-add ~/.ssh/id_ed25519 here to activate ssh keys'
+
+    - name: Post Installation | import gpg private key in .gnupg
+      ansible.builtin.debug:
+        msg: "To import your private GPG key, run: gpg --import {{ ansible_user_dir }}/.gnupg/private.gpg"
+
+    - name: Post Installation | delete temp private/public gpg keys in .gnupg after importing
+      ansible.builtin.debug:
+        msg: "Run rm or shred: rm -rf private.gpg public.gpg"
+
+    - name: Post Installation | cleanup master_password
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/dotfiles/ansible/master_password"
+        state: absent
+

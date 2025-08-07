@@ -1,3 +1,4 @@
+---
 - name: Python | Install Python for Arch
   community.general.pacman:
     name:
@@ -15,3 +16,12 @@
     state: present
   become: true
   when: machine_os == 'debian'
+
+- name: Python | Install Python for Fedora
+  ansible.builtin.apt:
+    name:
+      - python3
+      - python-pip
+    state: present
+  become: true
+  when: machine_os == 'redhat'
