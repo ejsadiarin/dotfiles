@@ -13,7 +13,7 @@
 
   # you can add roles to run here
   roles:
-    - wireshark
+    - kde
 
   # tasks:
   #   - name: Link .ideavimrc

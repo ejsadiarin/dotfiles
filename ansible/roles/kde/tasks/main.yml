@@ -1,0 +1,27 @@
+---
+- name: KDE | Ensure KDE config directories exist
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - .config
+    - .config/gtk-3.0
+    - .config/gtk-4.0
+
+- name: KDE | Configure personal settings
+  ansible.builtin.copy:
+    src: "{{ ansible_env.HOME }}/dotfiles/config/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.config/{{ item }}"
+    owner: "{{ ansible_env.USER }}"
+    mode: '0600'
+  loop:
+    - kwinrc
+    - kwinrulesrc
+    - plasmaparc
+    - plasmashellrc
+    - plasma-org.kde.plasma.desktop-appletsrc
+    - kglobalshortcutsrc
+    - kdeglobals
+    - gtk-3.0/settings.ini
+    - gtk-4.0/settings.ini

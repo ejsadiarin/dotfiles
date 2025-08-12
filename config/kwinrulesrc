@@ -1,0 +1,19 @@
+[2f8ade76-cb14-400c-8cad-62fac3ed1aab]
+Description=Application settings for kitty
+noborder=true
+noborderrule=3
+wmclass=kitty
+wmclassmatch=1
+
+[General]
+count=2
+rules=2f8ade76-cb14-400c-8cad-62fac3ed1aab,f88c8c40-909c-4ee6-b48b-c645f0d0d1f5
+
+[f88c8c40-909c-4ee6-b48b-c645f0d0d1f5]
+Description=Application settings for Spotify
+clientmachine=localhost
+noborder=true
+noborderrule=3
+wmclass=spotify Spotify
+wmclasscomplete=true
+wmclassmatch=1
