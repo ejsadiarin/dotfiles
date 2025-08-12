@@ -323,6 +323,9 @@ if [[ -f "/usr/bin/nvim" || -f "/bin/nvim" || -f "/usr/local/bin/nvim" ]]; then
     if [ -d "$XDG_CONFIG_HOME/nvim-old" ]; then
         alias nvim-old='NVIM_APPNAME="nvim-old" nvim'
     fi
+    if [ -d "$XDG_CONFIG_HOME/evim" ]; then
+      alias evim='NVIM_APPNAME="evim" nvim'
+    fi
     if [ -d "$XDG_CONFIG_HOME/lvim" ]; then
         alias lvim='NVIM_APPNAME="lvim" nvim'
     fi
@@ -453,6 +456,14 @@ if [[ -f "/usr/bin/uv" ]]; then
     eval "$(uvx --generate-shell-completion zsh)"
 fi
 
+##############################
+#           JAVA             #
+##############################
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 # if on MacOS uncomment: for homebrew installed apps available on PATH 
 # eval "$(/opt/homebrew/bin/brew shellenv)" 
@@ -518,8 +529,5 @@ fi
 # - ufw allow 22/tcp 22/udp 80/tcp 80/udp 443/tcp 443/udp
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 . "$HOME/.local/share/../bin/env"

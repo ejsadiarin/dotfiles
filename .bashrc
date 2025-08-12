@@ -191,3 +191,7 @@ export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/services/scripts
 
 . "$HOME/.local/share/../bin/env"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/eisen/.sdkman"
+[[ -s "/home/eisen/.sdkman/bin/sdkman-init.sh" ]] && source "/home/eisen/.sdkman/bin/sdkman-init.sh"
