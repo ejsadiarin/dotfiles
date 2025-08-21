@@ -3,6 +3,8 @@
 " You can find a list of commands here: https://jb.gg/h38q75
 " Find more examples here: https://jb.gg/share-ideavimrc
 
+"" NOTE: make sure to enable VSCODE as base keymaps
+
 """ Map leader to space ------------------------
 let mapleader=" "
 let maplocalleader="\\"
@@ -108,7 +110,7 @@ nmap <C-Right> <Action>(IncrementWindowWidth)
 
 " Move Down
 nmap <C-n> <Action>(MoveLineDown)
-imap <C-n> <Esc><Action>(MoveLineDown)i
+imap <C-n> <Esc><Action>(MoveLineDown)
 
 " Move Up
 nmap <C-p> <Action>(MoveLineUp)
@@ -205,9 +207,9 @@ nmap <leader>du :echo 'Not yet implemented.'<cr>
 " -- Leader Maps -- "
 map <leader>fr <Action>(RecentFiles)
 map <leader>ff <Action>(GotoFile)
+map <leader>fe <Action>(GotoFile)
 map <leader>fn <Action>(NewFile)
 map <leader>fH <Action>(ShowNavBar)
-
 map <leader>cf <Action>(ReformatCode)
 map <leader>cr <Action>(RenameElement)
 map <leader>cd <Action>(ShowErrorDescription)

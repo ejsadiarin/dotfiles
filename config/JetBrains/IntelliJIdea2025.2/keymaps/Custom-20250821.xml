@@ -1,0 +1,12 @@
+<keymap version="1" name="Custom-20250821" parent="VSCode">
+  <action id="EditorDown">
+    <keyboard-shortcut first-keystroke="down" />
+    <keyboard-shortcut first-keystroke="ctrl n" />
+  </action>
+  <action id="EditorUp">
+    <keyboard-shortcut first-keystroke="up" />
+    <keyboard-shortcut first-keystroke="ctrl p" />
+  </action>
+  <action id="FileChooser.NewFile" />
+  <action id="GotoFile" />
+</keymap>

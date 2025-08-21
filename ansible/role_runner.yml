@@ -13,7 +13,7 @@
 
   # you can add roles to run here
   roles:
-    - kde
+    - jetbrains_config
 
   # tasks:
   #   - name: Link .ideavimrc

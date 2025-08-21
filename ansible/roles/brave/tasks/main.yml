@@ -1,0 +1,16 @@
+---
+- name: Brave | Ensure dnf-plugins-core is installed
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+    state: present
+  become: true
+
+- name: Brave | add Brave repo with config-manager
+  ansible.builtin.shell: dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+  become: true
+
+- name: Brave | Install brave-browser
+  ansible.builtin.dnf:
+    name: brave-browser
+    state: present
+  become: true

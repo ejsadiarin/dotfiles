@@ -93,6 +93,10 @@
         dest: "{{ ansible_user_dir }}/.ideavimrc"
         state: link
 
+    - name: Run jetbrains_config role for keymaps
+      ansible.builtin.include_role:
+        name: jetbrains_config
+
     - name: Remove existing .vimrc if have any
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.vimrc"
