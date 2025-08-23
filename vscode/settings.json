@@ -168,6 +168,17 @@
     },
     {
       "before": [
+        "<leader>",
+        "a",
+        "a"
+      ],
+      "commands": [
+        "workbench.action.toggleAuxiliaryBar",
+        "github.copilot.chat.focus"
+      ]
+    },
+    {
+      "before": [
         "g",
         "r"
       ],
@@ -182,6 +193,18 @@
       ],
       "commands": [
         "findImplementations"
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "y"
+      ],
+      "after": [
+        "y",
+        "`",
+        ">"
       ]
     }
   ],
@@ -223,7 +246,7 @@
   },
   // "vscode-neovim.useWSL": true,
   // "vscode-neovim.neovimExecutablePaths.linux": "/home/exquisite/.neovim/squashfs-root/usr/bin/nvim",
-  "editor.cursorSurroundingLines": 5,
+  "editor.cursorSurroundingLines": 10,
   "discord.detailsEditing": "{empty}",
   "discord.detailsIdling": "{empty}",
   "discord.lowerDetailsDebugging": "{empty}",
@@ -237,7 +260,7 @@
   "sqltools.useNodeRuntime": false,
   "terminal.integrated.env.linux": {},
   "keyboard.dispatch": "keyCode",
-  "editor.tabSize": 2,
+  "editor.tabSize": 4,
   "editor.detectIndentation": false,
   "editor.formatOnSave": true,
   "git.openRepositoryInParentFolders": "never",
@@ -262,5 +285,6 @@
   "window.commandCenter": false,
   "redhat.telemetry.enabled": false,
   "workbench.colorTheme": "Bearded Theme Monokai Black",
-  "workbench.statusBar.visible": false
+  "workbench.activityBar.location": "default",
+  "workbench.statusBar.visible": true
 }

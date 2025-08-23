@@ -87,20 +87,39 @@
     "when": "editorTextFocus && vim.active && !inDebugRepl"
   },
   {
-    // Unbind unconditional default using "minus" (-) before command
+    // Allow normal tab behavior in insert mode and other contexts where navigation shouldn't apply
     "key": "tab",
-    "command": "-workbench.action.focusSideBar"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Insert'",
+    "command": "tab"
   },
   {
-    // Move focus to the SideBar if not (!) there
+    // From editor: go to left sidebar if visible, otherwise right sidebar if visible, otherwise stay in editor
     "key": "tab",
-    "when": "!sideBarFocus && vim.active && vim.mode != 'Insert'",
+    "when": "!sideBarFocus && !auxiliaryBarFocus && vim.active && vim.mode != 'Insert' && sideBarVisible",
     "command": "workbench.action.focusSideBar"
   },
   {
-    // Move focus to the Editor, if currently in the SideBar
+    // From editor: go to right sidebar if left sidebar is not visible but right sidebar is
     "key": "tab",
-    "when": "sideBarFocus && vim.active && vim.mode != 'Insert'",
+    "when": "!sideBarFocus && !auxiliaryBarFocus && vim.active && vim.mode != 'Insert' && !sideBarVisible && auxiliaryBarVisible",
+    "command": "workbench.action.focusAuxiliaryBar"
+  },
+  {
+    // From left sidebar: go to right sidebar if visible, otherwise back to editor
+    "key": "tab",
+    "when": "sideBarFocus && vim.active && vim.mode != 'Insert' && auxiliaryBarVisible",
+    "command": "workbench.action.focusAuxiliaryBar"
+  },
+  {
+    // From left sidebar: go to editor if right sidebar is not visible
+    "key": "tab",
+    "when": "sideBarFocus && vim.active && vim.mode != 'Insert' && !auxiliaryBarVisible",
+    "command": "workbench.action.focusActiveEditorGroup"
+  },
+  {
+    // From right sidebar: always go back to editor
+    "key": "tab",
+    "when": "auxiliaryBarFocus && vim.active && vim.mode != 'Insert'",
     "command": "workbench.action.focusActiveEditorGroup"
   },
   {

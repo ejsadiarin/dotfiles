@@ -32,3 +32,6 @@
     state: present
   become: true
   when: machine_os == 'redhat'
+
+  # NOTE: maybe unnecessary -> when logging in, configs are saved automatically.
+# - name: VSCode | Symlink settings.json and keybindings.json
