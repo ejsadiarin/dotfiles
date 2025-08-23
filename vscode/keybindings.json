@@ -89,8 +89,20 @@
   {
     // Allow normal tab behavior in insert mode and other contexts where navigation shouldn't apply
     "key": "tab",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Insert'",
+    "when": "editorTextFocus && vim.active && vim.mode == 'Insert' && !inSnippetMode && !suggestWidgetVisible",
     "command": "tab"
+  },
+  {
+    // Ensure tab works for snippet navigation
+    "key": "tab",
+    "when": "editorTextFocus && inSnippetMode && !editorTabMovesFocus",
+    "command": "jumpToNextSnippetPlaceholder"
+  },
+  {
+    // Ensure shift+tab works for snippet navigation backwards
+    "key": "shift+tab",
+    "when": "editorTextFocus && inSnippetMode && !editorTabMovesFocus",
+    "command": "jumpToPrevSnippetPlaceholder"
   },
   {
     // From editor: go to left sidebar if visible, otherwise right sidebar if visible, otherwise stay in editor

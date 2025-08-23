@@ -19,7 +19,6 @@
   "vim.cursorStylePerMode.insert": "block",
   "vim.cursorStylePerMode.normal": "block",
   "oil-code.disableVimKeymaps": true,
-  "oil-code.autoOpen": false,
   "oil-code.hasNerdFont": true,
   "vim.insertModeKeyBindings": [
     {
@@ -296,7 +295,27 @@
   "editor.tabSize": 4,
   "editor.detectIndentation": false,
   "editor.formatOnSave": true,
-  "git.openRepositoryInParentFolders": "never",
+  "search.useParentIgnoreFiles": true,
+  "search.useIgnoreFiles": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/.hg/store/**": true
+  },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -313,11 +332,10 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.editor.showTabs": "multiple",
+  "workbench.editor.showTabs": "none",
   "window.commandCenter": false,
   "redhat.telemetry.enabled": false,
   "workbench.colorTheme": "Bearded Theme Monokai Black",
-  "workbench.activityBar.location": "default",
   "breadcrumbs.enabled": true,
   "vim.normalModeKeyBindings": [
     {
@@ -372,5 +390,5 @@
       ]
     }
   ],
-  "workbench.statusBar.visible": true
+  "workbench.activityBar.location": "hidden"
 }
