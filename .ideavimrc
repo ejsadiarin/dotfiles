@@ -109,11 +109,12 @@ nmap <C-Left> <Action>(DecrementWindowWidth)
 nmap <C-Right> <Action>(IncrementWindowWidth)
 
 " Move Down
-nmap <C-n> <Action>(MoveLineDown)
-imap <C-n> <Esc><Action>(MoveLineDown)
+" nmap <C-n> <Action>(MoveLineDown)
+" imap <C-n> <Esc><Action>(MoveLineDown)
 
 " Move Up
-nmap <C-p> <Action>(MoveLineUp)
+" nmap <C-p> <Action>(MoveLineUp)
+" imap <C-p> <Esc><Action>(MoveLineUp)
 
 " window controls
 map <leader>wv <Action>(SplitVertically)
@@ -151,8 +152,8 @@ map <c-\> <Action>(SplitVertically)
 map <c-=> <Action>(Unsplit)
 " <c-s-l> or ctrl shift l --> for select all occurences (VSCODE SHORTCUT)
 map <c-f> <Action>(Find)
-map <c-n> <Action>(Down)
-map <c-p> <Action>(Up)
+" map <c-n> <Action>(Down)
+" map <c-p> <Action>(Up)
 map <c-s-c> <Action>(EditorCopy)
 map <c-s-v> <Action>(EditorPaste)
 

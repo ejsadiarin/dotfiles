@@ -1,0 +1,34 @@
+---
+# Fedora, RedHat
+# sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc 
+# echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+# dnf check-update
+
+- name: VSCode | Import microsoft keys via rpm
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+  when: machine_os == 'redhat'
+
+- name: VSCode | Add VSCode yum repo
+  ansible.builtin.yum_repository:
+    name: code
+    description: Visual Studio Code
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    enabled: true
+    gpgcheck: true
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    repo_gpgcheck: false
+  when: machine_os == 'redhat'
+
+- name: VSCode | Update package cache
+  ansible.builtin.dnf:
+    update_cache: true
+  when: machine_os == 'redhat'
+
+- name: VSCode | Install VSCode
+  ansible.builtin.dnf:
+    name: code
+    state: present
+  become: true
+  when: machine_os == 'redhat'

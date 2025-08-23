@@ -1,3 +1,6 @@
+---
+# NOTE: better to install sdkman and install java versions through it.
+
 - name: Development (Arch) | Install Java
   community.general.pacman:
     name:
