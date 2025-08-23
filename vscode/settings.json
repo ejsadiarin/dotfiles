@@ -211,6 +211,15 @@
     },
     {
       "before": [
+        "<leader>",
+        "w"
+      ],
+      "commands": [
+        "workbench.action.focusActiveEditorGroup"
+      ]
+    },
+    {
+      "before": [
         "g",
         "r"
       ],
@@ -237,6 +246,26 @@
         "y",
         "`",
         ">"
+      ]
+    },
+    {
+      "before": [
+        ">"
+      ],
+      "after": [
+        ">",
+        "g",
+        "v"
+      ]
+    },
+    {
+      "before": [
+        "<"
+      ],
+      "after": [
+        "<",
+        "g",
+        "v"
       ]
     }
   ],
