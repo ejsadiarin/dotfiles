@@ -131,11 +131,5 @@
     "key": "ctrl+n",
     "command": "workbench.action.quickOpenSelectNext",
     "when": "inQuickOpen"
-  },
-  {
-    // Global <leader>fe that works from anywhere (extensions tab, settings, etc.)
-    "key": "space f e",
-    "command": "workbench.action.quickOpen",
-    "when": "vim.active && vim.mode != 'Insert'"
   }
 ]

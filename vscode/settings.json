@@ -18,6 +18,9 @@
   "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)",
   "vim.cursorStylePerMode.insert": "block",
   "vim.cursorStylePerMode.normal": "block",
+  "oil-code.disableVimKeymaps": true,
+  "oil-code.autoOpen": false,
+  "oil-code.hasNerdFont": true,
   "vim.insertModeKeyBindings": [
     {
       "before": [
@@ -169,12 +172,42 @@
     {
       "before": [
         "<leader>",
+        "s",
+        "g"
+      ],
+      "commands": [
+        "workbench.action.findInFiles"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.showAllSymbols"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
         "a",
         "a"
       ],
       "commands": [
         "workbench.action.toggleAuxiliaryBar",
         "github.copilot.chat.focus"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "tab"
+      ],
+      "commands": [
+        "workbench.action.quickOpenPreviousRecentlyUsedEditor",
+        "workbench.action.acceptSelectedQuickOpenItem"
       ]
     },
     {
@@ -281,10 +314,63 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "workbench.editor.showTabs": "multiple",
-  "breadcrumbs.enabled": true,
   "window.commandCenter": false,
   "redhat.telemetry.enabled": false,
   "workbench.colorTheme": "Bearded Theme Monokai Black",
   "workbench.activityBar.location": "default",
+  "breadcrumbs.enabled": true,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "<leader>",
+        "-"
+      ],
+      "commands": [
+        {
+          "command": "oil-code.open"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<cr>"
+      ],
+      "commands": [
+        {
+          "command": "oil-code.select"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<c-l>"
+      ],
+      "commands": [
+        {
+          "command": "oil-code.refresh"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<c-c>"
+      ],
+      "commands": [
+        {
+          "command": "oil-code.close"
+        }
+      ]
+    },
+    {
+      "before": [
+        "`"
+      ],
+      "commands": [
+        {
+          "command": "oil-code.cd"
+        }
+      ]
+    }
+  ],
   "workbench.statusBar.visible": true
 }
