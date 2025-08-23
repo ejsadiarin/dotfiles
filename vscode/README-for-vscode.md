@@ -1,7 +1,7 @@
 # Plugins Required:
 - Vim (vim emulation)
 - multi-command
-- Gruvbox theme (by jdinhlife)
+- settings cycler
 
 # Open settings:
 - `Ctrl + Shift + P` -> `Preferences: Open Settings (JSON)`

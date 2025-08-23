@@ -1,8 +1,10 @@
 {
-  "editor.fontFamily": "'JetBrainsMono Nerd Font', 'monospace', monospace",
+  "github.copilot.nextEditSuggestions.enabled": true,
   "window.menuBarVisibility": "toggle",
-  "security.workspace.trust.untrustedFiles": "newWindow",
+  "editor.fontFamily": "'IosevkaTerm Nerd Font Mono', 'monospace', monospace",
+  "editor.fontSize": 18,
   "security.workspace.trust.startupPrompt": "never",
+  "security.workspace.trust.untrustedFiles": "newWindow",
   "security.workspace.trust.enabled": false,
   "workbench.sideBar.location": "left",
   "editor.minimap.side": "right",
@@ -14,7 +16,7 @@
   "vim.hlsearch": true,
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)",
-  "vim.cursorStylePerMode.insert": "line-thin",
+  "vim.cursorStylePerMode.insert": "block",
   "vim.cursorStylePerMode.normal": "block",
   "vim.insertModeKeyBindings": [
     {
@@ -24,6 +26,14 @@
       ],
       "after": [
         "<Esc>"
+      ]
+    },
+    {
+      "before": [
+        "<C-a>"
+      ],
+      "commands": [
+        "editor.action.selectAll"
       ]
     }
   ],
@@ -120,8 +130,27 @@
     {
       "before": [
         "<leader>",
+        "t"
+      ],
+      "commands": [
+        "workbench.action.terminal.toggleTerminal"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
         "f",
         "f"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f",
+        "e"
       ],
       "commands": [
         "workbench.action.quickOpen"
@@ -161,7 +190,8 @@
     "<C-f>": false,
     "<C-b>": false,
     "<C-S-l>": false,
-    "<C-i>": false
+    "<C-i>": false,
+    "<C-y>": false
   },
   "settings.cycle": [
     {
@@ -184,7 +214,7 @@
     }
   ],
   // Enable smooth scrolling in the editor
-  "editor.smoothScrolling": true,
+  "editor.smoothScrolling": false,
   "editor.lineNumbers": "relative",
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.minimap.enabled": false,
@@ -194,7 +224,6 @@
   // "vscode-neovim.useWSL": true,
   // "vscode-neovim.neovimExecutablePaths.linux": "/home/exquisite/.neovim/squashfs-root/usr/bin/nvim",
   "editor.cursorSurroundingLines": 5,
-  "workbench.layoutControl.enabled": false,
   "discord.detailsEditing": "{empty}",
   "discord.detailsIdling": "{empty}",
   "discord.lowerDetailsDebugging": "{empty}",
@@ -207,7 +236,6 @@
   "workbench.iconTheme": "vscode-icons",
   "sqltools.useNodeRuntime": false,
   "terminal.integrated.env.linux": {},
-  "workbench.colorTheme": "Gruvbox Dark Hard",
   "keyboard.dispatch": "keyCode",
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
@@ -226,12 +254,13 @@
     "markdown": false,
     "scminput": false
   },
-  "window.zoomLevel": 2,
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "workbench.editor.showTabs": "multiple",
   "breadcrumbs.enabled": true,
-  "workbench.activityBar.location": "hidden",
+  "window.commandCenter": false,
+  "redhat.telemetry.enabled": false,
+  "workbench.colorTheme": "Bearded Theme Monokai Black",
   "workbench.statusBar.visible": false
 }
