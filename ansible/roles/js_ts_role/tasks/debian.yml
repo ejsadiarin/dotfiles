@@ -3,9 +3,14 @@
   ansible.builtin.apt:
     name:
       - nodejs
-      - pnpm
       - npm
     state: present
+  become: true
+
+- name: Install pnpm via npm
+  community.general.npm:
+    name: pnpm
+    global: true
   become: true
 
 - name: "NVM | Download Latest Version JSON"
@@ -26,9 +31,40 @@
   ansible.builtin.debug:
     var: nvm_latest_release
 
-- name: Install nvm
+- name: Install nvm to custom path
   ansible.builtin.shell: >
-    set -o pipefail && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_latest_release }}/install.sh | bash
+    set -o pipefail && NVM_DIR="$HOME/.config/nvm" curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_latest_release }}/install.sh | bash
   args:
     creates: "{{ ansible_env.HOME }}/.config/nvm/nvm.sh"
     executable: /bin/bash
+  become: false
+
+- name: Ensure NVM loader snippet is present in .bashrc
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    create: true
+    marker_begin: "# nvm (managed by ansible) START"
+    marker_end: "# nvm (managed by ansible) END"
+    block: |
+      if [[ -d "$HOME/.nvm" || -d "$XDG_CONFIG_HOME/nvm" ]]; then
+          export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+          alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # fix perf issue
+      fi
+    mode: "0644"
+  become: false
+
+- name: Ensure NVM loader snippet is present in .zshrc
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    create: true
+    marker_begin: "# nvm (managed by ansible) START"
+    marker_end: "# nvm (managed by ansible) END"
+    block: |
+      if [[ -d "$HOME/.nvm" || -d "$XDG_CONFIG_HOME/nvm" ]]; then
+          export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+          alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # fix perf issue
+      fi
+    mode: "0644"
+  become: false

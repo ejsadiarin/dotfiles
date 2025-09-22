@@ -1,19 +1,38 @@
 ---
-# for roles to run individually, etc.
-# Run with: ansible-playbook --ask-become-pass role_runner.yml
+# NOTE: READ INSTRUCTIONS BELOW 
+# - for roles to run individually, remote hosts, etc.
+#
+# (LOCALLY) Run with: ansible-playbook --ask-become-pass role_runner.yml
+#
+# (REMOTELY) Run with either of one: 
+#  1. Run on all hosts on `inventory.ini`:
+#
+# ansible-playbook -i inventory/hosts.ini role_runner.yml --ask-become-pass -e "target_hosts=homelab"
+#
+#  2. Or, to override the host group:
+#
+#  ansible-playbook -i inventory.ini role_runner.yml -e "target_hosts=myservers" --ask-become-pass
+#
+#  3. You can also specify a host directly:
+#
+#  ansible-playbook -i 'remotehost.example.com,' role_runner.yml --ask-become-pass -e "target_hosts=remotehost.example.com"
+#
 - name: Role Runner
   hosts: "{{ target_hosts | default('localhost') }}"
-  connection: "{{ target_connection | default('local') }}"
+  # connection: "{{ target_connection | default('local') }}"
   gather_facts: true
 
   pre_tasks:
     - name: Detect OS and put in machine_os variable
       ansible.builtin.set_fact:
         machine_os: "{{ ansible_facts['os_family'] | lower }}" # can be 'archlinux', 'debian', 'redhat', etc.
+    - name: Show which host is running
+      debug:
+        msg: "Running on {{ inventory_hostname }}"
 
   # you can add roles to run here
   roles:
-    - jetbrains_config
+    - js_ts_role
 
   # tasks:
   #   - name: Link .ideavimrc
