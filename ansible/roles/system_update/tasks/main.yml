@@ -1,8 +1,9 @@
+---
 - name: Fedora | Update Machine
   ansible.builtin.dnf:
-    update_cache: yes
-    state: latest
-    update_only: no
+    update_cache: true
+    state: present
+    update_only: false
   become: true
   when: machine_os == 'redhat'
 
