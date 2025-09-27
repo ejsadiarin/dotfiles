@@ -26,9 +26,26 @@
     - name: Detect OS and put in machine_os variable
       ansible.builtin.set_fact:
         machine_os: "{{ ansible_facts['os_family'] | lower }}" # can be 'archlinux', 'debian', 'redhat', etc.
+
     - name: Show which host is running
       debug:
         msg: "Running on {{ inventory_hostname }}"
+
+    - name: Show ansible_host
+      debug:
+        msg: "ansible_host: {{ ansible_host | default('undefined') }}"
+
+    - name: Show ansible_user
+      debug:
+        msg: "ansible_user: {{ ansible_user | default('undefined') }}"
+
+    - name: Show group names
+      debug:
+        msg: "Groups: {{ group_names }}"
+
+    - name: Show all hostvars
+      debug:
+        var: hostvars[inventory_hostname]
 
   # you can add roles to run here
   roles:
