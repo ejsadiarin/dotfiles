@@ -186,20 +186,22 @@ fi
 # else
 # fi
 
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$HOME/go/bin
-export PATH=$PATH:$HOME/services/scripts
+# Add to PATH only if directory exists
+[ -d "/usr/local/go/bin" ] && export PATH="$PATH:/usr/local/go/bin"
+[ -d "$HOME/go/bin" ] && export PATH="$PATH:$HOME/go/bin"
+[ -d "$HOME/services/scripts" ] && export PATH="$PATH:$HOME/services/scripts"
 
-. "$HOME/.local/share/../bin/env"
+# Source env file if it exists
+[ -f "$HOME/bin/env" ] && . "$HOME/bin/env"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/eisen/.sdkman"
-[[ -s "/home/eisen/.sdkman/bin/sdkman-init.sh" ]] && source "/home/eisen/.sdkman/bin/sdkman-init.sh"
+# SDKMAN setup (portable)
+export SDKMAN_DIR="$HOME/.sdkman"
+[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
-# # nvm (managed by ansible) START ANSIBLE MANAGED BLOCK
+# nvm (managed by ansible) START ANSIBLE MANAGED BLOCK
 if [[ -d "$HOME/.nvm" || -d "$XDG_CONFIG_HOME/nvm" ]]; then
-    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-    alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # fix perf issue
+  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  alias nvm="unalias nvm; [ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"; nvm \$@"
 fi
-# # nvm (managed by ansible) END ANSIBLE MANAGED BLOCK
+# nvm (managed by ansible) END ANSIBLE MANAGED BLOCK
