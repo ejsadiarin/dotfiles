@@ -22,6 +22,8 @@
     name:
       - python3
       - python-pip
+      - python3-devel
+      - uv
     state: present
   become: true
   when: machine_os == 'redhat'
