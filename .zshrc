@@ -392,7 +392,8 @@ if [[ -f "/usr/local/bin/kubectl" || -f "/usr/bin/kubectl" || -f "/usr/local/bin
     # kubectl completions
     source "$HOME/dotfiles/config/zsh/kubectl-completion.zsh"
     # source <(kubectl completion zsh)
-    export KUBECONFIG="$HOME/.kube/configs/leap25-config"
+    # export KUBECONFIG="$HOME/.kube/configs/leap25-config"
+    export KUBECONFIG="$HOME/personal/core-k8s-homelab/kubeconfig"
     alias k="kubectl"
     alias kx="kubectx"
     alias kn="kubens"
