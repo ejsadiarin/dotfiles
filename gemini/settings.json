@@ -1,0 +1,20 @@
+{
+    "mcpServers": {
+        "context7": {
+            "httpUrl": "https://mcp.context7.com/mcp",
+            "headers": {
+                "CONTEXT7_API_KEY": "context7-api-key",
+                "Accept": "application/json, text/event-stream"
+            }
+        }
+    },
+    "general": {
+        "preferredEditor": "neovim",
+        "vimMode": false
+    },
+    "security": {
+        "auth": {
+            "selectedType": "oauth-personal"
+        }
+    }
+}
