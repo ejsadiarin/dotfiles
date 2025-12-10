@@ -1,0 +1,62 @@
+{
+    "Name": "Main",
+    "HotKey": {
+        "KeyCode": "None",
+        "Modifier": "None"
+    },
+    "IsActive": true,
+    "Version": 4,
+    "Values": {
+        "DisplayMode": 0,
+        "Quality": 4,
+        "SkipIntroVideo": false,
+        "GraphicsOptions": {
+            "PrefabQuality": 2,
+            "Shadow": 2,
+            "ShadowResolution": 2,
+            "ShadowCascades": 4,
+            "ShadowDistance": 75,
+            "ShaderQuality": 800,
+            "FootStepQuality": 2,
+            "ShowEffects": 2,
+            "AnisotropicTextureFiltering": 2,
+            "AnimationBlendWeights": 4,
+            "SMAA": -1,
+            "SSAO": 0,
+            "Bloom": 0,
+            "SoftParticles": 1,
+            "WindowAnimations": 1,
+            "HighlightObscured": 1,
+            "CameraShake": 1,
+            "PixelLightCount": 18,
+            "SpellOcclusion": 6,
+            "AnimatedVegetation": 1
+        },
+        "TrackerCollapse": false,
+        "MarketPlaceAutoFetch|Kubernetes7": false,
+        "GammaSetting": 0.0,
+        "CursorSet": 2,
+        "MouseDoubleClickAttack": true,
+        "MountUpBehaviour": 1,
+        "KeyBindings": {
+            "RecordingMode": {
+                "KeyCode": "BackQuote",
+                "Modifier": "None"
+            },
+            "HideGui": {
+                "KeyCode": "BackQuote",
+                "Modifier": "Shift"
+            },
+            "CharacterInfo": {
+                "KeyCode": "Z",
+                "Modifier": "None"
+            },
+            "InspectTarget": {
+                "KeyCode": "X",
+                "Modifier": "None"
+            }
+        },
+        "HudScale": 0.85,
+        "Desktop_SelectedHudLayoutId": "ff5663e7-2899-484d-9d57-2b62ff4cfcf1"
+    }
+}
