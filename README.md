@@ -15,6 +15,11 @@
 
 # Installation
 
+- Install all including submodules (dotfiles, nvim, scripts-magic-spells)
+```bash
+git clone https://github.com/ejsadiarin/dotfiles.git --recurse-submodules
+```
+
 ## Fast Install via symlinks
 
 * `fast-install` - git pulls (recursively) and symlinks necessary configs only
