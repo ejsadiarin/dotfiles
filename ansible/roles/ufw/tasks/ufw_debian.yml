@@ -2,29 +2,41 @@
 - name: UFW - Reset UFW rules (optional step)
   community.general.ufw:
     state: reset
+  tags: ufw_rules
+  become: true
 
 - name: UFW - Set default policy to deny
   community.general.ufw:
     default: deny
+  tags: ufw_rules
+  become: true
 
 - name: UFW - Allow SSH Server
   community.general.ufw:
     rule: allow
     port: 22
     proto: tcp
+  tags: ufw_rules
+  become: true
 
 - name: UFW - Allow HTTP Server
   community.general.ufw:
     rule: allow
     port: 80
     proto: tcp
+  tags: ufw_rules
+  become: true
 
 - name: UFW - Allow HTTPS Server
   community.general.ufw:
     rule: allow
     port: 443
     proto: tcp
+  tags: ufw_rules
+  become: true
 
 - name: UFW - Enable UFW
   community.general.ufw:
     state: enabled
+  tags: ufw_rules
+  become: true
