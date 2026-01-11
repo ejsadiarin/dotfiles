@@ -13,9 +13,10 @@
 
 - Use `pipx` (Recommended)
     - Keeps Ansible isolated.
+        - use `--include-deps` to expose other binaries like `ansible-playbook,` etc.
 
     ```bash
-    pipx install ansible
+    pipx install --include-deps --force ansible
     # Install passlib for password hashing support
     pipx inject ansible passlib
     ```
