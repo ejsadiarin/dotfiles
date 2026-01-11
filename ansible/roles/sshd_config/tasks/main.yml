@@ -4,7 +4,7 @@
     path: /etc/ssh/sshd_config
     block: |
       # SSHD Configuration - Secure for Pubkey Only
-      PermitRootLogin no
+      PermitRootLogin without-password
       PasswordAuthentication no
       PubkeyAuthentication yes
       ChallengeResponseAuthentication no
@@ -16,7 +16,7 @@
       ClientAliveCountMax 2
     owner: root
     group: root
-    mode: "0600"
+    mode: 0644
     backup: yes
   notify: sshd_config | Restart ssh
   become: true
