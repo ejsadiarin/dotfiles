@@ -1,0 +1,5 @@
+- name: UFW | Detect OS for Debian
+  ansible.builtin.include_tasks: ufw_debian.yml
+  when: machine_os == 'debian'
+  tags: ufw_rules
+  become: true

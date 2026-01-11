@@ -1,0 +1,21 @@
+- name: Server Essentials | Install aptitude
+  apt:
+    name: aptitude
+    state: present
+    update_cache: true
+
+- name: Server Essentials | Install essential packages
+  ansible.builtin.apt:
+    name:
+      - sudo
+      - git
+      - curl
+      - vim
+      - wget
+      - openssh-server
+      - ufw
+      - net-tools
+      - tmux
+    state: present
+    update_cache: true
+  become: true

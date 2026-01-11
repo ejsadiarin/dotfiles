@@ -1,0 +1,3 @@
+- name: Server Essentials | Detect OS for Debian
+  ansible.builtin.include_tasks: debian.yml
+  when: machine_os == 'debian'

@@ -1,0 +1,65 @@
+- name: Add new sudo user
+  hosts: "{{ target_hosts | default('localhost') }}" # 'all', 'localhost', IP_ADDRESS, etc.
+  connection: "{{ target_connection | default('local') }}" # 'local', 'ssh', etc.
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: Add a new user
+      user:
+        name: "{{ user_name }}"
+        password: "{{ user_password | password_hash('sha512') }}"
+        shell: /bin/bash
+
+    - name: Ensure the SSH directory exists for the new user
+      file:
+        path: "/home/{{ user_name }}/.ssh"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: "0700"
+
+    - name: Add SSH key to authorized_keys
+      authorized_key:
+        user: "{{ user_name }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+    - name: Grant sudo privileges to the new user
+      copy:
+        content: "{{ user_name }} ALL=(ALL) NOPASSWD:ALL"
+        dest: /etc/sudoers.d/user_name"
+        owner: root
+        group: root
+        mode: 0440
+
+  # # Copy the security script to the target machine
+  # - name: Copy security script to target machine
+  #   copy:
+  #     src: "{{ playbook_dir }}/scripts/security.sh" # Relative to the playbook.yml
+  #     dest: /root/security.sh
+  #     owner: root
+  #     group: root
+  #     mode: 0755
+  #
+  # # Ensure the SSH security functions script is executable
+  # - name: Ensure the script is executable
+  #   file:
+  #     path: /root//security.sh
+  #     owner: root
+  #     group: root
+  #     mode: 0755
+  #
+  # # Source the SSH functions script in user's .bashrc
+  # - name: Source the SSH functions script in user's .bashrc
+  #   lineinfile:
+  #     path: /root/.bashrc
+  #     line: "source /root/security.sh"
+  #     create: yes
+  #     state: present
+  #     owner: root
+  #     group: root
+
+  vars:
+    user_name: admin # replace with your username
+    user_password: mysecretpassword # replace with your password

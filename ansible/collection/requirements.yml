@@ -1,6 +1,6 @@
----
 # install collections via: ansible-galaxy collection install -r requirements.yml
 collections:
   - name: community.general
   - name: artis3n.tailscale
+  - name: ansible.posix
 # - name: kubernetes.core

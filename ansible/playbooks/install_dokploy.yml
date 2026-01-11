@@ -1,0 +1,25 @@
+- name: Install Dokploy (Open-source alternative to Vercel, Netlify, Heroku) on a remote server
+  hosts: "{{ target_hosts | default('dokploy_server') }}"
+  connection: "{{ target_connection | default('ssh') }}" # 'local', 'ssh', etc.
+  gather_facts: true
+
+  pre_tasks:
+    - name: Register Host User
+      ansible.builtin.set_fact:
+      host_user: "{{ ansible_user_id }}"
+      when: host_user is not defined
+
+    - name: Run system_update role
+      ansible.builtin.include_role:
+        name: system_update
+
+  roles:
+    - sshd_config
+    - fail2ban
+    - ufw
+
+  tasks:
+    - name: Install Dokploy via install script
+      ansible.builtin.shell:
+        cmd: curl -sSL https://dokploy.com/install.sh | sh
+      become: true

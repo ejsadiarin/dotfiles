@@ -1,4 +1,3 @@
----
 ####################
 #     REQUIRED:    #
 ####################
@@ -13,6 +12,8 @@ git_user_email: !vault |
 timezone: "Asia/Manila"
 wants_java: false
 wants_csharp_dotnet: false
+# target_hosts: homelab_group
+# target_connection: ssh
 
 ####################
 #     OPTIONAL:    #

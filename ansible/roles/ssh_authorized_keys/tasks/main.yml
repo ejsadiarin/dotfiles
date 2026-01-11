@@ -1,0 +1,21 @@
+- name: ssh authorized_keys | Ensure .ssh directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.ssh"
+    state: directory
+    mode: "0700"
+
+- name: ssh authorized_keys | Add public key to current user
+  ansible.posix.authorized_key:
+    user: "{{ ansible_user_id }}"
+    state: present
+    key: "{{ lookup('ansible.builtin.file', lookup('ansible.builtin.env', 'HOME') + '/.ssh/id_ed25519.pub') }}"
+    exclusive: false
+
+- name: ssh authorized_keys | Add public key to root user
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('ansible.builtin.file', lookup('ansible.builtin.env', 'HOME') + '/.ssh/id_ed25519.pub') }}"
+    exclusive: false
+  become: true
+

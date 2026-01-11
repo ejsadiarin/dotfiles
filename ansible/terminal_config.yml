@@ -1,4 +1,3 @@
----
 # Terminal ONLY Installation Playbook
 # run on local: ansible-playbook main.yml --ask-become-pass
 # run on remotes: ansible-playbook main.yml --ask-pass --ask-become-pass -i inventory/hosts.ini
@@ -7,7 +6,7 @@
 
 - name: Exquisite Terminal-Only Minimal Configuration
   hosts: "{{ target_hosts | default('localhost') }}" # if have multiple hosts on hosts.ini file then: 'all', 'linux', 'webservers', etc.
-  connection: "{{ target_connection | default('local') }}"
+  connection: "{{ target_connection | default('local') }}" # 'local', 'ssh', etc.
   gather_facts: true
 
   pre_tasks:

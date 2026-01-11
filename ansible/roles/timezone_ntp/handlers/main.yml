@@ -1,12 +1,12 @@
 # called if changed=True on config change on timesyncd.conf or ntp.conf
 - name: Timezone/NTP | Restart timesyncd.service
-  ansible.builtin.systemd_service:
+  ansible.builtin.service:
     name: systemd-timesyncd.service
     state: restarted
   become: true
 
 - name: Timezone/NTP | Restart chronyd
-  ansible.builtin.systemd_service:
+  ansible.builtin.service:
     name: chronyd.service
     state: restarted
   become: true

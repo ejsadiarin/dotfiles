@@ -1,4 +1,3 @@
----
 - name: Essentials Debian | Install essential packages
   ansible.builtin.apt:
     name:
@@ -39,6 +38,8 @@
       - less
       - cargo
       - acpi
+      - ufw
+      - net-tools
       # - oha
       # - websocat
       - lm-sensors

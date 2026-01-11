@@ -1,0 +1,75 @@
+- name: Bootstrap debian server
+  hosts: "{{ target_hosts | default('server') }}" # see hosts.ini file: 'localhost', 'all', 'linux', 'webservers', etc.
+  connection: "{{ target_connection | default('ssh') }}" # 'local', 'ssh'
+  gather_facts: true
+  become: true
+
+  pre_tasks:
+    - name: Detect OS and put in machine_os variable
+      ansible.builtin.set_fact:
+        machine_os: "{{ ansible_facts['os_family'] | lower }}" # can be 'archlinux', 'debian', 'redhat', etc.
+
+    - name: Debug machine_os
+      ansible.builtin.debug:
+        msg: "The machine is running {{ machine_os }} ({{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }})"
+
+    - name: Validate supported OS
+      ansible.builtin.fail:
+        msg: "Unsupported OS: {{ ansible_facts['distribution'] }}. This playbook supports: Arch, Debian, and RedHat-based systems."
+      when: machine_os not in ['archlinux', 'debian', 'redhat']
+
+    - name: Run system_update role
+      ansible.builtin.include_role:
+        name: system_update
+
+    # NOTE: auto configured in the cloud dashboard
+    # - name: Configure NTP timesync
+    #   ansible.builtin.include_role:
+    #     name: timezone_ntp
+
+    - name: Configure Locale to UTF-8
+      ansible.builtin.shell: "localectl set-locale LANG=en_US.UTF-8"
+      changed_when: false
+
+    # ------- USER MANAGEMENT -------
+    - name: Add a new user
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        password: "{{ user_password | password_hash('sha512') }}"
+        shell: /bin/bash
+        update_password: on_create # set password on first run only (doesn't update if user_name already exists)
+
+    - name: Ensure the SSH directory exists for the new user
+      ansible.builtin.file:
+        path: "/home/{{ user_name }}/.ssh"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: "0700"
+
+    - name: Add SSH key to authorized_keys
+      ansible.posix.authorized_key:
+        user: "{{ user_name }}"
+        state: present
+        key: "{{ lookup('ansible.builtin.file', '~/.ssh/id_ed25519.pub') }}"
+
+    - name: Grant sudo privileges to the new user
+      ansible.builtin.copy:
+        content: "{{ user_name }} ALL=(ALL) NOPASSWD:ALL"
+        dest: "/etc/sudoers.d/{{ user_name }}"
+        owner: root
+        group: root
+        mode: "0440"
+
+  roles:
+    - server_essentials
+    - ssh_authorized_keys
+    - sshd_config
+    - fail2ban
+    - ufw
+    - vim
+
+  vars:
+    # for the new user to be created
+    user_name: admin # replace username
+    user_password: mysecretpassword # replace password

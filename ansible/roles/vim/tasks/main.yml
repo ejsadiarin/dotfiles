@@ -1,0 +1,36 @@
+- name: Vim | Install vim
+  ansible.builtin.apt:
+    name: vim
+    state: present
+  become: true
+  when: machine_os == 'debian'
+
+- name: Vim | Install vim
+  ansible.builtin.dnf:
+    name: vim
+    state: present
+  become: true
+  when: machine_os == 'redhat'
+
+- name: Vim | Install vim
+  community.general.pacman:
+    name: vim
+    state: present
+  become: true
+  when: machine_os == 'archlinux'
+
+# for vim configs
+- name: Remove existing .vimrc if have any
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.vimrc"
+    state: absent
+  become: true
+
+- name: Vim | Copy .vimrc template
+  ansible.builtin.copy:
+    src: templates/.vimrc
+    dest: "{{ ansible_user_dir }}/.vimrc"
+    owner: root
+    group: root
+    mode: '0644' # -rw-r--r-
+  become: true

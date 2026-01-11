@@ -1,0 +1,22 @@
+# Secure SSH server settings
+- name: sshd_config | Append secure pubkey-only config
+  ansible.builtin.blockinfile:
+    path: /etc/ssh/sshd_config
+    block: |
+      # SSHD Configuration - Secure for Pubkey Only
+      PermitRootLogin no
+      PasswordAuthentication no
+      PubkeyAuthentication yes
+      ChallengeResponseAuthentication no
+      UsePAM yes
+      X11Forwarding no
+      AllowTcpForwarding no
+      PermitEmptyPasswords no
+      ClientAliveInterval 300
+      ClientAliveCountMax 2
+    owner: root
+    group: root
+    mode: "0600"
+    backup: yes
+  notify: sshd_config | Restart ssh
+  become: true

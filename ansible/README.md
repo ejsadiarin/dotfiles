@@ -3,7 +3,6 @@
 `full_config.yml` - for full dotfiles configuration
 `terminal_config.yml` - for servers, and machines with no GUI
 
-
 # Run
 
 - `full_config.yml` - full dotfiles configuration
@@ -12,6 +11,7 @@
 ## Run on localhost
 
 - `full_config.yml`:
+
 ```bash
 # run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
 chmod +x ./init_control_node
@@ -25,6 +25,7 @@ ansible-playbook --check --vault-password-file ./master_password --ask-become-pa
 ```
 
 - `terminal_config.yml`:
+
 ```bash
 # run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
 chmod +x ./init_control_node
@@ -39,7 +40,11 @@ ansible-playbook --check --vault-password-file ./master_password --ask-become-pa
 
 ## Run on remotes
 
+> [!NOTE]
+> Just add `-e "target_connection=ssh target_hosts=<HOST_GROUP_SEE_hosts_ini_FILE>"`
+
 - `full_config.yml`:
+
 ```bash
 # run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
 chmod +x ./init_control_node
@@ -53,22 +58,25 @@ ansible-playbook --check --vault-password-file ./master_password --ask-become-pa
 ```
 
 - `terminal_config.yml`:
+
 ```bash
 # run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
 chmod +x ./init_control_node
 ./init_control_node
 
-# run terminal_config playbook
-ansible-playbook --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini terminal_config.yml
+# run terminal_config playbook (change target_hosts value)
+ansible-playbook --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini -e "target_connection=ssh target_hosts=homelab_group" terminal_config.yml
 
 # dry-run (optional to test things first)
 ansible-playbook --check --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini terminal_config.yml
 ```
 
+---
+
 # master_password
 
 - encrypted with gpg --symmetric (first layer)
-  - `--symmetric` so no need for asymmetric gpg keys
+    - `--symmetric` so no need for asymmetric gpg keys
 - then encrypted with ansible-vault (second layer)
 
 - decrypt:
@@ -97,6 +105,8 @@ gpg --symmetric master_password
 shred -uvz master_password
 ```
 
+## Ansible Vault Encryption (via `ansible-vault`)
+
 - encrypting a string with encrypt_string
 
 ```bash
@@ -108,6 +118,8 @@ ansible-vault encrypt_string --vault-password-file ~/dotfiles/ansible/master_pas
 ```bash
 cat file.key | ansible-vault encrypt_string --vault-password-file ~/dotfiles/ansible/master_password --stdin-name "file.key"
 ```
+
+---
 
 # Post-Installation
 
@@ -139,7 +151,7 @@ zsh
 ## neovim
 
 - opening nvim will also automatically install the plugins
-  - do a `:checkhealth` after to see 'missing' deps, etc.
+    - do a `:checkhealth` after to see 'missing' deps, etc.
 
 ```bash
 nvim
@@ -161,9 +173,8 @@ tmux source .tmux.conf
 ```
 
 - then install plugins with `<prefix>+I`
-  - this config uses `M-Space` (or `Alt-Space`) as prefix
-  - so do: `M-Space + I` (`Alt-Space + I`)
-
+    - this config uses `M-Space` (or `Alt-Space`) as prefix
+    - so do: `M-Space + I` (`Alt-Space + I`)
 
 ---
 

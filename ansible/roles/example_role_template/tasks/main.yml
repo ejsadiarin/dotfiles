@@ -1,0 +1,6 @@
+# tasks file (see example below)
+- name: Change default user shell to zsh
+  become: true
+  ansible.builtin.user:
+    name: "{{ the_user }}"
+    shell: /bin/zsh
