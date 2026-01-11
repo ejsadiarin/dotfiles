@@ -1,12 +1,8 @@
 # Ansible Playbook
 
-`full_config.yml` - for full dotfiles configuration
-`terminal_config.yml` - for servers, and machines with no GUI
-
-# Run
-
-- `full_config.yml` - full dotfiles configuration
-- `terminal_config.yml` - for servers/terminal configuration only
+- `full_config.yml` - for full dotfiles configuration
+- `terminal_config.yml` - for terminal configuration only
+- `bootstrap_debian_server.yml` - for debian servers (ubuntu server, etc.)
 
 ## Run on localhost
 
@@ -51,10 +47,10 @@ chmod +x ./init_control_node
 ./init_control_node
 
 # run full_config playbook
-ansible-playbook --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini full_config.yml
+ansible-playbook --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini full_config.yml -e "target_connection=ssh target_hosts=<HOST_GROUP_SEE_hosts_ini_FILE>"
 
 # dry-run (optional to test things first)
-ansible-playbook --check --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini full_config.yml
+ansible-playbook --check --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini full_config.yml -e "target_connection=ssh target_hosts=<HOST_GROUP_SEE_hosts_ini_FILE>"
 ```
 
 - `terminal_config.yml`:
@@ -70,6 +66,26 @@ ansible-playbook --vault-password-file ./master_password --ask-become-pass -i in
 # dry-run (optional to test things first)
 ansible-playbook --check --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini terminal_config.yml
 ```
+
+---
+
+## Run `bootstrap_debian_server.yml`
+
+- For new VPS/VMs/servers
+
+> [!IMPORTANT]
+> Override `user_name` and `user_password`
+
+```bash
+# replace user_name and user_password variables
+ansible-playbook --ask-become-pass bootstrap_lscs_vps.yml -i inventory/hosts.ini -e "user_name=USERNAME user_password=YOUR_SECURE_PASSWORD"
+```
+
+- if you used `ansible-vault` to encrypt something, then add `--ask-vault-pass` flag:
+
+    ```bash
+    ansible-playbook --ask-become-pass --ask-vault-pass bootstrap_lscs_vps.yml -i ./inventory/hosts.ini -e "user_name=USERNAME user_password=YOUR_SECURE_PASSWORD"
+    ```
 
 ---
 

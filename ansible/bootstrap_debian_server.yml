@@ -69,7 +69,13 @@
     - ufw
     - vim
 
-  vars:
-    # for the new user to be created
-    user_name: admin # replace username
-    user_password: mysecretpassword # replace password
+  tasks:
+    - name: Complete Message
+      ansible.builtin.debug:
+        msg: "Bootstrap Done!"
+
+  # NOTE: This is better to be set during execution (see ansible/README.md)
+  # vars:
+  #   # for the new user to be created
+  #   user_name: admin # replace username
+  #   user_password: mysecretpassword # replace password
