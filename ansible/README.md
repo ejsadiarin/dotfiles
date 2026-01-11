@@ -4,6 +4,22 @@
 - `terminal_config.yml` - for terminal configuration only
 - `bootstrap_debian_server.yml` - for debian servers (ubuntu server, etc.)
 
+## Install Ansible on your local machine
+
+> [!NOTE]
+> Python and pipx (better than pip) is required to run `ansible`
+
+- Make sure to install python and pipx via your package manager first
+
+- Use `pipx` (Recommended)
+    - Keeps Ansible isolated.
+
+    ```bash
+    pipx install ansible
+    # Install passlib for password hashing support
+    pipx inject ansible passlib
+    ```
+
 ## Run on localhost
 
 - `full_config.yml`:
