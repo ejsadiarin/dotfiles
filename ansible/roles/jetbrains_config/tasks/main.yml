@@ -6,14 +6,14 @@
 
 - name: Find IntelliJ config directories
   ansible.builtin.find:
-    paths: "{{ ansible_env.HOME }}/.config/JetBrains"
+    paths: "{{ ansible_facts['env']['HOME'] }}/.config/JetBrains"
     patterns: "IntelliJIdea20*"
     file_type: directory
   register: intellij_dirs
 
 - name: Ensure dotfiles keymaps directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/dotfiles/config/JetBrains/{{ item.path | basename }}/keymaps"
+    path: "{{ ansible_facts['env']['HOME'] }}/dotfiles/config/JetBrains/{{ item.path | basename }}/keymaps"
     state: directory
     mode: '0755'
   loop: "{{ intellij_dirs.files }}"
@@ -26,7 +26,7 @@
 
 - name: Symlink keymaps to dotfiles
   ansible.builtin.file:
-    src: "{{ ansible_env.HOME }}/dotfiles/config/JetBrains/{{ item.path | basename }}/keymaps"
+    src: "{{ ansible_facts['env']['HOME'] }}/dotfiles/config/JetBrains/{{ item.path | basename }}/keymaps"
     dest: "{{ item.path }}/keymaps"
     state: link
   loop: "{{ intellij_dirs.files }}"

@@ -1,4 +1,3 @@
----
 # NOTE: READ INSTRUCTIONS BELOW 
 # - for roles to run individually, remote hosts, etc.
 #
@@ -54,12 +53,12 @@
   # tasks:
   #   - name: Link .ideavimrc
   #     ansible.builtin.file:
-  #       src: "{{ ansible_user_dir }}/dotfiles/.ideavimrc"
-  #       dest: "{{ ansible_user_dir }}/.ideavimrc"
+  #       src: "{{ ansible_facts['user_dir'] }}/dotfiles/.ideavimrc"
+  #       dest: "{{ ansible_facts['user_dir'] }}/.ideavimrc"
   #       state: link
   #
   #   - name: Link .vimrc
   #     ansible.builtin.file:
-  #       src: "{{ ansible_user_dir }}/dotfiles/.vimrc"
-  #       dest: "{{ ansible_user_dir }}/.vimrc"
+  #       src: "{{ ansible_facts['user_dir'] }}/dotfiles/.vimrc"
+  #       dest: "{{ ansible_facts['user_dir'] }}/.vimrc"
   #       state: link

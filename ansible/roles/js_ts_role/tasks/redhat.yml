@@ -13,6 +13,7 @@
     url: https://api.github.com/repos/nvm-sh/nvm/releases/latest
   register: nvm_latest_version_json
   changed_when: false
+  check_mode: false
 
 - name: "NVM | Registering NVM Latest Release"
   ansible.builtin.set_fact:
@@ -30,13 +31,13 @@
   ansible.builtin.shell: >
     set -o pipefail && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_latest_release }}/install.sh | bash
   args:
-    creates: "{{ ansible_env.HOME }}/.config/nvm/nvm.sh"
+    creates: "{{ ansible_facts['env']['HOME'] }}/.config/nvm/nvm.sh"
     executable: /bin/bash
   become: false
 
 - name: Ensure NVM loader snippet is present in .bashrc
   ansible.builtin.blockinfile:
-    path: "{{ ansible_env.HOME }}/.bashrc"
+    path: "{{ ansible_facts['env']['HOME'] }}/.bashrc"
     create: true
     marker_begin: "# nvm (managed by ansible) START"
     marker_end: "# nvm (managed by ansible) END"
@@ -51,7 +52,7 @@
 
 - name: Ensure NVM loader snippet is present in .zshrc
   ansible.builtin.blockinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
+    path: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
     create: true
     marker_begin: "# nvm (managed by ansible) START"
     marker_end: "# nvm (managed by ansible) END"

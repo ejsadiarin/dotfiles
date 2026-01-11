@@ -18,24 +18,24 @@
 
 - name: Downloads | Create proper directory structure
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/downloads"
+    path: "{{ ansible_facts['user_dir'] }}/downloads"
     state: directory
     mode: "0755"
 
 - name: Personal | Create proper directory structure
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/personal"
+    path: "{{ ansible_facts['user_dir'] }}/personal"
     state: directory
     mode: "0755"
 
 - name: Work | Create proper directory structure
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/work"
+    path: "{{ ansible_facts['user_dir'] }}/work"
     state: directory
     mode: "0755"
 
 - name: Config | Create proper directory structure
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config"
+    path: "{{ ansible_facts['user_dir'] }}/.config"
     state: directory
     mode: "0755"

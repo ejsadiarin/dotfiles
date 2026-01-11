@@ -2,18 +2,18 @@
 - name: Packet Tracer | git clone packettracer-fedora script
   ansible.builtin.git:
     repo: "https://github.com/thiagoojack/packettracer-fedora.git"
-    dest: "{{ ansible_env.HOME }}/personal/packettracer-fedora"
+    dest: "{{ ansible_facts['env']['HOME'] }}/personal/packettracer-fedora"
 
 - name: Packet Tracer | wget latest packet tracer .deb package
   ansible.builtin.get_url:
     url: "https://www.netacad.com/portal/sites/default/files/resources/Packet_Tracer/packet-tracer-821-amd64.deb"
-    dest: "{{ ansible_env.HOME }}/Downloads/packet-tracer.deb"
+    dest: "{{ ansible_facts['env']['HOME'] }}/Downloads/packet-tracer.deb"
     mode: '0644'
 
 - name: Packet Tracer | execute setup script on specified directory containing the .deb package
   ansible.builtin.command:
-    cmd: ./setup.sh "{{ ansible_env.HOME }}/Downloads/packet-tracer.deb"
-    chdir: "{{ ansible_env.HOME }}/personal/packettracer-fedora"
+    cmd: ./setup.sh "{{ ansible_facts['env']['HOME'] }}/Downloads/packet-tracer.deb"
+    chdir: "{{ ansible_facts['env']['HOME'] }}/personal/packettracer-fedora"
   become: true
 
 - name: Packet Tracer | edit /usr/share/applications/cisco-pt821.desktop

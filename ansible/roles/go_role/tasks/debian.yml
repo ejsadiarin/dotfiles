@@ -18,7 +18,7 @@
 - name: Go | Get go tarball
   ansible.builtin.get_url:
     url: "https://go.dev/dl/{{ go_version }}.linux-amd64.tar.gz"
-    dest: "{{ ansible_user_dir }}/Downloads/{{ go_version }}.linux-amd64.tar.gz"
+    dest: "{{ ansible_facts['user_dir'] }}/Downloads/{{ go_version }}.linux-amd64.tar.gz"
     checksum: "sha256:{{ lookup('url', 'https://go.dev/dl/{{ go_version }}.linux-amd64.tar.gz.sha256') }}"
 
 - name: Go | Ensure no previous installation
@@ -28,12 +28,12 @@
 
 - name: Go | Install go
   ansible.builtin.unarchive:
-    src: "{{ ansible_user_dir }}/Downloads/{{ go_version }}.linux-amd64.tar.gz"
+    src: "{{ ansible_facts['user_dir'] }}/Downloads/{{ go_version }}.linux-amd64.tar.gz"
     dest: /usr/local
   become: true
 
 # no need to add /usr/local/go to PATH since it is already in our .zshrc/.bashrc
 
 - name: Go | Confirm go installation
-  ansible.builtin.shell: "source {{ ansible_user_dir }}/.zshrc && go version"
+  ansible.builtin.shell: "source {{ ansible_facts['user_dir'] }}/.zshrc && go version"
   # ansible.builtin.shell: "source {{ ansible_env.HOME }}/.zshrc"

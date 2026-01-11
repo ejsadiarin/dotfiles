@@ -11,6 +11,7 @@
     enabled: true
     state: started
   become: true
+  when: not ansible_check_mode # skip in check mode
 
 - name: fail2ban | Create a custom fail2ban jail for SSH
   ansible.builtin.copy:
@@ -34,3 +35,4 @@
     name: fail2ban
     state: restarted
   become: true
+  when: not ansible_check_mode # skip in check mode

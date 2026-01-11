@@ -3,3 +3,4 @@
     name: ssh
     state: restarted
   become: true
+  when: not ansible_check_mode # skip in check mode

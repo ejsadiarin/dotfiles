@@ -22,14 +22,14 @@
 # for vim configs
 - name: Remove existing .vimrc if have any
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.vimrc"
+    path: "{{ ansible_facts['user_dir'] }}/.vimrc"
     state: absent
   become: true
 
 - name: Vim | Copy .vimrc template
   ansible.builtin.copy:
     src: templates/.vimrc
-    dest: "{{ ansible_user_dir }}/.vimrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.vimrc"
     owner: root
     group: root
     mode: '0644' # -rw-r--r-

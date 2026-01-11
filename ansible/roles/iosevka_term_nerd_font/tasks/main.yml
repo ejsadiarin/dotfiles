@@ -9,7 +9,7 @@
 
 - name: Iosevka | Create fonts directory
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    path: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts"
     state: directory
     mode: '0755'
   become: true
@@ -36,7 +36,7 @@
 - name: Iosevka | Unpack Iosevka Term Nerd Font
   ansible.builtin.unarchive:
     src: "/tmp/IosevkaTerm.tar.xz"
-    dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts"
     extra_opts: ["-o"]
     remote_src: true
   become: true

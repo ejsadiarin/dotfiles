@@ -22,17 +22,17 @@
 
 - name: Tmux | Link tmux.conf config
   ansible.builtin.file:
-    src: "{{ ansible_user_dir }}/dotfiles/tmux/.tmux.conf"
-    dest: "{{ ansible_user_dir }}/.tmux.conf"
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/tmux/.tmux.conf"
+    dest: "{{ ansible_facts['user_dir'] }}/.tmux.conf"
     state: link
 
 - name: Tmux | Link dotfiles/tmux configs to ~/.config/tmux
   ansible.builtin.file:
-    src: "{{ ansible_user_dir }}/dotfiles/tmux"
-    dest: "{{ ansible_user_dir }}/.config/tmux"
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/tmux"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/tmux"
     state: link
 
 - name: Tmux | Install tpm (git clone)
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
-    dest: "{{ ansible_user_dir }}/.config/tmux/plugins/tpm"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/tmux/plugins/tpm"

@@ -13,5 +13,5 @@
     - name: auto-cpufreq install
       ansible.builtin.git:
         repo: https://github.com/AdnanHodzic/auto-cpufreq.git
-        dest: "{{ ansible_user_dir }}/.config/auto-cpufreq"
+        dest: "{{ ansible_facts['user_dir'] }}/.config/auto-cpufreq"
       become: true

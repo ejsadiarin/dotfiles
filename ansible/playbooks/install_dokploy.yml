@@ -6,7 +6,7 @@
   pre_tasks:
     - name: Register Host User
       ansible.builtin.set_fact:
-      host_user: "{{ ansible_user_id }}"
+      host_user: "{{ ansible_facts['user_id'] }}"
       when: host_user is not defined
 
     - name: Run system_update role

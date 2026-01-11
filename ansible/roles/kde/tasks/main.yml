@@ -1,7 +1,7 @@
 ---
 - name: KDE | Ensure KDE config directories exist
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/{{ item }}"
+    path: "{{ ansible_facts['env']['HOME'] }}/{{ item }}"
     state: directory
     mode: '0755'
   loop:
@@ -11,9 +11,9 @@
 
 - name: KDE | Configure personal settings
   ansible.builtin.copy:
-    src: "{{ ansible_env.HOME }}/dotfiles/config/{{ item }}"
-    dest: "{{ ansible_env.HOME }}/.config/{{ item }}"
-    owner: "{{ ansible_env.USER }}"
+    src: "{{ ansible_facts['env']['HOME'] }}/dotfiles/config/{{ item }}"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/{{ item }}"
+    owner: "{{ ansible_facts['env']['USER'] }}"
     mode: '0600'
   loop:
     - kwinrc

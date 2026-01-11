@@ -7,14 +7,14 @@
 
 - name: Syncthing | start and enable via systemd # sudo systemctl enable --now syncthing@$USER.service
   ansible.builtin.systemd:
-    name: "syncthing@{{ ansible_user_id }}.service"
+    name: "syncthing@{{ ansible_facts['user_id'] }}.service"
     state: started
     enabled: true
   become: true
 
 - name: Syncthing | ensure syncthing config directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/syncthing"
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/syncthing"
     state: directory
     mode: '0700'
   when: machine_os == "redhat"
@@ -28,5 +28,5 @@
   with_items:
     - "22000/tcp" # File transfer port
     - "21027/udp" # Discovery port
-  when: machine_os == "redhat" and ansible_distribution_major_version|int >= 7
+  when: machine_os == "redhat" and ansible_facts['distribution_major_version']|int >= 7
   notify: restart firewalld

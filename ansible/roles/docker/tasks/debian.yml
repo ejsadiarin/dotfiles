@@ -46,7 +46,7 @@
 
 - name: Docker | Add user to the Docker group # sudo usermod -aG docker $USER
   ansible.builtin.user:
-    name: "{{ ansible_user_id }}"
+    name: "{{ ansible_facts['user_id'] }}"
     groups: docker
     append: true
   become: true

@@ -52,6 +52,7 @@
         user: "{{ user_name }}"
         state: present
         key: "{{ lookup('ansible.builtin.file', '~/.ssh/id_ed25519.pub') }}"
+      when: not ansible_check_mode # skip in check mode
 
     - name: Grant sudo privileges to the new user
       ansible.builtin.copy:

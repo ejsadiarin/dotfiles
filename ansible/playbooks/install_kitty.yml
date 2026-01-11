@@ -20,6 +20,6 @@
 
     - name: Kitty | Link kitty.conf config
       ansible.builtin.file:
-        src: "{{ ansible_user_dir }}/dotfiles/config/kitty"
-        dest: "{{ ansible_user_dir }}/.config/kitty"
+        src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/kitty"
+        dest: "{{ ansible_facts['user_dir'] }}/.config/kitty"
         state: link

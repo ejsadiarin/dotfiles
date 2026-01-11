@@ -41,7 +41,7 @@
 
     - name: Register Host User
       ansible.builtin.set_fact:
-        host_user: "{{ ansible_user_id }}"
+        host_user: "{{ ansible_facts['user_id'] }}"
       when: host_user is not defined
 
     - name: Run system_update role
@@ -89,8 +89,8 @@
   tasks:
     - name: Link .ideavimrc
       ansible.builtin.file:
-        src: "{{ ansible_user_dir }}/dotfiles/.ideavimrc"
-        dest: "{{ ansible_user_dir }}/.ideavimrc"
+        src: "{{ ansible_facts['user_dir'] }}/dotfiles/.ideavimrc"
+        dest: "{{ ansible_facts['user_dir'] }}/.ideavimrc"
         state: link
 
     - name: Run jetbrains_config role for keymaps
@@ -99,13 +99,13 @@
 
     - name: Remove existing .vimrc if have any
       ansible.builtin.file:
-        path: "{{ ansible_user_dir }}/.vimrc"
+        path: "{{ ansible_facts['user_dir'] }}/.vimrc"
         state: absent
 
     - name: Link .vimrc
       ansible.builtin.file:
-        src: "{{ ansible_user_dir }}/dotfiles/.vimrc"
-        dest: "{{ ansible_user_dir }}/.vimrc"
+        src: "{{ ansible_facts['user_dir'] }}/dotfiles/.vimrc"
+        dest: "{{ ansible_facts['user_dir'] }}/.vimrc"
         state: link
 
     - name: Post Installation | ssh-agent
@@ -114,7 +114,7 @@
 
     - name: Post Installation | import gpg private key in .gnupg
       ansible.builtin.debug:
-        msg: "To import your private GPG key, run: gpg --import {{ ansible_user_dir }}/.gnupg/private.gpg"
+        msg: "To import your private GPG key, run: gpg --import {{ ansible_facts['user_dir'] }}/.gnupg/private.gpg"
 
     - name: Post Installation | delete temp private/public gpg keys in .gnupg after importing
       ansible.builtin.debug:
@@ -122,7 +122,7 @@
 
     - name: Post Installation | cleanup master_password
       ansible.builtin.file:
-        path: "{{ ansible_user_dir }}/dotfiles/ansible/master_password"
+        path: "{{ ansible_facts['user_dir'] }}/dotfiles/ansible/master_password"
         state: absent
 
     - name: Post Installation | Tailscale
