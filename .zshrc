@@ -196,8 +196,10 @@ zstyle ':vcs_info:*' formats ' %B[%F{blue}%f %F{yellow}%b%f]'
 mkdir -p "$XDG_CONFIG_HOME/zsh"
 HISTFILE=~/.config/zsh/zhistory
 # HISTFILE=~/.zsh_history
-HISTSIZE=50000
-SAVEHIST=50000
+HISTSIZE=1000000000
+SAVEHIST=1000000000
+# HISTSIZE=50000
+# SAVEHIST=50000
 
 setopt autocd                  # change directory just by typing its name
 setopt prompt_subst            # enable command substitution in prompt
