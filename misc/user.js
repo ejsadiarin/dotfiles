@@ -50,8 +50,8 @@ user_pref("geo.enabled", false);
 // PREF: When geolocation is enabled, use Mozilla geolocation service instead of Google
 // https://bugzilla.mozilla.org/show_bug.cgi?id=689252
 user_pref(
-  "geo.wifi.uri",
-  "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%",
+    "geo.wifi.uri",
+    "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%",
 );
 
 // PREF: When geolocation is enabled, don't log geolocation requests to the console
@@ -442,8 +442,8 @@ user_pref("services.blocklist.update_enabled", true);
 // PREF: Decrease system information leakage to Mozilla blocklist update servers
 // https://trac.torproject.org/projects/tor/ticket/16931
 user_pref(
-  "extensions.blocklist.url",
-  "https://blocklist.addons.mozilla.org/blocklist/3/%APP_ID%/%APP_VERSION%/",
+    "extensions.blocklist.url",
+    "https://blocklist.addons.mozilla.org/blocklist/3/%APP_ID%/%APP_VERSION%/",
 );
 
 // PREF: Disable system add-on updates (hidden & always-enabled add-ons from Mozilla)
