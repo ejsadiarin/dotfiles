@@ -15,7 +15,7 @@ else
     # gemini_sessions=$(tmux ls | grep "gemini*" | cut -d':' -f1)
     # selected=$(echo "$gemini_sessions" | fzf --tmux --prompt="to delete: > ")
     all_sessions=$(tmux ls | cut -d':' -f1)
-    selected=$(echo "$all_sessions" | fzf --tmux -m --layout=reverse-list --prompt="to delete (tab - select multiple): > " --color="prompt:red,border:red")
+    selected=$(echo "$all_sessions" | fzf -m --layout=reverse-list --prompt="to delete (tab - select multiple): > " --color="prompt:red,border:red" --preview="tmux list-windows -t '{}'" --preview-window="right:wrap")
 fi
 
 # if session is not selected (empty, did not select anything in fzf), then exit
