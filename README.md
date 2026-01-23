@@ -5,24 +5,29 @@
 - mainly focused on having fast keymaps/keybindings with the least mental overhead possible
 
 - if you like this, you will surely love [Wizardry: The Akashic Records of Technology](https://github.com/ejsadiarin/wizardry)
-  - where all my knowledge, philosophy, scripts, magic spells, and configuration are archived.
+    - where all my knowledge, philosophy, scripts, magic spells, and configuration are archived.
 
 > [!IMPORTANT]
 > **The previous BSPWM configs has been moved into a separate branch `bspwm-dots`**
 > ![bspwm-dots-pic](./bspwm-best-rice.png)
 >
-> *I now use Fedora KDE with my minimal terminal configs and KDE configs*
+> _I now use Fedora KDE with my minimal terminal configs and KDE configs_
 
 # Installation
 
 - Install all including submodules (dotfiles, nvim, scripts-magic-spells)
+
 ```bash
 git clone https://github.com/ejsadiarin/dotfiles.git --recurse-submodules
 ```
 
+> [!IMPORTANT]
+> All under `config/` should be in your `~/.config/` directory
+
 ## Fast Install via symlinks
 
-* `fast-install` - git pulls (recursively) and symlinks necessary configs only
+- `fast-install` - git pulls (recursively) and symlinks necessary configs only
+
 ```bash
 chmod +x fast-install
 ./fast-install
@@ -30,7 +35,7 @@ chmod +x fast-install
 
 ## Ansible-based Installation (Recommended for complete installation for all Linux Distros)
 
-* via `ansible` - a more complete installation that includes installing packages, etc. 
+- via `ansible` - a more complete installation that includes installing packages, etc.
 
 > [!IMPORTANT]
 > You must have `ansible` installed on your machine first and the necessary collections (see below steps)
@@ -70,11 +75,12 @@ rm -f ./ansible/master_password
 ```
 
 4. see [Post Installation section]() for other installation configs, etc.
+
 - importing gpg keys, trust keys, and cleanups
 - zsh, nvim, tmux plugin installations
 - `.password-store` import
 - nvim `Copilot auth`
-- syncthing 
+- syncthing
 - tailscale
 
 ### Details
@@ -90,8 +96,8 @@ rm -f ./ansible/master_password
 #### !! WARNING: If you want to go this route, carefully see the steps below:
 
 1. Before installing, check the `group_vars/all.yml`
-   - go to `group_vars/all.yml` -> substitute your own `ssh`, `gpg` fields
-     - create password file and encrypt for ssh and gpg as encrypted string ([see ansible README](./ansible/README.md))
+    - go to `group_vars/all.yml` -> substitute your own `ssh`, `gpg` fields
+        - create password file and encrypt for ssh and gpg as encrypted string ([see ansible README](./ansible/README.md))
 
 ## Install Whole BSPWM Rice Configuration (X11)
 
@@ -122,13 +128,11 @@ chmod +x ExquisiteInstaller
 **Git and SSH-agent**
 
 - `Git`
-
-  - `git config --global user.name "NAME_HERE"` & `git config --global user.email "EMAIL_HERE"`
-  - check it with: `git config user.name` & `git config user.email`
+    - `git config --global user.name "NAME_HERE"` & `git config --global user.email "EMAIL_HERE"`
+    - check it with: `git config user.name` & `git config user.email`
 
 - `SSH keys and SSH-agent`
-
-  - Read docs starting here (up to testing ssh connection): https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+    - Read docs starting here (up to testing ssh connection): https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ## Post Installation (IMPORTANT!)
 
@@ -146,7 +150,7 @@ zsh
 ### neovim
 
 - opening nvim will also automatically install the plugins
-  - do a `:checkhealth` after to see 'missing' deps, etc.
+    - do a `:checkhealth` after to see 'missing' deps, etc.
 
 ```bash
 nvim
@@ -168,7 +172,5 @@ tmux source .tmux.conf
 ```
 
 - then install plugins with `<prefix>+I`
-
-  - this config uses `M-Space` (or `Alt-Space`) as prefix
-  - so do: `M-Space + I` (`Alt-Space + I`)
-
+    - this config uses `M-Space` (or `Alt-Space`) as prefix
+    - so do: `M-Space + I` (`Alt-Space + I`)
