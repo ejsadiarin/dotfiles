@@ -7,10 +7,9 @@
     "agent": {
         "code-reviewer": {
             "description": "Reviews code for best practices and potential issues",
-            "model": "anthropic/claude-sonnet-4-5",
+            "mode": "subagent",
             "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
             "tools": {
-                // Disable file modification tools for review-only agent
                 "write": false,
                 "edit": false
             }

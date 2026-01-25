@@ -134,6 +134,10 @@ zinit light-mode for zdharma-continuum/zinit-annex-bin-gem-node
 # enable vim-like keybindings (insert mode by default, do esc for normal)
 bindkey -e
 
+# Disable ctrl+d from sending EOF (closing shell), so it can be used in TUI apps like opencode
+setopt ignoreeof
+bindkey -r '^d'  # unbind ctrl+d completely so apps can use it
+
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^b' backward-word

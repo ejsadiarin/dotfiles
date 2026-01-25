@@ -29,8 +29,8 @@ tailscale ip -4 # to verify tailscale
 
 # ssh
 if [[ ! -f "$HOME/.ssh/id_ed25519.pub" && ! -f "$HOME/.ssh/id_ed25519" ]]; then
-  scp -r ejs@homelab:~/.ssh/id_ed25519.pub ~
-  scp -r ejs@homelab:~/.ssh/id_ed25519 ~
+    scp -r ejs@homelab:~/.ssh/id_ed25519.pub ~
+    scp -r ejs@homelab:~/.ssh/id_ed25519 ~
 fi
 
 # gpg
@@ -60,15 +60,15 @@ sudo dnf install golang
 echo "[INSTALL] Installing docker"
 # install docker in fedora
 sudo dnf remove docker \
-  docker-client \
-  docker-client-latest \
-  docker-common \
-  docker-latest \
-  docker-latest-logrotate \
-  docker-logrotate \
-  docker-selinux \
-  docker-engine-selinux \
-  docker-engine
+    docker-client \
+    docker-client-latest \
+    docker-common \
+    docker-latest \
+    docker-latest-logrotate \
+    docker-logrotate \
+    docker-selinux \
+    docker-engine-selinux \
+    docker-engine
 sudo dnf -y install dnf-plugins-core
 sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -97,6 +97,11 @@ echo "[INFO] open tmux then do <ctrl+b> + I"
 echo "[WARN] Removing kitty config: ~/.config/kitty"
 rm -rf ~/.config/kitty
 ln -s ~/dotfiles/config/kitty ~/.config/kitty
+
+# symlink ai configs (opencode, gemini, etc.)
+echo "[WARN] Removing opencode config file: ~/.config/opencode/opencode.json"
+rm -f ~/.config/opencode/opencode.json
+ln -s ~/dotfiles/config/opencode/opencode.json ~/.config/opencode
 
 # append zhistory
 echo "[INFO] Appending zhistory... (use vault's zhistory for updated zshistory)"
