@@ -7,7 +7,8 @@
         "session_list": "ctrl+l",
         "messages_half_page_up": "ctrl+u",
         "messages_half_page_down": "ctrl+d",
-        "messages_last": "ctrl+shift+g,end"
+        "messages_first": "ctrl+g,home",
+        "messages_last": "ctrl+alt+g,end"
         // "messages_half_page_up": "ctrl+alt+u",
         // "messages_half_page_down": "ctrl+alt+d"
     },
