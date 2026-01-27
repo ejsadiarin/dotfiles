@@ -11,6 +11,25 @@
         // "messages_half_page_up": "ctrl+alt+u",
         // "messages_half_page_down": "ctrl+alt+d"
     },
+    // Approval workflow for tool usage
+    // Options per tool: "allow", "ask", "deny"
+    // Defaults: most tools are "allow", except doom_loop and external_directory which are "ask"
+    // Use "*" for global default, then override specific tools
+    "permission": {
+        "*": "ask",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "todoread": "allow",
+        "todowrite": "allow"
+    },
+    // Custom instructions - loaded alongside AGENTS.md
+    // Supports: file paths, glob patterns, URLs
+    // Note: paths are relative to project root, use ~ for global config paths
+    "instructions": [
+        "~/.config/opencode/rules/*.md"
+    ],
     "agent": {
         "code-reviewer": {
             "description": "Reviews code for best practices and potential issues",
