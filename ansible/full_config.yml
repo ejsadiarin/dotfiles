@@ -73,6 +73,7 @@
     - iosevka_term_nerd_font
     - lazygit
     - lazydocker
+    - opencode
     - tailscale
     - syncthing
     # - git_lfs

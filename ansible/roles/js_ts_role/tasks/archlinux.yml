@@ -8,6 +8,13 @@
     state: present
   become: true
 
+- name: Bun | Install via official script
+  ansible.builtin.shell: "curl -fsSL https://bun.sh/install | bash"
+  args:
+    creates: "{{ ansible_facts['env']['HOME'] }}/.bun/bin/bun"
+    executable: /bin/bash
+  become: false
+
 # - name: JavaScript/TypeScript | Install nvm
 #   kewlfft.aur.aur:
 #     name: nvm

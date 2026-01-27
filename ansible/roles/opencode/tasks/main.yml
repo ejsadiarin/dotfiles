@@ -1,0 +1,64 @@
+- name: OpenCode | Check if pnpm is available
+  ansible.builtin.command: which pnpm
+  register: pnpm_check
+  ignore_errors: true
+  changed_when: false
+
+- name: OpenCode | Check if bun is available
+  ansible.builtin.command: which bun
+  register: bun_check
+  ignore_errors: true
+  changed_when: false
+
+- name: OpenCode | Install via pnpm
+  ansible.builtin.shell: "pnpm add -g opencode-ai"
+  when: pnpm_check.rc == 0
+
+- name: OpenCode | Install via bun (fallback)
+  ansible.builtin.shell: "bun add -g opencode-ai"
+  when: pnpm_check.rc != 0 and bun_check.rc == 0
+
+- name: OpenCode | Install via curl (fallback when no Node.js/Bun)
+  ansible.builtin.shell: "curl -fsSL https://opencode.ai/install | bash"
+  args:
+    creates: "{{ ansible_facts['user_dir'] }}/.local/bin/opencode"
+  when: pnpm_check.rc != 0 and bun_check.rc != 0
+
+- name: OpenCode | Ensure ~/.config/opencode directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/opencode"
+    state: directory
+    mode: "0755"
+
+- name: OpenCode | Remove existing opencode.json if present
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/opencode/opencode.json"
+    state: absent
+
+- name: OpenCode | Link opencode.jsonc to opencode.json
+  ansible.builtin.file:
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/opencode.jsonc"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/opencode.json"
+    state: link
+
+- name: OpenCode | Remove existing rules directory if present
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/opencode/rules"
+    state: absent
+
+- name: OpenCode | Link rules directory
+  ansible.builtin.file:
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/rules"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/rules"
+    state: link
+
+- name: OpenCode | Remove existing AGENTS.md if present
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/opencode/AGENTS.md"
+    state: absent
+
+- name: OpenCode | Link AGENTS.md
+  ansible.builtin.file:
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/AGENTS.md"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/AGENTS.md"
+    state: link

@@ -47,9 +47,9 @@ git pull origin main --recurse-submodules
 echo "[INSTALL] Installing GUI essentials"
 sudo dnf install kitty # can add flag for GUI
 
-echo "[INSTALL] Installing nodejs essentials"
+echo "[INSTALL] Installing nodejs and bun essentials"
 sudo dnf install nodejs pnpm
-sudo npm install -g bun
+curl -fsSL https://bun.sh/install | bash
 
 echo "[INSTALL] Installing python essentials"
 sudo dnf install python3 python3-pip uv
@@ -100,8 +100,11 @@ ln -s ~/dotfiles/config/kitty ~/.config/kitty
 
 # symlink ai configs (opencode, gemini, etc.)
 echo "[WARN] Removing opencode config file: ~/.config/opencode/opencode.json"
+pnpm add -g opencode-ai
 rm -f ~/.config/opencode/opencode.json
 ln -s ~/dotfiles/config/opencode/opencode.json ~/.config/opencode
+ln -s ~/dotfiles/config/opencode/AGENTS.md ~/.config/opencode
+ln -s ~/dotfiles/config/opencode/rules ~/.config/opencode
 
 # append zhistory
 echo "[INFO] Appending zhistory... (use vault's zhistory for updated zshistory)"

@@ -69,6 +69,7 @@
     - lazygit
     - lazydocker
     - docker
+    - opencode
     # - tailscale
     # - syncthing
     # - python_role

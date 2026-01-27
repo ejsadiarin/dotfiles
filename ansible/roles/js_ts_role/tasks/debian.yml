@@ -13,6 +13,13 @@
     global: true
   become: true
 
+- name: Bun | Install via official script
+  ansible.builtin.shell: "curl -fsSL https://bun.sh/install | bash"
+  args:
+    creates: "{{ ansible_facts['env']['HOME'] }}/.bun/bin/bun"
+    executable: /bin/bash
+  become: false
+
 - name: "NVM | Download Latest Version JSON"
   ansible.builtin.uri:
     url: https://api.github.com/repos/nvm-sh/nvm/releases/latest
