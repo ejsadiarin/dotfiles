@@ -44,9 +44,9 @@ When making major changes (phase transitions, feature completions, significant r
 1. Ensure `logs/` directory exists in project root
 2. Create a new file with naming based on project structure:
     - **If PLAN.md has phases:** `logs/<timestamp>-phase<X>-<title>.md`
-      - Example: `logs/20260127-1430-phase1-add-auth-system.md`
+        - Example: `logs/20260127-1430-phase1-add-auth-system.md`
     - **If no phases in PLAN.md:** `logs/<timestamp>-<title>.md`
-      - Example: `logs/20260127-1430-add-auth-system.md`
+        - Example: `logs/20260127-1430-add-auth-system.md`
     - Timestamp format: `YYYYMMDD-HHMM`
     - Title: kebab-case summary (e.g., `add-auth-system`, `refactor-api-layer`)
 3. Log file content should include:
@@ -77,14 +77,22 @@ After major changes, also update:
 
 Commits are essential for rollback capability. Follow conventional commits format strictly.
 
-### Commit After Minor Phases
+### Commit After Every Change
 
-After completing each minor phase (e.g., Phase 1.2, Phase 2.1) or todo, create a commit:
+After completing each task, todo, or minor change (e.g., "Configure TypeScript and path aliases"), create a commit immediately:
 
 ```
-<type>(<scope>): <short description>
+git commit -m "chore(config): configure typescript and path aliases"
+```
 
-<detailed description of what changed and why>
+For more complex changes, include a body:
+
+```
+git commit -m "chore(config): configure typescript and path aliases
+
+- Set up tsconfig.json with strict mode
+- Configure path aliases for @/* mapping to src/*
+- Add tsconfig paths to webpack/vite config"
 ```
 
 **Types:**
@@ -111,10 +119,10 @@ feat(auth): implement google oauth login flow
 
 ```
 fix(api): resolve CORS validation errors
+```
 
-- Update allowed origins configuration
-- Add preflight request handling
-- Fix header validation for credentials
+```
+chore(config): configure typescript and path aliases
 ```
 
 ### Squash After Major Phases
@@ -149,6 +157,7 @@ Phase 1.3 - Testing and fixes:
 - Include affected files summary in commit body for significant changes
 - Use present tense ("add feature" not "added feature")
 - Keep subject line under 72 characters
+- Do not add emojis unless stated otherwise
 
 ## External References
 
