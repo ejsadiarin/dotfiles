@@ -543,3 +543,10 @@ export PATH="$JAVA_HOME/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/home/eisen/.zsh/completions" $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
