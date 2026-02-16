@@ -18,12 +18,22 @@
     // Use "*" for global default, then override specific tools
     "permission": {
         "*": "ask",
+        "edit": "allow",
+        "webfetch": "allow",
+        "bash": {
+            "*": "allow",
+            "rm *": "ask",
+            "rmdir *": "ask",
+        },
+        "skill": "allow",
         "read": "allow",
         "glob": "allow",
         "grep": "allow",
         "list": "allow",
         "todoread": "allow",
-        "todowrite": "allow"
+        "todowrite": "allow",
+        "external_directory": "ask",
+        "doom_loop": "ask",
     },
     // Custom instructions - loaded alongside AGENTS.md
     // Supports: file paths, glob patterns, URLs

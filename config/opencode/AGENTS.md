@@ -23,6 +23,14 @@ Personal preferences and workflow instructions that apply to all OpenCode sessio
 - Preserve existing patterns and conventions in the codebase
 - Test changes mentally before proposing them
 
+### Refactoring & Feature Addition
+
+- **Extend, don't replace**: add new functionality alongside existing code rather than overwriting, unless absolutely necessary
+- **Verify usage before deletion**: use grep to confirm functions/code aren't used before removing
+- **Maintain backward compatibility**: don't break existing APIs, function signatures, or behavior
+- **Deprecation over deletion**: if code must be removed, mark as deprecated first, don't delete immediately
+- **Test existing flows**: after changes, mentally verify existing functionality still works
+
 ## File Operations
 
 - Check for existing similar files/patterns before creating new ones
