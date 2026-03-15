@@ -57,9 +57,17 @@
             "type": "remote",
             "url": "https://mcp.context7.com/mcp"
         },
+        "playwright": {
+            "type": "local",
+            "command": [
+                "npx",
+                "@playwright/mcp@latest"
+            ],
+            "enabled": true
+        }
     },
     "plugin": [
-        "opencode-antigravity-auth@beta"
+        "@tarquinen/opencode-dcp@latest"
     ],
     "provider": {
         "router": {
