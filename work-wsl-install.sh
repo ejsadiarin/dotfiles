@@ -44,7 +44,17 @@ echo "[INFO] open nvim and let it lazy install"
 # NOTE: opencode
 sudo npm i -g bun
 bun add -g opencode-ai
-echo "[WARN] Removing opencode config file: ~/.config/opencode/opencode.json"
+echo "[WARN] Removing opencode configs at ~/.config/opencode"
 rm -f ~/.config/opencode/opencode.json
 ln -s ~/dotfiles/config/opencode/opencode.jsonc ~/.config/opencode
+ln -s ~/dotfiles/config/opencode/tui.json ~/.config/opencode
 ln -s ~/dotfiles/config/opencode/AGENTS.md ~/.config/opencode
+
+# NOTE: fonts
+# - INSTALL zip => extract => search "Regular" => Install (or Show more options => Install to all users)
+echo "[INSTALL] Downloading IosevkaTerm Nerd Font"
+# mkdir -p ~/.local/share/fonts/IosevkaTerm
+# curl -Lo /tmp/IosevkaTerm.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/latest/download/IosevkaTerm.tar.xz
+# tar -xf /tmp/IosevkaTerm.tar.xz -C ~/.local/share/fonts/IosevkaTerm
+# fc-cache -fv ~/.local/share/fonts/IosevkaTerm
+echo "[Windows WSL2 detected] INSTALL zip => extract => search 'Regular' => Install (or Show more options => Install to all users)"
