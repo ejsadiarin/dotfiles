@@ -313,7 +313,7 @@ alias ,mostusedcommands="history | awk '{print \$2}' | sort | uniq -c | sort -nr
 alias ,datezet="date +%Y%m%d"
 alias ,ipshow="ip link | awk '/state UP/ {print \$2}' | tr -d :"
 
-if [[ -f "/usr/bin/lazygit" || -f "/bin/lazygit" || -f "$HOME/go/bin/lazygit" ]]; then
+if [[ -f "/usr/bin/lazygit" || -f "/bin/lazygit" || -f "$HOME/go/bin/lazygit" || -f "/usr/local/bin/lazygit" ]]; then
     alias lg="lazygit"
 fi
 
@@ -429,7 +429,10 @@ fi
 
 
 # docker completions
-source <(docker completion zsh)
+
+if [[ -f "/usr/bin/docker" || -f "/usr/local/bin/docker" ]]; then
+    source <(docker completion zsh)
+fi
 
 # k3s completions
 #compdef k3s
@@ -550,3 +553,8 @@ fpath=("/home/eisen/.zsh/completions" $fpath)
 autoload -Uz compinit
 compinit
 # OPENSPEC:END
+
+# TODO: add if on work-wsl (work machine)
+# export NODE_EXTRA_CA_CERTS="/etc/ssl/certs/ca-certificates.crt"
+# export REQUESTS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
+# export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
