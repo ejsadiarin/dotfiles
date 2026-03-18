@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "keybinds": {
+    "app_exit": "ctrl+c,<leader>q",
+    "session_list": "ctrl+l",
+    "messages_half_page_up": "ctrl+u",
+    "messages_half_page_down": "ctrl+d",
+    "messages_first": "ctrl+g,home",
+    "messages_last": "ctrl+alt+g,end"
+  }
+}
