@@ -19,3 +19,4 @@ tmp
 master_password_t
 {private,public}.gpg
 .aider*
+.worktrees/
