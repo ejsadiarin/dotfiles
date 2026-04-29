@@ -106,6 +106,7 @@ rm -f ~/.config/opencode/opencode.json
 ln -s ~/dotfiles/config/opencode/opencode.jsonc ~/.config/opencode
 ln -s ~/dotfiles/config/opencode/tui.json ~/.config/opencode
 ln -s ~/dotfiles/config/opencode/AGENTS.md ~/.config/opencode
+ln -s ~/dotfiles/config/opencode/skills ~/.config/opencode
 
 # NOTE: append zhistory
 echo "[INFO] Appending zhistory... (use vault's zhistory for updated zshistory)"

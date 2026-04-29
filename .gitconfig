@@ -52,3 +52,7 @@
 
 [init]
 	defaultBranch = main
+
+############ WORK PROFILE ##################
+[includeIf "gitdir:~/work/emerson-2026/**"]
+    path = "~/work/emerson-2026/.gitconfig-work"
