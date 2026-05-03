@@ -1,0 +1,12 @@
+# Default: normalize to LF on commit
+* text=auto
+
+# Explicitly binary (never convert)
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+
+# Optional: force specific endings for certain files
+# *.sh text eol=lf
+# *.sln text eol=crlf

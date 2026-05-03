@@ -5,7 +5,8 @@
 
 [core]
     editor = nvim
-    autocrlf = input
+    autocrlf = input # Linux/Mac (Unix)
+    ; autocrlf = true # Windows
 
 [color]
     ui = auto
