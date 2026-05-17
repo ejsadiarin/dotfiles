@@ -60,8 +60,6 @@ background-opacity = 0.4
 background-blur = true
 
 # Keybinds
-keybind = ctrl+z=close_surface
-keybind = ctrl+d=new_split:right
 keybind = ctrl+shift+g=ignore
 keybind = ctrl+=increase_font_size:2
 keybind = ctrl++=increase_font_size:1
