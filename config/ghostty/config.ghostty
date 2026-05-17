@@ -1,0 +1,73 @@
+# The syntax is "key = value". The whitespace around the
+# equals doesn't matter.
+
+# Exquisite Colors
+background = 050517
+foreground = fcffb8
+
+cursor-color = f83d19
+cursor-text = 070219
+
+# Normal colors
+palette = 0=#626483
+palette = 1=#fb007a
+palette = 2=#a6e22e
+palette = 3=#f3e430
+palette = 4=#58AFC2
+palette = 5=#583794
+palette = 6=#926BCA
+palette = 7=#d9d9d9
+
+# Bright colors
+palette = 8=#626483
+palette = 9=#fb007a
+palette = 10=#a6e22e
+palette = 11=#f3e430
+palette = 12=#58AFC2
+palette = 13=#472575
+palette = 14=#926BCA
+palette = 15=#f1f1f1
+
+# Comments start with a `#` and are only valid on their own line.
+# Blank lines are ignored!
+
+# Font
+font-family = IosevkaTerm NFM
+font-size = 20
+font-feature = +liga
+font-synthetic-style = no-bold,no-italic,no-bold-italic
+
+# Shell
+command = /usr/bin/zsh
+
+# Cursor
+cursor-style = block
+
+# Window padding (kitty had: 5 top, default horizontal, 0 bottom)
+window-padding-y = 5,0
+
+# Selection
+copy-on-select = false
+
+# Bell
+bell-features = no-audio
+
+# Shell integration
+shell-integration-features = no-cursor
+
+# Background
+background-opacity = 0.4
+background-blur = true
+
+# Keybinds
+keybind = ctrl+z=close_surface
+keybind = ctrl+d=new_split:right
+keybind = ctrl+shift+g=ignore
+keybind = ctrl+=increase_font_size:2
+keybind = ctrl++=increase_font_size:1
+keybind = ctrl+-=decrease_font_size:1
+keybind = ctrl+0=reset_font_size
+keybind = ctrl+shift+0=set_font_size:17
+keybind = super+r=reload_config
+keybind = super+,=reload_config
+keybind = ctrl+shift+,=reload_config
