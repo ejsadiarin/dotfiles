@@ -1,0 +1,43 @@
+---
+# NOTE: not yet verified
+- name: Ghostty | Install ghostty in Arch
+  community.general.pacman:
+    name: ghostty
+    state: present
+  become: true
+  # when: ansible_facts['os_family']|lower  == 'archlinux' # can be 'archlinux', 'debian', 'redhat', etc.
+  when: machine_os == 'archlinux'
+
+# NOTE: not yet verified
+- name: Ghostty | Install ghostty in Debian
+  ansible.builtin.apt:
+    name: ghostty
+    state: present
+  become: true
+  # when: ansible_facts['os_family']|lower  == 'debian' # can be 'archlinux', 'debian', 'redhat', etc.
+  when: machine_os == 'debian'
+
+- name: Enable scottames/ghostty COPR repository
+  community.general.copr:
+    name: scottames/ghostty
+    state: present
+  become: true
+
+- name: Ghostty | Install ghostty in RedHat
+  ansible.builtin.dnf:
+    name: ghostty
+    state: present
+  become: true
+  # when: ansible_facts['os_family']|lower  == 'debian' # can be 'archlinux', 'debian', 'redhat', etc.
+  when: machine_os == 'redhat'
+
+- name: ghostty | Remove existing ghostty config directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/ghostty"
+    state: absent
+
+- name: ghostty | Link ghostty.conf config
+  ansible.builtin.file:
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/ghostty"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/ghostty"
+    state: link

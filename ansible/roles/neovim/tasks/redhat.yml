@@ -21,6 +21,7 @@
       - luarocks
       - lua5.1
       - python3-pip
+      - cargo
     state: present
   become: true
 

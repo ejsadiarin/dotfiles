@@ -7,6 +7,10 @@
       - npm
     state: present
   become: true
+  
+- name: PNPM | Setup
+  ansible.builtin.shell: "pnpm setup"
+  become: false
 
 - name: Bun | Install via official script
   ansible.builtin.shell: "curl -fsSL https://bun.sh/install | bash"

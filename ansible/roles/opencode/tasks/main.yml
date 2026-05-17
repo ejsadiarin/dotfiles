@@ -1,3 +1,4 @@
+---
 - name: OpenCode | Check if pnpm is available
   ansible.builtin.command: which pnpm
   register: pnpm_check
@@ -10,13 +11,13 @@
   ignore_errors: true
   changed_when: false
 
-- name: OpenCode | Install via pnpm
-  ansible.builtin.shell: "pnpm add -g opencode-ai"
-  when: pnpm_check.rc == 0
+#- name: OpenCode | Install via pnpm
+#  ansible.builtin.shell: "pnpm add -g opencode-ai"
+#  when: pnpm_check.rc == 0
 
-- name: OpenCode | Install via bun (fallback)
-  ansible.builtin.shell: "bun add -g opencode-ai"
-  when: pnpm_check.rc != 0 and bun_check.rc == 0
+#- name: OpenCode | Install via bun (fallback)
+#  ansible.builtin.shell: "bun add -g opencode-ai"
+#  when: pnpm_check.rc != 0 and bun_check.rc == 0
 
 - name: OpenCode | Install via curl (fallback when no Node.js/Bun)
   ansible.builtin.shell: "curl -fsSL https://opencode.ai/install | bash"
@@ -35,10 +36,22 @@
     path: "{{ ansible_facts['user_dir'] }}/.config/opencode/opencode.json"
     state: absent
 
-- name: OpenCode | Link opencode.jsonc to opencode.json
+- name: OpenCode | Link opencode.jsonc to opencode.jsonc
   ansible.builtin.file:
     src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/opencode.jsonc"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/opencode.json"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/opencode.jsonc"
+    state: link
+
+- name: OpenCode | Link tui.json to tui.json
+  ansible.builtin.file:
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/tui.json"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/tui.json"
+    state: link
+
+- name: OpenCode | Link dcp.json to dcp.json
+  ansible.builtin.file:
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/dcp.json"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/dcp.json"
     state: link
 
 - name: OpenCode | Remove existing rules directory if present

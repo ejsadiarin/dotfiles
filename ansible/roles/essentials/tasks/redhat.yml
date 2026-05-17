@@ -64,6 +64,7 @@
       # - oha
       # - websocat
       - lm_sensors
+      - fuse-libs # for installing via appimage support
     state: present
     update_cache: true
   become: true

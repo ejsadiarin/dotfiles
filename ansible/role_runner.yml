@@ -1,12 +1,13 @@
+---
 # NOTE: READ INSTRUCTIONS BELOW 
 # - for roles to run individually, remote hosts, etc.
 #
-# (LOCALLY) Run with: ansible-playbook --ask-become-pass role_runner.yml
+# (LOCALLY) Run with: ansible-playbook --vault-password-file ./master_password --ask-become-pass role_runner.yml
 #
 # (REMOTELY) Run with either of one: 
 #  1. Run on all hosts on `inventory.ini`:
 #
-# ansible-playbook -i inventory/hosts.ini role_runner.yml --ask-become-pass -e "target_hosts=homelab"
+# ansible-playbook --vault-password-file ./master_password -i inventory/hosts.ini role_runner.yml --ask-become-pass -e "target_hosts=homelab"
 #
 #  2. Or, to override the host group:
 #
@@ -48,7 +49,7 @@
 
   # you can add roles to run here
   roles:
-    - js_ts_role
+    - opencode
 
   # tasks:
   #   - name: Link .ideavimrc
