@@ -1,32 +1,41 @@
 # The syntax is "key = value". The whitespace around the
 # equals doesn't matter.
 
-# Exquisite Colors
-background = #050517
-foreground = #fcffb8
+# Background
+background-opacity = 0.8
+background-blur = true
 
-cursor-color = #f3e430
-cursor-text = #070219
+# Thornweave Colors
+background = #080610
+foreground = #EDE8F8
+
+cursor-color = #00E5FF
+cursor-text = #080610
+
+selection-background = #511A80
+selection-foreground = #EDE8F8
 
 # Normal colors
-palette = 0=#626483
-palette = 1=#fb007a
-palette = 2=#a6e22e
-palette = 3=#f3e430
-palette = 4=#58AFC2
-palette = 5=#583794
-palette = 6=#926BCA
-palette = 7=#d9d9d9
+# Thornweave
+palette = 0=#1F1830
+palette = 1=#CC2563
+palette = 2=#0FA864
+palette = 3=#C9930A
+palette = 4=#007A99
+palette = 5=#8B3FCC
+palette = 6=#00B8CC
+palette = 7=#B0A8CC
 
 # Bright colors
-palette = 8=#626483
-palette = 9=#fb007a
-palette = 10=#a6e22e
-palette = 11=#f3e430
-palette = 12=#58AFC2
-palette = 13=#472575
-palette = 14=#926BCA
-palette = 15=#f1f1f1
+# Thornweave
+palette = 8=#27203D
+palette = 9=#FF4D8D
+palette = 10=#22D98E
+palette = 11=#FFD166
+palette = 12=#00E5FF
+palette = 13=#C084FC
+palette = 14=#00E5FF
+palette = 15=#EDE8F8
 
 # Comments start with a `#` and are only valid on their own line.
 # Blank lines are ignored!
@@ -54,10 +63,6 @@ bell-features = no-audio
 
 # Shell integration
 shell-integration-features = no-cursor
-
-# Background
-background-opacity = 0.5
-background-blur = true
 
 # Keybinds
 keybind = ctrl+shift+g=ignore
