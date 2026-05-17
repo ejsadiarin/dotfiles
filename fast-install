@@ -46,6 +46,8 @@ git pull origin main --recurse-submodules
 
 echo "[INSTALL] Installing GUI essentials"
 sudo dnf install kitty # can add flag for GUI
+sudo dnf copr enable scottames/ghostty
+sudo dnf install ghostty # can add flag for GUI
 
 echo "[INSTALL] Installing nodejs and bun essentials"
 sudo dnf install nodejs pnpm
@@ -97,6 +99,11 @@ echo "[INFO] open tmux then do <ctrl+b> + I"
 echo "[WARN] Removing kitty config: ~/.config/kitty"
 rm -rf ~/.config/kitty
 ln -s ~/dotfiles/config/kitty ~/.config/kitty
+
+# NOTE: symlink ghostty configs
+echo "[WARN] Removing ghostty config: ~/.config/ghostty"
+rm -rf ~/.config/ghostty
+ln -s ~/dotfiles/config/ghostty ~/.config/ghostty
 
 # NOTE: symlink ai configs (opencode, gemini, etc.)
 sudo npm i -g bun

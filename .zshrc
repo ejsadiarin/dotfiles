@@ -558,3 +558,13 @@ compinit
 # export NODE_EXTRA_CA_CERTS="/etc/ssl/certs/ca-certificates.crt"
 # export REQUESTS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
 # export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
+# # nvm (managed by ansible) START ANSIBLE MANAGED BLOCK
+if [[ -d "$HOME/.nvm" || -d "$XDG_CONFIG_HOME/nvm" ]]; then
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+    alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # fix perf issue
+fi
+# # nvm (managed by ansible) END ANSIBLE MANAGED BLOCK
+
+# opencode
+export PATH=/home/ejs/.opencode/bin:$PATH
