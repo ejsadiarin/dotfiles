@@ -1,0 +1,26 @@
+[494804a6-8c22-4cc0-99cb-e652ace0ed57]
+Description=Application settings for Spotify
+clientmachine=localhost
+noborder=true
+noborderrule=3
+wmclass=spotify Spotify
+wmclasscomplete=true
+wmclassmatch=1
+
+[General]
+count=3
+rules=cc7f3ce1-ef44-4ddc-af34-3c6065ce29c7,d4cb08bd-7be7-456c-b9bd-205eb7d7dfdc,494804a6-8c22-4cc0-99cb-e652ace0ed57
+
+[cc7f3ce1-ef44-4ddc-af34-3c6065ce29c7]
+Description=Application settings for kitty
+noborder=true
+noborderrule=3
+wmclass=kitty
+wmclassmatch=1
+
+[d4cb08bd-7be7-456c-b9bd-205eb7d7dfdc]
+Description=Application settings for ghostty
+noborder=true
+noborderrule=3
+wmclass=com.mitchellh.ghostty
+wmclassmatch=1
