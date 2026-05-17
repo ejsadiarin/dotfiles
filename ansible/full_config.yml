@@ -142,6 +142,7 @@
       ansible.builtin.debug:
         msg: "packet-tracer (via packettracer-fedora script and editing /usr/share/applications/cisco-pt821.desktop), discord, spotify (flatpak), minecraft launcher, obsidian (flatpak), dbeaver (flatpak) etc."
 
-    - name: Post Installation | Wireshark
+    - name: Post Installation | Secure-boot and NVIDIA drivers
       ansible.builtin.debug:
-        msg: "Group changes will take effect on next user login. No session refresh needed for Ansible automation."
+        msg: "See https://rpmfusion.org/Howto/Secure%20Boot and https://rpmfusion.org/Howto/NVIDIA"
+      when: machine_os == 'redhat'

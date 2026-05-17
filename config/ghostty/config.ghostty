@@ -2,11 +2,11 @@
 # equals doesn't matter.
 
 # Exquisite Colors
-background = 050517
-foreground = fcffb8
+background = #050517
+foreground = #fcffb8
 
-cursor-color = f83d19
-cursor-text = 070219
+cursor-color = #f3e430
+cursor-text = #070219
 
 # Normal colors
 palette = 0=#626483
@@ -56,7 +56,7 @@ bell-features = no-audio
 shell-integration-features = no-cursor
 
 # Background
-background-opacity = 0.4
+background-opacity = 0.5
 background-blur = true
 
 # Keybinds
