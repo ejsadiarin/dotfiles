@@ -19,7 +19,7 @@
 #
 - name: Role Runner
   hosts: "{{ target_hosts | default('localhost') }}"
-  # connection: "{{ target_connection | default('local') }}"
+  connection: "{{ target_connection | default('local') }}"
   gather_facts: true
 
   pre_tasks:
@@ -43,23 +43,16 @@
       debug:
         msg: "Groups: {{ group_names }}"
 
-    - name: Show all hostvars
-      debug:
-        var: hostvars[inventory_hostname]
+  # - name: Show all hostvars
+  #   debug:
+  #     var: hostvars[inventory_hostname]
 
   # you can add roles to run here
   roles:
-    - opencode
+    - zoom
 
-  # tasks:
-  #   - name: Link .ideavimrc
-  #     ansible.builtin.file:
-  #       src: "{{ ansible_facts['user_dir'] }}/dotfiles/.ideavimrc"
-  #       dest: "{{ ansible_facts['user_dir'] }}/.ideavimrc"
-  #       state: link
-  #
-  #   - name: Link .vimrc
-  #     ansible.builtin.file:
-  #       src: "{{ ansible_facts['user_dir'] }}/dotfiles/.vimrc"
-  #       dest: "{{ ansible_facts['user_dir'] }}/.vimrc"
-  #       state: link
+  tasks:
+    - name: cleanup master_password
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir'] }}/dotfiles/ansible/master_password"
+        state: absent

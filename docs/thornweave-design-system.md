@@ -73,7 +73,7 @@ All four live in a **deep abyss dark** â€” near-black with a violet undertone â€
 |-------|-----|-----|
 | `circuit-bright` | `#00E5FF` | Functions, links, cursor, active borders, focus rings |
 | `circuit-mid` | `#00B8CC` | Operators, LSP indicator, secondary accents |
-| `circuit-dim` | `#007A99` | Dimmed UI chrome, inactive circuit elements |
+| `circuit-dim` | `#009EC7` | Dimmed UI chrome, inactive circuit elements |
 | `circuit-deep` | `#003D4D` | Deep background tint for circuit-themed panels |
 | `circuit-glow` | `rgba(0,229,255,0.18)` | Box-shadow glow for circuit elements |
 
@@ -154,7 +154,7 @@ Maps to the standard 16-color terminal palette (used by Kitty, Ghostty, and `ter
 | 1 | Red | `#FF4D8D` | `briar-bright` |
 | 2 | Green | `#22D98E` | `thorn-bright` |
 | 3 | Yellow | `#FFD166` | `gilt-bright` |
-| 4 | Blue | `#007A99` | `circuit-dim` |
+| 4 | Blue | `#009EC7` | `circuit-dim` |
 | 5 | Magenta | `#8B3FCC` | `arcane-mid` |
 | 6 | Cyan | `#00B8CC` | `circuit-mid` |
 | 7 | White | `#B0A8CC` | `text-vellum` |
@@ -182,7 +182,7 @@ color0   #1F1830
 color1   #CC2563
 color2   #0FA864
 color3   #C9930A
-color4   #007A99
+color4   #009EC7
 color5   #8B3FCC
 color6   #00B8CC
 color7   #B0A8CC

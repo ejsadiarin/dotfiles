@@ -16,4 +16,4 @@
     chdir: "{{ ansible_facts['env']['HOME'] }}/personal/packettracer-fedora"
   become: true
 
-- name: Packet Tracer | edit /usr/share/applications/cisco-pt821.desktop
+# - name: Packet Tracer | edit /usr/share/applications/cisco-pt821.desktop

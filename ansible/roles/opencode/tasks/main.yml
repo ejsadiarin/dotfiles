@@ -48,21 +48,21 @@
     dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/tui.json"
     state: link
 
-- name: OpenCode | Link dcp.json to dcp.json
+- name: OpenCode | Link dcp.jsonc to dcp.jsonc
   ansible.builtin.file:
-    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/dcp.json"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/dcp.json"
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/dcp.jsonc"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/dcp.jsonc"
     state: link
 
-- name: OpenCode | Remove existing rules directory if present
+- name: OpenCode | Remove existing skills directory if present
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.config/opencode/rules"
+    path: "{{ ansible_facts['user_dir'] }}/.config/opencode/skills"
     state: absent
 
-- name: OpenCode | Link rules directory
+- name: OpenCode | Link skills directory
   ansible.builtin.file:
-    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/rules"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/rules"
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/skills"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/skills"
     state: link
 
 - name: OpenCode | Remove existing AGENTS.md if present

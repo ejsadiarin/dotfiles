@@ -1,7 +1,7 @@
 [user]
 	name = " ejsadiarin "
 	email = " ejs@ejsadiarin.com "
-	signingkey = /home/eisen/.ssh/id_ed25519.pub
+	signingkey = /home/ejs/.ssh/id_ed25519.pub
 
 [core]
     editor = nvim

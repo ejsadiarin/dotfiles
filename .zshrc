@@ -541,7 +541,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # bun completions
-[ -s "/home/eisen/.bun/_bun" ] && source "/home/eisen/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -549,7 +549,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # OPENSPEC:START
 # OpenSpec shell completions configuration
-fpath=("/home/eisen/.zsh/completions" $fpath)
+fpath=("$HOME/.zsh/completions" $fpath)
 autoload -Uz compinit
 compinit
 # OPENSPEC:END
