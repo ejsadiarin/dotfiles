@@ -167,6 +167,10 @@ autoload -Uz compinit && compinit -C
 #
 # compinit -C -d ~/.config/zsh/zcompdump
 
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
 autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
 precmd () { vcs_info }
