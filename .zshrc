@@ -2,12 +2,12 @@
 #         Variables          #
 ##############################
 
-if [ ! -f /usr/bin/kitty ]; then
+if [ ! -f /usr/bin/ghostty ]; then
     export TERM=xterm-256color
     export TERMINAL=xterm-256color
 else
-    export TERM=xterm-kitty
-    export TERMINAL=xterm-kitty
+    export TERM=xterm-ghostty
+    export TERMINAL=xterm-ghostty
 fi
 
 export VISUAL="nvim"
