@@ -75,3 +75,5 @@ keybind = ctrl+shift+0=set_font_size:17
 keybind = super+r=reload_config
 keybind = super+,=reload_config
 keybind = ctrl+shift+,=reload_config
+
+confirm-close-surface = false
