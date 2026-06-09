@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+# NOTE: essential for NVENC (video encoding for streaming and recording)
+
+# TODO: check first if obs is installed via flatpak
+
+flatpak override --user \
+    --env=__NV_PRIME_RENDER_OFFLOAD=1 \
+    --env=__GLX_VENDOR_LIBRARY_NAME=nvidia \
+    com.obsproject.Studio
