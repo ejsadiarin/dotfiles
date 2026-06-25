@@ -21,3 +21,5 @@ master_password_t
 .aider*
 .worktrees/
 .opencode
+
+*/**/.qmlls.ini
