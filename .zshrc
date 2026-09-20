@@ -46,9 +46,10 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 # go
-if [[ -f "/usr/bin/go" ]]; then
+if command -v go >/dev/null 2>&1; then
     export PATH="$PATH:/usr/local/go/bin"
     export PATH="$PATH:$HOME/go/bin"
+    export PATH="$PATH:$(go env GOPATH)/bin"
 fi
 
 # restic
@@ -582,3 +583,4 @@ fpath=("$HOME/.zsh/completions" $fpath)
 
 # opencode
 export PATH=/home/ejs/.opencode/bin:$PATH
+export PATH=$PATH:/usr/local/go/bin
