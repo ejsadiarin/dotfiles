@@ -60,6 +60,7 @@
     },
     "plugin": [
         "@tarquinen/opencode-dcp@latest",
+        "@dietrichgebert/ponytail",
     ],
     // "provider": {
     //     "router": {
