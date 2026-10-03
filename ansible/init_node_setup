@@ -48,24 +48,24 @@ write_to_exquilog() {
 stdout_msg() {
     local status="$1" task="$2" msg="$3"
     case "${status^^}" in
-    ERROR)
-        prefix="ERROR"
-        ;; 
-    WARNING)
-        prefix="WARNING"
-        ;; 
-    INFO)
-        prefix="INFO"
-        ;; 
-    INSTALLING)
-        prefix="INSTALLING"
-        ;; 
-    INSTALLED)
-        prefix="INSTALLED"
-        ;; 
-    *)
-        prefix="$status"
-        ;; 
+        ERROR)
+            prefix="ERROR"
+            ;;
+        WARNING)
+            prefix="WARNING"
+            ;;
+        INFO)
+            prefix="INFO"
+            ;;
+        INSTALLING)
+            prefix="INSTALLING"
+            ;;
+        INSTALLED)
+            prefix="INSTALLED"
+            ;;
+        *)
+            prefix="$status"
+            ;;
     esac
     printf "[%s] %s: %s\n" "${prefix}" "${task}" "${msg}"
 }
@@ -76,7 +76,7 @@ arch_setup() {
     stdout_msg "START" "arch-setup" "Running arch setup"
     write_to_exquilog "INFO" "arch-setup" "Initiate arch setup"
 
-    if [[ ! -f $RELEASE_FILE ]]; then
+    if [[ ! -f "$RELEASE_FILE" ]]; then
         stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
         write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."
 
@@ -110,7 +110,7 @@ arch_setup() {
             stdout_msg "INSTALLING" "ansible" "Installing ansible..."
             write_to_exquilog "INFO" "ansible" "Installing ansible..."
             {
-                sudo pacman -S ansible
+                sudo pacman -S --noconfirm ansible
                 stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
                 write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
             } || {
@@ -131,7 +131,7 @@ arch_setup() {
             stdout_msg "INSTALLING" "python" "Installing python..."
             write_to_exquilog "INFO" "python" "Installing python..."
             {
-                sudo pacman -S python
+                sudo pacman -S --noconfirm python
                 stdout_msg "INSTALLED" "python" "Python is now installed!"
                 write_to_exquilog "INFO" "python" "Python is now installed!"
             } || {
@@ -141,7 +141,7 @@ arch_setup() {
             stdout_msg "INSTALLING" "python" "Installing python-pip..."
             write_to_exquilog "INFO" "python-pip" "Installing python-pip..."
             {
-                sudo pacman -S python-pip
+                sudo pacman -S --noconfirm python-pip
                 stdout_msg "INSTALLED" "python-pip" "Python-pip is now installed!"
                 write_to_exquilog "INFO" "python-pip" "Python-pip is now installed!"
             } || {
@@ -158,7 +158,7 @@ arch_setup() {
             stdout_msg "INSTALLING" "openssh" "Installing openssh..."
             write_to_exquilog "INFO" "openssh" "Installing openssh..."
             {
-                sudo pacman -S openssh
+                sudo pacman -S --noconfirm openssh
                 stdout_msg "INSTALLED" "openssh" "OpenSSH is now installed!"
                 write_to_exquilog "INFO" "openssh" "OpenSSH is now installed!"
             } || {
@@ -177,14 +177,14 @@ arch_setup() {
             write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
         } || {
             stdout_msg "ERROR" "ansible-galaxy" "Failed to install collections. Install manually."
-            write_to_exquilog "ERROR" "ansible-galaxy" "Failed to install openssh."
+            write_to_exquilog "ERROR" "ansible-galaxy" "Failed to install collections."
         }
 
         # do not automate enabling sshd to avoid unwanted opened services since it is optional
         stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
 
         stdout_msg "INFO" "arch-setup" "Setup done! [${date_today}]"
-        write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
+        write_to_exquilog "INFO" "arch-setup" "Setup done!"
     else
         # --- Update operations for subsequent runs ----
 
@@ -209,6 +209,8 @@ arch_setup() {
 }
 
 debian_setup() {
+    stdout_msg "START" "debian-setup" "Running Debian setup"
+    write_to_exquilog "INFO" "debian-setup" "Initiate Debian setup"
 
     # install ansible
     if command -v ansible >/dev/null 2>&1; then
@@ -218,7 +220,7 @@ debian_setup() {
         stdout_msg "INSTALLING" "ansible" "Installing ansible..."
         write_to_exquilog "INFO" "ansible" "Installing ansible..."
         {
-            sudo apt install ansible-core
+            sudo apt install -y ansible-core
             stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
             write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
         } || {
@@ -239,7 +241,7 @@ debian_setup() {
         stdout_msg "INSTALLING" "python" "Installing python..."
         write_to_exquilog "INFO" "python" "Installing python..."
         {
-            sudo apt install python
+            sudo apt install -y python3
             stdout_msg "INSTALLED" "python" "Python is now installed!"
             write_to_exquilog "INFO" "python" "Python is now installed!"
         } || {
@@ -249,7 +251,7 @@ debian_setup() {
         stdout_msg "INSTALLING" "python" "Installing python-pip..."
         write_to_exquilog "INFO" "python-pip" "Installing python-pip..."
         {
-            sudo apt install python-pip
+            sudo apt install -y python3-pip
             stdout_msg "INSTALLED" "python-pip" "Python-pip is now installed!"
             write_to_exquilog "INFO" "python-pip" "Python-pip is now installed!"
         } || {
@@ -268,7 +270,7 @@ debian_setup() {
             stdout_msg "INSTALLING" "$package" "Installing $package..."
             write_to_exquilog "INSTALLING" "$package" "Installing $package..."
             {
-                sudo apt install "$package"
+                sudo apt install -y "$package"
                 stdout_msg "INSTALLED" "$package" "$package is now installed!"
                 write_to_exquilog "INFO" "$package" "$package is now installed!"
             } || {
@@ -282,7 +284,7 @@ debian_setup() {
     stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
 
     # install necessary ansible-galaxy collections
-    if [[ ! -f $RELEASE_FILE ]]; then
+    if [[ ! -f "$RELEASE_FILE" ]]; then
         stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
         write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."
 
@@ -316,33 +318,33 @@ debian_setup() {
     fi
 
     stdout_msg "INFO" "debian-setup" "Setup done! [${date_today}]"
-    write_to_exquilog "INFO" "ansible-galaxy" "Setup done!"
+    write_to_exquilog "INFO" "debian-setup" "Setup done!"
 }
 
 fedora_setup() {
     stdout_msg "START" "fedora-setup" "Running Fedora setup"
     write_to_exquilog "INFO" "fedora-setup" "Initiate Fedora setup"
 
-	# install tailscale
-	if command -v tailscale >/dev/null 2>&1; then
-		stdout_msg "INFO" "tailscale" "Tailscale is already installed."
-		write_to_exquilog "INFO" "tailscale" "Tailscale is already installed."
-	else
-		stdout_msg "INSTALLING" "tailscale" "Installing tailscale..."
-		write_to_exquilog "INFO" "tailscale" "Installing tailscale..."
-		{
-			sudo dnf config-manager --add-repo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
-			sudo dnf install -y tailscale
-			sudo systemctl enable --now tailscaled
-			stdout_msg "INSTALLED" "tailscale" "Tailscale is now installed!"
-			write_to_exquilog "INFO" "tailscale" "Tailscale is now installed!"
-		} || {
-			stdout_msg "ERROR" "tailscale" "Failed to install tailscale. Skipping..."
-			write_to_exquilog "ERROR" "tailscale" "Failed to install tailscale. Need to install manually."
-		}
-	fi
+    # install tailscale
+    if command -v tailscale >/dev/null 2>&1; then
+        stdout_msg "INFO" "tailscale" "Tailscale is already installed."
+        write_to_exquilog "INFO" "tailscale" "Tailscale is already installed."
+    else
+        stdout_msg "INSTALLING" "tailscale" "Installing tailscale..."
+        write_to_exquilog "INFO" "tailscale" "Installing tailscale..."
+        {
+            sudo dnf config-manager --add-repo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+            sudo dnf install -y tailscale
+            sudo systemctl enable --now tailscaled
+            stdout_msg "INSTALLED" "tailscale" "Tailscale is now installed!"
+            write_to_exquilog "INFO" "tailscale" "Tailscale is now installed!"
+        } || {
+            stdout_msg "ERROR" "tailscale" "Failed to install tailscale. Skipping..."
+            write_to_exquilog "ERROR" "tailscale" "Failed to install tailscale. Need to install manually."
+        }
+    fi
 
-    if [[ ! -f $RELEASE_FILE ]]; then
+    if [[ ! -f "$RELEASE_FILE" ]]; then
         stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
         write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."
 
@@ -449,6 +451,56 @@ fedora_setup() {
     fi
 }
 
+sync_submodules() {
+    stdout_msg "START" "submodules" "Syncing dotfiles and submodules via HTTPS"
+    write_to_exquilog "INFO" "submodules" "Syncing dotfiles and submodules via HTTPS"
+
+    if [[ ! -d "$DOTFILES/.git" ]]; then
+        stdout_msg "ERROR" "submodules" "$DOTFILES is not a git repo. Clone via HTTPS first: git clone https://github.com/ejsadiarin/dotfiles.git $DOTFILES"
+        write_to_exquilog "ERROR" "submodules" "$DOTFILES is not a git repo"
+        return 1
+    fi
+
+    # SSH keys aren't available at init phase, so force HTTPS for
+    # SSH-configured remotes/submodules (local scope only, no file mutation).
+    git -C "$DOTFILES" config --local url."https://github.com/".insteadOf "git@github.com:" || true
+
+    {
+        git -C "$DOTFILES" pull --recurse-submodules || true
+        git -C "$DOTFILES" submodule update --init --recursive
+        stdout_msg "INSTALLED" "submodules" "Submodules synced!"
+        write_to_exquilog "INFO" "submodules" "Submodules synced!"
+    } || {
+        stdout_msg "ERROR" "submodules" "Failed to sync submodules. Check network remotes manually."
+        write_to_exquilog "ERROR" "submodules" "Failed to sync submodules."
+        return 1
+    }
+
+    # Required files (ansible roles depend on these)
+    local missing=0
+    for file in "nvim/init.lua" "scripts-magic-spells/README.md"; do
+        if [[ -e "$DOTFILES/$file" ]]; then
+            stdout_msg "INFO" "submodules" "Found $file"
+        else
+            stdout_msg "ERROR" "submodules" "Missing $DOTFILES/$file (ls failed)"
+            write_to_exquilog "ERROR" "submodules" "Missing $file"
+            missing=1
+        fi
+    done
+    if [[ "$missing" -ne 0 ]]; then
+        return 1
+    fi
+
+    # TODO: Optional: warn on any other submodule path declared in .gitmodules
+    # (e.g. pi, skills) that is still absent — no hard fail.
+    while read -r _ path; do
+        if [[ ! -e "$DOTFILES/$path" ]]; then
+            stdout_msg "WARNING" "submodules" "Optional submodule missing: $DOTFILES/$path"
+            write_to_exquilog "WARNING" "submodules" "Optional submodule missing: $path"
+        fi
+    done < <(git -C "$DOTFILES" config --file "$DOTFILES/.gitmodules" --get-regexp '^submodule\..*\.path$' || true)
+}
+
 main() {
     # load OS info
     if [[ -f /etc/os-release ]]; then
@@ -463,34 +515,35 @@ main() {
         is_first_run=true
     fi
 
+    sync_submodules
+
     # Dispatch based on ID and ID_LIKE
     case "$ID" in
-    arch* | manjaro)
-        arch_setup
-        ;; 
-    debian | ubuntu | raspbian)
-        debian_setup
-        ;; 
-    fedora | rhel)
-        fedora_setup
-        ;; 
-    *)
-        # Fallback to ID_LIKE
-        if [[ "$ID_LIKE" =~ arch ]]; then
+        arch* | manjaro)
             arch_setup
-        elif [[ "$ID_LIKE" =~ debian ]]; then
+            ;;
+        debian | ubuntu | raspbian)
             debian_setup
-        elif [[ "$ID_LIKE" =~ fedora|rhel ]]; then
+            ;;
+        fedora | rhel)
             fedora_setup
-        else
-            echo "Unsupported OS: $ID (ID_LIKE=$ID_LIKE)" >&2
-            exit 1
-        fi
-        ;; 
+            ;;
+        *)
+            # Fallback to ID_LIKE
+            if [[ "$ID_LIKE" =~ arch ]]; then
+                arch_setup
+            elif [[ "$ID_LIKE" =~ debian ]]; then
+                debian_setup
+            elif [[ "$ID_LIKE" =~ fedora|rhel ]]; then
+                fedora_setup
+            else
+                echo "Unsupported OS: $ID (ID_LIKE=$ID_LIKE)" >&2
+                exit 1
+            fi
+            ;;
     esac
 
-    if $is_first_run;
-    then
+    if [[ "$is_first_run" == true ]]; then
         touch "$RELEASE_FILE"
         stdout_msg "INFO" "main" "First-run setup complete"
         write_to_exquilog INFO main "Marked first run complete"

@@ -6,7 +6,7 @@
 echo "[INSTALL] Installing essential binaries"
 sudo apt install -y zsh vim tmux gpg gcc make git ripgrep fd-find unzip fzf openssh-server curl
 
-# NOTE: runtimes (node, bun, etc.)
+# NOTE: runtimes (node, pnpm, etc.)
 # instal nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
@@ -42,8 +42,8 @@ cargo install --locked tree-sitter-cli
 echo "[INFO] open nvim and let it lazy install"
 
 # NOTE: opencode
-sudo npm i -g bun
-bun add -g opencode-ai
+sudo npm i -g pnpm
+pnpm add -g opencode-ai
 echo "[WARN] Removing opencode configs at ~/.config/opencode"
 rm -f ~/.config/opencode/opencode.json
 ln -s ~/dotfiles/config/opencode/opencode.jsonc ~/.config/opencode/

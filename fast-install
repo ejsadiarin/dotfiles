@@ -49,9 +49,8 @@ sudo dnf install kitty # can add flag for GUI
 sudo dnf copr enable scottames/ghostty
 sudo dnf install ghostty # can add flag for GUI
 
-echo "[INSTALL] Installing nodejs and bun essentials"
+echo "[INSTALL] Installing nodejs essentials"
 sudo dnf install nodejs pnpm
-curl -fsSL https://bun.sh/install | bash
 
 echo "[INSTALL] Installing python essentials"
 sudo dnf install python3 python3-pip uv
@@ -106,8 +105,7 @@ rm -rf ~/.config/ghostty
 ln -s ~/dotfiles/config/ghostty ~/.config/ghostty
 
 # NOTE: symlink ai configs (opencode, gemini, etc.)
-sudo npm i -g bun
-bun add -g opencode-ai
+pnpm add -g opencode-ai
 echo "[WARN] Removing opencode configs at ~/.config/opencode"
 rm -f ~/.config/opencode/opencode.json
 ln -s ~/dotfiles/config/opencode/opencode.jsonc ~/.config/opencode

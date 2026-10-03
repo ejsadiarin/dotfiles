@@ -5,25 +5,15 @@
   ignore_errors: true
   changed_when: false
 
-- name: OpenCode | Check if bun is available
-  ansible.builtin.command: which bun
-  register: bun_check
-  ignore_errors: true
-  changed_when: false
+- name: OpenCode | Install via pnpm
+  ansible.builtin.shell: "pnpm add -g opencode-ai"
+  when: pnpm_check.rc == 0
 
-#- name: OpenCode | Install via pnpm
-#  ansible.builtin.shell: "pnpm add -g opencode-ai"
-#  when: pnpm_check.rc == 0
-
-#- name: OpenCode | Install via bun (fallback)
-#  ansible.builtin.shell: "bun add -g opencode-ai"
-#  when: pnpm_check.rc != 0 and bun_check.rc == 0
-
-- name: OpenCode | Install via curl (fallback when no Node.js/Bun)
+- name: OpenCode | Install via curl (fallback when no pnpm)
   ansible.builtin.shell: "curl -fsSL https://opencode.ai/install | bash"
   args:
     creates: "{{ ansible_facts['user_dir'] }}/.local/bin/opencode"
-  when: pnpm_check.rc != 0 and bun_check.rc != 0
+  when: pnpm_check.rc != 0
 
 - name: OpenCode | Ensure ~/.config/opencode directory exists
   ansible.builtin.file:
