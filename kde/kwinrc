@@ -6,10 +6,28 @@ Name_2=TERM
 Number=2
 Rows=1
 
+[Effect-mousemark]
+Arrowdrawalt=true
+Color=255,255,255
+Freedrawcontrol=true
+
 [Plugins]
+blurEnabled=true
+krohnkiteEnabled=false
+mousemarkEnabled=true
 slideEnabled=false
+synchronizeskipswitcherEnabled=false
+wobblywindowsEnabled=true
+
+[Tiling][4b5206d6-d7c1-4447-91e1-a73bfaa8ba75][067db0b2-a73b-4509-977a-5dd25349fa1b]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
 [Tiling][4b5206d6-d7c1-4447-91e1-a73bfaa8ba75][6c444913-92de-4533-a9cf-9208548cddb6]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][6a29f03c-3f2d-47bd-9e0f-181047ffa759][067db0b2-a73b-4509-977a-5dd25349fa1b]
 padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
@@ -20,6 +38,14 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 [Tiling][b6960568-82d5-4b21-ad54-8faae268e3e3][6c444913-92de-4533-a9cf-9208548cddb6]
 padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][f05ba87d-ae5f-48d9-89b1-b9722895486a][6c444913-92de-4533-a9cf-9208548cddb6]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Wayland]
+InputMethod[$d]
+VirtualKeyboardMode=1
 
 [Windows]
 RollOverDesktops=true
