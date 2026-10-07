@@ -1,27 +1,18 @@
 ---
-- name: KDE | Ensure KDE config directories exist
-  ansible.builtin.file:
-    path: "{{ ansible_facts['env']['HOME'] }}/{{ item }}"
-    state: directory
-    mode: '0755'
-  loop:
-    - .config
-    - .config/gtk-3.0
-    - .config/gtk-4.0
+# Script owns everything: symlinks for portable files + kwriteconfig6 for
+# kwinrc/kglobalshortcutsrc. Ansible just executes it.
 
-- name: KDE | Configure personal settings
-  ansible.builtin.copy:
-    src: "{{ ansible_facts['env']['HOME'] }}/dotfiles/config/{{ item }}"
-    dest: "{{ ansible_facts['env']['HOME'] }}/.config/{{ item }}"
-    owner: "{{ ansible_facts['env']['USER'] }}"
-    mode: '0600'
-  loop:
-    - kwinrc
-    - kwinrulesrc
-    - plasmaparc
-    - plasmashellrc
-    - plasma-org.kde.plasma.desktop-appletsrc
-    - kglobalshortcutsrc
-    - kdeglobals
-    - gtk-3.0/settings.ini
-    - gtk-4.0/settings.ini
+- name: KDE | Check for kwriteconfig6 (Plasma installed)
+  ansible.builtin.command: command -v kwriteconfig6
+  register: kde_kwriteconfig
+  failed_when: false
+  changed_when: false
+
+- name: KDE | Apply KDE configs (idempotent script)
+  ansible.builtin.command:
+    cmd: "{{ ansible_facts['user_dir'] }}/dotfiles/kde/apply-kde-config.sh"
+  register: kde_apply
+  changed_when: false
+  failed_when: kde_apply.rc != 0
+  become: false
+  when: kde_kwriteconfig.rc == 0

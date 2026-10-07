@@ -7,6 +7,13 @@
 # Usage: ./apply-kde-config.sh
 set -euo pipefail
 
+# --- portable whole files: symlink (ln -sfn is idempotent, cp -n backs up once) ---
+KDE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+for f in kwinrulesrc kdeglobals powerdevilrc powermanagementprofilesrc; do
+  [ -f "$HOME/.config/$f" ] && [ ! -L "$HOME/.config/$f" ] && cp -n "$HOME/.config/$f" "$HOME/.config/$f.bak"
+  ln -sfn "$KDE_DIR/$f" "$HOME/.config/$f"
+done
+
 # --- kwinrc: Desktops (names/count only, IDs are per-install) ----
 kwriteconfig6 --file kwinrc --group Desktops --key Name_1 'WEB'
 kwriteconfig6 --file kwinrc --group Desktops --key Name_2 'TERM'
@@ -299,8 +306,8 @@ kwriteconfig6 --file kglobalshortcutsrc --group services --group org.mozilla.fir
 kwriteconfig6 --file kglobalshortcutsrc --group services --group systemsettings.desktop --key _launch 'Tools'
 
 # --- apply live ----
-# ponytail: qdbus6 missing on Fedora, qdbus-qt6 is the Plasma 6 bus tool
+# NOTE: qdbus6 missing on Fedora, qdbus-qt6 is the Plasma 6 bus tool
 QDBUS="$(command -v qdbus6 || command -v qdbus-qt6 || command -v qdbus)"
 "$QDBUS" org.kde.KWin /KWin reconfigure || true
-# ponytail: kglobalaccel has no reconfigure method on Plasma 6 (verified via introspection) — restart re-reads kglobalshortcutsrc
+# NOTE: kglobalaccel has no reconfigure method on Plasma 6 (verified via introspection) - restart re-reads kglobalshortcutsrc
 systemctl --user restart plasma-kglobalaccel.service || true
