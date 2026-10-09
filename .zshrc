@@ -563,13 +563,6 @@ export PATH="$JAVA_HOME/bin:$PATH"
 # - ufw allow 22/tcp 22/udp 80/tcp 80/udp 443/tcp 443/udp
 # nvm bash_completion is loaded when nvm is lazy-loaded
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 # OPENSPEC:START
 # OpenSpec shell completions configuration
 fpath=("$HOME/.zsh/completions" $fpath)
