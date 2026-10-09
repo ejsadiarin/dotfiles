@@ -5,6 +5,17 @@
   ignore_errors: true
   changed_when: false
 
+- name: OpenCode | Get pnpm global bin dir
+  ansible.builtin.command: "pnpm config get global-bin-dir"
+  register: pnpm_global_bin_dir
+  changed_when: false
+  failed_when: false
+  when: pnpm_check.rc == 0
+
+- name: OpenCode | Set pnpm global bin dir (fixes ERR_PNPM_NO_GLOBAL_BIN_DIR)
+  ansible.builtin.command: "pnpm config set global-bin-dir {{ ansible_facts['user_dir'] }}/.local/share/pnpm"
+  when: pnpm_check.rc == 0 and pnpm_global_bin_dir.stdout | trim != ansible_facts['user_dir'] + '/.local/share/pnpm'
+
 - name: OpenCode | Install via pnpm
   ansible.builtin.shell: "pnpm add -g opencode-ai"
   when: pnpm_check.rc == 0
@@ -12,7 +23,7 @@
 - name: OpenCode | Install via curl (fallback when no pnpm)
   ansible.builtin.shell: "curl -fsSL https://opencode.ai/install | bash"
   args:
-    creates: "{{ ansible_facts['user_dir'] }}/.local/bin/opencode"
+    creates: "{{ ansible_facts['user_dir'] }}/.opencode/bin/opencode"
   when: pnpm_check.rc != 0
 
 - name: OpenCode | Ensure ~/.config/opencode directory exists
