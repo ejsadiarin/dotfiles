@@ -26,9 +26,9 @@
 - `full_config.yml`:
 
 ```bash
-# run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
-chmod +x ./init_control_node
-./init_control_node
+# run init_node_setup script (installs ansible, dependencies, and initializes master_password with gpg)
+chmod +x ./init_node_setup
+./init_node_setup
 
 # run full_config playbook
 ansible-playbook --vault-password-file ./master_password --ask-become-pass full_config.yml
@@ -40,9 +40,9 @@ ansible-playbook --check --vault-password-file ./master_password --ask-become-pa
 - `terminal_config.yml`:
 
 ```bash
-# run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
-chmod +x ./init_control_node
-./init_control_node
+# run init_node_setup script (installs ansible, dependencies, and initializes master_password with gpg)
+chmod +x ./init_node_setup
+./init_node_setup
 
 # run terminal_config playbook
 ansible-playbook --vault-password-file ./master_password --ask-become-pass terminal_config.yml
@@ -59,9 +59,9 @@ ansible-playbook --check --vault-password-file ./master_password --ask-become-pa
 - `full_config.yml`:
 
 ```bash
-# run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
-chmod +x ./init_control_node
-./init_control_node
+# run init_node_setup script (installs ansible, dependencies, and initializes master_password with gpg)
+chmod +x ./init_node_setup
+./init_node_setup
 
 # run full_config playbook
 ansible-playbook --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini full_config.yml -e "target_connection=ssh target_hosts=<HOST_GROUP_SEE_hosts_ini_FILE>"
@@ -73,9 +73,9 @@ ansible-playbook --check --vault-password-file ./master_password --ask-become-pa
 - `terminal_config.yml`:
 
 ```bash
-# run init_control_node script (installs ansible, dependencies, and initializes master_password with gpg)
-chmod +x ./init_control_node
-./init_control_node
+# run init_node_setup script (installs ansible, dependencies, and initializes master_password with gpg)
+chmod +x ./init_node_setup
+./init_node_setup
 
 # run terminal_config playbook (change target_hosts value)
 ansible-playbook --vault-password-file ./master_password --ask-become-pass -i inventory/hosts.ini -e "target_connection=ssh target_hosts=homelab_group" terminal_config.yml

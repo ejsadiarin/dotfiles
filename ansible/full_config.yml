@@ -54,13 +54,14 @@
 
     - name: Configure Locale to UTF-8
       ansible.builtin.shell: "localectl set-locale LANG=en_US.UTF-8"
+      become: true
 
   roles:
     - network_manager
     - zsh
     - essentials
-    - git
     - ssh
+    - git
     - gpg
     - tmux
     - neovim

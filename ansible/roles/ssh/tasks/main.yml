@@ -15,19 +15,6 @@
   loop_control:
     loop_var: ssh_key_item
 
-- name: SSH | start ssh-agent
-  ansible.builtin.shell: |
-    eval "$(ssh-agent -s)"
-  args:
-    executable: /bin/bash
-
-- name: SSH | add private key to ssh-agent
-  ansible.builtin.shell: |
-    ssh-add "{{ ansible_facts['user_dir'] }}/.ssh/id_ed25519"
-  args:
-    executable: /bin/bash
-  ignore_errors: true
-
 # - name: SSH | Check if ssh config exists
 #   ansible.builtin.stat:
 #     path: "{{ ansible_facts['user_dir'] }}/.ssh/config"
