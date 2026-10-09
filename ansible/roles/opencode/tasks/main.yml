@@ -18,6 +18,10 @@
 
 - name: OpenCode | Install via pnpm
   ansible.builtin.shell: "pnpm add -g opencode-ai"
+  # pnpm requires the global bin dir on PATH; ansible shells don't source .zshrc
+  environment:
+    PNPM_HOME: "{{ ansible_facts['user_dir'] }}/.local/share/pnpm"
+    PATH: "{{ ansible_facts['user_dir'] }}/.local/share/pnpm:{{ ansible_env.PATH }}"
   when: pnpm_check.rc == 0
 
 - name: OpenCode | Install via curl (fallback when no pnpm)
