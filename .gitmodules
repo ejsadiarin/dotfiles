@@ -1,15 +1,15 @@
 [submodule "nvim"]
 	path = nvim
-	url = git@github.com:ejsadiarin/nvim.git
+	url = https://github.com/ejsadiarin/nvim.git
 
 [submodule "scripts-magic-spells"]
 	path = scripts-magic-spells
-	url = git@github.com:ejsadiarin/scripts-magic-spells.git
+	url = https://github.com/ejsadiarin/scripts-magic-spells.git
 
 [submodule "pi"]
 	path = pi
-	url = git@github.com:ejsadiarin/pi-config.git
+	url = https://github.com/ejsadiarin/pi-config.git
 
 [submodule "skills"]
 	path = skills
-	url = git@github.com:ejsadiarin/skills.git
+	url = https://github.com/ejsadiarin/skills.git

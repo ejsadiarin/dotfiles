@@ -5,18 +5,14 @@
 #
 # NOTE: THIS IS ONLY TO BE RUN ON THE CONTROL NODE (if configuring on multiple servers/machines/computers)
 
-if [ ! -f "./ansible.cfg" ]; then
-    echo "Please run this script from the root of the ansible directory."
-    exit 1
-fi
-
 set -euo pipefail
-IFS=
 
 #################
 #   VARIABLES   #
 #################
-DOTFILES="$HOME/dotfiles"
+# Resolve repo root from this script's location (works from any CWD).
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES="$(dirname -- "$SCRIPT_DIR")"
 RELEASE_FILE="$DOTFILES/.exquisite_release"
 EXQUILOG="$DOTFILES/.exquisite_log"
 VAULT_PASSWORD_FILE="$DOTFILES/ansible/master_password"
@@ -452,31 +448,45 @@ fedora_setup() {
 }
 
 sync_submodules() {
-    stdout_msg "START" "submodules" "Syncing dotfiles and submodules via HTTPS"
-    write_to_exquilog "INFO" "submodules" "Syncing dotfiles and submodules via HTTPS"
+    stdout_msg "START" "submodules" "Syncing dotfiles and submodules"
+    write_to_exquilog "INFO" "submodules" "Syncing dotfiles and submodules"
 
     if [[ ! -d "$DOTFILES/.git" ]]; then
-        stdout_msg "ERROR" "submodules" "$DOTFILES is not a git repo. Clone via HTTPS first: git clone https://github.com/ejsadiarin/dotfiles.git $DOTFILES"
+        stdout_msg "ERROR" "submodules" "$DOTFILES is not a git repo. Clone first: git clone git@github.com:ejsadiarin/dotfiles.git $DOTFILES"
         write_to_exquilog "ERROR" "submodules" "$DOTFILES is not a git repo"
         return 1
     fi
 
-    # SSH keys aren't available at init phase, so force HTTPS for
-    # SSH-configured remotes/submodules (local scope only, no file mutation).
-    git -C "$DOTFILES" config --local url."https://github.com/".insteadOf "git@github.com:" || true
+    # Committed .gitmodules is HTTPS (works keyless). If SSH auth to GitHub
+    # actually works, rewrite submodule transport to SSH (local config only,
+    # no tracked files touched). Otherwise stay on HTTPS.
+    # NOTE: GitHub exits 1 on successful auth, so match on output, not code.
+    git -C "$DOTFILES" config --local --unset "url.git@github.com:.insteadOf" || true
+    if command -v ssh >/dev/null 2>&1 && ssh -T -o BatchMode=yes -o ConnectTimeout=10 git@github.com 2>&1 | grep -q "successfully authenticated"; then
+        git -C "$DOTFILES" config --local "url.git@github.com:.insteadOf" "https://github.com/"
+        stdout_msg "INFO" "submodules" "SSH auth works; using SSH for submodules"
+        write_to_exquilog "INFO" "submodules" "SSH auth works; using SSH for submodules"
+    else
+        stdout_msg "INFO" "submodules" "No working SSH auth; using HTTPS for submodules"
+        write_to_exquilog "INFO" "submodules" "No working SSH auth; using HTTPS for submodules"
+    fi
 
-    {
-        git -C "$DOTFILES" pull --recurse-submodules || true
-        git -C "$DOTFILES" submodule update --init --recursive
-        stdout_msg "INSTALLED" "submodules" "Submodules synced!"
-        write_to_exquilog "INFO" "submodules" "Submodules synced!"
-    } || {
+    # Refresh already-registered submodule URLs from .gitmodules.
+    git -C "$DOTFILES" submodule sync --recursive
+
+    if ! git -C "$DOTFILES" pull --recurse-submodules; then
+        stdout_msg "WARNING" "submodules" "git pull failed; continuing with submodule update"
+        write_to_exquilog "WARNING" "submodules" "git pull failed"
+    fi
+
+    if ! git -C "$DOTFILES" submodule update --init --recursive; then
         stdout_msg "ERROR" "submodules" "Failed to sync submodules. Check network remotes manually."
         write_to_exquilog "ERROR" "submodules" "Failed to sync submodules."
         return 1
-    }
+    fi
 
     # Required files (ansible roles depend on these)
+    # TODO: add other required files here for skills submodule, etc.
     local missing=0
     for file in "nvim/init.lua" "scripts-magic-spells/README.md"; do
         if [[ -e "$DOTFILES/$file" ]]; then
@@ -490,6 +500,9 @@ sync_submodules() {
     if [[ "$missing" -ne 0 ]]; then
         return 1
     fi
+
+    stdout_msg "INSTALLED" "submodules" "Submodules synced!"
+    write_to_exquilog "INFO" "submodules" "Submodules synced!"
 
     # TODO: Optional: warn on any other submodule path declared in .gitmodules
     # (e.g. pi, skills) that is still absent — no hard fail.
