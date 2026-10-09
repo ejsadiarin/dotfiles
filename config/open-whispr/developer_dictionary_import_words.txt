@@ -1,0 +1,1256 @@
+symlink
+hardlink
+chmod
+chown
+chgrp
+sudo
+sudoers
+grep
+egrep
+awk
+sed
+xargs
+tee
+stdin
+stdout
+stderr
+dev null
+bash
+zsh
+fish shell
+dotfiles
+bashrc
+zshrc
+inode
+mkdir
+rmdir
+mv
+rsync
+scp
+sftp
+ssh
+sshd
+ssh-keygen
+authorized_keys
+tmux
+vim
+neovim
+nano
+curl
+wget
+jq
+yq
+fzf
+ripgrep
+htop
+btop
+strace
+ltrace
+lsof
+netstat
+nmap
+tcpdump
+dmesg
+fstab
+mount
+umount
+fdisk
+mkfs
+lsblk
+LVM
+RAID
+ext4
+btrfs
+ZFS
+XFS
+tmpfs
+procfs
+sysfs
+systemd
+systemctl
+journalctl
+systemd-resolved
+cron
+crontab
+logrotate
+apt
+apt-get
+dpkg
+dnf
+yum
+rpm
+pacman
+snap
+flatpak
+Homebrew
+iptables
+nftables
+ufw
+firewalld
+SELinux
+AppArmor
+cgroups
+namespaces
+chroot
+initramfs
+GRUB
+kernel
+Ubuntu
+Debian
+Fedora
+CentOS
+RHEL
+Arch Linux
+Alpine
+NixOS
+WSL
+WSL2
+daemon
+daemonize
+shebang
+sigterm
+sigkill
+sighup
+PID
+UID
+GID
+umask
+setuid
+sticky bit
+ACL
+PATH variable
+env vars
+dotenv
+envsubst
+heredoc
+subshell
+pipefail
+shellcheck
+Makefile
+CMake
+gcc
+clang
+glibc
+musl
+ldd
+ELF
+strip
+AWS
+EC2
+S3
+IAM
+VPC
+ECS
+EKS
+ECR
+Fargate
+Lambda
+RDS
+Aurora
+DynamoDB
+ElastiCache
+CloudFront
+CloudWatch
+CloudTrail
+CloudFormation
+CDK
+Route 53
+SQS
+SNS
+EventBridge
+Kinesis
+API Gateway
+Cognito
+Secrets Manager
+Systems Manager
+SSM
+KMS
+ALB
+NLB
+ELB
+NAT gateway
+security group
+subnet
+CIDR
+AMI
+EBS
+EFS
+Glacier
+Redshift
+Athena
+Bedrock
+SageMaker
+GCP
+GKE
+Cloud Run
+Cloud Functions
+BigQuery
+Pub/Sub
+Cloud Storage
+Compute Engine
+Firebase
+Firestore
+Azure
+AKS
+Azure DevOps
+Entra ID
+Cosmos DB
+Blob Storage
+Terraform
+OpenTofu
+Terragrunt
+Pulumi
+Ansible
+Packer
+Vagrant
+Chef
+Puppet
+SaltStack
+Crossplane
+tfstate
+tfvars
+terraform plan
+terraform apply
+Kubernetes
+K8s
+kubectl
+kubeadm
+kubelet
+kube-proxy
+kube-apiserver
+kube-scheduler
+kube-controller-manager
+kubeconfig
+kubectx
+kubens
+k9s
+kind
+minikube
+k3s
+k3d
+MicroK8s
+Rancher
+OpenShift
+etcd
+CoreDNS
+CNI
+CSI
+CRI
+containerd
+CRI-O
+runc
+Calico
+Cilium
+Flannel
+Weave
+Helm
+Helm chart
+Kustomize
+Skaffold
+Tilt
+Istio
+Linkerd
+Envoy
+Traefik
+ingress
+Ingress controller
+NGINX Ingress
+cert-manager
+Let's Encrypt
+Gateway API
+ClusterIP
+NodePort
+LoadBalancer
+ExternalName
+StatefulSet
+DaemonSet
+ReplicaSet
+Deployment
+CronJob
+ConfigMap
+Secret
+PersistentVolume
+PersistentVolumeClaim
+StorageClass
+ServiceAccount
+RBAC
+ClusterRole
+RoleBinding
+ClusterRoleBinding
+NetworkPolicy
+PodDisruptionBudget
+HorizontalPodAutoscaler
+HPA
+VPA
+KEDA
+Karpenter
+taints
+tolerations
+affinity
+anti-affinity
+nodeSelector
+kubectl apply
+kubectl get
+kubectl describe
+kubectl logs
+kubectl exec
+kubectl port-forward
+CRD
+custom resource definition
+operator
+admission controller
+webhook
+OPA
+Gatekeeper
+Kyverno
+Falco
+Argo CD
+ArgoCD
+Argo Workflows
+Flux
+FluxCD
+GitOps
+sidecar
+init container
+liveness probe
+readiness probe
+startup probe
+namespace
+pod
+node pool
+control plane
+Docker
+Dockerfile
+docker-compose
+Docker Compose
+Docker Swarm
+Podman
+Buildah
+Buildx
+BuildKit
+Kaniko
+Skopeo
+Docker Hub
+GHCR
+Harbor
+Quay
+OCI
+multi-stage build
+docker exec
+docker run
+docker ps
+dockerignore
+entrypoint
+CMD
+Jenkins
+GitHub Actions
+GitLab CI
+CircleCI
+Travis CI
+Tekton
+Drone
+TeamCity
+Bitbucket
+Buildkite
+CI/CD
+DevOps
+DevSecOps
+SRE
+IaC
+Prometheus
+Grafana
+Loki
+Tempo
+Mimir
+Alertmanager
+PromQL
+Datadog
+New Relic
+Splunk
+Elasticsearch
+Logstash
+Kibana
+ELK
+OpenSearch
+Fluentd
+Fluent Bit
+Jaeger
+Zipkin
+OpenTelemetry
+OTel
+Sentry
+PagerDuty
+Vault
+HashiCorp
+Consul
+Nomad
+Boundary
+SOPS
+Sealed Secrets
+External Secrets
+Trivy
+Snyk
+SonarQube
+Dependabot
+Renovate
+SBOM
+Cosign
+Sigstore
+Git
+GitHub
+GitLab
+git rebase
+git cherry-pick
+git stash
+git bisect
+git reflog
+git fetch
+git pull
+git push
+git checkout
+git switch
+git restore
+git worktree
+git submodule
+gitignore
+gitattributes
+monorepo
+polyrepo
+pre-commit
+Husky
+lint-staged
+conventional commits
+semver
+changelog
+PR
+pull request
+merge conflict
+fast-forward
+squash
+HEAD
+detached HEAD
+upstream
+origin
+JSON
+JSONL
+YAML
+TOML
+XML
+CSV
+Protobuf
+Avro
+Parquet
+MessagePack
+Markdown
+MDX
+regex
+glob
+UUID
+ULID
+base64
+SHA-256
+HMAC
+JWT
+OAuth
+OAuth2
+OIDC
+SAML
+SSO
+MFA
+TOTP
+ABAC
+CORS
+CSRF
+XSS
+SQL injection
+TLS
+SSL
+mTLS
+PKI
+x509
+CSR
+CA
+OpenSSL
+GPG
+PGP
+WireGuard
+OpenVPN
+Tailscale
+Cloudflare
+Cloudflare Tunnel
+Cloudflare Workers
+Terraform Cloud
+DNS
+DHCP
+NAT
+BGP
+VLAN
+VPN
+CDN
+TCP
+UDP
+HTTP
+HTTPS
+HTTP/2
+HTTP/3
+QUIC
+WebSocket
+WebSockets
+gRPC
+GraphQL
+REST
+RESTful
+OpenAPI
+Swagger
+Postman
+Insomnia
+Bruno
+idempotent
+idempotency
+rate limiting
+backoff
+circuit breaker
+load balancer
+reverse proxy
+Nginx
+HAProxy
+Caddy
+Apache
+Envoy proxy
+API
+SDK
+CLI
+TUI
+GUI
+IDE
+LSP
+DAP
+REPL
+ORM
+CRUD
+SPA
+SSR
+SSG
+ISR
+PWA
+JavaScript
+TypeScript
+Node.js
+Deno
+Bun
+npm
+pnpm
+Yarn
+npx
+nvm
+Vite
+Webpack
+esbuild
+Rollup
+Turbopack
+Babel
+ESLint
+Prettier
+Biome
+React
+Next.js
+Remix
+Vue
+Nuxt
+Svelte
+SvelteKit
+Angular
+Astro
+Solid
+Tailwind
+Tailwind CSS
+shadcn
+Radix
+Express
+Fastify
+NestJS
+Hono
+tRPC
+Prisma
+Drizzle
+Zod
+Python
+pip
+pipx
+pyenv
+venv
+virtualenv
+Poetry
+uv
+Pydantic
+FastAPI
+Flask
+Django
+Celery
+pytest
+mypy
+Ruff
+Black
+Jupyter
+NumPy
+pandas
+Polars
+PyTorch
+TensorFlow
+Go
+Golang
+goroutine
+gofmt
+go mod
+Rust
+Cargo
+rustc
+rustup
+crate
+Tokio
+Serde
+borrow checker
+Java
+JVM
+Kotlin
+Scala
+Maven
+Gradle
+Spring Boot
+C#
+.NET
+ASP.NET
+NuGet
+PHP
+Composer
+Laravel
+Ruby
+Rails
+Bundler
+Elixir
+Phoenix
+Erlang
+Haskell
+OCaml
+Zig
+Lua
+Perl
+Swift
+SwiftUI
+Dart
+Flutter
+React Native
+Expo
+WebAssembly
+WASM
+PostgreSQL
+Postgres
+psql
+pgAdmin
+PostGIS
+pgvector
+MySQL
+MariaDB
+SQLite
+MongoDB
+Redis
+Valkey
+Memcached
+Cassandra
+ScyllaDB
+CockroachDB
+ClickHouse
+Neo4j
+InfluxDB
+TimescaleDB
+Supabase
+PlanetScale
+Neon
+Turso
+Kafka
+Redpanda
+RabbitMQ
+NATS
+Pulsar
+ZooKeeper
+Spark
+Flink
+Airflow
+dbt
+Snowflake
+Databricks
+Hadoop
+MinIO
+Ceph
+Longhorn
+Rook
+etcdctl
+migration
+schema
+index
+foreign key
+primary key
+transaction
+ACID
+CAP theorem
+sharding
+replication
+failover
+WAL
+vacuum
+EXPLAIN ANALYZE
+microservices
+monolith
+event-driven
+CQRS
+event sourcing
+saga pattern
+service mesh
+serverless
+FaaS
+IaaS
+PaaS
+SaaS
+multi-tenant
+blue-green deployment
+canary deployment
+rolling update
+feature flag
+SLA
+SLO
+SLI
+MTTR
+RTO
+RPO
+observability
+telemetry
+tracing
+LLM
+RAG
+embeddings
+vector database
+Claude
+Claude Code
+Anthropic
+OpenAI
+GPT
+Gemini
+Llama
+Ollama
+vLLM
+Hugging Face
+LangChain
+LlamaIndex
+MCP
+Model Context Protocol
+prompt engineering
+fine-tuning
+LoRA
+quantization
+GGUF
+tokenizer
+context window
+agentic
+CUDA
+GPU
+NVIDIA
+VS Code
+Visual Studio Code
+Cursor
+JetBrains
+IntelliJ
+PyCharm
+WebStorm
+Emacs
+Zed
+Helix
+Warp
+iTerm
+Alacritty
+Kitty
+WezTerm
+Ghostty
+Starship
+Oh My Zsh
+Nix
+asdf
+mise
+direnv
+Open Whisper
+Whisper
+Whisper.cpp
+backend
+middleware
+controller
+repository pattern
+service layer
+dependency injection
+inversion of control
+DTO
+data transfer object
+DAO
+payload
+endpoint
+route handler
+request body
+query params
+path params
+status code
+HTTP verbs
+PATCH
+OPTIONS
+idempotent key
+pagination
+cursor pagination
+offset pagination
+long polling
+server-sent events
+SSE
+message broker
+message queue
+dead letter queue
+DLQ
+consumer group
+producer
+consumer
+at-least-once
+exactly-once
+eventual consistency
+strong consistency
+distributed lock
+leader election
+Raft
+Paxos
+consensus
+two-phase commit
+outbox pattern
+CDC
+change data capture
+Debezium
+connection pool
+PgBouncer
+pgpool
+N+1 query
+query planner
+query optimizer
+B-tree
+hash index
+composite index
+covering index
+partial index
+GIN index
+materialized view
+stored procedure
+trigger
+deadlock
+row lock
+optimistic locking
+pessimistic locking
+isolation level
+read committed
+serializable
+MVCC
+upsert
+bulk insert
+read replica
+write-ahead log
+point-in-time recovery
+PITR
+pg_dump
+pg_restore
+pg_stat_statements
+Flyway
+Liquibase
+Alembic
+Knex
+Sequelize
+TypeORM
+SQLAlchemy
+GORM
+Hibernate
+JPA
+MyBatis
+Diesel
+SQLx
+Entity Framework
+ActiveRecord
+cache invalidation
+cache stampede
+write-through
+write-behind
+cache-aside
+TTL
+LRU
+LFU
+Redis Sentinel
+Redis Cluster
+Redis Streams
+RedisJSON
+pipelining
+Lua scripting
+session
+cookie
+bearer token
+refresh token
+access token
+API key
+HMAC signature
+Argon2
+bcrypt
+scrypt
+PBKDF2
+salting
+hashing
+encryption at rest
+envelope encryption
+PKCE
+OAuth scopes
+OpenID Connect
+Keycloak
+Auth0
+Okta
+Passport.js
+Spring Security
+rate limiter
+token bucket
+leaky bucket
+sliding window
+throttling
+debounce
+backpressure
+graceful shutdown
+health check
+healthz
+readyz
+heartbeat
+timeout
+retry
+exponential backoff
+jitter
+bulkhead
+fallback
+tail latency
+p99
+p95
+throughput
+latency
+QPS
+RPS
+TPS
+concurrency
+parallelism
+race condition
+mutex
+semaphore
+thread pool
+worker pool
+event loop
+async await
+coroutine
+goroutines
+channels
+epoll
+kqueue
+io_uring
+non-blocking IO
+garbage collection
+memory leak
+heap
+stack trace
+core dump
+pprof
+flame graph
+profiling
+benchmarking
+load testing
+k6
+Locust
+JMeter
+Gatling
+wrk
+vegeta
+Gunicorn
+Uvicorn
+uWSGI
+Hypercorn
+Daphne
+ASGI
+WSGI
+Puma
+Unicorn
+Sidekiq
+Resque
+BullMQ
+Bull
+Agenda
+RQ
+Dramatiq
+Temporal
+Cadence
+Conductor
+Camunda
+Quartz
+cron job
+background job
+job queue
+worker
+scheduler
+Spring
+Quarkus
+Micronaut
+Ktor
+Vert.x
+Akka
+Play Framework
+Gin
+Echo
+Fiber
+Chi
+gorilla mux
+Actix
+Axum
+Rocket
+Koa
+Hapi
+AdonisJS
+Sails
+Strapi
+Payload CMS
+Directus
+Hasura
+PostGraphile
+Apollo Server
+Apollo Federation
+GraphQL Yoga
+Mercurius
+Protocol Buffers
+protoc
+buf
+Connect RPC
+Thrift
+SOAP
+WSDL
+JSON-RPC
+JSON Schema
+OpenAPI Generator
+AsyncAPI
+Stoplight
+Redoc
+Kong
+Tyk
+Apigee
+Traefik Hub
+KrakenD
+Zuul
+BFF
+backend for frontend
+edge function
+forward proxy
+sticky session
+session affinity
+consistent hashing
+service discovery
+Eureka
+SPIFFE
+SPIRE
+Amazon Web Services
+AWS CLI
+aws configure
+AWS SDK
+boto3
+Boto
+botocore
+AWS SAM
+SAM CLI
+Serverless Framework
+SST
+Amplify
+AppSync
+LocalStack
+Terraform AWS provider
+AWS Organizations
+Control Tower
+service control policy
+IAM role
+IAM policy
+IAM user
+instance profile
+assume role
+STS
+AWS STS
+trust policy
+permission boundary
+IAM Identity Center
+AWS SSO
+access key
+secret access key
+MFA delete
+Parameter Store
+AWS Config
+GuardDuty
+Security Hub
+Inspector
+Macie
+WAF
+Shield
+AWS Firewall Manager
+ACM
+Certificate Manager
+CloudHSM
+Direct Connect
+Transit Gateway
+PrivateLink
+VPC endpoint
+VPC peering
+internet gateway
+route table
+NACL
+network ACL
+Elastic IP
+ENI
+elastic network interface
+bastion host
+Session Manager
+EC2 Instance Connect
+Auto Scaling
+Auto Scaling group
+ASG
+launch template
+spot instance
+reserved instance
+savings plan
+on-demand
+placement group
+Graviton
+Nitro
+t3 micro
+c5
+m5
+r5
+EBS snapshot
+instance store
+S3 bucket
+S3 object
+S3 Glacier
+S3 Select
+S3 presigned URL
+presigned URL
+multipart upload
+bucket policy
+lifecycle rule
+versioning
+S3 Transfer Acceleration
+Intelligent-Tiering
+Storage Lens
+FSx
+Storage Gateway
+DataSync
+Snowball
+AWS Backup
+RDS Proxy
+Aurora Serverless
+Multi-AZ
+read replica RDS
+parameter group
+DynamoDB Streams
+DAX
+GSI
+LSI
+partition key
+sort key
+single-table design
+PartiQL
+DocumentDB
+Neptune
+Keyspaces
+MemoryDB
+Timestream
+QLDB
+Lambda layer
+Lambda@Edge
+cold start
+provisioned concurrency
+reserved concurrency
+Lambda extension
+Step Functions
+state machine
+SQS FIFO
+SNS topic
+SES
+Pinpoint
+MSK
+Amazon MQ
+EventBridge Pipes
+EventBridge Scheduler
+Kinesis Data Streams
+Kinesis Firehose
+Glue
+Glue crawler
+Lake Formation
+EMR
+QuickSight
+OpenSearch Service
+AppRunner
+App Runner
+Elastic Beanstalk
+Lightsail
+Batch
+AWS Batch
+ECS task definition
+ECS service
+ECS cluster
+Copilot
+EKS Anywhere
+EKS Blueprints
+eksctl
+IRSA
+IAM Roles for Service Accounts
+Pod Identity
+Bottlerocket
+App Mesh
+Cloud Map
+X-Ray
+CloudWatch Logs
+CloudWatch Alarms
+CloudWatch Insights
+Logs Insights
+Container Insights
+Managed Prometheus
+Managed Grafana
+CodeBuild
+CodePipeline
+CodeDeploy
+CodeCommit
+CodeArtifact
+CloudFormation stack
+change set
+StackSets
+nested stack
+drift detection
+CDK synth
+CDK deploy
+Cost Explorer
+Trusted Advisor
+Well-Architected
+AWS Marketplace
+Outposts
+Wavelength
+Local Zones
+availability zone
+region
+edge location
+Route 53 hosted zone
+Route 53 Resolver
+alias record
+CNAME
+A record
+AAAA record
+MX record
+TXT record
+NS record
+SRV record
+TTL record
+auto-sync
+Qwen
+Mistral
+HuggingFace
