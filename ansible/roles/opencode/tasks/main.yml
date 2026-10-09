@@ -15,22 +15,22 @@
     path: "{{ ansible_facts['user_dir'] }}/.config/opencode/opencode.json"
     state: absent
 
-- name: OpenCode | Link opencode.jsonc to opencode.jsonc
+- name: OpenCode | Link opencode.jsonc to .config/opencode.jsonc
   ansible.builtin.file:
     src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/opencode.jsonc"
     dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/opencode.jsonc"
     state: link
 
-- name: OpenCode | Link tui.json to tui.json
+- name: OpenCode | Link tui.json to .config/tui.json
   ansible.builtin.file:
     src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/tui.json"
     dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/tui.json"
     state: link
 
-- name: OpenCode | Link dcp.jsonc to dcp.jsonc
+- name: OpenCode | Link dcp.json to .config/dcp.json
   ansible.builtin.file:
-    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/dcp.jsonc"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/dcp.jsonc"
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/dcp.json"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/dcp.json"
     state: link
 
 - name: OpenCode | Remove existing skills directory if present
