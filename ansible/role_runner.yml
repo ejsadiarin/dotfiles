@@ -49,7 +49,7 @@
 
   # you can add roles to run here
   roles:
-    - zoom
+    - ghostty
 
   tasks:
     - name: cleanup master_password

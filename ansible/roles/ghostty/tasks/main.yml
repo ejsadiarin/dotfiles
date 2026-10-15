@@ -20,7 +20,7 @@
 - name: Enable scottames/ghostty COPR repository
   community.general.copr:
     name: scottames/ghostty
-    state: present
+    state: enabled
   become: true
   when: machine_os == 'redhat'
 
