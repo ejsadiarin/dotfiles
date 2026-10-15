@@ -1,3 +1,28 @@
+- name: Git | Check GitHub SSH auth
+  ansible.builtin.command: ssh -T -o BatchMode=yes -o ConnectTimeout=10 git@github.com
+  register: git_github_ssh_check
+  failed_when: false
+  changed_when: false
+
+- name: Git | Switch dotfiles transport to SSH (SSH auth works)
+  ansible.builtin.shell: |
+    test -d .git || exit 0
+    current="$(git config --local --get url.git@github.com:.insteadOf || true)"
+    reverse="$(git config --local --get url.https://github.com/.insteadOf || true)"
+    if [ "$current" = "https://github.com/" ] && [ -z "$reverse" ]; then
+      exit 0
+    fi
+    git config --local --unset-all url.https://github.com/.insteadOf || true
+    git config --local --unset-all url.git@github.com:.insteadOf || true
+    git config --local url.git@github.com:.insteadOf https://github.com/
+    git submodule sync --recursive
+    echo CHANGED
+  args:
+    chdir: "{{ ansible_facts['user_dir'] }}/dotfiles"
+  register: git_ssh_switch
+  changed_when: "'CHANGED' in git_ssh_switch.stdout"
+  when: "'successfully authenticated' in (git_github_ssh_check.stdout | default('') + git_github_ssh_check.stderr | default(''))"
+
 - name: Git | Configure username
   community.general.git_config:
     name: user.name
