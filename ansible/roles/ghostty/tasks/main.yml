@@ -22,6 +22,7 @@
     name: scottames/ghostty
     state: present
   become: true
+  when: machine_os == 'redhat'
 
 - name: Ghostty | Install ghostty in RedHat
   ansible.builtin.dnf:
@@ -30,6 +31,12 @@
   become: true
   # when: ansible_facts['os_family']|lower  == 'debian' # can be 'archlinux', 'debian', 'redhat', etc.
   when: machine_os == 'redhat'
+
+- name: Ghostty | Install ghostty on macOS
+  community.general.homebrew_cask:
+    name: ghostty
+    state: present
+  when: ansible_facts['os_family']|lower == 'darwin'
 
 - name: ghostty | Remove existing ghostty config directory
   ansible.builtin.file:
