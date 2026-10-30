@@ -488,7 +488,7 @@ sync_submodules() {
     # Required files (ansible roles depend on these)
     # TODO: add other required files here for skills submodule, etc.
     local missing=0
-    for file in "nvim/init.lua" "scripts-magic-spells/README.md"; do
+    for file in "nvim/init.lua" "scripts-magic-spells/README.md" "config/opencode/opencode.jsonc" "config/opencode/cli.json"; do
         if [[ -e "$DOTFILES/$file" ]]; then
             stdout_msg "INFO" "submodules" "Found $file"
         else

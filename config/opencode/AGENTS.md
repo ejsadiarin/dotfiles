@@ -72,7 +72,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 - Be concise and direct in responses
 - Avoid unnecessary preamble or filler text
-- Skip obvious explanations unless asked
 - Use technical terminology appropriate for experienced developers
 
 ## Workflow Preferences
@@ -100,7 +99,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ## File Operations
 
 - Check for existing similar files/patterns before creating new ones
-- Respect .gitignore and don't modify ignored files unless asked
+- Respect `.gitignore` and don't modify ignored files unless asked
 - Be cautious with destructive operations (delete, overwrite)
 
 ## Git Commit Workflow
@@ -108,8 +107,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 Commits are essential for rollback capability. Follow conventional commits format strictly.
 
 **IMPORTANT: Make small, atomic commits based on completed task.**
-
-**This workflow applies regardless of whether OpenSpec or any spec-driven-development framework is used.**
 
 ### Commit After Every Change
 
@@ -128,8 +125,6 @@ git commit -m "chore(config): configure typescript and path aliases
 - Configure path aliases for @/* mapping to src/*
 - Add tsconfig paths to webpack/vite config"
 ```
-
-**When using OpenSpec:** Commit after completing each task from `tasks.md` checklist in the active change folder.
 
 **Types:**
 
@@ -169,39 +164,3 @@ chore(config): configure typescript and path aliases
 - Use present tense ("add feature" not "added feature")
 - Keep subject line under 72 characters
 - Do not add emojis unless stated otherwise
-
-### (IF using OpenSpec) Commit Per Task Section
-
-When implementing OpenSpec tasks, commit after completing each logical grouping of tasks (e.g., after finishing all tasks in a section like "1. Backend - SQL Queries") before proceeding to the next section.
-
-**Example workflow:**
-
-```markdown
-## 1. Backend - SQL Queries
-
-- [x] 1.1 Add SQL query to list API keys by member email in `query.sql`
-- [x] 1.2 Add SQL query to delete API key by ID in `query.sql`
-- [x] 1.3 Run `sqlc generate` to regenerate repository code
-
-→ COMMIT HERE with message describing the SQL queries added
-
-## 2. Backend - Repository Functions
-
-- [x] 2.1 Implement repository function to list API keys by email
-- [x] 2.2 Implement repository function to delete API key by ID
-
-→ COMMIT HERE with message describing the repository functions
-```
-
-**Commit message format for task section completion:**
-
-```
-feat(api-key): add SQL queries and repository functions for API key management
-
-- Add list query by member email (exclude api_key_hash)
-- Add delete query by ID with member email check
-- Implement list_repository and delete_repository functions
-- Run sqlc generate for regenerated code
-```
-
-**Key principle:** Commit after each task section is complete, not just after every single checkbox. This creates meaningful commit history that groups related changes together while still maintaining granular rollback capability.

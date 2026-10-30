@@ -46,9 +46,11 @@ sudo npm i -g pnpm
 pnpm add -g opencode-ai
 echo "[WARN] Removing opencode configs at ~/.config/opencode"
 rm -f ~/.config/opencode/opencode.json
-ln -s ~/dotfiles/config/opencode/opencode.jsonc ~/.config/opencode/
-ln -s ~/dotfiles/config/opencode/tui.json ~/.config/opencode/
-ln -s ~/dotfiles/config/opencode/AGENTS.md ~/.config/opencode/
+rm -f ~/.config/opencode/tui.json
+ln -sf ~/dotfiles/config/opencode/opencode.jsonc ~/.config/opencode/
+ln -sf ~/dotfiles/config/opencode/cli.json ~/.config/opencode/
+ln -sf ~/dotfiles/config/opencode/dcp.json ~/.config/opencode/
+ln -sf ~/dotfiles/config/opencode/AGENTS.md ~/.config/opencode/
 
 # NOTE: fonts
 # - INSTALL zip => extract => search "Regular" => Install (or Show more options => Install to all users)

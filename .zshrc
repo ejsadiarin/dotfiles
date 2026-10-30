@@ -577,3 +577,7 @@ fpath=("$HOME/.zsh/completions" $fpath)
 # opencode
 export PATH=/home/ejs/.opencode/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/ejs/.local/bin:$PATH"

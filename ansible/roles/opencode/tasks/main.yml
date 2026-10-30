@@ -15,19 +15,24 @@
     path: "{{ ansible_facts['user_dir'] }}/.config/opencode/opencode.json"
     state: absent
 
-- name: OpenCode | Link opencode.jsonc to .config/opencode.jsonc
+- name: OpenCode | Remove existing tui.json if present
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/opencode/tui.json"
+    state: absent
+
+- name: OpenCode | Link opencode.jsonc to .config/opencode/opencode.jsonc
   ansible.builtin.file:
     src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/opencode.jsonc"
     dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/opencode.jsonc"
     state: link
 
-- name: OpenCode | Link tui.json to .config/tui.json
+- name: OpenCode | Link cli.json to .config/opencode/cli.json
   ansible.builtin.file:
-    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/tui.json"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/tui.json"
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/cli.json"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/cli.json"
     state: link
 
-- name: OpenCode | Link dcp.json to .config/dcp.json
+- name: OpenCode | Link dcp.json to .config/opencode/dcp.json
   ansible.builtin.file:
     src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/dcp.json"
     dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/dcp.json"

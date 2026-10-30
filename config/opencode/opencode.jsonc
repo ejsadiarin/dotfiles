@@ -1,72 +1,73 @@
 {
     "$schema": "https://opencode.ai/config.json",
     // Approval workflow for tool usage
-    // Options per tool: "allow", "ask", "deny"
-    // Defaults: most tools are "allow", except doom_loop and external_directory which are "ask"
-    // Use "*" for global default, then override specific tools
-    "permission": {
-        "*": "ask",
-        "edit": "allow",
-        "webfetch": "allow",
-        "websearch": "allow",
-        "codesearch": "allow",
-        "bash": {
-            "*": "allow",
-            "rm *": "ask",
-            "rmdir *": "ask",
-            "git push *": "ask",
-        },
-        "skill": "allow",
-        "read": "allow",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "todoread": "allow",
-        "todowrite": "allow",
-        "external_directory": "ask",
-        "doom_loop": "ask",
-    },
+    // In OpenCode v2, permissions are defined as an ordered array of rules: { action, resource, effect }
+    // Effects: "allow", "ask", "deny"
+    // Evaluation order: last matching rule wins (general rules first, specific overrides after)
+    "permissions": [
+        { "action": "*", "resource": "*", "effect": "ask" },
+        { "action": "read", "resource": "*", "effect": "allow" },
+        { "action": "edit", "resource": "*", "effect": "allow" },
+        { "action": "glob", "resource": "*", "effect": "allow" },
+        { "action": "grep", "resource": "*", "effect": "allow" },
+        { "action": "list", "resource": "*", "effect": "allow" },
+        { "action": "shell", "resource": "*", "effect": "allow" },
+        { "action": "webfetch", "resource": "*", "effect": "allow" },
+        { "action": "websearch", "resource": "*", "effect": "allow" },
+        { "action": "codesearch", "resource": "*", "effect": "allow" },
+        { "action": "skill", "resource": "*", "effect": "allow" },
+        { "action": "todoread", "resource": "*", "effect": "allow" },
+        { "action": "todowrite", "resource": "*", "effect": "allow" },
+        // All MCP-related tool calls (configured servers, generic mcp patterns, and mcp resources)
+        { "action": "context7_*", "resource": "*", "effect": "allow" },
+        { "action": "playwright_*", "resource": "*", "effect": "allow" },
+        { "action": "mcp_*", "resource": "*", "effect": "allow" },
+        { "action": "mcp", "resource": "*", "effect": "allow" },
+        { "action": "*mcp*", "resource": "*", "effect": "allow" },
+        { "action": "opencode_*_mcp_*", "resource": "*", "effect": "allow" },
+        { "action": "external_directory", "resource": "*", "effect": "ask" },
+        { "action": "doom_loop", "resource": "*", "effect": "ask" }
+    ],
     // Custom instructions - loaded alongside AGENTS.md
     // Supports: file paths, glob patterns, URLs
     // Note: paths are relative to project root, use ~ for global config paths
     // "instructions": [
     //     "~/.config/opencode/rules/*.md"
     // ],
-    "agent": {
+    "agents": {
         "code-reviewer": {
             "description": "Reviews code for best practices and potential issues",
             "mode": "subagent",
-            "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
-            "tools": {
-                "write": false,
-                "edit": false
-            }
-        },
-    },
-    "command": {},
-    "mcp": {
-        "context7": {
-            "type": "remote",
-            "url": "https://mcp.context7.com/mcp"
-        },
-        "playwright": {
-            "type": "local",
-            "command": [
-                "npx",
-                "@playwright/mcp@latest"
-            ],
-            "enabled": true
+            "system": "You are a code reviewer. Focus on security, performance, and maintainability.",
+            "permissions": [
+                { "action": "edit", "resource": "*", "effect": "deny" }
+            ]
         }
     },
-    "plugin": [
-        "@tarquinen/opencode-dcp@latest",
-        "@dietrichgebert/ponytail",
-    ],
-    // "provider": {
+    "commands": {},
+    "mcp": {
+        "servers": {
+            "context7": {
+                "type": "remote",
+                "url": "https://mcp.context7.com/mcp"
+            },
+            "playwright": {
+                "type": "local",
+                "command": [
+                    "npx",
+                    "@playwright/mcp@latest"
+                ]
+            }
+        }
+    },
+    "plugins": [
+        "@tarquinen/opencode-dcp@latest"
+    ]
+    // "providers": {
     //     "router": {
-    //         "npm": "@ai-sdk/openai-compatible",
+    //         "package": "@ai-sdk/openai-compatible",
     //         "name": "modelrelay",
-    //         "options": {
+    //         "settings": {
     //             "baseURL": "http://127.0.0.1:7352/v1",
     //             "apiKey": "dummy-key"
     //         },
@@ -75,7 +76,7 @@
     //                 "name": "Auto Fastest"
     //             }
     //         }
-    //     },
+    //     }
     // },
-    // "model": "router/auto-fastest",
+    // "model": "router/auto-fastest"
 }

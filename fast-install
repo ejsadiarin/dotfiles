@@ -108,10 +108,12 @@ ln -s ~/dotfiles/config/ghostty ~/.config/ghostty
 pnpm add -g opencode-ai
 echo "[WARN] Removing opencode configs at ~/.config/opencode"
 rm -f ~/.config/opencode/opencode.json
-ln -s ~/dotfiles/config/opencode/opencode.jsonc ~/.config/opencode
-ln -s ~/dotfiles/config/opencode/tui.json ~/.config/opencode
-ln -s ~/dotfiles/config/opencode/AGENTS.md ~/.config/opencode
-ln -s ~/dotfiles/config/opencode/skills ~/.config/opencode
+rm -f ~/.config/opencode/tui.json
+ln -sf ~/dotfiles/config/opencode/opencode.jsonc ~/.config/opencode
+ln -sf ~/dotfiles/config/opencode/cli.json ~/.config/opencode
+ln -sf ~/dotfiles/config/opencode/dcp.json ~/.config/opencode
+ln -sf ~/dotfiles/config/opencode/AGENTS.md ~/.config/opencode
+ln -sf ~/dotfiles/config/opencode/skills ~/.config/opencode
 
 # NOTE: append zhistory
 echo "[INFO] Appending zhistory... (use vault's zhistory for updated zshistory)"
