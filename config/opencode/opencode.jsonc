@@ -5,13 +5,19 @@
     // Effects: "allow", "ask", "deny"
     // Evaluation order: last matching rule wins (general rules first, specific overrides after)
     "permissions": [
-        { "action": "*", "resource": "*", "effect": "ask" },
+        // Allow all tool calls by default (question, subagent, shell, mcp, read, edit, etc.)
+        { "action": "*", "resource": "*", "effect": "allow" },
+        { "action": "question", "resource": "*", "effect": "allow" },
+        { "action": "subagent", "resource": "*", "effect": "allow" },
+        { "action": "execute", "resource": "*", "effect": "allow" },
         { "action": "read", "resource": "*", "effect": "allow" },
         { "action": "edit", "resource": "*", "effect": "allow" },
         { "action": "glob", "resource": "*", "effect": "allow" },
         { "action": "grep", "resource": "*", "effect": "allow" },
         { "action": "list", "resource": "*", "effect": "allow" },
         { "action": "shell", "resource": "*", "effect": "allow" },
+        { "action": "shell", "resource": "git push *", "effect": "ask" },
+        { "action": "shell", "resource": "rm -rf *", "effect": "ask" },
         { "action": "webfetch", "resource": "*", "effect": "allow" },
         { "action": "websearch", "resource": "*", "effect": "allow" },
         { "action": "codesearch", "resource": "*", "effect": "allow" },
@@ -25,8 +31,11 @@
         { "action": "mcp", "resource": "*", "effect": "allow" },
         { "action": "*mcp*", "resource": "*", "effect": "allow" },
         { "action": "opencode_*_mcp_*", "resource": "*", "effect": "allow" },
+        // Safety guards: ask before accessing external directories or entering runaway loops
+        { "action": "external_directory", "resource": "/tmp/*", "effect": "allow" },
         { "action": "external_directory", "resource": "*", "effect": "ask" },
-        { "action": "doom_loop", "resource": "*", "effect": "ask" }
+        { "action": "read", "resource": "*.env*", "effect": "ask" },
+        { "action": "read", "resource": "**/credentials.json", "effect": "deny" }
     ],
     // Custom instructions - loaded alongside AGENTS.md
     // Supports: file paths, glob patterns, URLs
