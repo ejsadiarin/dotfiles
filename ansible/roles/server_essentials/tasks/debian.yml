@@ -1,8 +1,9 @@
 - name: Server Essentials | Install aptitude
-  apt:
+  ansible.builtin.apt:
     name: aptitude
     state: present
     update_cache: true
+  become: true
 
 - name: Server Essentials | Install essential packages
   ansible.builtin.apt:

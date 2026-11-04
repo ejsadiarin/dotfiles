@@ -57,3 +57,9 @@
 ############ WORK PROFILE ##################
 [includeIf "gitdir:~/work/emerson-2026/**"]
     path = "~/work/emerson-2026/.gitconfig-work"
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential

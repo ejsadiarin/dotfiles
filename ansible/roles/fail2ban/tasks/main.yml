@@ -1,6 +1,8 @@
-- name: fail2ban | Install fail2ban
+- name: fail2ban | Install fail2ban and dependencies
   ansible.builtin.apt:
-    name: fail2ban
+    name:
+      - fail2ban
+      - python3-systemd
     state: present
     update_cache: true
   become: true
@@ -21,7 +23,7 @@
       enabled  = true
       port     = ssh
       filter   = sshd
-      logpath  = /var/log/auth.log
+      backend  = systemd
       maxretry = 3
       bantime  = 600
       findtime = 600

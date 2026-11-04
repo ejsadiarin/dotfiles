@@ -32,10 +32,11 @@
         { "action": "*mcp*", "resource": "*", "effect": "allow" },
         { "action": "opencode_*_mcp_*", "resource": "*", "effect": "allow" },
         // Safety guards: ask before accessing external directories or entering runaway loops
-        { "action": "external_directory", "resource": "/tmp/*", "effect": "allow" },
         { "action": "external_directory", "resource": "*", "effect": "ask" },
+        { "action": "external_directory", "resource": "/tmp/*", "effect": "allow" },
+        { "action": "external_directory", "resource": "~/.agents/*", "effect": "allow" },
         { "action": "read", "resource": "*.env*", "effect": "ask" },
-        { "action": "read", "resource": "**/credentials.json", "effect": "deny" }
+        { "action": "read", "resource": "**/credentials.json", "effect": "ask" }
     ],
     // Custom instructions - loaded alongside AGENTS.md
     // Supports: file paths, glob patterns, URLs
@@ -64,7 +65,9 @@
                 "type": "local",
                 "command": [
                     "npx",
-                    "@playwright/mcp@latest"
+                    "-y",
+                    "@playwright/mcp@latest",
+                    "--allow-unrestricted-file-access"
                 ]
             }
         }

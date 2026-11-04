@@ -208,88 +208,104 @@ debian_setup() {
     stdout_msg "START" "debian-setup" "Running Debian setup"
     write_to_exquilog "INFO" "debian-setup" "Initiate Debian setup"
 
-    # install ansible
-    if command -v ansible >/dev/null 2>&1; then
-        stdout_msg "INFO" "ansible" "Ansible is already installed."
-        write_to_exquilog "INFO" "ansible" "Ansible is already installed."
-    else
-        stdout_msg "INSTALLING" "ansible" "Installing ansible..."
-        write_to_exquilog "INFO" "ansible" "Installing ansible..."
-        {
-            sudo apt install -y ansible-core
-            stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
-            write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
-        } || {
-            stdout_msg "ERROR" "ansible" "Failed to install ansible. Skipping..."
-            write_to_exquilog "ERROR" "ansible" "Failed to install ansible. Need to install manually."
-        }
-    fi
-
-    # install python, pip deps
-    if dpkg --get-selections | grep python >/dev/null 2>&1; then
-        local version=""
-        version=$(python3 --version) || {
-            version=$(python --version) || version=$(python2 --version) # fallback
-        }
-        stdout_msg "INFO" "python" "Python (ver: ${version}) is already installed."
-        write_to_exquilog "INFO" "python" "Python (ver: ${version}) is already installed."
-    else
-        stdout_msg "INSTALLING" "python" "Installing python..."
-        write_to_exquilog "INFO" "python" "Installing python..."
-        {
-            sudo apt install -y python3
-            stdout_msg "INSTALLED" "python" "Python is now installed!"
-            write_to_exquilog "INFO" "python" "Python is now installed!"
-        } || {
-            stdout_msg "ERROR" "python" "Failed to install python. Skipping..."
-            write_to_exquilog "ERROR" "python" "Failed to install python."
-        }
-        stdout_msg "INSTALLING" "python" "Installing python-pip..."
-        write_to_exquilog "INFO" "python-pip" "Installing python-pip..."
-        {
-            sudo apt install -y python3-pip
-            stdout_msg "INSTALLED" "python-pip" "Python-pip is now installed!"
-            write_to_exquilog "INFO" "python-pip" "Python-pip is now installed!"
-        } || {
-            stdout_msg "ERROR" "python-pip" "Failed to install python-pip. Skipping..."
-            write_to_exquilog "ERROR" "python-pip" "Failed to install python-pip."
-        }
-    fi
-
-    # install openssh (most likely installed already but why not ensure it)
-    local openssh_deps=("openssh-client" "openssh-server")
-    for package in "${openssh_deps[@]}"; do
-        if dpkg --get-selections | grep "$package" >/dev/null 2>&1; then
-            stdout_msg "INSTALLED" "$package" "$package is already installed"
-            write_to_exquilog "INFO" "$package" "$package is already installed"
-        else
-            stdout_msg "INSTALLING" "$package" "Installing $package..."
-            write_to_exquilog "INSTALLING" "$package" "Installing $package..."
-            {
-                sudo apt install -y "$package"
-                stdout_msg "INSTALLED" "$package" "$package is now installed!"
-                write_to_exquilog "INFO" "$package" "$package is now installed!"
-            } || {
-                stdout_msg "ERROR" "$package" "Failed to install $package. Skipping..."
-                write_to_exquilog "ERROR" "$package" "Failed to install $package. Need to install manually."
-            }
-        fi
-    done
-
-    # do not automate enabling sshd to avoid unwanted opened services since it is optional
-    stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
-
-    # install necessary ansible-galaxy collections
     if [[ ! -f "$RELEASE_FILE" ]]; then
         stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
         write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."
 
+        # --- Install operations for first run ----
+
+        # update apt package index
+        stdout_msg "UPDATING" "apt" "Updating package index..."
+        write_to_exquilog "INFO" "apt" "Updating package index..."
+        {
+            sudo apt update -y
+            stdout_msg "UPDATED" "apt" "Package index updated!"
+            write_to_exquilog "INFO" "apt" "Package index updated!"
+        } || {
+            stdout_msg "WARNING" "apt" "Failed to update package index. Continuing..."
+            write_to_exquilog "WARNING" "apt" "Failed to update package index."
+        }
+
+        # install ansible
+        if command -v ansible >/dev/null 2>&1; then
+            stdout_msg "INFO" "ansible" "Ansible is already installed."
+            write_to_exquilog "INFO" "ansible" "Ansible is already installed."
+        else
+            stdout_msg "INSTALLING" "ansible" "Installing ansible..."
+            write_to_exquilog "INFO" "ansible" "Installing ansible..."
+            {
+                sudo apt install -y ansible
+                stdout_msg "INSTALLED" "ansible" "Ansible is now installed!"
+                write_to_exquilog "INFO" "ansible" "Ansible is now installed!"
+            } || {
+                stdout_msg "ERROR" "ansible" "Failed to install ansible. Skipping..."
+                write_to_exquilog "ERROR" "ansible" "Failed to install ansible. Need to install manually."
+            }
+        fi
+
+        # install python
+        if command -v python3 >/dev/null 2>&1; then
+            local version=""
+            version=$(python3 --version 2>&1)
+            stdout_msg "INFO" "python" "Python (ver: ${version}) is already installed."
+            write_to_exquilog "INFO" "python" "Python (ver: ${version}) is already installed."
+        else
+            stdout_msg "INSTALLING" "python" "Installing python3..."
+            write_to_exquilog "INFO" "python" "Installing python3..."
+            {
+                sudo apt install -y python3
+                stdout_msg "INSTALLED" "python" "Python is now installed!"
+                write_to_exquilog "INFO" "python" "Python is now installed!"
+            } || {
+                stdout_msg "ERROR" "python" "Failed to install python. Skipping..."
+                write_to_exquilog "ERROR" "python" "Failed to install python."
+            }
+        fi
+
+        # install python-pip, venv, and passlib (required for ansible password_hash filter)
+        if dpkg -l python3-pip 2>/dev/null | grep -q '^ii'; then
+            stdout_msg "INFO" "python-pip" "Python-pip is already installed."
+            write_to_exquilog "INFO" "python-pip" "Python-pip is already installed."
+        else
+            stdout_msg "INSTALLING" "python-pip" "Installing python3-pip, python3-venv, python3-passlib..."
+            write_to_exquilog "INFO" "python-pip" "Installing python3-pip, python3-venv, python3-passlib..."
+            {
+                sudo apt install -y python3-pip python3-venv python3-passlib
+                stdout_msg "INSTALLED" "python-pip" "Python-pip, venv, and passlib are now installed!"
+                write_to_exquilog "INFO" "python-pip" "Python-pip, venv, and passlib are now installed!"
+            } || {
+                stdout_msg "ERROR" "python-pip" "Failed to install python3-pip. Skipping..."
+                write_to_exquilog "ERROR" "python-pip" "Failed to install python3-pip."
+            }
+        fi
+
+        # install openssh (most likely installed already but why not ensure it)
+        local openssh_deps=("openssh-client" "openssh-server")
+        for package in "${openssh_deps[@]}"; do
+            if dpkg -l "$package" 2>/dev/null | grep -q '^ii'; then
+                stdout_msg "INSTALLED" "$package" "$package is already installed"
+                write_to_exquilog "INFO" "$package" "$package is already installed"
+            else
+                stdout_msg "INSTALLING" "$package" "Installing $package..."
+                write_to_exquilog "INSTALLING" "$package" "Installing $package..."
+                {
+                    sudo apt install -y "$package"
+                    stdout_msg "INSTALLED" "$package" "$package is now installed!"
+                    write_to_exquilog "INFO" "$package" "$package is now installed!"
+                } || {
+                    stdout_msg "ERROR" "$package" "Failed to install $package. Skipping..."
+                    write_to_exquilog "ERROR" "$package" "Failed to install $package. Need to install manually."
+                }
+            fi
+        done
+
+        # do not automate enabling sshd to avoid unwanted opened services since it is optional
+        stdout_msg "WARNING" "openssh-server" "Manually start/enable sshd via systemctl to make host a ssh server (Optional)."
+
+        # install necessary ansible-galaxy collections
         stdout_msg "INSTALLING" "ansible-galaxy" "Installing necessary collections..."
         write_to_exquilog "INFO" "ansible-galaxy" "Installing necessary collections"
         {
-            for collection in kewlfft.aur community.general artis3n.tailscale; do
-                ansible-galaxy collection remove "$collection"
-            done
             ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/requirements.yml
             stdout_msg "INSTALLED" "ansible-galaxy" "Collections successfully installed!"
             write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully installed!"
@@ -297,24 +313,26 @@ debian_setup() {
             stdout_msg "ERROR" "ansible-galaxy" "Failed to install collections. Install manually."
             write_to_exquilog "ERROR" "ansible-galaxy" "Failed to install collections."
         }
+
+        stdout_msg "INFO" "debian-setup" "Setup done! [${date_today}]"
+        write_to_exquilog "INFO" "debian-setup" "Setup done!"
     else
+        # --- Update operations for subsequent runs ----
+
+        # update ansible-galaxy collections
         stdout_msg "UPDATING" "ansible-galaxy" "Updating necessary collections"
         write_to_exquilog "INFO" "ansible-galaxy" "Updating necessary collections"
         {
-            for collection in kewlfft.aur community.general artis3n.tailscale; do
-                ansible-galaxy collection remove "$collection"
-            done
-            ansible-galaxy collection install -v -r "$DOTFILES"/ansible/collection/requirements.yml
+            ansible-galaxy collection install --upgrade -v -r "$DOTFILES"/ansible/collection/requirements.yml
             stdout_msg "UPDATED" "ansible-galaxy" "Collections successfully updated!"
             write_to_exquilog "INFO" "ansible-galaxy" "Collections successfully updated!"
         } || {
             stdout_msg "ERROR" "ansible-galaxy" "Failed to update collections. Update manually."
             write_to_exquilog "ERROR" "ansible-galaxy" "Failed to update collections."
         }
+        stdout_msg "INFO" "debian-setup" "Update done! [${date_today}]"
+        write_to_exquilog "INFO" "debian-setup" "Update done!"
     fi
-
-    stdout_msg "INFO" "debian-setup" "Setup done! [${date_today}]"
-    write_to_exquilog "INFO" "debian-setup" "Setup done!"
 }
 
 fedora_setup() {

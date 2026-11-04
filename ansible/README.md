@@ -95,13 +95,13 @@ ansible-playbook --check --vault-password-file ./master_password --ask-become-pa
 
 ```bash
 # replace user_name and user_password variables
-ansible-playbook --ask-become-pass bootstrap_lscs_vps.yml -i inventory/hosts.ini -e "user_name=USERNAME user_password=YOUR_SECURE_PASSWORD"
+ansible-playbook --ask-become-pass bootstrap_debian_server.yml -i inventory/hosts.ini -e "user_name=USERNAME user_password=YOUR_SECURE_PASSWORD"
 ```
 
 - if you used `ansible-vault` to encrypt something, then add `--ask-vault-pass` flag:
 
     ```bash
-    ansible-playbook --ask-become-pass --ask-vault-pass bootstrap_lscs_vps.yml -i ./inventory/hosts.ini -e "user_name=USERNAME user_password=YOUR_SECURE_PASSWORD"
+    ansible-playbook --ask-become-pass --ask-vault-pass bootstrap_debian_server.yml -i ./inventory/hosts.ini -e "user_name=USERNAME user_password=YOUR_SECURE_PASSWORD"
     ```
 
 ---
