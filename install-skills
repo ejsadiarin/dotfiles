@@ -1,0 +1,219 @@
+#!/usr/bin/env bash
+# Install my third-party agent skills on a new machine.
+#
+# Sources are cloned (shallow) into
+#   ${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles-skills
+# and each skill is symlinked into:
+#   ~/.agents/skills  (shared location read by OpenCode, Codex, Cursor, ...)
+#   ~/.claude/skills  (Claude Code)
+#
+# Usage:
+#   ./install-skills             install missing skills, leave existing entries alone
+#   ./install-skills --force     replace existing entries with links to the clones
+#   ./install-skills --update    fetch the configured refs again, then relink
+#   ./install-skills --help
+
+set -euo pipefail
+
+DATA_ROOT="${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles-skills"
+AGENTS_SKILLS="$HOME/.agents/skills"
+CLAUDE_SKILLS="$HOME/.claude/skills"
+
+FORCE=0
+UPDATE=0
+
+usage() {
+  sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'
+}
+
+while (($#)); do
+  case "$1" in
+    -f | --force) FORCE=1 ;;
+    -u | --update) UPDATE=1 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    *)
+      printf 'unknown option: %s\n\n' "$1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+  shift
+done
+
+log() { printf '[skills] %s\n' "$*"; }
+warn() { printf '[skills] warning: %s\n' "$*" >&2; }
+
+command -v git >/dev/null 2>&1 || {
+  printf 'git is required\n' >&2
+  exit 1
+}
+
+# repo|ref|skills
+#
+# taste-skill is pinned: v2.1.5 removed the separate brandkit, gpt-taste,
+# minimalist-ui, ... skills and kept only design-taste-frontend. Pin the last
+# release that shipped the full multi-skill set.
+SOURCES=(
+  "vercel-labs/skills|main|find-skills"
+  "Leonxlnx/taste-skill|v2.1.0|brandkit design-taste-frontend full-output-enforcement gpt-taste high-end-visual-design image-to-code imagegen-frontend-mobile imagegen-frontend-web industrial-brutalist-ui minimalist-ui redesign-existing-projects stitch-design-taste"
+  "mattpocock/skills|main|ask-matt claude-handoff codebase-design code-review diagnosing-bugs domain-modeling git-guardrails-claude-code grilling grill-me grill-with-docs handoff implement implement-spec improve-codebase-architecture loop-me migrate-to-shoehorn pr prototype research retro scaffold-exercises setup-matt-pocock-skills setup-pre-commit setup-ts-deep-modules tdd teach to-questionnaire to-spec to-tickets triage wait-what wayfinder wizard writing-beats writing-for-agents writing-fragments writing-shape"
+  # resolving-merge-conflicts was removed upstream shortly after I installed it.
+  "mattpocock/skills|c55ee46073ed923f86ce59a5eb3b6d895095d1b7|resolving-merge-conflicts"
+  "Leonxlnx/cinetic|main|cinetic"
+  "wheresryan22/anatomy|main|anatomy"
+  "juliobsz/skills|main|awwwards"
+)
+
+sync_repo() {
+  local repo="$1" ref="$2" cache="$3" url
+
+  url="https://github.com/$repo.git"
+
+  if [[ ! -d "$cache/.git" ]]; then
+    log "cloning $repo@$ref"
+    rm -rf "$cache"
+    mkdir -p "$cache"
+    git -C "$cache" init --quiet
+    git -C "$cache" remote add origin "$url"
+    if ! git -C "$cache" fetch --quiet --depth 1 origin "$ref"; then
+      warn "could not fetch $ref for $repo"
+      rm -rf "$cache"
+      return 1
+    fi
+    git -C "$cache" -c advice.detachedHead=false checkout --quiet -B skills FETCH_HEAD
+  elif ((UPDATE)); then
+    log "updating $repo@$ref"
+    if git -C "$cache" fetch --quiet --depth 1 origin "$ref"; then
+      git -C "$cache" -c advice.detachedHead=false checkout --quiet -B skills FETCH_HEAD
+    else
+      warn "could not fetch $ref for $repo; using the existing checkout"
+    fi
+  fi
+}
+
+# Find the skill directory whose SKILL.md declares `name: <wanted>`.
+# The shortest matching path wins, so current skills beat archived copies.
+find_skill_dir() {
+  local root="$1" wanted="$2" file name
+
+  find "$root" \
+    -type f -name SKILL.md \
+    -not -path '*/.git/*' \
+    -not -path '*/.agents/*' \
+    -not -path '*/.claude/*' \
+    -not -path '*/.claude-plugin/*' \
+    -not -path '*/node_modules/*' \
+    -not -path '*/deprecated/*' \
+    -print0 |
+    while IFS= read -r -d '' file; do
+      name="$(awk 'NR <= 20 && /^name:/ { sub(/^name:[[:space:]]*/, ""); sub(/[[:space:]]+$/, ""); print; exit }' "$file" | tr -d "\"'\r")"
+      if [[ "$name" == "$wanted" ]]; then
+        printf '%s\n' "$(dirname "$file")"
+      fi
+    done |
+    awk '{ if (best == "" || length($0) < length(best)) best = $0 } END { print best }'
+}
+
+# Point ~/.agents/skills/<name> at the clone. Never silently discard a real
+# directory; --force moves it aside first.
+link_agents() {
+  local src="$1" name="$2" dest current resolved backup
+
+  dest="$AGENTS_SKILLS/$name"
+
+  if [[ -L "$dest" ]]; then
+    current="$(readlink "$dest")"
+    [[ "$current" == "$src" ]] && return 0
+
+    resolved="$(readlink -f "$dest" 2>/dev/null || true)"
+    case "$resolved" in
+      "$DATA_ROOT"/* | "$AGENTS_SKILLS"/*) rm -f "$dest" ;;
+      *)
+        if ((FORCE)); then
+          rm -f "$dest"
+        else
+          warn "$dest points outside $DATA_ROOT; leaving it (use --force to replace)"
+          return 0
+        fi
+        ;;
+    esac
+  elif [[ -e "$dest" ]]; then
+    if ((FORCE)); then
+      backup="$dest.bak.$(date +%Y%m%d%H%M%S)"
+      mv "$dest" "$backup"
+      log "moved existing $name to $backup"
+    else
+      warn "$dest already exists; leaving it (use --force to replace)"
+      return 0
+    fi
+  fi
+
+  ln -s "$src" "$dest"
+}
+
+# Point the Claude Code skill at the shared ~/.agents/skills entry.
+link_claude() {
+  local name="$1" dest target current
+
+  dest="$CLAUDE_SKILLS/$name"
+  target="../../.agents/skills/$name"
+
+  if [[ -L "$dest" ]]; then
+    current="$(readlink "$dest")"
+    [[ "$current" == "$target" ]] && return 0
+
+    case "$current" in
+      "$AGENTS_SKILLS"/* | ../../.agents/skills/*) rm -f "$dest" ;;
+      *)
+        warn "$dest points outside $AGENTS_SKILLS; leaving it"
+        return 0
+        ;;
+    esac
+  elif [[ -e "$dest" ]]; then
+    warn "$dest is a real directory; leaving it"
+    return 0
+  fi
+
+  ln -s "$target" "$dest"
+}
+
+mkdir -p "$DATA_ROOT" "$AGENTS_SKILLS" "$CLAUDE_SKILLS"
+
+linked=0
+failed=0
+
+for entry in "${SOURCES[@]}"; do
+  IFS='|' read -r repo ref skills <<<"$entry"
+
+  slug="${repo//\//__}@${ref//\//_}"
+  cache="$DATA_ROOT/$slug"
+
+  if ! sync_repo "$repo" "$ref" "$cache"; then
+    failed=$((failed + 1))
+    continue
+  fi
+
+  read -r -a skill_names <<<"$skills"
+  for name in "${skill_names[@]}"; do
+    src="$(find_skill_dir "$cache" "$name")"
+
+    if [[ -z "$src" ]]; then
+      warn "$repo@$ref does not contain a skill named '$name'"
+      failed=$((failed + 1))
+      continue
+    fi
+
+    link_agents "$src" "$name"
+    if [[ -e "$AGENTS_SKILLS/$name" ]]; then
+      link_claude "$name"
+      linked=$((linked + 1))
+    fi
+  done
+done
+
+log "done: $linked skill(s) linked, $failed issue(s)"
+
+((failed == 0))

@@ -33,6 +33,12 @@ chmod +x fast-install
 ./fast-install
 ```
 
+- `install-skills` - clones third-party agent skills into `~/.agents/skills` and links them for Claude Code (see [`skills/README.md`](./skills/README.md))
+
+```bash
+./install-skills
+```
+
 ## Ansible-based Installation (Recommended for complete installation for all Linux Distros)
 
 - via `ansible` - a more complete installation that includes installing packages, etc.
