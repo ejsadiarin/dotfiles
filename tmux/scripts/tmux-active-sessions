@@ -13,8 +13,10 @@ else
     current_session=$(tmux display-message -p '#S')
 
     # fzf --tmux (popup) needs fzf >= 0.53; older fzf (e.g. Debian 12) runs in-window
+    # (compare versions: old fzf handles --version before rejecting unknown options)
     fzf_popup=()
-    fzf --tmux --version >/dev/null 2>&1 && fzf_popup=(--tmux)
+    fzf_version=$(fzf --version | awk '{print $1}')
+    [[ "$(printf '%s\n' 0.53.0 "$fzf_version" | sort -V | head -1)" == 0.53.0 ]] && fzf_popup=(--tmux)
 
     selected=$(echo "$session_list" | fzf "${fzf_popup[@]}" --prompt="current: $current_session > ")
 fi

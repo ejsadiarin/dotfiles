@@ -90,8 +90,10 @@ main() {
         }' | sort -s -k1,1 | cut -d' ' -f2-)
 
         # fzf --tmux (popup) needs fzf >= 0.53; older fzf (e.g. Debian 12) runs in-window
-        local fzf_popup=()
-        fzf --tmux --version >/dev/null 2>&1 && fzf_popup=(--tmux)
+        # (compare versions: old fzf handles --version before rejecting unknown options)
+        local fzf_popup=() fzf_version
+        fzf_version=$(fzf --version | awk '{print $1}')
+        [[ "$(printf '%s\n' 0.53.0 "$fzf_version" | sort -V | head -1)" == 0.53.0 ]] && fzf_popup=(--tmux)
 
         local selected
         selected=$(echo "$sorted" | while IFS='|' read -r target agent_name status icon pid; do
