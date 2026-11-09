@@ -46,6 +46,9 @@
 	trustExitCode = True
 	hideResolved = True
 
+[submodule]
+    recurse = True
+
 # ALIASES
 [alias]
     undo = "reset HEAD~1 --mixed"
