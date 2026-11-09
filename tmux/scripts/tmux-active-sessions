@@ -11,7 +11,12 @@ else
     session_list=$(tmux list-sessions -F '#{?session_attached,0,1} #{session_name}' | sort -k1,1n | cut -d' ' -f2)
 
     current_session=$(tmux display-message -p '#S')
-    selected=$(echo "$session_list" | fzf --tmux --prompt="current: $current_session > ")
+
+    # fzf --tmux (popup) needs fzf >= 0.53; older fzf (e.g. Debian 12) runs in-window
+    fzf_popup=()
+    fzf --tmux --version >/dev/null 2>&1 && fzf_popup=(--tmux)
+
+    selected=$(echo "$session_list" | fzf "${fzf_popup[@]}" --prompt="current: $current_session > ")
 fi
 
 # if session is not selected (empty, did not select anything in fzf), then exit
