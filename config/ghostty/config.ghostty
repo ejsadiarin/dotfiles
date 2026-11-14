@@ -77,3 +77,7 @@ keybind = super+,=reload_config
 keybind = ctrl+shift+,=reload_config
 
 confirm-close-surface = false
+
+# macOS: left Option acts as Alt (terminal meta+ bindings, e.g. Claude Code meta+v);
+# right Option still types special characters. No effect on Linux.
+macos-option-as-alt = left

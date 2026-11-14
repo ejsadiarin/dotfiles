@@ -8,6 +8,12 @@
         "ctrl+n": "autocomplete:next",
         "ctrl+p": "autocomplete:previous"
       }
+    },
+    {
+      "context": "Chat",
+      "bindings": {
+        "meta+v": "voice:pushToTalk"
+      }
     }
   ]
 }
