@@ -5,7 +5,7 @@
       "Bash(git commit:*)"
     ],
     "deny": [
-      "Read(.env)"
+      "Read(**/.env)"
     ],
     "ask": [
       "Bash(gh pr create:*)"
@@ -63,8 +63,13 @@
       }
     }
   },
+  "voice": {
+    "enabled": true,
+    "mode": "tap"
+  },
   "theme": "auto",
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true
 }
