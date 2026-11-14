@@ -1,5 +1,5 @@
 # Package names verified against Ubuntu 26.04 LTS (resolute) and Debian 13 (trixie).
-- name: Essentials Debian | Install essential packages
+- name: Essentials Ubuntu | Install essential packages
   ansible.builtin.apt:
     name:
       - sudo
@@ -50,17 +50,18 @@
     update_cache: true
   become: true
 
-- name: Essentials Debian | Ensure ~/.local/bin exists
+- name: Essentials Ubuntu | Ensure ~/.local/bin exists
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.local/bin"
     state: directory
     mode: "0755"
 
-- name: Essentials Debian | Link Debian-renamed binaries to their upstream names
+- name: Essentials Ubuntu | Link Debian-renamed binaries to their upstream names
   ansible.builtin.file:
     src: "/usr/bin/{{ item.src }}"
     dest: "{{ ansible_facts['user_dir'] }}/.local/bin/{{ item.dest }}"
     state: link
+    force: true # create the link even if apt hasn't installed the target yet (e.g. --check dry runs)
   loop:
     - { src: fdfind, dest: fd }
     - { src: batcat, dest: bat }
