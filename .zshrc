@@ -471,7 +471,7 @@ compdef _cli_zsh_autocomplete k3s
 #      DATA ENGINEERING      #
 ##############################
 # uv (lazy-load completions)
-if [[ -f "/usr/bin/uv" ]]; then
+if (( $+commands[uv] )); then # /usr/bin/uv (Fedora/Arch) or ~/.local/bin/uv (Ubuntu)
     _lazy_load_uv() {
         unset -f uv uvx 2>/dev/null
         eval "$(uv generate-shell-completion zsh)"

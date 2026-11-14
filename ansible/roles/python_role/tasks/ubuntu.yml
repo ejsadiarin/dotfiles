@@ -1,0 +1,28 @@
+---
+# Ubuntu 26.04 ships Python 3.14. The system interpreter is "externally managed"
+# (PEP 668), so `pip install` outside a venv is refused: use uv, pipx or a venv.
+- name: Python | Install Python for Ubuntu
+  ansible.builtin.apt:
+    name:
+      - python3
+      - python3-pip
+      - python3-venv
+      - python3-dev
+      - python-is-python3 # `python` -> python3
+      - pipx # isolated CLI tools in ~/.local/bin
+      - build-essential # compile wheels that have no prebuilt binary
+    state: present
+    update_cache: true
+  become: true
+
+# uv isn't packaged for Ubuntu; use Astral's standalone installer (~/.local/bin/uv,
+# self-updates with `uv self update`). UV_NO_MODIFY_PATH stops it from editing shell rc
+# files: ~/.zshrc is a symlink into this repo and already puts ~/.local/bin on PATH.
+- name: Python | Install uv
+  ansible.builtin.shell: >
+    set -o pipefail &&
+    curl -LsSf https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 sh
+  args:
+    creates: "{{ ansible_facts['user_dir'] }}/.local/bin/uv"
+    executable: /bin/bash
+  become: false

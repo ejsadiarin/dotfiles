@@ -92,7 +92,7 @@
     - tailscale
     - gh
     # - syncthing
-    # - python_role
+    - python_role
 
   tasks:
     - name: Link .ideavimrc

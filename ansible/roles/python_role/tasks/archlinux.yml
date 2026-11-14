@@ -1,0 +1,8 @@
+---
+- name: Python | Install Python for Arch
+  community.general.pacman:
+    name:
+      - python
+      - python-pip
+    state: present
+  become: true

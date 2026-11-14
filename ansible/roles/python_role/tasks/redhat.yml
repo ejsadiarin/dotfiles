@@ -1,0 +1,10 @@
+---
+- name: Python | Install Python for Fedora
+  ansible.builtin.dnf:
+    name:
+      - python3
+      - python3-pip
+      - python3-devel
+      - uv
+    state: present
+  become: true
