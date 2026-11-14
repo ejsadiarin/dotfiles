@@ -1,0 +1,7 @@
+---
+# GitHub CLI is packaged in Arch's official 'extra' repo as github-cli.
+- name: gh | install github-cli
+  community.general.pacman:
+    name: github-cli
+    state: present
+  become: true
