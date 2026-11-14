@@ -1,3 +1,4 @@
+---
 # Terminal ONLY Installation Playbook
 # run on local: ansible-playbook main.yml --ask-become-pass
 # run on remotes: ansible-playbook main.yml --ask-pass --ask-become-pass -i inventory/hosts.ini
@@ -51,11 +52,28 @@
       ansible.builtin.include_role:
         name: timezone_ntp
 
+    - name: Generate en_US.UTF-8 locale (Debian/Ubuntu)
+      community.general.locale_gen:
+        name: en_US.UTF-8
+        state: present
+      become: true
+      when: machine_os == 'debian'
+
+    - name: Check current system locale
+      ansible.builtin.command: localectl status
+      register: locale_status
+      changed_when: false
+      check_mode: false
+
     - name: Configure Locale to UTF-8
-      ansible.builtin.shell: "localectl set-locale LANG=en_US.UTF-8"
+      ansible.builtin.command: "localectl set-locale LANG=en_US.UTF-8"
+      become: true
+      when: "'LANG=en_US.UTF-8' not in locale_status.stdout"
 
   roles:
-    - network_manager
+    # Ubuntu Server manages networking with netplan/systemd-networkd; NetworkManager would fight it.
+    - role: network_manager
+      when: ansible_facts['distribution'] != 'Ubuntu'
     - zsh
     - essentials
     - git
@@ -70,7 +88,9 @@
     - lazydocker
     - docker
     - opencode
-    # - tailscale
+    - claude
+    - tailscale
+    - gh
     # - syncthing
     # - python_role
 
@@ -95,6 +115,22 @@
     - name: Post Installation | ssh-agent
       ansible.builtin.debug:
         msg: 'do eval "$(ssh-agent -s)" and ssh-add ~/.ssh/id_ed25519 here to activate ssh keys'
+
+    - name: Post Installation | Tailscale
+      ansible.builtin.debug:
+        msg: "Run: `sudo tailscale up` --> to authenticate to tailscale"
+
+    - name: Post Installation | Claude Code
+      ansible.builtin.debug:
+        msg: "Run: `claude` then /login --> to authenticate Claude Code (config is symlinked from ~/dotfiles/claude)"
+
+    - name: Post Installation | gh
+      ansible.builtin.debug:
+        msg: "Run: `gh auth login` to login to GitHub"
+
+    - name: Post Installation | zsh, tmux, nvim
+      ansible.builtin.debug:
+        msg: "see ansible/README.md for more details"
 
     - name: Post Installation | import gpg private key in .gnupg
       ansible.builtin.debug:

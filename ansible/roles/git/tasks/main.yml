@@ -27,13 +27,13 @@
   community.general.git_config:
     name: user.name
     scope: global
-    value: " {{ git_user_name }} "
+    value: "{{ git_user_name }}"
 
 - name: Git | Configure email
   community.general.git_config:
     name: user.email
     scope: global
-    value: " {{ git_user_email }} "
+    value: "{{ git_user_email }}"
 
 - name: Git | Configure signing key
   community.general.git_config:

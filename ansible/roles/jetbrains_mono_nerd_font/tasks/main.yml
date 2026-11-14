@@ -3,5 +3,5 @@
   when: machine_os == 'archlinux'
 
 - name: JetBrains Mono Nerd Font | Detect OS for Debian
-  ansible.builtin.include_tasks: debian.yml
+  ansible.builtin.include_tasks: ubuntu.yml
   when: machine_os == 'debian'

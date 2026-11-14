@@ -17,7 +17,7 @@
     dest: /etc/docker/daemon.json
     owner: root
     group: root
-    mode: -rw-r--r-- # "0644"
+    mode: "0644"
   become: true
 
 - name: Docker | Start Docker daemon # start/enable systemd docker.service

@@ -1,0 +1,59 @@
+---
+# Installs the latest stable Go from go.dev into /usr/local/go.
+# (.zshrc already adds /usr/local/go/bin and ~/go/bin to PATH.)
+- name: Go | Get latest Go release metadata
+  ansible.builtin.uri:
+    url: https://go.dev/dl/?mode=json
+    return_content: true
+  register: go_releases
+  check_mode: false
+
+- name: Go | Pick the linux archive for this architecture
+  ansible.builtin.set_fact:
+    go_version: "{{ go_releases.json[0].version }}"
+    go_archive: >-
+      {{ go_releases.json[0].files
+         | selectattr('os', 'equalto', 'linux')
+         | selectattr('kind', 'equalto', 'archive')
+         | selectattr('arch', 'equalto', 'arm64' if ansible_facts['architecture'] == 'aarch64' else 'amd64')
+         | first }}
+
+- name: Go | Read installed Go version
+  ansible.builtin.slurp:
+    src: /usr/local/go/VERSION
+  register: go_installed
+  failed_when: false
+  check_mode: false
+
+- name: Go | Install Go {{ go_version }}
+  when: go_installed.content is not defined or (go_installed.content | b64decode).splitlines()[0] != go_version
+  become: true
+  block:
+    - name: Go | Download tarball
+      ansible.builtin.get_url:
+        url: "https://go.dev/dl/{{ go_archive.filename }}"
+        dest: "/tmp/{{ go_archive.filename }}"
+        checksum: "sha256:{{ go_archive.sha256 }}"
+        mode: "0644"
+
+    - name: Go | Remove previous installation
+      ansible.builtin.file:
+        path: /usr/local/go
+        state: absent
+
+    - name: Go | Extract to /usr/local
+      ansible.builtin.unarchive:
+        src: "/tmp/{{ go_archive.filename }}"
+        dest: /usr/local
+        remote_src: true
+
+    - name: Go | Remove downloaded tarball
+      ansible.builtin.file:
+        path: "/tmp/{{ go_archive.filename }}"
+        state: absent
+
+- name: Go | Confirm go installation
+  ansible.builtin.command: /usr/local/go/bin/go version
+  changed_when: false
+  check_mode: false
+  when: not ansible_check_mode

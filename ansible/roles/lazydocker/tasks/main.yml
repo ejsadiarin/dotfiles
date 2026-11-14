@@ -1,6 +1,10 @@
 ---
 - name: LazyDocker | Install LazyDocker via go install for debian
-  ansible.builtin.shell: "go install github.com/jesseduffield/lazydocker@latest"
+  ansible.builtin.command: "/usr/local/go/bin/go install github.com/jesseduffield/lazydocker@latest"
+  args:
+    creates: "{{ ansible_facts['user_dir'] }}/go/bin/lazydocker"
+  environment:
+    PATH: "/usr/local/go/bin:{{ ansible_facts['env']['PATH'] }}"
   when: machine_os == 'debian'
 
 - name: LazyDocker | Install LazyDocker for archlinux

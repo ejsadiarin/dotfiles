@@ -27,8 +27,13 @@
     #   ansible.builtin.include_role:
     #     name: timezone_ntp
 
+    - name: Generate en_US.UTF-8 locale
+      community.general.locale_gen:
+        name: en_US.UTF-8
+        state: present
+
     - name: Configure Locale to UTF-8
-      ansible.builtin.shell: "localectl set-locale LANG=en_US.UTF-8"
+      ansible.builtin.command: "localectl set-locale LANG=en_US.UTF-8"
       changed_when: false
 
     # ------- USER MANAGEMENT -------

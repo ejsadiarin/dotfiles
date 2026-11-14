@@ -1,0 +1,36 @@
+---
+# NOTE: this role just installs tailscale but doesn't authenticate (run `sudo tailscale up`)
+# Repo: https://pkgs.tailscale.com/stable/#ubuntu-resolute (also works for Debian via facts)
+- name: Tailscale | Install prerequisites
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - python3-debian # required by deb822_repository
+    state: present
+    update_cache: true
+  become: true
+
+- name: Tailscale | Add Tailscale apt repository
+  ansible.builtin.deb822_repository:
+    name: tailscale
+    types: deb
+    uris: "https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: main
+    signed_by: "https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }}/{{ ansible_facts['distribution_release'] }}.asc"
+  become: true
+
+- name: Tailscale | Install Tailscale via apt
+  ansible.builtin.apt:
+    name: tailscale
+    state: present
+    update_cache: true
+  become: true
+
+- name: Tailscale | Enable and start Tailscale service
+  ansible.builtin.systemd:
+    name: tailscaled
+    state: started
+    enabled: true
+  become: true

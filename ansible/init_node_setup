@@ -208,6 +208,16 @@ debian_setup() {
     stdout_msg "START" "debian-setup" "Running Debian setup"
     write_to_exquilog "INFO" "debian-setup" "Initiate Debian setup"
 
+    # Ubuntu 25.10+ defaults to sudo-rs, which wraps ansible's become prompt in its own
+    # "[sudo: ...] Password:" text, so `--ask-become-pass` times out. Switch the sudo
+    # alternative to classic sudo (sudo.ws). Revert with: sudo update-alternatives --auto sudo
+    # NOTE: reddit related ref: https://www.reddit.com/r/ansible/comments/1t6ie61/become_true_not_working_with_ubuntu_2604_lts/
+    if [[ -x /usr/bin/sudo.ws ]] && [[ "$(readlink -f /usr/bin/sudo)" == *cargo* ]]; then
+        stdout_msg "INFO" "sudo" "sudo-rs detected; switching sudo to sudo.ws for ansible become"
+        write_to_exquilog "INFO" "sudo" "Switching sudo alternative from sudo-rs to sudo.ws"
+        sudo update-alternatives --set sudo /usr/bin/sudo.ws
+    fi
+
     if [[ ! -f "$RELEASE_FILE" ]]; then
         stdout_msg "DETECTED" "first run" "Detected dotfiles setup first run..."
         write_to_exquilog "INFO" "FIRST RUN" "Detected dotfiles setup first run..."

@@ -1,0 +1,66 @@
+# Package names verified against Ubuntu 26.04 LTS (resolute) and Debian 13 (trixie).
+- name: Essentials Debian | Install essential packages
+  ansible.builtin.apt:
+    name:
+      - sudo
+      - git
+      - fd-find # NOTE: binary is 'fdfind' on Debian/Ubuntu (linked to ~/.local/bin/fd below)
+      - ripgrep
+      - curl
+      - cmake
+      - gcc
+      - make
+      - vim
+      # - pkg-config
+      - libtool
+      - unzip
+      - zip
+      - gzip
+      - lsd
+      - gnupg
+      - pass
+      - pass-extension-otp
+      - yq # NOTE: this is the python jq-wrapper yq, not mikefarah/yq
+      - jq
+      - open-iscsi
+      - tar
+      - wget
+      # - aria2c
+      - qemu-guest-agent
+      - fzf
+      - rsync
+      - cryptsetup
+      - cron # Debian/Ubuntu default cron daemon (cron.service); cronie would replace it
+      - openssh-server
+      - git-delta # NOTE: the 'delta' package is an unrelated 2006 debugging tool
+      - bat # NOTE: binary is 'batcat' on Debian/Ubuntu (linked to ~/.local/bin/bat below)
+      - tcpdump
+      - psutils
+      - moreutils
+      - less
+      - cargo
+      - acpi
+      - ufw
+      - net-tools
+      # - oha
+      # - websocat
+      - lm-sensors
+      - locales
+    state: present
+    update_cache: true
+  become: true
+
+- name: Essentials Debian | Ensure ~/.local/bin exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.local/bin"
+    state: directory
+    mode: "0755"
+
+- name: Essentials Debian | Link Debian-renamed binaries to their upstream names
+  ansible.builtin.file:
+    src: "/usr/bin/{{ item.src }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/{{ item.dest }}"
+    state: link
+  loop:
+    - { src: fdfind, dest: fd }
+    - { src: batcat, dest: bat }

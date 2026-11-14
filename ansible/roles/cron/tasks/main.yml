@@ -1,6 +1,8 @@
-- name: Cron | Install cronie
+# Debian/Ubuntu use their own 'cron' package; Arch and Fedora use cronie.
+# The systemd unit name differs per distro too.
+- name: Cron | Install cron
   ansible.builtin.apt:
-    name: cronie
+    name: cron
     state: present
   become: true
   when: machine_os == 'debian'
@@ -25,9 +27,9 @@
 #     state: present
 #   become: true
 
-- name: Cron | Start and Enable cronie service
+- name: Cron | Start and Enable cron service
   ansible.builtin.systemd:
-    name: crond
+    name: "{{ {'debian': 'cron', 'archlinux': 'cronie', 'redhat': 'crond'}[machine_os] }}"
     enabled: true
     state: started
   become: true

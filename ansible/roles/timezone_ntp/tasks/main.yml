@@ -11,7 +11,7 @@
     dest: /etc/systemd/timesyncd.conf
     owner: root
     group: root
-    mode: -rw-r--r-- # "0644"
+    mode: "0644"
   become: true
   when: machine_os == 'archlinux'
   notify: Timezone/NTP | Restart timesyncd.service
@@ -27,6 +27,30 @@
   when: machine_os == 'archlinux'
   notify: Timezone/NTP | Restart timesyncd.service
 
+# Ubuntu 25.10+ ships chrony (with NTS against Ubuntu's time servers) instead of
+# systemd-timesyncd. Keep Ubuntu's defaults; just make sure it is installed and running.
+- name: Timezone/NTP (Ubuntu) | Ensure chrony is installed
+  ansible.builtin.apt:
+    name: chrony
+    state: present
+  become: true
+  when: ansible_facts['distribution'] == 'Ubuntu'
+
+- name: Timezone/NTP (Ubuntu) | Ensure chrony is enabled and running
+  ansible.builtin.systemd:
+    name: chrony.service
+    enabled: true
+    state: started
+  become: true
+  when: ansible_facts['distribution'] == 'Ubuntu'
+
+- name: Timezone/NTP (Debian) | Ensure systemd-timesyncd is installed
+  ansible.builtin.apt:
+    name: systemd-timesyncd
+    state: present
+  become: true
+  when: machine_os == 'debian' and ansible_facts['distribution'] != 'Ubuntu'
+
 - name: Timezone/NTP (Debian) | Copy timesyncd.conf
   ansible.builtin.copy:
     src: templates/timesyncd-debian.conf
@@ -35,7 +59,7 @@
     group: root
     mode: "0644"
   become: true
-  when: machine_os == 'debian'
+  when: machine_os == 'debian' and ansible_facts['distribution'] != 'Ubuntu'
   notify: Timezone/NTP | Restart timesyncd.service
 
 - name: Timezone/NTP (Fedora) | Copy chrony.conf

@@ -138,6 +138,10 @@
       ansible.builtin.debug:
         msg: "Run: `claude` then /login --> to authenticate Claude Code (config is symlinked from ~/dotfiles/claude)"
 
+    - name: Post Installation | gh
+      ansible.builtin.debug:
+        msg: "Run: `gh auth login` to login to GitHub"
+
     - name: Post Installation | Syncthing
       ansible.builtin.debug:
         msg: "Access localhost:8384 for the syncthing dashboard and add/share devices/folders as needed and/or desired"

@@ -1,8 +1,36 @@
 # Ansible Playbook
 
-- `full_config.yml` - for full dotfiles configuration
-- `terminal_config.yml` - for terminal configuration only
-- `bootstrap_debian_server.yml` - for debian servers (ubuntu server, etc.)
+- `full_config.yml` - for full dotfiles configuration (desktops: Fedora, Arch)
+- `terminal_config.yml` - for terminal configuration only (**homelab servers: Ubuntu Server 26.04 LTS**)
+- `bootstrap_debian_server.yml` - server hardening (user, sshd, fail2ban, ufw) for Ubuntu/Debian servers
+
+## Homelab server (Ubuntu Server 26.04 LTS) quickstart
+
+On a fresh server (logged in as your sudo user, `git` installed):
+
+```bash
+git clone https://github.com/ejsadiarin/dotfiles.git ~/dotfiles
+cd ~/dotfiles/ansible
+./init_node_setup                                   # ansible + collections + submodules
+gpg -d master_password.gpg > master_password
+ansible-playbook --vault-password-file ./master_password --ask-become-pass terminal_config.yml
+```
+
+Ubuntu-specific behavior:
+
+- NetworkManager is skipped (Ubuntu Server uses netplan/systemd-networkd).
+- Time sync keeps Ubuntu's default chrony (with NTS); only the timezone is set.
+- Neovim and Go come from the latest upstream releases (distro versions are too old for the config).
+- Docker CE comes from download.docker.com (`resolute` suite, deb822 source + signed-by key).
+- `fdfind`/`batcat` are linked to `~/.local/bin/fd` and `~/.local/bin/bat`.
+- Tailscale comes from pkgs.tailscale.com (`resolute` suite); authenticate afterwards with `sudo tailscale up`.
+- Role task files for this family are named `ubuntu.yml`, but are selected with `machine_os == 'debian'`
+  (the Ansible `os_family`, which covers Ubuntu and Debian). Ubuntu-only differences check
+  `ansible_facts['distribution'] == 'Ubuntu'`.
+- Ubuntu 26.04 uses `sudo-rs` as `sudo`, which breaks `--ask-become-pass` (ansible times out waiting
+  for its prompt). `init_node_setup` switches the `sudo` alternative to classic `sudo.ws`
+  (revert: `sudo update-alternatives --auto sudo`), and `inventory/hosts.ini` sets
+  `ansible_become_exe=sudo.ws` for `homelab_group` so remote runs work too.
 
 ## Install Ansible on your local machine
 

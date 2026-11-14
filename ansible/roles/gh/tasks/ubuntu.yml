@@ -1,0 +1,30 @@
+---
+# GitHub CLI from the official apt repo (Ubuntu's archive ships an old 2.46).
+# https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+- name: gh | Install prerequisites
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - python3-debian # required by deb822_repository
+    state: present
+    update_cache: true
+  become: true
+
+- name: gh | Add gh-cli apt repository
+  ansible.builtin.deb822_repository:
+    name: github-cli
+    types: deb
+    uris: https://cli.github.com/packages
+    suites: stable
+    components: main
+    architectures: "{{ 'arm64' if ansible_facts['architecture'] == 'aarch64' else 'amd64' }}"
+    signed_by: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+  become: true
+
+- name: gh | Install github-cli
+  ansible.builtin.apt:
+    name: gh
+    state: present
+    update_cache: true
+  become: true

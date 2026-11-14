@@ -7,6 +7,6 @@
   ansible.builtin.include_tasks: archlinux.yml
   when: machine_os == 'archlinux'
 
-- name: gh | detect debian
-  ansible.builtin.include_tasks: debian.yml
+- name: gh | detect ubuntu (os_family debian)
+  ansible.builtin.include_tasks: ubuntu.yml
   when: machine_os == 'debian'

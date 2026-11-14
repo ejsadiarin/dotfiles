@@ -8,5 +8,5 @@
 #   when: machine_os == 'archlinux'
 #
 # - name: Packet Tracer | detect debian
-#   ansible.builtin.import_tasks: debian.yml
+#   ansible.builtin.import_tasks: ubuntu.yml
 #   when: machine_os == 'debian'

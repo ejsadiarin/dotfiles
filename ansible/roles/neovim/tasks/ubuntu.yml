@@ -1,0 +1,85 @@
+---
+# Installs the latest stable Neovim from the official release tarball.
+# The distro package lags (Ubuntu 26.04: 0.11.x, Debian 13: 0.10.x) and the config
+# expects >= 0.12 (see nvim/lua/plugins/treesitter.lua, nvim/lua/extensions/lsp.lua).
+- name: Neovim | Ensure distro neovim is uninstalled
+  ansible.builtin.apt:
+    name: neovim
+    state: absent
+  become: true
+
+- name: Neovim | Make sure 'dependencies' are installed
+  ansible.builtin.apt:
+    name:
+      - gcc
+      - make
+      - git
+      - ripgrep
+      - fd-find
+      - unzip
+      - curl
+      - tar
+      - lua5.4
+      - luarocks
+      - lua5.1
+    state: present
+  become: true
+
+- name: Neovim | Get latest stable release tag
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/neovim/neovim/releases/latest
+    return_content: true
+  register: neovim_latest
+  check_mode: false
+
+- name: Neovim | Set release facts
+  ansible.builtin.set_fact:
+    neovim_tag: "{{ neovim_latest.json.tag_name }}"
+    neovim_pkg: "nvim-linux-{{ 'arm64' if ansible_facts['architecture'] == 'aarch64' else 'x86_64' }}"
+
+- name: Neovim | Check installed version
+  ansible.builtin.command: /usr/local/bin/nvim --version
+  register: neovim_installed
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Neovim | Install release tarball
+  when: neovim_installed.rc != 0 or ('NVIM ' ~ neovim_tag) not in neovim_installed.stdout
+  become: true
+  block:
+    - name: Neovim | Download release tarball
+      ansible.builtin.get_url:
+        url: "https://github.com/neovim/neovim/releases/download/{{ neovim_tag }}/{{ neovim_pkg }}.tar.gz"
+        dest: "/tmp/{{ neovim_pkg }}-{{ neovim_tag }}.tar.gz"
+        mode: "0644"
+
+    - name: Neovim | Remove previous install
+      ansible.builtin.file:
+        path: "/opt/{{ neovim_pkg }}"
+        state: absent
+
+    - name: Neovim | Extract to /opt
+      ansible.builtin.unarchive:
+        src: "/tmp/{{ neovim_pkg }}-{{ neovim_tag }}.tar.gz"
+        dest: /opt
+        remote_src: true
+
+    - name: Neovim | Remove downloaded tarball
+      ansible.builtin.file:
+        path: "/tmp/{{ neovim_pkg }}-{{ neovim_tag }}.tar.gz"
+        state: absent
+
+- name: Neovim | Link nvim into /usr/local/bin
+  ansible.builtin.file:
+    src: "/opt/{{ neovim_pkg }}/bin/nvim"
+    dest: /usr/local/bin/nvim
+    state: link
+    force: true
+  become: true
+
+- name: Neovim | Copy own nvim configs
+  ansible.builtin.file:
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/nvim"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/nvim"
+    state: link

@@ -1,0 +1,85 @@
+---
+# Docker CE from download.docker.com for Debian and Ubuntu (Ubuntu 26.04 'resolute' is published).
+# Follows https://docs.docker.com/engine/install/ubuntu/ but with a deb822 source and
+# a per-repo signing key instead of the removed apt-key.
+
+- name: Docker | Remove conflicting distro packages
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - docker-doc
+      - docker-compose
+      - docker-compose-v2
+      - podman-docker
+      - containerd
+      - runc
+    state: absent
+  become: true
+
+- name: Docker | Install prerequisites
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - python3-debian # required by deb822_repository
+    state: present
+    update_cache: true
+  become: true
+
+- name: Docker | Add Docker apt repository
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: "https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: stable
+    architectures: "{{ 'arm64' if ansible_facts['architecture'] == 'aarch64' else 'amd64' }}"
+    signed_by: "https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg"
+  become: true
+
+- name: Docker | Install Docker packages
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+  become: true
+
+- name: Docker | Add user to the Docker group # sudo usermod -aG docker $USER
+  ansible.builtin.user:
+    name: "{{ ansible_facts['user_id'] }}"
+    groups: docker
+    append: true
+  become: true
+
+- name: Docker | Copy daemon.json
+  ansible.builtin.copy:
+    src: templates/daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+  notify: Docker | Restart docker
+
+- name: Docker | Start Docker daemon
+  ansible.builtin.systemd:
+    name: docker.service
+    state: started
+    enabled: true
+  become: true
+
+- name: Docker | Start containerd
+  ansible.builtin.systemd:
+    name: containerd.service
+    state: started
+    enabled: true
+  become: true
+
+- name: Docker | Group membership note
+  ansible.builtin.debug:
+    msg: "Log out and back in (or run `newgrp docker`) for docker group membership to apply. NOTE: published container ports bypass ufw."

@@ -1,13 +1,26 @@
 # Secure SSH server settings
-- name: sshd_config | Append secure pubkey-only config
+#
+# Ubuntu's /etc/ssh/sshd_config starts with `Include /etc/ssh/sshd_config.d/*.conf`, and sshd
+# uses the FIRST value it sees for each keyword. Settings appended to the end of sshd_config
+# lose to any drop-in (e.g. cloud-init's 50-cloud-init.conf with `PasswordAuthentication yes`),
+# so the hardening lives in a drop-in that sorts first.
+- name: sshd_config | Remove legacy block appended to sshd_config
   ansible.builtin.blockinfile:
     path: /etc/ssh/sshd_config
-    block: |
+    state: absent
+  become: true
+  notify: sshd_config | Restart ssh
+
+- name: sshd_config | Install secure pubkey-only drop-in
+  ansible.builtin.copy:
+    dest: /etc/ssh/sshd_config.d/00-hardening.conf
+    content: |
+      # Managed by Ansible (dotfiles/ansible/roles/sshd_config)
       # SSHD Configuration - Secure for Pubkey Only
-      PermitRootLogin without-password
+      PermitRootLogin prohibit-password
       PasswordAuthentication no
       PubkeyAuthentication yes
-      ChallengeResponseAuthentication no
+      KbdInteractiveAuthentication no
       UsePAM yes
       X11Forwarding no
       AllowTcpForwarding no
@@ -16,7 +29,12 @@
       ClientAliveCountMax 2
     owner: root
     group: root
-    mode: 0644
-    backup: yes
-  notify: sshd_config | Restart ssh
+    mode: "0644"
   become: true
+  notify: sshd_config | Restart ssh
+
+- name: sshd_config | Validate full sshd configuration
+  ansible.builtin.command: /usr/sbin/sshd -t
+  become: true
+  changed_when: false
+  check_mode: false

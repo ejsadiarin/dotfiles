@@ -3,7 +3,7 @@
   when: machine_os == 'archlinux'
 
 - name: Docker | Detect OS for Debian
-  ansible.builtin.include_tasks: debian.yml
+  ansible.builtin.include_tasks: ubuntu.yml
   when: machine_os == 'debian'
 
 - name: Docker | Detect OS for RedHat

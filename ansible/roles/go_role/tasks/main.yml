@@ -4,7 +4,7 @@
   when: machine_os == 'archlinux'
 
 - name: Go | Configure install packages for Debian
-  ansible.builtin.include_tasks: debian.yml
+  ansible.builtin.include_tasks: ubuntu.yml
   when: machine_os == 'debian'
 
 - name: Go | Configure install packages for RedHat

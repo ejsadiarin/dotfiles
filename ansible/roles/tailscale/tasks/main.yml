@@ -2,3 +2,8 @@
 - name: Tailscale | Install in Redhat
   ansible.builtin.include_tasks: redhat.yml
   when: machine_os == 'redhat'
+
+# machine_os is the os_family ('debian'), which covers Ubuntu and Debian
+- name: Tailscale | Install in Ubuntu
+  ansible.builtin.include_tasks: ubuntu.yml
+  when: machine_os == 'debian'
