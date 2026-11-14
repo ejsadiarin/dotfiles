@@ -22,9 +22,11 @@ Both clone the sources once into `${XDG_DATA_HOME:-~/.local/share}/dotfiles-skil
 tool's directory, so the tools stay separate:
 
 - Claude Code reads only `~/.claude/skills` (plus plugins), never `~/.agents/skills`.
-  It gets the Matt Pocock skills from the `mattpocock-skills` plugin, so the Claude
-  script only links the Matt skills the plugin doesn't ship. Custom skills in
-  `skills/skills/` are linked for Claude Code too.
+  It prefers plugins, which Claude Code auto-updates: `mattpocock-skills`,
+  `taste-skill`, `cinetic`, `awwwards` and `jury` (marketplaces are declared in
+  `claude/settings.json` with `autoUpdate: true`). Only repos/skills with no plugin
+  are git-cloned: `anatomy`, `find-skills`, and Matt's `misc/`/`in-progress/` skills.
+  Custom skills in `skills/skills/` are linked for Claude Code too.
 - OpenCode reads `~/.config/opencode/skills` (custom, `config/opencode/skills`),
   `~/.agents/skills`, and also `~/.claude/skills` (no switch to turn that off).
   Same-named skills resolve to one copy, so overlap with `~/.claude/skills` is harmless.

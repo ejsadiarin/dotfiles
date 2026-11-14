@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Install Claude Code skills, plugins and MCP servers.
 #
-# - third-party skills: cloned into ${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles-skills
+# - plugins: preferred; Claude Code auto-updates them (marketplaces tracked in settings.json)
+# - third-party skills with no plugin: cloned into ${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles-skills
 #   (shared with install-skills-opencode), linked into ~/.claude/skills
 # - custom skills: skills/skills/* in this repo, linked into ~/.claude/skills
-# - plugins and MCP servers: user scope (claude plugin install / claude mcp add)
+# - MCP servers: user scope (claude mcp add)
 # Idempotent. Run after ~/.claude/settings.json is linked (see claude/README.md).
 #
 # Usage:
@@ -19,7 +20,7 @@ SKILLS_NAME="skills-claude"
 DOTFILES="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 # shellcheck source=scripts/lib/skills.sh
 source "$DOTFILES/scripts/lib/skills.sh"
-parse_skill_args 15 "$@"
+parse_skill_args 16 "$@"
 
 CLAUDE_SKILLS="$HOME/.claude/skills"
 CLAUDE="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
@@ -28,22 +29,35 @@ CLAUDE="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
   exit 1
 }
 
-# --- third-party skills: repo|ref|skills ---
-# Matt Pocock skills that the mattpocock-skills plugin ships come from the
-# plugin (below); only the ones it doesn't ship are listed here.
-SOURCES=(
-  "vercel-labs/skills|main|find-skills"
-  "Leonxlnx/taste-skill|v2.1.0|brandkit design-taste-frontend full-output-enforcement gpt-taste high-end-visual-design image-to-code imagegen-frontend-mobile imagegen-frontend-web industrial-brutalist-ui minimalist-ui redesign-existing-projects stitch-design-taste"
-  "mattpocock/skills|main|claude-handoff git-guardrails-claude-code loop-me migrate-to-shoehorn scaffold-exercises setup-pre-commit setup-ts-deep-modules writing-beats writing-fragments writing-shape"
-  "mattpocock/skills|c55ee46073ed923f86ce59a5eb3b6d895095d1b7|resolving-merge-conflicts"
-  "Leonxlnx/cinetic|main|cinetic"
-  "wheresryan22/anatomy|main|anatomy"
-  "juliobsz/skills|main|awwwards"
+# --- plugins (preferred: Claude Code keeps them updated) ---
+# Marketplaces: name|github repo. `marketplace add` records each one under
+# extraKnownMarketplaces in settings.json (tracked, with autoUpdate: true).
+MARKETPLACES=(
+  "mattpocock|mattpocock/skills"
+  "taste-skill|Leonxlnx/taste-skill"
+  "cinetic|Leonxlnx/cinetic"
+  "juliobsz|juliobsz/skills"
+)
+PLUGINS=(
+  "mattpocock-skills@mattpocock"
+  "taste-skill@taste-skill"
+  "cinetic@cinetic"
+  "awwwards@juliobsz"
+  "jury@juliobsz"
+)
+# Plugins installed by earlier versions of this script.
+OLD_PLUGINS=(
+  "mattpocock-skills@claude-plugins-official"
 )
 
-# --- plugins: name@marketplace ---
-PLUGINS=(
-  "mattpocock-skills@claude-plugins-official"
+# --- git-cloned skills: only for repos/skills with no plugin ---
+# repo|ref|skills. The Matt skills here live in misc/ and in-progress/, which
+# the mattpocock-skills plugin doesn't ship.
+SOURCES=(
+  "vercel-labs/skills|main|find-skills"
+  "wheresryan22/anatomy|main|anatomy"
+  "mattpocock/skills|main|claude-handoff git-guardrails-claude-code loop-me migrate-to-shoehorn scaffold-exercises setup-pre-commit setup-ts-deep-modules writing-beats writing-fragments writing-shape"
+  "mattpocock/skills|c55ee46073ed923f86ce59a5eb3b6d895095d1b7|resolving-merge-conflicts"
 )
 
 install_sources "$CLAUDE_SKILLS" "${SOURCES[@]}"
@@ -56,13 +70,22 @@ for dir in "$DOTFILES"/skills/skills/*/; do
   linked=$((linked + 1))
 done
 
-# Claude Code reads only ~/.claude/skills: drop leftover links into ~/.agents/skills.
+# Drop stale links: anything into ~/.agents/skills (Claude Code shouldn't read
+# it), and clone links for skills no longer in SOURCES (now from a plugin).
+wanted=" $(for e in "${SOURCES[@]}"; do IFS='|' read -r _ _ names <<<"$e"; printf '%s ' $names; done)"
 for dest in "$CLAUDE_SKILLS"/*; do
   [[ -L "$dest" ]] || continue
+  name="$(basename "$dest")"
   case "$(readlink "$dest")" in
     ../../.agents/skills/* | "$HOME/.agents/skills"/*)
       rm -f "$dest"
-      log "removed stale link $(basename "$dest") -> ~/.agents/skills"
+      log "removed stale link $name -> ~/.agents/skills"
+      ;;
+    "$DATA_ROOT"/*)
+      if [[ "$wanted" != *" $name "* ]]; then
+        rm -f "$dest"
+        log "removed $name (now provided by a plugin)"
+      fi
       ;;
   esac
 done
@@ -70,14 +93,27 @@ done
 log "skills: $linked linked, $failed issue(s)"
 
 # --- plugins ---
-if ! "$CLAUDE" plugin marketplace list 2>/dev/null | grep -q 'claude-plugins-official'; then
-  log "adding marketplace claude-plugins-official"
-  "$CLAUDE" plugin marketplace add anthropics/claude-plugins-official
-fi
+known="$("$CLAUDE" plugin marketplace list 2>/dev/null || true)"
+for entry in "${MARKETPLACES[@]}"; do
+  IFS='|' read -r name repo <<<"$entry"
+  if grep -qw "$name" <<<"$known"; then
+    log "marketplace $name already added"
+  else
+    log "adding marketplace $name ($repo)"
+    "$CLAUDE" plugin marketplace add "$repo"
+  fi
+done
+
 installed="$("$CLAUDE" plugin list 2>/dev/null || true)"
+for plugin in "${OLD_PLUGINS[@]}"; do
+  if grep -qF "$plugin" <<<"$installed"; then
+    log "uninstalling old plugin $plugin"
+    "$CLAUDE" plugin uninstall "$plugin"
+  fi
+done
 for plugin in "${PLUGINS[@]}"; do
-  if grep -q "${plugin%@*}" <<<"$installed"; then
-    log "plugin ${plugin%@*} already installed"
+  if grep -qF "$plugin" <<<"$installed"; then
+    log "plugin $plugin already installed"
   else
     log "installing plugin $plugin"
     "$CLAUDE" plugin install --scope user "$plugin"

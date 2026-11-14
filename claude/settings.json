@@ -13,6 +13,43 @@
     "defaultMode": "auto"
   },
   "model": "opus",
+  "enabledPlugins": {
+    "mattpocock-skills@mattpocock": true,
+    "taste-skill@taste-skill": true,
+    "cinetic@cinetic": true,
+    "awwwards@juliobsz": true,
+    "jury@juliobsz": true
+  },
+  "extraKnownMarketplaces": {
+    "taste-skill": {
+      "source": {
+        "source": "github",
+        "repo": "Leonxlnx/taste-skill"
+      },
+      "autoUpdate": true
+    },
+    "mattpocock": {
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
+      },
+      "autoUpdate": true
+    },
+    "cinetic": {
+      "source": {
+        "source": "github",
+        "repo": "Leonxlnx/cinetic"
+      },
+      "autoUpdate": true
+    },
+    "juliobsz": {
+      "source": {
+        "source": "github",
+        "repo": "juliobsz/skills"
+      },
+      "autoUpdate": true
+    }
+  },
   "effortLevel": "medium",
   "pluginConfigs": {
     "cc-plugin-agents-md@builtin": {
@@ -29,8 +66,5 @@
   "theme": "auto",
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
-  "enabledPlugins": {
-    "mattpocock-skills@claude-plugins-official": true
-  }
+  "agentPushNotifEnabled": true
 }

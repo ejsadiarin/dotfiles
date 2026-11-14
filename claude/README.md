@@ -23,3 +23,4 @@ Notes:
 - `model: "opus"` always follows the newest Opus. `effortLevel` accepts low/medium/high/xhigh.
 - Some commands (`/model`, `/config`) write to `settings.json`. If `ls -l ~/.claude/settings.json` ever shows a regular file instead of a link, copy it back here and re-link.
 - MCP servers are registered at user scope by `install-skills-mcp-claude` (`~/.claude.json`, not tracked): Playwright via `claude mcp add --scope user playwright -- npx -y @playwright/mcp@latest` (needs Node). Context7 is provided by the claude.ai account connector, so don't add a local copy.
+- Plugins: `install-skills-mcp-claude` runs `claude plugin marketplace add` / `claude plugin install`, which record `extraKnownMarketplaces` and `enabledPlugins` in `settings.json`. Third-party marketplaces don't auto-update by default, so they're set to `autoUpdate: true` here.
