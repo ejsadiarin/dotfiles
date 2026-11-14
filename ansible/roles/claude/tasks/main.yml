@@ -24,13 +24,9 @@
     - settings.json
     - keybindings.json
 
-# User-scope MCP servers live in ~/.claude.json (machine state, not tracked),
-# so register them here. Context7 comes from the claude.ai account connector.
+# Skills, plugins and MCP servers: see install-skills-mcp-claude (idempotent).
 # Playwright MCP needs Node on PATH (installed by js_ts_role).
-- name: Claude Code | Register Playwright MCP (user scope)
-  ansible.builtin.shell: >
-    {{ ansible_facts['user_dir'] }}/.local/bin/claude mcp get playwright >/dev/null 2>&1
-    && echo present
-    || {{ ansible_facts['user_dir'] }}/.local/bin/claude mcp add --scope user playwright -- npx -y @playwright/mcp@latest
-  register: claude_mcp_playwright
-  changed_when: "'present' not in claude_mcp_playwright.stdout"
+- name: Claude Code | Install skills, plugins and MCP servers
+  ansible.builtin.command: "{{ ansible_facts['user_dir'] }}/dotfiles/install-skills-mcp-claude"
+  register: claude_extras
+  changed_when: "'installing' in claude_extras.stdout or 'registering' in claude_extras.stdout or 'adding' in claude_extras.stdout or 'cloning' in claude_extras.stderr"

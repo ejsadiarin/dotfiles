@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Install third-party agent skills for OpenCode (and Codex, Cursor, ...).
+#
+# Clones sources into ${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles-skills
+# (shared with install-skills-mcp-claude) and links each skill into
+# ~/.agents/skills. Claude Code never reads that directory.
+# MCP servers for OpenCode live in config/opencode/opencode.jsonc.
+#
+# Usage:
+#   ./install-skills-opencode            install missing skills, leave existing entries alone
+#   ./install-skills-opencode --force    replace existing entries with links to the clones
+#   ./install-skills-opencode --update   fetch the configured refs again, then relink
+#   ./install-skills-opencode --help
+
+set -euo pipefail
+
+SKILLS_NAME="skills-opencode"
+# shellcheck source=scripts/lib/skills.sh
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/scripts/lib/skills.sh"
+parse_skill_args 13 "$@"
+
+# repo|ref|skills
+#
+# taste-skill is pinned: v2.1.5 removed the separate brandkit, gpt-taste,
+# minimalist-ui, ... skills and kept only design-taste-frontend. Pin the last
+# release that shipped the full multi-skill set.
+SOURCES=(
+  "vercel-labs/skills|main|find-skills"
+  "Leonxlnx/taste-skill|v2.1.0|brandkit design-taste-frontend full-output-enforcement gpt-taste high-end-visual-design image-to-code imagegen-frontend-mobile imagegen-frontend-web industrial-brutalist-ui minimalist-ui redesign-existing-projects stitch-design-taste"
+  "mattpocock/skills|main|ask-matt claude-handoff codebase-design code-review diagnosing-bugs domain-modeling git-guardrails-claude-code grilling grill-me grill-with-docs handoff implement implement-spec improve-codebase-architecture loop-me migrate-to-shoehorn pr prototype research retro scaffold-exercises setup-matt-pocock-skills setup-pre-commit setup-ts-deep-modules tdd teach to-questionnaire to-spec to-tickets triage wait-what wayfinder wizard writing-beats writing-for-agents writing-fragments writing-shape"
+  # resolving-merge-conflicts was removed upstream shortly after I installed it.
+  "mattpocock/skills|c55ee46073ed923f86ce59a5eb3b6d895095d1b7|resolving-merge-conflicts"
+  "Leonxlnx/cinetic|main|cinetic"
+  "wheresryan22/anatomy|main|anatomy"
+  "juliobsz/skills|main|awwwards"
+)
+
+install_sources "$HOME/.agents/skills" "${SOURCES[@]}"
+
+log "done: $linked skill(s) linked, $failed issue(s)"
+((failed == 0))

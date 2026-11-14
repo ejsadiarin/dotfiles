@@ -59,3 +59,9 @@
     src: "{{ ansible_facts['user_dir'] }}/dotfiles/config/opencode/AGENTS.md"
     dest: "{{ ansible_facts['user_dir'] }}/.config/opencode/AGENTS.md"
     state: link
+
+# Third-party skills into ~/.agents/skills (MCP servers are in opencode.jsonc).
+- name: OpenCode | Install third-party skills
+  ansible.builtin.command: "{{ ansible_facts['user_dir'] }}/dotfiles/install-skills-opencode"
+  register: opencode_skills
+  changed_when: "'cloning' in opencode_skills.stderr"

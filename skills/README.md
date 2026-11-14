@@ -10,18 +10,27 @@
 
 ## Install
 
-From the dotfiles root:
+From the dotfiles root, one script per tool:
 
 ```bash
-./install-skills
+./install-skills-opencode     # -> ~/.agents/skills (OpenCode, Codex, Cursor, ...)
+./install-skills-mcp-claude   # -> ~/.claude/skills, plus plugins and MCP servers
 ```
 
-The script clones the sources into `${XDG_DATA_HOME:-~/.local/share}/dotfiles-skills`,
-then symlinks each skill into `~/.agents/skills`. OpenCode, Codex, Cursor and other
-agents read that directory directly. Claude Code only reads `~/.claude/skills`, so
-the script also creates per-skill links there.
+Both clone the sources once into `${XDG_DATA_HOME:-~/.local/share}/dotfiles-skills`
+(shared helpers in `scripts/lib/skills.sh`) and link each skill into their own
+tool's directory, so the tools stay separate:
 
-- `./install-skills --force` - replace existing entries with links to the clones
+- Claude Code reads only `~/.claude/skills` (plus plugins), never `~/.agents/skills`.
+  It gets the Matt Pocock skills from the `mattpocock-skills` plugin, so the Claude
+  script only links the Matt skills the plugin doesn't ship. Custom skills in
+  `skills/skills/` are linked for Claude Code too.
+- OpenCode reads `~/.config/opencode/skills` (custom, `config/opencode/skills`),
+  `~/.agents/skills`, and also `~/.claude/skills` (no switch to turn that off).
+  Same-named skills resolve to one copy, so overlap with `~/.claude/skills` is harmless.
+
+Flags (both scripts):
+
+- `--force` - replace existing entries with links to the clones
   (real directories are moved to `<name>.bak.<timestamp>` first)
-- `./install-skills --update` - fetch the configured refs again, then relink
-
+- `--update` - fetch the configured refs again, then relink

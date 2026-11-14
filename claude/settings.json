@@ -12,6 +12,8 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "opus",
+  "effortLevel": "medium",
   "pluginConfigs": {
     "cc-plugin-agents-md@builtin": {
       "options": {
@@ -28,6 +30,7 @@
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "model": "opus",
-  "effortLevel": "medium"
+  "enabledPlugins": {
+    "mattpocock-skills@claude-plugins-official": true
+  }
 }

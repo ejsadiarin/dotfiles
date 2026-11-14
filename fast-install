@@ -114,6 +114,7 @@ ln -sf ~/dotfiles/config/opencode/cli.json ~/.config/opencode
 ln -sf ~/dotfiles/config/opencode/dcp.json ~/.config/opencode
 ln -sf ~/dotfiles/config/opencode/AGENTS.md ~/.config/opencode
 ln -sf ~/dotfiles/config/opencode/skills ~/.config/opencode
+~/dotfiles/install-skills-opencode # third-party skills -> ~/.agents/skills
 
 # NOTE: claude code (native install) + symlink settings/keybindings
 echo "[INSTALL] Installing Claude Code"
@@ -121,8 +122,8 @@ command -v claude >/dev/null || curl -fsSL https://claude.ai/install.sh | bash
 mkdir -p ~/.claude
 ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/keybindings.json ~/.claude/keybindings.json
-# MCP: Context7 comes from the claude.ai account connector; Playwright needs node (installed above)
-~/.local/bin/claude mcp get playwright >/dev/null 2>&1 || ~/.local/bin/claude mcp add --scope user playwright -- npx -y @playwright/mcp@latest
+# skills, plugins, MCP servers (Playwright MCP needs node, installed above)
+~/dotfiles/install-skills-mcp-claude
 echo "[INFO] run 'claude' then /login to authenticate"
 
 # NOTE: append zhistory

@@ -33,10 +33,14 @@ chmod +x fast-install
 ./fast-install
 ```
 
-- `install-skills` - clones third-party agent skills into `~/.agents/skills` and links them for Claude Code (see [`skills/README.md`](./skills/README.md))
+- `install-skills-opencode` - third-party skills for OpenCode (Codex, Cursor, ...) into `~/.agents/skills`; OpenCode MCP servers live in `config/opencode/opencode.jsonc`
+- `install-skills-mcp-claude` - Claude Code skills (third-party + `skills/skills/`) into `~/.claude/skills`, the `mattpocock-skills` plugin, and MCP servers (see [`claude/README.md`](./claude/README.md))
+
+Both are idempotent and called by `fast-install` and the Ansible `opencode`/`claude` roles (see [`skills/README.md`](./skills/README.md)).
 
 ```bash
-./install-skills
+./install-skills-opencode
+./install-skills-mcp-claude
 ```
 
 ## Ansible-based Installation (Recommended for complete installation for all Linux Distros)

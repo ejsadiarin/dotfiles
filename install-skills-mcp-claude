@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+# Install Claude Code skills, plugins and MCP servers.
+#
+# - third-party skills: cloned into ${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles-skills
+#   (shared with install-skills-opencode), linked into ~/.claude/skills
+# - custom skills: skills/skills/* in this repo, linked into ~/.claude/skills
+# - plugins and MCP servers: user scope (claude plugin install / claude mcp add)
+# Idempotent. Run after ~/.claude/settings.json is linked (see claude/README.md).
+#
+# Usage:
+#   ./install-skills-mcp-claude            install missing pieces, leave existing entries alone
+#   ./install-skills-mcp-claude --force    replace existing skill entries with links
+#   ./install-skills-mcp-claude --update   fetch the configured refs again, then relink
+#   ./install-skills-mcp-claude --help
+
+set -euo pipefail
+
+SKILLS_NAME="skills-claude"
+DOTFILES="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+# shellcheck source=scripts/lib/skills.sh
+source "$DOTFILES/scripts/lib/skills.sh"
+parse_skill_args 15 "$@"
+
+CLAUDE_SKILLS="$HOME/.claude/skills"
+CLAUDE="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
+[[ -x "$CLAUDE" ]] || CLAUDE="$(command -v claude)" || {
+  warn "claude not found; install Claude Code first"
+  exit 1
+}
+
+# --- third-party skills: repo|ref|skills ---
+# Matt Pocock skills that the mattpocock-skills plugin ships come from the
+# plugin (below); only the ones it doesn't ship are listed here.
+SOURCES=(
+  "vercel-labs/skills|main|find-skills"
+  "Leonxlnx/taste-skill|v2.1.0|brandkit design-taste-frontend full-output-enforcement gpt-taste high-end-visual-design image-to-code imagegen-frontend-mobile imagegen-frontend-web industrial-brutalist-ui minimalist-ui redesign-existing-projects stitch-design-taste"
+  "mattpocock/skills|main|claude-handoff git-guardrails-claude-code loop-me migrate-to-shoehorn scaffold-exercises setup-pre-commit setup-ts-deep-modules writing-beats writing-fragments writing-shape"
+  "mattpocock/skills|c55ee46073ed923f86ce59a5eb3b6d895095d1b7|resolving-merge-conflicts"
+  "Leonxlnx/cinetic|main|cinetic"
+  "wheresryan22/anatomy|main|anatomy"
+  "juliobsz/skills|main|awwwards"
+)
+
+# --- plugins: name@marketplace ---
+PLUGINS=(
+  "mattpocock-skills@claude-plugins-official"
+)
+
+install_sources "$CLAUDE_SKILLS" "${SOURCES[@]}"
+
+# Custom skills from this repo.
+for dir in "$DOTFILES"/skills/skills/*/; do
+  [[ -f "$dir/SKILL.md" ]] || continue
+  name="$(basename "$dir")"
+  link_skill "${dir%/}" "$CLAUDE_SKILLS" "$name"
+  linked=$((linked + 1))
+done
+
+# Claude Code reads only ~/.claude/skills: drop leftover links into ~/.agents/skills.
+for dest in "$CLAUDE_SKILLS"/*; do
+  [[ -L "$dest" ]] || continue
+  case "$(readlink "$dest")" in
+    ../../.agents/skills/* | "$HOME/.agents/skills"/*)
+      rm -f "$dest"
+      log "removed stale link $(basename "$dest") -> ~/.agents/skills"
+      ;;
+  esac
+done
+
+log "skills: $linked linked, $failed issue(s)"
+
+# --- plugins ---
+if ! "$CLAUDE" plugin marketplace list 2>/dev/null | grep -q 'claude-plugins-official'; then
+  log "adding marketplace claude-plugins-official"
+  "$CLAUDE" plugin marketplace add anthropics/claude-plugins-official
+fi
+installed="$("$CLAUDE" plugin list 2>/dev/null || true)"
+for plugin in "${PLUGINS[@]}"; do
+  if grep -q "${plugin%@*}" <<<"$installed"; then
+    log "plugin ${plugin%@*} already installed"
+  else
+    log "installing plugin $plugin"
+    "$CLAUDE" plugin install --scope user "$plugin"
+  fi
+done
+
+# --- MCP servers (user scope, stored in ~/.claude.json) ---
+# Context7 comes from the claude.ai account connector; don't add it here.
+add_mcp() {
+  local name="$1"
+  shift
+  if "$CLAUDE" mcp get "$name" >/dev/null 2>&1; then
+    log "mcp $name already registered"
+  else
+    log "registering mcp $name"
+    "$CLAUDE" mcp add --scope user "$name" -- "$@"
+  fi
+}
+add_mcp playwright npx -y @playwright/mcp@latest # needs node on PATH
+
+log "done"
+((failed == 0))
