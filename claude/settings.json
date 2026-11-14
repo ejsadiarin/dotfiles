@@ -4,11 +4,10 @@
       "Bash(git add:*)",
       "Bash(git commit:*)"
     ],
-    "deny": [
-      "Read(**/.env)"
-    ],
+    "deny": [],
     "ask": [
-      "Bash(gh pr create:*)"
+      "Bash(gh pr create:*)",
+      "Read(**/.env)"
     ],
     "defaultMode": "auto"
   },
