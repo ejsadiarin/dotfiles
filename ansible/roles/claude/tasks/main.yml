@@ -1,0 +1,25 @@
+---
+# Claude Code: native install + symlink user config from ~/dotfiles/claude
+# Only settings.json and keybindings.json are tracked; the rest of ~/.claude
+# (credentials, history, sessions, caches) stays machine-local.
+
+- name: Claude Code | Install via native installer
+  ansible.builtin.shell: "curl -fsSL https://claude.ai/install.sh | bash"
+  args:
+    creates: "{{ ansible_facts['user_dir'] }}/.local/bin/claude"
+
+- name: Claude Code | Ensure ~/.claude directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.claude"
+    state: directory
+    mode: "0755"
+
+- name: Claude Code | Link settings.json and keybindings.json
+  ansible.builtin.file:
+    src: "{{ ansible_facts['user_dir'] }}/dotfiles/claude/{{ item }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.claude/{{ item }}"
+    state: link
+    force: true # replaces any existing regular file
+  loop:
+    - settings.json
+    - keybindings.json

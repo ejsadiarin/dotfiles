@@ -88,6 +88,7 @@ rm -f ./ansible/master_password
 - nvim `Copilot auth`
 - syncthing
 - tailscale
+- claude code (`claude` then `/login`; config symlinked from `claude/`)
 
 ### Details
 
